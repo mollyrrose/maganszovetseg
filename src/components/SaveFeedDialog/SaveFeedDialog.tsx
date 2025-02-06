@@ -78,11 +78,11 @@ const SaveFeedDialog: Component<{
           fallback={<>
             <div class={styles.addIcon}></div>
             <div>
-              Add this search to my {props.feedType} feeds
+              Add hozzá ezt az oldalt a {props.feedType} infó-folyamomhoz
             </div>
           </>}
         >
-          Remove this search from my {props.feedType} feeds
+          Távolítsd el ezt az oldalt a {props.feedType} infó-folyamomból
         </Show>
       }
       title={<div class={styles.addToFeedDialogTitle}>

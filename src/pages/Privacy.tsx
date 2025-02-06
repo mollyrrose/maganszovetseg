@@ -12,107 +12,107 @@ const Privacy: Component = () => {
   return (
     <div class={styles.terms} >
       <h1>
-        Primal Privacy Policy
+      MagánSzövetség.Net Adatvédelmi irányelvek
       </h1>
       <p>
         Last updated: February 21, 2024
       </p>
       <p>
-        This Privacy Policy explains how Primal Systems Inc. and its affiliates, (“Primal”, “we”, “us”, or “our”) process information about you. This Privacy Policy applies when you use any Primal products and services, including but not limited to the Primal web app, Primal iOS app, Primal Android app, Primal browser extension, Primal Premium Service, or Primal Hosted Wallet Service (collectively referred to as “Services”). It also applies when you contact our customer service team, engage with us on social media, or otherwise interact with us or our Services.
+      A jelen Adatvédelmi szabályzat ismerteti, hogy a MagánSzövetség.Net és kapcsolt szolgáltatásai („MagánSzövetség”, „mi”, „minket” vagy „miénk”) hogyan dolgozzák fel az Önre vonatkozó információkat. A jelen Adatvédelmi szabályzat akkor alkalmazandó, amikor Ön a MagánSzövetség.Net termékeket és szolgáltatásokat használja, beleértve, de nem kizárólagosan a MagánSzövetség.Net webes alkalmazást, MagánSzövetség.Net iOS alkalmazást, MagánSzövetség.Net Android alkalmazást, MagánSzövetség.Net böngészőbővítményt, MagánSzövetség.Net Prémium szolgáltatást vagy MagánSzövetség.Net Hosted Wallet szolgáltatást (a továbbiakban együttesen „Szolgáltatások”). Ez akkor is érvényes, amikor Ön kapcsolatba lép ügyfélszolgálatunkkal, kapcsolatba lép velünk a közösségi médiában, vagy más módon kapcsolatba lép velünk vagy Szolgáltatásainkkal.
       </p>
 
       <section>
         <h2>
-          1. Policy Overview
+          1. Irányelvek áttekintése
         </h2>
 
         <p>
-          Primal doesn’t monetize your personal information. We don’t generate revenue via advertising, we don’t monetize user attention, and we don’t sell personal information we collect from our users. Primal’s policy is to maximize user privacy by collecting only the minimum amount of personal information required to provide quality Services to our users and be compliant with the relevant laws.
+        A MagánSzövetség.Net nem használja pénzben az Ön személyes adatait. Nem termelünk bevételt hirdetéseken keresztül, nem monetizáljuk a felhasználók figyelmét, és nem adjuk el a felhasználóinktól gyűjtött személyes adatokat. A MagánSzövetség.Net politikája az, hogy maximalizálja a felhasználói adatvédelmet azáltal, hogy csak a minimálisan szükséges mennyiségű személyes adatot gyűjti, hogy minőségi szolgáltatásokat nyújtson felhasználóinknak, és megfeleljen a vonatkozó törvényeknek.
         </p>
       </section>
 
       <section>
         <h2>
-          2. Information We Collect
+        2. Az általunk gyűjtött információk
         </h2>
 
         <section>
-          <h3>2.1 Account Creation.</h3>
-          Primal Services enable you to create an account on the public Nostr network. All information you provide during the account creation process is optional, except for the desired username. Any personal information you disclose during the account creation process is published to the relays on the public Nostr network as a normal manner of course for all Nostr accounts. This information is public and can be seen by anyone on the Nostr network. Primal does not collect any further information about you during the account creation process.
+          <h3>2.1 Felhasználói fiók létrehozása.</h3>
+          A MagánSzövetség.Net szolgáltatások lehetővé teszik, hogy fiókot hozzon létre a nyilvános Nostr hálózaton. A fiók létrehozásakor megadott összes információ nem kötelező, kivéve a kívánt felhasználónevet. Minden személyes adat, amelyet a fiók létrehozásának folyamata során közöl, a nyilvános Nostr hálózaton lévő relék számára a Nostr-fiókok szokásos módon kerülnek közzétételre. Ezek az információk nyilvánosak, és bárki láthatja őket a Nostr hálózaton. A MagánSzövetség.Net nem gyűjt további információkat Önről a fiók létrehozásának folyamata során.
         </section>
 
         <section>
-          <h3>2.2 Primal Mobile Apps.</h3>
-          Primal does not collect any data via our mobile apps – Primal for iOS and Primal for Android – beyond the data you specifically submit for publishing on the public Nostr network and when activating the optional Hosted Wallet Service, as described in section 2.4. Privacy and data collection notices on the public Apple App Store and Google Play Store listings display data collection settings for our mobile apps.
+          <h3>2.2 Magánszövetség Mobile App-ok.</h3>
+          A MagánSzövetség.Net nem gyűjt adatokat a mobilalkalmazásainkon - MagánSzövetség.Net for iOS és MagánSzövetség.Net for Android - keresztül azon adatokon túl, amelyeket Ön kifejezetten a nyilvános Nostr-hálózaton való közzétételhez és az opcionális Hosted Wallet szolgáltatás aktiválásakor ad meg, a 2.4. pontban leírtak szerint. Az Apple App Store és a Google Play Store nyilvános listáin található adatvédelmi és adatgyűjtési hirdetmények a mobilalkalmazásaink adatgyűjtési beállításait mutatják.
         </section>
 
         <section>
-          <h3>2.3 Premium Service.</h3>
-          Primal Premium Service is an optional, subscription-based, paid tier offered to you, which includes Primal Orange Check as defined in our Terms of Service agreement, and certain premium features, as defined on Primal's Website. Our Premium Service is specifically designed for maximum protection of user privacy, and as such, does not require disclosing any personal information.
+          <h3>2.3 Prémium szolgáltatás.</h3>
+          A MagánSzövetség.Net Prémium szolgáltatás egy opcionális, előfizetésen alapuló, fizetős szint, amelyet Önnek kínálunk, és amely magában foglalja a MagánSzövetség.Net Orange Check szolgáltatását, ahogyan azt a Szolgáltatási feltételekről szóló megállapodásunkban meghatározzuk, valamint bizonyos prémium funkciókat, ahogyan azt a MagánSzövetség.Net weboldalán meghatározzuk. Prémium szolgáltatásunk kifejezetten a felhasználói adatvédelem maximális védelmét szolgálja, és mint ilyen, nem igényli személyes adatok közlését.
         </section>
 
         <section>
-          <h3>2.4 Hosted Wallet Service.</h3>
-          Primal Hosted Wallet Service is an optional service offered to you, which includes storing small amounts of bitcoin on your behalf, the ability to send and receive bitcoin transactions on your behalf, the display of your transaction history, and hosting a Bitcoin Lightning Address assigned to you. In order to activate the Hosted Wallet Service in a legally compliant manner, we collect the minimum amount of personal information required by law, as shown on the Wallet Activation screen.
+          <h3>2.4 Hosted Wallet szolgáltatás.</h3>
+          A MagánSzövetség.Net Hosted Wallet szolgáltatás egy Önnek kínált opcionális szolgáltatás, amely magában foglalja kis mennyiségű bitcoin tárolását az Ön nevében, a bitcoin tranzakciók küldésének és fogadásának lehetőségét az Ön nevében, a tranzakciós előzmények megjelenítését, valamint az Önhöz rendelt Bitcoin Lightning Address tárolását. A Hosted Wallet szolgáltatás jogszabálynak megfelelő aktiválásához a törvény által előírt minimális mennyiségű személyes adatot gyűjtünk, ahogyan az a Wallet aktiválási képernyőn látható.
         </section>
 
         <section>
-          <h3>2.5 Support Services.</h3>
-          Primal provides support via email and over social media. The information you provide during the regular course of communication with us will be stored in our email systems and otherwise be recorded on the various social media systems we use to communicate with you.
+          <h3>2.5 Támogatási szolgáltatások.</h3>
+          A MagánSzövetség.Net e-mailben és a közösségi médián keresztül nyújt támogatást. A velünk való rendszeres kommunikáció során megadott információkat az e-mail rendszereinkben tároljuk, egyébként pedig az általunk használt különböző közösségi médiarendszerekben rögzítjük.
         </section>
       </section>
 
       <section>
         <h2>
-          3. How We Use Your Information
+        3. Hogyan használjuk fel az Ön adatait
         </h2>
 
         <p>
-          We use your personal information to provide high quality service to you, including offering Support Services, and to generally operate Primal Services and communicate with you as necessary.
+        Az Ön személyes adatait arra használjuk, hogy magas színvonalú szolgáltatást nyújtsunk Önnek, beleértve a Támogatási Szolgáltatások nyújtását, valamint a MagánSzövetség.Net Szolgáltatások általános működtetésére és az Önnel való kommunikációra, amennyiben szükséges.
         </p>
       </section>
 
       <section>
         <h2>
-          4. Sharing Your Information
+        4. Az Ön adatainak megosztása
         </h2>
 
         <p>
-          Primal will not share your information with third parties, except when required by law. We may share your personal data with law enforcement, data protection authorities, government officials and other authorities when: (i) compelled by subpoena, court order or other legal procedure; (ii) we believe that disclosure is necessary to prevent damage or financial loss; (iii) disclosure is necessary to report suspected illegal activity; or (iv) disclosure is necessary to investigate violations of our Terms of Service or Privacy Policy.
+        A MagánSzövetség.Net nem osztja meg az Ön adatait harmadik féllel, kivéve, ha a törvény előírja. Személyes adatait megoszthatjuk a bűnüldöző, adatvédelmi hatóságokkal, kormányzati tisztviselőkkel és más hatóságokkal, ha: (i) idézés, bírósági végzés vagy más jogi eljárás kényszeríti; (ii) úgy véljük, hogy a közzététel szükséges a kár vagy pénzügyi veszteség megelőzéséhez; (iii) a közzététel szükséges a feltételezett illegális tevékenység bejelentéséhez; vagy (iv) a közzététel szükséges a Szolgáltatási feltételeink vagy Adatvédelmi szabályzatunk megsértésének kivizsgálásához.
         </p>
 
         <p>
-          Primal’s Hosted Wallet Service is offered in partnership with our affiliate Zap Solutions, Inc. ("Strike"). In order to provide a legally compliant service, we are required to share your information related to the Hosted Wallet Service with Strike.
-        </p>
-      </section>
-
-      <section>
-        <h2>
-          5. Your Rights and Choices
-        </h2>
-
-        <p>
-          You have rights and choices with respect to your personal information, including: (i) accessing and updating your information: you can review and change your personal information by logging into your account; (ii) deactivation and deletion: you can deactivate your account or request the deletion of your information.
+        A MagánSzövetség.Net Hosted Wallet szolgáltatását a Zap Solutions, Inc. („Strike”) partnercégünkkel együttműködve kínáljuk. A jogszabályoknak megfelelő szolgáltatás nyújtása érdekében a Hosted Wallet szolgáltatással kapcsolatos adatait meg kell osztanunk a Strike-kal.
         </p>
       </section>
 
       <section>
         <h2>
-          6. Security of Your Information
+        5. Az Ön jogai és választási lehetőségei
         </h2>
 
         <p>
-          Primal implements robust security measures, based on industry best practices, to protect the confidentiality, integrity, and availability of your personal and financial information. However, no system is completely secure, and we cannot guarantee the absolute security of your information.
+        Személyes adataival kapcsolatban jogai és választási lehetőségei vannak, beleértve a következőket: (i) az adataihoz való hozzáférés és azok frissítése: személyes adatait a fiókjába bejelentkezve megtekintheti és módosíthatja; (ii) deaktiválás és törlés: fiókját deaktiválhatja vagy kérheti adatai törlését.
         </p>
       </section>
 
       <section>
         <h2>
-          7. Changes to This Privacy Policy
+        6. Az Ön adatainak biztonsága
         </h2>
 
         <p>
-          We may change this Privacy Policy from time to time. If we make changes, we will notify you by revising the date at the top of this notice and, in some cases, we may provide you with additional notice (such as adding a statement to our Website or sending you a notification). We encourage you to review this Privacy Policy regularly to stay informed about our information handling practices and the choices available to you.
+        A MagánSzövetség.Net a legjobb iparági gyakorlatokon alapuló, erőteljes biztonsági intézkedéseket alkalmaz az Ön személyes és pénzügyi adatainak bizalmas kezelése, integritása és rendelkezésre állása érdekében. Azonban egyetlen rendszer sem teljesen biztonságos, és nem tudjuk garantálni az Ön adatainak abszolút biztonságát.
+        </p>
+      </section>
+
+      <section>
+        <h2>
+        7. Az Adatvédelmi szabályzat módosításai
+        </h2>
+
+        <p>
+        Időről időre megváltoztathatjuk ezt az Adatvédelmi szabályzatot. Ha változtatásokat eszközlünk, a jelen tájékoztató tetején található dátum módosításával értesítjük Önt, és bizonyos esetekben további értesítést is küldhetünk Önnek (például egy nyilatkozat hozzáadásával a weboldalunkhoz vagy értesítés küldésével). Javasoljuk, hogy rendszeresen tekintse át ezt az Adatvédelmi szabályzatot, hogy tájékozott maradjon az adatkezelési gyakorlatunkról és az Ön rendelkezésére álló választási lehetőségekről.
         </p>
       </section>
 
@@ -122,7 +122,7 @@ const Privacy: Component = () => {
         </h2>
 
         <p>
-          If you have any questions regarding this Privacy Policy, you may contact us at support@primal.net.
+        Ha bármilyen kérdése van a jelen Adatvédelmi irányelvekkel kapcsolatban, forduljon hozzánk a support@MaganSzovetseg.Net e-mail címen.
         </p>
       </section>
     </div>

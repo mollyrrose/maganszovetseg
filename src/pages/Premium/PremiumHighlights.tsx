@@ -25,7 +25,7 @@ const PremiumHighlights: Component<{
   return (
     <div class={styles.premiumHighlights}>
       <div class={styles.ogCaption}>
-        The Primal OG tier was created to recognize those users who signed up to Primal Premium in the first year.
+      Válj Prémium Felhasználóvá!
       </div>
       <div class={styles.premiumHighlightInfo}>
         <div class={styles.highlights}>
@@ -33,12 +33,12 @@ const PremiumHighlights: Component<{
             <div class={styles.purpleCheckBig}></div>
             <div class={styles.perk}>
               <div class={styles.perkTitle}>
-                Primal Name
+                Prémium Felhasználói Előnyök
               </div>
               <ul class={styles.perkItems}>
-                <li>Verified nostr address</li>
-                <li>Bitcoin lightning address</li>
-                <li>VIP profile on primal.net</li>
+                <li>Ellenőrzött Nostr cím</li>
+                <li>Bitcoin Lightning cím</li>
+                <li>Prémium profil</li>
               </ul>
             </div>
           </div>
@@ -48,14 +48,14 @@ const PremiumHighlights: Component<{
 
             <div class={styles.perk}>
               <div class={styles.perkTitle}>
-                Nostr Tools
+                További Előnyök
               </div>
               <ul class={styles.perkItems}>
-                <li>Media hosting</li>
-                <li>Advanced search</li>
-                <li>Premium paid relay</li>
-                <li>Nostr account backup</li>
-                <ButtonLink onClick={props.onMore}>Much more...</ButtonLink>
+                <li>Nagyméretű média-tartalomfeltöltés</li>
+                <li>Részletes globális keresés a Nostr rendszerben</li>
+                <br></br>
+                <ButtonLink onClick={props.onMore}>És még jópár egyéb előny...
+                <br></br>KATTINS IDE a részletekért!</ButtonLink>
               </ul>
             </div>
           </div>
@@ -64,26 +64,26 @@ const PremiumHighlights: Component<{
 
       <div class={styles.pricingSummary}>
         <div>
-          <div class={styles.price}>$7/month</div>
-          <div class={styles.duration}>3 months</div>
+          <div class={styles.price}>1.500 Ft/hó</div>
+          <div class={styles.duration}>3 hónapra</div>
         </div>
-        <div class={styles.or}>or</div>
+        <div class={styles.or}>v.</div>
         <div>
-          <div class={styles.price}>$6/month</div>
-          <div class={styles.duration}>12 months</div>
+          <div class={styles.price}>18.000 Ft /hó</div>
+          <div class={styles.duration}>12 hónapra</div>
         </div>
       </div>
 
       <div class={styles.premiumStart}>
         <Switch>
           <Match when={isGuest()}>
-            <>Start by creating your Primal account:</>
+            <>Kezdd azzal, hogy létrehozol egy MagánSzövetség fiókot:</>
           </Match>
           <Match when={hasNoMetadata()}>
-            <>Start by editing your profile:</>
+            <>Kezdd azzal, hogy elkezded a profilodat szerkeszteni:</>
           </Match>
           <Match when={true}>
-            <>Start by reserving your Primal name:</>
+            <>Kezdd azzal, hogy regisztrálsz egy Magánszövetség.Net nevet:</>
           </Match>
         </Switch>
       </div>
@@ -93,7 +93,7 @@ const PremiumHighlights: Component<{
       >
         <Switch>
           <Match when={isGuest()}>
-            <>Create account</>
+            <>Fiók Létrehozása</>
           </Match>
           <Match when={hasNoMetadata()}>
             <>Edit profile</>

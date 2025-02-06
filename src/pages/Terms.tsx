@@ -12,235 +12,235 @@ const Terms: Component = () => {
   return (
     <div class={styles.terms} >
       <h1>
-        Primal Terms of Service
+        MagánSzövetség Felhasználói Feltételek
       </h1>
       <p>
-        Last updated: February 19, 2024
+      Utolsó frissítés: 2025. február 1
       </p>
       <p>
-        This Agreement is between you and Primal Systems Inc., an Ontario corporation (“Primal”, “we”, “us”, or “our”), pertaining to your use of Primal’s applications and services, including but not limited to the Primal web app, Primal iOS app, Primal Android app, Primal browser extension, Primal Premium Service, or Primal Hosted Wallet Service (collectively referred to as “Services”). This Agreement constitutes a binding obligation between you and Primal. Services are provided by Primal, including our affiliates, as applicable. By using our Services, you agree to be bound by this Agreement, the Acceptable Use Policy, and any additional provisions and conditions provided to you for your use of Services (collectively, the “Policies”), which may include terms and conditions from third parties. If you don’t agree to all the stated terms, you may not use our Services.
+      Ez a Szerződés Ön és a MagánSzövetség.Net („MGSz”, „mi”, „mi” vagy „mieink”) között jön létre, amely a MagánSzövetség.Net alkalmazásainak és szolgáltatásainak Ön általi használatára vonatkozik, beleértve, de nem kizárólagosan a MagánSzövetség.Net webet. alkalmazás, agánSzövetség.Net iOS alkalmazás, MagánSzövetség.Net Android alkalmazás, MagánSzövetség.Net böngészőbővítmény, MagánSzövetség.Net Prémium Service, vagy MagánSzövetség.Net Hosted Wallet Service (együttesen „Szolgáltatások”). Jelen Szerződés kötelező érvényű kötelezettséget jelent Ön és a MagánSzövetség.Net között. A szolgáltatásokat a MagánSzövetség.Net, ideértve adott esetben leányvállalatainkat is. Szolgáltatásaink használatával Ön magára nézve kötelezőnek ismeri el a jelen Szerződést, az Elfogadható használati Szabályzatot, valamint a Szolgáltatások használatára vonatkozó további rendelkezéseket és feltételeket (együttesen a „Szabályzat”), amelyek magukban foglalhatják a harmadik féltől származó feltételeket és feltételeket. felek. Ha nem fogadja el az összes megadott feltételt, nem használhatja Szolgáltatásainkat.
       </p>
       <p>
-        We will periodically revise and update this Agreement and post the updated version to Primal’s Website, as further described in Section 9 (Changes to Agreement or Services).
+      A jelen Szerződést időszakonként felülvizsgáljuk és frissítjük, és a frissített változatot közzétesszük a MagánSzövetség.Net weboldalán, a 9. szakaszban (Szerződés vagy szolgáltatások változásai) leírtak szerint.
       </p>
 
       <section>
         <h2>
-          1. Acceptable Use Policy
+        1. Felhasználási feltételek és szabályzat
         </h2>
 
         <section>
-          <h3>1.1 Eligibility and Account Creation.</h3>
-          By using our Services, you represent and warrant that you are at least 18 years of age and may legally agree to this Agreement. Primal assumes no responsibility or liability for any misrepresentation of your age.
+          <h3>1.1 Jogosultság és fiók létrehozása.</h3>
+          Szolgáltatásaink használatával Ön kijelenti és szavatolja, hogy betöltötte a 18. életévét, és jogilag elfogadhatja a jelen Szerződést. A MagánSzövetség nem vállal felelősséget az Ön életkorának megtévesztéséért.
         </section>
 
         <section>
-          <h3>1.2 Your Account Rights and Responsibilities.</h3>
-          When creating an account via Primal, you will be assigned a cryptographic key pair, consisting of your private key (starting with “nsec”), and your public key (starting with “npub”). Your private key grants you full and exclusive control over your account on the public Nostr network. Your responsibility is to keep your private key secret and safely stored. Primal assumes no responsibility or liability for lost or stolen keys. Primal does not have access to your private key and has no ability to restore it if you lose it. You have the right to use your Nostr account on third party services by logging in via your private key. If you wish to do so, you may completely abandon using Primal and continue using your Nostr account on third party services. As a sovereign owner of your Nostr account, you don’t require Primal’s permission nor cooperation to use your Nostr account as you deem fit.
+          <h3>1.2 Az Ön fiókjogai és kötelezettségei.</h3>
+          A MagánSzövetség.Net-en keresztüli fiók létrehozása során hozzárendelünk egy kriptográfiai kulcspárt, amely az Ön privát kulcsából (nsec-vel kezdődően) és nyilvános kulcsából (npub-val kezdődik) áll. Az Ön privát kulcsa teljes és kizárólagos ellenőrzést biztosít Önnek a nyilvános Nostr hálózaton lévő fiókja felett. Az Ön felelőssége, hogy titkos kulcsát titokban tartsa és biztonságosan tárolja. A MagánSzövetség.Net nem vállal felelősséget az elveszett vagy ellopott kulcsokért. A MagánSzövetség.Net nem fér hozzá az Ön privát kulcsához, és nem tudja visszaállítani, ha elveszíti. Önnek joga van Nostr-fiókját harmadik fél szolgáltatásaiban használni, ha bejelentkezik privát kulcsával. Ha ezt szeretné, teljesen felhagyhat a MagánSzövetség.Net használatával, és továbbra is használhatja Nostr fiókját harmadik fél szolgáltatásaiban. Nostr-fiókja szuverén tulajdonosaként nincs szüksége a MagánSzövetség.Net engedélyére vagy együttműködésére ahhoz, hogy Nostr-fiókját úgy használja, ahogyan jónak tartja.
         </section>
 
         <section>
-          <h3>1.3 Content ownership.</h3>
-          You retain all your ownership rights to the content you create. However, by submitting content to Primal, you hereby grant Primal Systems Inc. a worldwide, non-exclusive, royalty-free, sublicensable and transferable license to use, reproduce, distribute, prepare derivative works of, display, and perform the content in connection with our Services and Primal's (and its successors' and affiliates') business.
+          <h3>1.3 A tartalom tulajdonjoga.</h3>
+          Ön fenntartja az Ön által létrehozott tartalomra vonatkozó összes tulajdonjogát. A MagánSzövetség.Net-hez való tartalom beküldésével azonban ezennel világméretű, nem kizárólagos, jogdíjmentes, továbbengedélyezhető és átruházható engedélyt ad a tartalom felhasználására, reprodukálására, terjesztésére, származékos munkáinak elkészítésére, megjelenítésére és előadására. Szolgáltatások és a MagánSzövetség.Net (és utódjai és leányvállalatai) üzletága.
         </section>
 
         <section>
-          <h3>1.4 Prohibited content.</h3>
-          You agree not to use our Services to create, upload, post, send, store, or share any content that is illegal, infringing, fraudulent, harmful, threatening, abusive, hateful, harassing, defamatory, obscene, or invasive of another's privacy. Such content includes, but is not limited to, content that is harmful to minors, pornographic material, violent images, hate speech, discriminatory content, and content that promotes terrorism or other criminal activities.
+          <h3>1.4 Tiltott tartalom.</h3>
+          Ön vállalja, hogy nem használja Szolgáltatásainkat illegális, jogsértő, csaló, káros, fenyegető, sértő, gyűlöletkeltő, zaklató, rágalmazó, obszcén vagy mások magánéletét sértő tartalom létrehozására, feltöltésére, közzétételére, küldésére, tárolására vagy megosztására. Ilyen tartalmak közé tartoznak többek között a kiskorúakra káros tartalmak, a pornográf anyagok, az erőszakos képek, a gyűlöletbeszéd, a diszkriminatív tartalom, valamint a terrorizmust vagy más bűncselekményeket népszerűsítő tartalom.
         </section>
 
         <section>
-          <h3>1.5 Prohibited conduct.</h3>
-          You agree not to use our Services to engage in any conduct that harasses others, impersonates others, is intended to intimidate, or threaten others, or is intended to promote or incite violence.
+          <h3>1.5 Tiltott magatartás.</h3>
+          Ön beleegyezik abba, hogy nem használja Szolgáltatásainkat olyan magatartásra, amely másokat zaklat, mások személyes adatait adja ki, célja mások megfélemlítése vagy fenyegetése, illetve az erőszak előmozdítása vagy felbujtása.
         </section>
 
         <section>
-          <h3>1.6 Media storage limits for the Free Tier.</h3>
-          If you are using our Services at no cost to you via the Free Tier, you are allowed to upload media files (images and videos) up to the storage and file size limit for Free Tier accounts, as specified on Primal’s Website. Exceeding the specified limit means that your older media will be deleted to make room for the new files you are uploading. Primal may change the Free Tier storage and file size limits at any time. This service is provided on a best effort basis. Primal makes no warranties whatsoever that any media stored via the Free Tier will be preserved for any length of time.
+          <h3>1.6 Médiatárolási korlátok az Ingyenes Fiókok számára.</h3>
+          Ha Ön ingyenesen használja Szolgáltatásainkat a Free Tier-en keresztül, akkor a MagánSzövetség.Net weboldalán meghatározott Free Tier fiókok tárhely- és fájlméret-korlátjáig tölthet fel médiafájlokat (képeket és videókat). A megadott korlát túllépése azt jelenti, hogy a régebbi adathordozók törlődnek, hogy helyet adjanak az újonnan feltöltött fájloknak. A Primal bármikor módosíthatja a Free Tier tárolási és fájlméret-korlátokat. Ezt a szolgáltatást a lehető legjobban nyújtjuk. A MagánSzövetség.Net semmilyen garanciát nem vállal azért, hogy az Ingyenes Felhasználói Fiókokon keresztül tárolt médiát bármennyi ideig megőrzi.
         </section>
       </section>
 
       <section>
         <h2>
-          2. Privacy Notice
+        2. Adatvédelmi nyilatkozat
         </h2>
 
         <section>
-          Please refer to the "Primal Privacy Policy", available at www.primal.net/privacy, for information on how we collect, use, and disclose information, including your personal information. You acknowledge and agree that through your use of the Services, you consent to the collection, use, and disclosure of your information as set forth in the Privacy Policy. In providing the personal information of any individual (other than yourself) that may receive transactions from you as part of your use of the Services, you agree that you have obtained consent from such individual to disclose their personal information to us, as well as their consent to our collection, use, storage, and disclosure of such personal information, in the manner and for the purposes set out in our Privacy Policy.
+        Kérjük, olvassa el a www.primal.net/privacy webhelyen elérhető "Elsődleges adatvédelmi szabályzatot" az információk gyűjtésével, felhasználásával és közzétételével kapcsolatos információkért, beleértve az Ön személyes adatait is. Ön tudomásul veszi és elfogadja, hogy a Szolgáltatások használatával hozzájárul adatainak gyűjtéséhez, felhasználásához és közzétételéhez, az Adatvédelmi szabályzatban meghatározottak szerint. Bármely olyan személy személyes adatainak megadásával (kivéve Önt), aki tranzakciókat fogadhat Öntől a Szolgáltatások használatának részeként, Ön beleegyezik abba, hogy az adott személytől beleegyezését szerezte ahhoz, hogy személyes adatait, valamint hozzájárul ahhoz, hogy ezeket a személyes adatokat gyűjtsük, felhasználjuk, tároljuk és nyilvánosságra hozzuk, az Adatvédelmi szabályzatunkban meghatározott módon és célokra.
         </section>
       </section>
 
       <section>
         <h2>
-          3. Premium Service
+        3. Prémium Felhasználók Számára Nyújtott Szolgáltatás
         </h2>
 
         <section>
-          <h3>3.1 Premium Service Definition.</h3>
-          Primal Premium Service is an optional, subscription-based, paid tier offered to you, which includes Primal Orange Check as defined in section 3.2 of this Agreement, increased media storage, and certain premium features, as defined on Primal's Website.
+          <h3>3.1 Prémium szolgáltatás meghatározása.</h3>
+          A MagánSzövetség.Net Prémium szolgáltatás egy opcionális, előfizetéses, fizetős szint, amelyet az Ön számára kínálnak, amely magában foglalja a jelen Szerződés 3.2 pontjában meghatározott MagánSzövetség.Net Orange Check-et, megnövelt médiatárolást és bizonyos prémium szolgáltatásokat, a MagánSzövetség.Net oldalán meghatározottak szerint.
         </section>
 
         <section>
-          <h3>3.2 Primal Orange Check.</h3>
-          Primal Orange Check is a service that provides a personalized username at primal.net (“Primal Name”) to all Primal Premium Service users. Primal Orange Check includes a verified Nostr Address at primal.net, Bitcoin Lightning Address at primal.net, and a VIP profile address at primal.net. By way of example, a user who selected "preston" as their Primal Name would have "preston@primal.net" as their verified Nostr Address, "preston@primal.net" as their Bitcoin Lightning Address, and "primal.net/preston" as their VIP profile address.
+          <h3>3.2 MagánSzövetség "Narancs-Ellenőrzés"</h3>
+          A MagánSzövetség.Net Narancs-Ellenőrzés egy olyan szolgáltatás, amely személyre szabott felhasználónevet biztosít a primal.net-en („Primal név”) minden MagánSzövetség.Net Prémium szolgáltatás felhasználójának. A Primal Narancsellenőrzés tartalmaz egy ellenőrzött Nostr-címet a primal.net-en, egy Bitcoin Villámcímet a primal.net-en és egy VIP profilcímet a MagánSzovetseg.Net-en. Példaként egy olyan felhasználó, aki a MagánSzövetség.Net névként a „zsoka”-t választotta, az ellenőrzött Nostr-címe „zsoka@MaganSzovetseg.Net”, a Bitcoin Lightning-címe „zsoka@MaganSzovetseg.Net”, a VIP-profilcíme pedig „MaganSzovetseg.Net/zsoka” lenne.
         </section>
 
         <section>
-          <h3>3.3 Primal Name Ownership.</h3>
-          Primal remains the exclusive owner of all Primal Names. Primal Name is rented, not sold, to you for the duration of your subscription, as defined in section 3.4 of this Agreement. Primal reserves the right to revoke any Primal Name at any time, without prior notice, if we determine that the name is trademarked by somebody else, that there is a possible case of impersonation, or for any other reason at our sole discretion. Purchasing a Primal Premium Service subscription grants you the right to use a Primal Name for the duration of the subscription, but Primal makes no guarantees that your selected name will remain available to you for the duration of your subscription. Should the name you have selected be revoked by Primal during your subscription term, you have the right to select another name, provided that this new name is available and acceptable to Primal.
+          <h3>3.3 MagánSzövetség Név Tulajdonjoga</h3>
+          A MagánSzövetség.Net marad a MagánSzövetség.Net Név kizárólagos tulajdonosa. A MagánSzövetség.Net Név bérbeadásra kerül, nem pedig eladásra, az Ön számára az Ön előfizetésének időtartamára, a jelen Szerződés 3.4. pontjában meghatározottak szerint. A MagánSzövetség.Net fenntartja a jogot, hogy bármikor, előzetes értesítés nélkül visszavonja bármely MagánSzövetség.Net Nevet, ha megállapítjuk, hogy a név más által védett, vagy ha a személyleírás lehetséges esete áll fenn, vagy bármely más okból, saját belátásunk szerint. A MagánSzövetség.Net prémium szolgáltatási előfizetés megvásárlása jogot biztosít Önnek a MagánSzövetség.Net Név használatára az előfizetés időtartamára, de a MagánSzövetség.Net nem vállal garanciát arra, hogy az Ön által kiválasztott név az előfizetés időtartama alatt elérhető marad az Ön számára. Amennyiben az Ön által kiválasztott nevet a MagánSzövetség.Net az előfizetés időtartama alatt visszavonja, Ön jogosult egy másik nevet választani, feltéve, hogy ez az új név elérhető és elfogadható a MagánSzövetség.Net számára.
         </section>
 
         <section>
-          <h3>3.4 Premium Service Duration.</h3>
-          Primal Premium Service will be offered for the duration specified during the purchase process. Primal will clearly display the expiration date of your subscription in your Premium Profile Settings. You are allowed to renew and extend your subscription at any time. Primal reserves the right to terminate your subscription for a cause, as described in Section 5 of this Agreement (Cancellation, Suspension, or Termination of Services).
+          <h3>3.4 Prémium szolgáltatás időtartama.</h3>
+          A MagánSzövetség.Net Prémium szolgáltatás a vásárlási folyamat során megadott időtartamra vehető igénybe. A MagánSzövetség.Net a Prémium profil beállításaiban egyértelműen jelzi az előfizetés lejárati dátumát. Ön bármikor megújíthatja és meghosszabbíthatja előfizetését. A MagánSzövetség.Net fenntartja magának a jogot, hogy a jelen Szerződés 5. szakaszában (A szolgáltatások törlése, felfüggesztése vagy megszüntetése) leírt okból megszüntesse előfizetését.
         </section>
 
         <section>
-          <h3>3.5 Expired Premium Subscription.</h3>
-          If you allow your Premium Service subscription to expire, you will lose all Premium Service benefits. Upon expiration, Primal will offer a Grace Period of seven days, during which your Premium Service benefits will continue to be available to you at no charge. After the expiration of the Grace Period, your Primal Name will no longer be associated with your Nostr account and will become available to another user to reserve. Your media storage in excess of the allotment offered to Free Tier users will be deleted from Primal's servers.
+          <h3>3.5 Lejárt Prémium Előfizetés.</h3>
+          Ha hagyja, hogy a Prémium szolgáltatás előfizetése lejárjon, elveszíti a Prémium szolgáltatás minden előnyét. Lejáratkor a MagánSzövetség.Net hét napos türelmi időszakot biztosít, amely alatt a Prémium Szolgáltatás előnyei továbbra is ingyenesen elérhetőek az Ön számára. A türelmi idő lejárta után a MagánSzövetség.Net Neve nem lesz többé a Nostr-fiókjához társítva, és egy másik felhasználó számára elérhetővé válik, hogy lefoglalja. A Free Tier felhasználóknak kínált keretet meghaladó médiatárolása törlésre kerül a MagánSzövetség.Net szervereiről.
         </section>
       </section>
 
       <section>
         <h2>
-          4. Hosted Wallet Service
+        4. Kripto-Pénztárca szolgáltatás
         </h2>
 
         <section>
-          <h3>4.1 Premium Service Definition.</h3>
-          Primal Hosted Wallet Service is an optional service offered to you, which includes storing small amounts of bitcoin on your behalf, as defined in Section 4.3 Maximum Wallet Balance, the ability to send and receive bitcoin transactions on your behalf, the display of your transaction history, and hosting a Bitcoin Lightning Address assigned to you.
+          <h3>4.1 Prémium szolgáltatás meghatározása.</h3>
+          A MagánSzövetség.Net Hosted Wallet szolgáltatás egy Önnek kínált opcionális szolgáltatás, amely magában foglalja az Ön nevében történő kis mennyiségű bitcoin tárolását, a 4.3. szakaszban meghatározott maximális tárcaegyenleg, a bitcoin tranzakciók küldésének és fogadásának lehetőségét az Ön nevében, a tranzakciós előzmények megjelenítését, valamint az Önhöz rendelt Bitcoin Lightning Address tárolását.
         </section>
 
         <section>
-          <h3>4.2 Primal Orange Check.</h3>
-          Bitcoin custody, send, and receive operations are performed by Primal's affiliate Zap Solutions, Inc. ("Strike"). By using our Hosted Wallet Service, you agree to be bound by this Agreement, as well as Strike's Terms of Service, as defined at https://strike.me/legal/tos/. Primal reserves the right to change the Wallet Third Party Service provider without prior notice, or to bring some or all of these services in-house. All such changes will be reflected in an update to this Agreement, as further described in Section 9 (Changes to Agreement or Services).
+          <h3>4.2 MagánSzövetség.Net "Narancs-Ellenőrzés".</h3>
+          A Bitcoin őrzési, küldési és fogadási műveleteket a Primal, Inc. leányvállalata, a Zap Solutions, Inc. („Strike”) végzi. A Hosted Wallet szolgáltatásunk használatával Ön elfogadja, hogy a jelen megállapodás, valamint a Strike szolgáltatási feltételei, a https://strike.me/legal/tos/ weboldalon meghatározottak szerint, kötelező érvényűek. A Magánszövetség.Net és a Primal fenntartja magának a jogot, hogy előzetes értesítés nélkül megváltoztassa a tárca harmadik fél szolgáltatóját, vagy egyes vagy valamennyi szolgáltatást házon belülre hozza. Minden ilyen változás a jelen Megállapodás frissítésében jelenik meg, a 9. szakaszban (A megállapodás vagy a szolgáltatások módosítása) leírtak szerint.
         </section>
 
         <section>
-          <h3>4.3 Maximum Wallet Balance.</h3>
-          The purpose of our Hosted Wallet Service is to provide an easy-to-use spending bitcoin wallet with minimal setup effort. You should not use the Primal Hosted Wallet Service to store amounts that exceed the value you would carry in a physical spending wallet. For larger amounts, Primal recommends self-custody, preferably in a bitcoin-specialized hardware wallet. Primal is enforcing a Maximum Wallet Balance to ensure that all users are using our Hosted Wallet Service for the purpose it was designed for. Your Maximum Wallet Balance is displayed in your Wallet Settings. If you attempt to credit your wallet with an amount that would exceed your Maximum Wallet Balance, you may need to contact Primal Support at support@primal.net to get a refund.
+          <h3>4.3 Maximális tárcaegyenleg.</h3>
+          Hosted Wallet szolgáltatásunk célja, hogy egy könnyen használható, minimális telepítési erőfeszítéssel rendelkező bitcoin pénztárcát biztosítson. A MagánSzövetség.Net és a Primal Hosted Wallet Service-t nem szabad olyan összegek tárolására használni, amelyek meghaladják azt az értéket, amelyet egy fizikai költőpénztárcában tartana. Nagyobb összegek esetén a MagánSzövetség.Net és a Primal saját letétbe helyezést javasol, lehetőleg bitcoinra specializálódott hardveres pénztárcában. A MagánSzövetség.Net és a Primal érvényre juttatja a maximális tárcaegyenleget annak biztosítása érdekében, hogy minden felhasználó arra a célra használja a Hosted Wallet szolgáltatásunkat, amire azt tervezték. A maximális tárcaegyenleg a tárca beállításaiban látható. Ha olyan összeget próbál pénztárcáján jóváírni, amely meghaladja a maximális pénztárcaegyenlegét, akkor a visszatérítés érdekében kapcsolatba kell lépnie a MagánSzövetség.Net ügyfélszolgálatával a support@maganszovetseg.net címen.
         </section>
 
         <section>
-          <h3>4.4 Wallet Activation and Control.</h3>
-          When you activate your Primal Wallet and register for the Hosted Wallet Service, you agree to provide accurate, current, and complete information as prompted by the registration form. Your wallet is controlled by your Nostr private key (starting with "nsec") and the verified email address you provided during registration. It is your responsibility to keep your Nostr private key secret and safely stored, as well as to ensure that nobody else has access to the email account you used to register for our Hosted Wallet Service. If either your Nostr private key or your email account get compromised, this may result in loss of funds in your Primal Wallet. Primal assumes no responsibility nor liability for loss of funds resulting from a compromised private key and/or email account.
+          <h3>4.4 Pénztárca aktiválása és ellenőrzése.</h3>
+          Amikor aktiválja a MagánSzövetség-Primal tárcáját és regisztrál a Hosted Wallet szolgáltatásra, Ön vállalja, hogy a regisztrációs űrlapon kért pontos, aktuális és teljes körű adatokat ad meg. Pénztárcáját a Nostr privát kulcsa (amely „nsec”-vel kezdődik) és a regisztráció során megadott, ellenőrzött e-mail címe vezérli. Az Ön felelőssége, hogy a Nostr privát kulcsát titokban tartsa és biztonságosan tárolja, valamint hogy biztosítsa, hogy senki más ne férjen hozzá ahhoz az e-mail fiókhoz, amelyet a Hosted Wallet szolgáltatásra való regisztrációhoz használt. Ha akár a Nostr privát kulcsa, akár az e-mail fiókja veszélybe kerül, az a MagánSzövetség-Primal tárcájában lévő pénzeszközök elvesztését eredményezheti. A MagánSzövetség és a Primal nem vállal felelősséget és felelősséget a veszélyeztetett privát kulcs és/vagy e-mail fiókból eredő pénzeszközök elvesztéséért.
         </section>
 
         <section>
-          <h3>4.5 Transaction Fees.</h3>
-          Transaction fees for incoming and outgoing payments within your Primal Wallet are a combination of bitcoin network fees, fees charged by Primal's affiliates (if any), and fees charged by Primal (if any). Transaction fee policy is subject to change without notice. Primal Wallet will clearly display the fees charged for each transaction on the Transaction Details screen.
+          <h3>4.5 Tranzakciós díjak.</h3>
+          A MagánSzövetség-Primal tárcán belüli bejövő és kimenő fizetések tranzakciós díjai a bitcoin hálózati díjak, a Primal kapcsolt vállalkozásai által felszámított díjak (ha vannak ilyenek) és a Primal által felszámított díjak (ha vannak ilyenek) kombinációjából állnak. A tranzakciós díjpolitika előzetes értesítés nélkül változhat. A Primal Wallet a Tranzakció részletei képernyőn egyértelműen megjeleníti az egyes tranzakciókért felszámított díjakat.
         </section>
 
         <section>
-          <h3>4.6 In-app Purchase Fees.</h3>
-          Primal Wallet offers the ability to purchase small amounts of bitcoin, typically in USD $5 increments, via the Apple/Google in-app purchase. Apple and Google charge a considerable fee for these transactions. Prior to your purchase, Primal will clearly display the exact amount of bitcoin (expressed in satoshis) that you will receive for the specific fiat amount you will be paying. Primal makes no revenue from in-app purchases. All in-app purchases are final, Primal offers no refunds.
+          <h3>4.6 Alkalmazáson belüli vásárlási díjak.</h3>
+          A Magánszövetség.Net-Primal Wallet lehetőséget kínál kis mennyiségű bitcoin vásárlására, jellemzően 5 USD-s lépésekben, az Apple/Google alkalmazáson belüli vásárláson keresztül. Az Apple és a Google jelentős díjat számít fel ezekért a tranzakciókért. A vásárlás előtt a Magánszövetség.Net-Primal egyértelműen megjeleníti a pontos bitcoin-összeget (szatoszkiban kifejezve), amelyet az Ön által fizetendő konkrét fiat-összegért kap. A Magánszövetség.Net-Primal nem szerez bevételt az alkalmazáson belüli vásárlásokból. Minden alkalmazáson belüli vásárlás végleges, a Magánszövetség.Net és a Primal nem nyújt visszatérítést.
         </section>
 
         <section>
-          <h3>4.7 Mistaken and Unauthorized Transactions.</h3>
-          All payments made via the Primal Hosted Wallet Service are final. If a mistaken or unauthorized transaction occurs, you will need to contact the payee directly to recover the funds. Primal accepts no liability for mistaken or unauthorized transactions.
+          <h3>4.7 Téves és jogosulatlan tranzakciók.</h3>
+          Minden, a MagánSzövetség.Net-Primal Hosted Wallet szolgáltatáson keresztül történő fizetés végleges. Ha téves vagy jogosulatlan tranzakció történik, közvetlenül a kedvezményezetthez kell fordulnia a pénzösszegek visszaszerzése érdekében. A MagánSzövetség.Net és a Primal nem vállal felelősséget a téves vagy jogosulatlan tranzakciókért.
         </section>
 
         <section>
-          <h3>4.8 Taxes.</h3>
-          It is your responsibility to determine what, if any, taxes you owe in relation to bitcoin transactions, including spending, buying, and selling bitcoin. It is your responsibility to report and remit any such tax to the appropriate tax authority. You agree that Primal is not responsible for determining whether taxes apply to your use of the Services, including your transactions, or for collecting, reporting, withholding, or remitting any taxes arising from your use of the Services.
+          <h3>4.8 Adók.</h3>
+          Az Ön felelőssége meghatározni, hogy a bitcoin-tranzakciókkal kapcsolatban - beleértve a bitcoin elköltését, vásárlását és eladását - milyen adókkal tartozik, ha tartozik egyáltalán. Az Ön felelőssége, hogy minden ilyen adót bejelentsen és befizessen a megfelelő adóhatóságnak. Ön elfogadja, hogy a MagánSzövetség.net nem felelős annak meghatározásáért, hogy a Szolgáltatások Ön általi használatára, beleértve az Ön tranzakcióit is, vonatkoznak-e adók, illetve a Szolgáltatások Ön általi használatából eredő bármely adó beszedéséért, bejelentéséért, visszatartásáért vagy átutalásáért.
         </section>
       </section>
 
       <section>
         <h2>
-          5. Cancellation, Suspension, or Termination of Services
+        5. A szolgáltatások törlése, felfüggesztése vagy megszüntetése
         </h2>
 
         <section>
-          <h3>5.1 Account Cancellation.</h3>
-          We may, in our sole discretion and without any cost or liability to you, with or without prior notice and at any time, suspend, modify, or terminate, temporarily or permanently, all or any portion of our Services, establish certain transaction limits or trading limits, or terminate your Account, with or without reason, including, if we reasonably believe: (i) you create risk or possible legal exposure for us; (ii) our provision of the Services to you is no longer commercially viable; or (iii) you breached any terms of this Agreement.
+          <h3>5.1 Fiók törlése.</h3>
+          Saját belátásunk szerint és az Önnel szemben felmerülő költségek vagy felelősség nélkül, előzetes értesítéssel vagy anélkül, bármikor felfüggeszthetjük, módosíthatjuk vagy megszüntethetjük ideiglenesen vagy véglegesen a Szolgáltatásaink egészét vagy bármely részét, bizonyos tranzakciós vagy kereskedési korlátokat állapíthatunk meg, vagy megszüntethetjük a Fiókját, akár indoklással, akár anélkül, beleértve azt is, ha indokoltan úgy véljük, hogy: (i) Ön kockázatot vagy lehetséges jogi kockázatot jelent számunkra; (ii) a Szolgáltatások nyújtása az Ön számára üzletileg már nem életképes; vagy (iii) Ön megszegte a jelen Megállapodás bármely feltételét.
         </section>
 
         <section>
-          <h3>5.2 Account Suspension.</h3>
-          We have the right to immediately cause your Account to be suspended, and the funds and assets in your Account may be frozen if: (i) we suspect, in our sole discretion, your Account to be in violation of this Agreement or our Anti-Money Laundering program; (ii) we are required to do so by a government or regulatory authority, applicable law, court order, or a facially valid subpoena; (iii) your Account has a negative balance; (iv) a transfer to your Account was returned to your Bank Account; (v) we believe there is unusual activity in your Account or that you are using your Credentials or your Account in an unauthorized or inappropriate manner; or (vi) if you have not accessed your Account in more than two years. Your Account will remain suspended and funds and assets in your Account will remain frozen until a determination is made in the investigation by Primal, at which point Primal may determine to terminate your Account.
+          <h3>5.2 Fiók felfüggesztése.</h3>
+          Jogunkban áll azonnal felfüggeszteni az Ön felhasználi fiókját, és a fiókján lévő pénzeszközöket és eszközöket befagyasztani, ha: (i) saját belátásunk szerint azt gyanítjuk, hogy az Ön Számlája megsérti a jelen Megállapodást vagy a pénzmosás elleni programunkat; (ii) kormányzati vagy szabályozó hatóság, alkalmazandó törvény, bírósági végzés vagy jogerős idézés kötelez minket erre; (iii) az Ön Fiókjának egyenlege negatív; (iv) az Ön Fiókjára történő átutalást visszautalták az Ön bankszámlájára; (v) úgy véljük, hogy szokatlan tevékenység folyik a számláján, vagy hogy Ön jogosulatlanul vagy nem megfelelő módon használja a Hitelesítési adatokat vagy a fiókját; vagy (vi) ha Ön több mint két éve nem lépett be a fiókjába. Az Ön Fiókja felfüggesztve marad, és a fiókján/számláján lévő pénzeszközök és eszközök befagyasztva maradnak mindaddig, amíg a MagánSzövetség.Net meg nem állapítja a vizsgálat eredményét, és ekkor a MagánSzövetség.Net dönthet úgy, hogy megszünteti az Ön Fiókját.
         </section>
       </section>
 
       <section>
         <h2>
-          6. Disclaimer of Warranty
+          6. Jótállási nyilatkozat
         </h2>
 
         <p>
-          You acknowledge that our Services are provided on an "as is" and "as available" basis without any warranty of any kind, express or implied. We make no guarantees that our Services will be error-free or run without interruptions, and we do not make any warranty regarding the quality, accuracy, reliability, or suitability of our Services for any particular purpose.
+        Ön tudomásul veszi, hogy Szolgáltatásainkat „ahogy van” és „ahogy rendelkezésre áll” alapon nyújtjuk, bármiféle kifejezett vagy hallgatólagos garancia nélkül. Nem vállalunk garanciát arra, hogy Szolgáltatásaink hibátlanok lesznek, vagy megszakítások nélkül fognak működni, és nem vállalunk semmilyen garanciát Szolgáltatásaink minőségére, pontosságára, megbízhatóságára, vagy arra vonatkozóan, hogy azok bármilyen konkrét célra alkalmasak.
         </p>
       </section>
 
       <section>
         <h2>
-          7. Indemnity
+        7. Kártalanítás
         </h2>
 
         <p>
-        You will indemnify and hold harmless Primal and its affiliates, and their respective officers, directors, employees, and agents, from and against any claims, disputes, demands, liabilities, damages, losses, and costs and expenses (including, without limitation reasonable legal and accounting fees) arising out of or in any way connected with (a) your improper or unauthorized access to or use of the Services; and (b) your violation of this Agreement.
+        Ön kártalanítja és mentesíti a MagánSzövetség.Net-et, a Primal-t és annak kapcsolt vállalkozásait, valamint azok tisztviselőit, igazgatóit, alkalmazottait és ügynökeit minden olyan követelés, vita, követelés, felelősség, kár, veszteség, költség és kiadás (beleértve, de nem kizárólagosan az ésszerű jogi és könyvelési költségeket) alól, amely (a) a Szolgáltatásokhoz való helytelen vagy jogosulatlan hozzáféréséből vagy azok használatából, valamint (b) a jelen Megállapodás megsértéséből ered, vagy azzal bármilyen módon összefügg.
         </p>
       </section>
 
       <section>
         <h2>
-          8. Limitations of Liability
+        8. A felelősség korlátozása
         </h2>
 
         <section>
-          <h3>8.1 CONSEQUENTIAL DAMAGES WAIVER.</h3>
-          NOTWITHSTANDING ANY OTHER SECTION OF THIS AGREEMENT, NEITHER PRIMAL, ITS AFFILIATES, THIRD-PARTY SERVICE PROVIDERS, NOR ANY OTHER PARTY INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SERVICES WILL BE LIABLE FOR ANY INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOST PROFITS, LOST REVENUES, TRADING LOSSES, LOST SAVINGS, LOST BUSINESS OPPORTUNITY, LOSS OF DATA OR GOODWILL, SERVICE INTERRUPTION, COMPUTER DAMAGE OR SYSTEM FAILURE OR THE COST OF SUBSTITUTE SERVICES OF ANY KIND ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR FROM THE USE OF OR INABILITY TO USE THE SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY, OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT PRIMAL, ITS AFFILIATES, OR ANY OTHER PARTY HAS BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, SO THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
+          <h3>8.1 LEMONDÁS A KÖVETKEZMÉNYES KÁROKRÓL.</h3>
+          A JELEN MEGÁLLAPODÁS BÁRMELY MÁS SZAKASZÁTÓL FÜGGETLENÜL SEM A MAGÁNSZÖVETSÉG.NET, SEM A PRIMAL, SEM A TÁRSULT VÁLLALKOZÁSAI, SEM HARMADIK FÉL SZOLGÁLTATÓK, SEM A SZOLGÁLTATÁSOK LÉTREHOZÁSÁBAN, ELŐÁLLÍTÁSÁBAN VAGY NYÚJTÁSÁBAN RÉSZT VEVŐ BÁRMELY MÁS FÉL NEM VÁLLAL FELELŐSSÉGET SEMMILYEN VÉLETLEN, KÜLÖNLEGES, PÉLDAMUTATÓ VAGY KÖVETKEZMÉNYES KÁRÉRT, ILLETVE AZ ELMARADT NYERESÉG, BEVÉTELKIESÉS, KERESKEDELMI VESZTESÉG, MEGTAKARÍTÁSKIESÉS, ELVESZTETT ÜZLETI LEHETŐSÉG, ADATVESZTÉS VAGY JÓ HÍRNÉV ELVESZTÉSE, A SZOLGÁLTATÁS MEGSZAKADÁSA MIATTI KÁROKÉRT, SZÁMÍTÓGÉPES KÁROKÉRT VAGY RENDSZERHIBÁKÉRT, ILLETVE A HELYETTESÍTŐ SZOLGÁLTATÁSOK KÖLTSÉGEIÉRT, AMELYEK A JELEN SZERZŐDÉSBŐL VAGY AZZAL ÖSSZEFÜGGÉSBEN, ILLETVE A SZOLGÁLTATÁSOK HASZNÁLATÁBÓL VAGY HASZNÁLATÁNAK LEHETETLENSÉGÉBŐL EREDNEK, FÜGGETLENÜL ATTÓL, HOGY GARANCIÁN, SZERZŐDÉSEN, JOGELLENES KÁROKOZÁSON (BELEÉRTVE A GONDATLANSÁGOT IS), TERMÉKFELELŐSSÉGEN VAGY BÁRMELY MÁS JOGI ELMÉLETEN ALAPULNAK, ÉS FÜGGETLENÜL ATTÓL, HOGY A PRIMAL, ANNAK LEÁNYVÁLLALATAI VAGY BÁRMELY MÁS FÉL TÁJÉKOZTATÁST KAPOTT-E AZ ILYEN KÁROK LEHETŐSÉGÉRŐL. EGYES JOGHATÓSÁGOK NEM TESZIK LEHETŐVÉ A KÖVETKEZMÉNYES VAGY VÉLETLEN KÁROKÉRT VALÓ FELELŐSSÉG KIZÁRÁSÁT VAGY KORLÁTOZÁSÁT, ÍGY A FENTI KORLÁTOZÁS NEM FELTÉTLENÜL VONATKOZIK ÖNRE.
         </section>
 
         <section>
-          <h3>8.2 LIABILITY CAP.</h3>
-          NOTWITHSTANDING ANY OTHER SECTION OF THIS AGREEMENT, IN NO EVENT WILL PRIMAL'S AND ITS AFFILIATES' TOTAL LIABILITY ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR FROM THE USE OF OR INABILITY TO USE THE SERVICES EXCEED ONE HUNDRED U.S. DOLLARS ($100).
+          <h3>8.2 FELELŐSSÉGI FELSŐ HATÁR.</h3>
+          A JELEN SZERZŐDÉS BÁRMELY MÁS SZAKASZA ELLENÉRE A MAGÁNSZÖVETSÉG.NET, A PRIMAL ÉS KAPCSOLT VÁLLALKOZÁSAI TELJES FELELŐSSÉGE, AMELY A JELEN SZERZŐDÉSBŐL VAGY AZZAL KAPCSOLATBAN, ILLETVE A SZOLGÁLTATÁSOK HASZNÁLATÁBÓL VAGY HASZNÁLATÁNAK ELLEHETETLENÜLÉSÉBŐL ERED, SEMMILYEN ESETBEN SEM HALADJA MEG A SZÁZ AMERIKAI DOLLÁRT ($100).
         </section>
 
         <section>
-          <h3>8.3 BASIS OF BARGAIN AND FAILURE OF ESSENTIAL PURPOSE.</h3>
-          THE EXCLUSIONS AND LIMITATIONS OF DAMAGES SET FORTH ABOVE ARE FUNDAMENTAL ELEMENTS OF THE BASIS OF THE BARGAIN BETWEEN PRIMAL AND YOU. THE WAIVERS AND LIMITATIONS IN THIS SECTION 8 APPLY REGARDLESS OF THE FORM OF ACTION, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY, OR ANY OTHER LEGAL THEORY, AND WILL SURVIVE AND APPLY EVEN IF ANY LIMITED REMEDY IN THESE TERMS FAILS OF ITS ESSENTIAL PURPOSE.
+          <h3>8.3 AZ ALKU ALAPJA ÉS A LÉNYEGES CÉL HIÁNYA.</h3>
+          A FENTIEKBEN MEGHATÁROZOTT KÁRTÉRÍTÉSI KIZÁRÁSOK ÉS KORLÁTOZÁSOK A PRIMAL ÉS ÖN KÖZÖTTI ALKU ALAPJÁNAK ALAPVETŐ ELEMEI. A JELEN 8. SZAKASZBAN FOGLALT LEMONDÁSOK ÉS KORLÁTOZÁSOK A KERESET FORMÁJÁTÓL FÜGGETLENÜL ALKALMAZANDÓK, FÜGGETLENÜL ATTÓL, HOGY SZERZŐDÉS, DELIKTUM (BELEÉRTVE A GONDATLANSÁGOT IS), SZIGORÚ FELELŐSSÉG VAGY BÁRMELY MÁS JOGI ELMÉLET ALAPJÁN, ÉS AKKOR IS FENNMARADNAK ÉS ALKALMAZANDÓK, HA A JELEN FELTÉTELEKBEN FOGLALT BÁRMELY KORLÁTOZOTT JOGORVOSLAT ALAPVETŐ CÉLJÁT ELVESZTETTE.
         </section>
       </section>
 
       <section>
         <h2>
-          9. Changes to Agreement or Services
+        9. A megállapodás vagy a szolgáltatások módosítása
         </h2>
 
         <p>
-          We may update this Agreement at any time at our sole discretion. If we do so, we will deliver a notice by posting the updated Agreement to Primal’s Website at www.primal.net/terms, and potentially through other communication(s) deemed appropriate by us. Accordingly, it is important that you review this Agreement on Primal’s Website regularly for updates, including when you use the Services. If you continue to use the Services after we have posted an updated Agreement, you are agreeing to be bound by the updated Agreement. If you do not agree to be bound by the updated Agreement, then you may not use the Services anymore. As our Services evolve, we may change or discontinue all or any part of the Services, at any time and without notice, at our sole discretion.
+        A jelen Megállapodást saját belátásunk szerint bármikor frissíthetjük. Ha így teszünk, értesítést küldünk a frissített Megállapodásnak a MaganSzovetseg weboldalán, a www.MaganSzovetseg.net/terms címen történő közzétételével, valamint esetlegesen más, általunk megfelelőnek ítélt kommunikáció(k)n keresztül. Ennek megfelelően fontos, hogy a jelen Megállapodást a Primal weboldalán rendszeresen áttekintse a frissítések tekintetében, többek között a Szolgáltatások használata során. Ha Ön továbbra is használja a Szolgáltatásokat, miután frissített Megállapodást tettünk közzé, akkor Ön elfogadja, hogy a frissített Megállapodás kötelező érvényű. Ha nem ért egyet a frissített Megállapodással, akkor a továbbiakban nem használhatja a Szolgáltatásokat. A Szolgáltatásaink fejlődésével párhuzamosan saját belátásunk szerint bármikor, előzetes értesítés nélkül megváltoztathatjuk vagy megszüntethetjük a Szolgáltatások egészét vagy bármely részét.
         </p>
       </section>
 
       <section>
         <h2>
-          10. Governing Law
+        10. Irányadó jog
         </h2>
 
         <p>
-          This Agreement shall be governed by and in accordance with the laws of Ontario, Canada.
+        E megállapodásra a kanadai Ontario állam törvényei vonatkoznak, és azokkal összhangban kell eljárni.
         </p>
       </section>
 
       <section>
         <h2>
-          11. Acceptance of Terms
+        11. A feltételek elfogadása
         </h2>
 
         <p>
-          By using our Services, you signify your acceptance of this Agreement. If you do not agree to the terms of this Agreement, you may not use our Services.
+        Szolgáltatásaink használatával Ön jelzi, hogy elfogadja a jelen Megállapodást. Ha nem ért egyet a jelen Megállapodás feltételeivel, nem használhatja Szolgáltatásainkat.
         </p>
       </section>
 
       <section>
         <h2>
-          12. Contact Information
+        12. Kapcsolattartási információk
         </h2>
 
         <p>
-          If you have any questions regarding this Agreement, you may contact us at support@primal.net.
+        Ha bármilyen kérdése van a jelen megállapodással kapcsolatban, forduljon hozzánk a support@MaganSzovetseg.net e-mail címen.
         </p>
       </section>
     </div>

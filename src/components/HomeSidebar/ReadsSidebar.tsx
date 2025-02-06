@@ -33,19 +33,19 @@ import { minKnownProfiles } from '../../constants';
 
 const sidebarOptions = [
   {
-    label: 'Népszerű (24 óra)',
+    label: 'Trendi az utóbbi 24 órában',
     value: 'trending_24h',
   },
   {
-    label: 'Népszerű (12 óra)',
+    label: 'Trendi az utóbbi 12 órában',
     value: 'trending_12h',
   },
   {
-    label: 'Népszerű (4 óra)',
+    label: 'Trendi az utóbbi 4 órában',
     value: 'trending_4h',
   },
   {
-    label: 'Népszerű (1 óra)',
+    label: 'Trendi az utóbbi 1 órában',
     value: 'trending_1h',
   },
   {
@@ -56,19 +56,19 @@ const sidebarOptions = [
   },
 
   {
-    label: 'Legtöbbet zappolt (24 óra)',
+    label: 'Leginkább Zap-elt az utóbbi 24 órában',
     value: 'mostzapped_24h',
   },
   {
-    label: 'Legtöbbet zappolt (12 óra)',
+    label: 'Leginkább Zap-elt az utóbbi 12 órában',
     value: 'mostzapped_12h',
   },
   {
-    label: 'Legtöbbet zappolt (4 óra)',
+    label: 'Leginkább Zap-elt az utóbbi 4 órában',
     value: 'mostzapped_4h',
   },
   {
-    label: 'Legtöbbet zappolt (1 óra)',
+    label: 'Leginkább Zap-elt az utóbbi 1 órában',
     value: 'mostzapped_1h',
   },
 ];
@@ -213,7 +213,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
     <div id={props.id} class={styles.readsSidebar}>
       <Show when={account?.isKeyLookupDone}>
         <div class={styles.headingPicks}>
-          Featured Author
+          Kiemelt Szerző
         </div>
 
         <div class={styles.section}>
@@ -221,7 +221,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
         </div>
 
         <div class={styles.headingPicks}>
-          Featured Reads
+          Kiemelt Cikkek
         </div>
 
         <div class={styles.sectionTopPicks}>
@@ -256,7 +256,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
 
 
         <div class={styles.headingPicks}>
-          Topics
+          Témakörök
         </div>
 
         <div class={styles.sectionTopics}>

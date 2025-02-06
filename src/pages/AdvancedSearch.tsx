@@ -75,7 +75,7 @@ const readTimeKinds = ['Reads'];
 
 
 const timeframes: Record<string, (s?: any) => string> = {
-  'Bármikor': () => '',
+  'Anytime': () => '',
 
   // 'past hour': () => {
   //   const date = dayjs();
@@ -84,23 +84,23 @@ const timeframes: Record<string, (s?: any) => string> = {
   //   return `since:${result.format('YYYY-MM-DD_HH:mm')}`;
   // },
 
-  'Ma': () => {
+  'Today': () => {
     return 'since:yesterday';
   },
 
-  'Ezen a héten': () => {
+  'This Week': () => {
     return 'since:lastweek';
   },
 
-  'Ebben a hónapban': () => {
+  'This Month': () => {
     return 'since:lastmonth';
   },
 
-  'Idén': () => {
+  'This Year': () => {
     return 'since:lastyear';
   },
 
-  'Egyéni': (stateTimeframe: { since: string, until: string}) => {
+  'Custom': (stateTimeframe: { since: string, until: string}) => {
     if (stateTimeframe.since.length === 0 && stateTimeframe.until.length === 0) {
       return '';
     }
@@ -110,42 +110,42 @@ const timeframes: Record<string, (s?: any) => string> = {
 };
 
 const sentiments: Record<string, () => string> = {
-  'Pozitív': () => ':)',
-  'Negatív': () => ':(',
-  'Kérdéses': () => '?',
-  'Semleges': () => '',
+  'Positive': () => ':)',
+  'Negative': () => ':(',
+  'Question': () => '?',
+  'Neutral': () => '',
 };
 
 const scopes: Record<string, () => string> = {
-  'Globális': () => '',
-  'Saját követések': () => 'scope:myfollows',
-  'Hálózatom': () => 'scope:mynetwork',
-  'Saját követések interakciói': () => 'scope:myfollowsinteractions',
-  'Hálózatom interakciói': () => 'scope:mynetworkinteractions',
-  'Értesítéseim': () => 'scope:mynotifications',
-  'Akiket nem követek': () => 'scope:notmyfollows',
+  'Global': () => '',
+  'My Follows': () => 'scope:myfollows',
+  'My Network': () => 'scope:mynetwork',
+  'My Follows Interactions': () => 'scope:myfollowsinteractions',
+  'My Network Interactions': () => 'scope:mynetworkinteractions',
+  'My Notifications': () => 'scope:mynotifications',
+  'Not My Follows': () => 'scope:notmyfollows',
 };
 
 const kinds: Record<string, () => string> = {
-  'Bejegyzések': () => 'kind:1',
-  'Olvasnivalók': () => 'kind:30023',
-  'Bejegyzés válaszok': () => 'kind:1 repliestokind:1',
-  'Olvasnivaló hozzászólások': () => 'kind:1 repliestokind:30023',
-  'Képek': () => 'filter:image',
-  'Videó': () => 'filter:video',
-  'Hang': () => 'filter:audio',
+  'Notes': () => 'kind:1',
+  'Reads': () => 'kind:30023',
+  'Note Replies': () => 'kind:1 repliestokind:1',
+  'Reads Comments': () => 'kind:1 repliestokind:30023',
+  'Images': () => 'filter:image',
+  'Video': () => 'filter:video',
+  'Audio': () => 'filter:audio',
   // 'Zaps': () => 'kind:9735',
   // 'People': () => 'kind:0',
 };
 
-const orientations = ['Bármely', 'Függőleges', 'Vízszintes'];
+const orientations = ['Any', 'Vertical', 'Horizontal'];
 
 const sortings: Record<string, () => string> = {
-  'Idő': () => '',
-  'Tartalom érték': () => 'orderby:score',
-  'Válaszok száma': () => 'orderby:replies',
-  'Zappolt érték': () => 'orderby:satszapped',
-  'Interakciók száma': () => 'orderby:likes',
+  'Time': () => '',
+  'Content Score': () => 'orderby:score',
+  'Number of Replies': () => 'orderby:replies',
+  'Sats Zapped': () => 'orderby:satszapped',
+  'Number of Interactions': () => 'orderby:likes',
 };
 
 export const [advSearchState, setAdvSearchState] = createStore<SearchState>({
@@ -157,13 +157,13 @@ export const [advSearchState, setAdvSearchState] = createStore<SearchState>({
   zappedBy: [],
   userMentions: [],
   following: [],
-  timeframe: 'Bármikor',
+  timeframe: 'Anytime',
   customTimeframe: { since: '', until: ''},
-  sortBy: 'Idő',
-  sentiment: 'Semleges',
-  scope: 'Globális',
-  kind: 'Bejegyzések',
-  orientation: 'Bármely',
+  sortBy: 'Time',
+  sentiment: 'Neutral',
+  scope: 'Global',
+  kind: 'Notes',
+  orientation: 'Any',
   minDuration: 0,
   maxDuration: 0,
   minWords: 0,
@@ -211,7 +211,7 @@ const AdvancedSearch: Component = () => {
   // })
 
   createEffect(() => {
-    if (advSearchState.timeframe !== 'Egyéni') {
+    if (advSearchState.timeframe !== 'Custom') {
       setAdvSearchState('customTimeframe', () => ({ since: '', until: '' }));
     }
   });
@@ -280,7 +280,7 @@ const AdvancedSearch: Component = () => {
 
     let since = '';
 
-    if (advSearchState.timeframe === 'Egyéni') {
+    if (advSearchState.timeframe === 'Custom') {
       since = timeframes['Custom'](advSearchState.customTimeframe);
     }
     else {
@@ -295,7 +295,7 @@ const AdvancedSearch: Component = () => {
 
     const kind = `${kinds[advSearchState.kind]()} `;
 
-    const orient = orientationKinds.includes(advSearchState.kind) && advSearchState.orientation !== 'Bármely' ?
+    const orient = orientationKinds.includes(advSearchState.kind) && advSearchState.orientation !== 'Any' ?
       `orientation:${advSearchState.orientation.toLowerCase()} ` :
       '';
 
@@ -530,14 +530,14 @@ const AdvancedSearch: Component = () => {
   const filtersTriggerLabel = () => {
     let label = '';
 
-    if (advSearchState.minScore > 0) label += `Minimum érték=${advSearchState.minScore};`;
-    if (advSearchState.minInteractions > 0) label += ` Minimum interakciók=${advSearchState.minInteractions};`;
-    if (advSearchState.minLikes > 0) label += ` Minimum lájkok=${advSearchState.minLikes};`;
-    if (advSearchState.minZaps > 0) label += ` Minimum zappok=${advSearchState.minZaps};`;
-    if (advSearchState.minReplies > 0) label += ` Minimum válaszok=${advSearchState.minReplies};`;
-    if (advSearchState.minReposts > 0) label += ` Minimum újramegosztások=${advSearchState.minReposts};`;
+    if (advSearchState.minScore > 0) label += `Min score=${advSearchState.minScore};`;
+    if (advSearchState.minInteractions > 0) label += ` Min interactions=${advSearchState.minInteractions};`;
+    if (advSearchState.minLikes > 0) label += ` Min likes=${advSearchState.minLikes};`;
+    if (advSearchState.minZaps > 0) label += ` Min zaps=${advSearchState.minZaps};`;
+    if (advSearchState.minReplies > 0) label += ` Min replies=${advSearchState.minReplies};`;
+    if (advSearchState.minReposts > 0) label += ` Min reposts=${advSearchState.minReposts};`;
 
-    if (label.length == 0) label = 'Szűrők szerkesztése';
+    if (label.length == 0) label = 'Szerkeszd a filtereket';
 
     return label;
   }
@@ -558,9 +558,9 @@ const AdvancedSearch: Component = () => {
 
   return (
     <>
-      <PageTitle title="Összetett keresés" />
+      <PageTitle title="Részletes keresés" />
 
-      <PageCaption title="Összetett keresés" />
+      <PageCaption title="Részletes keresés" />
 
       <StickySidebar>
         <AdvancedSearchCommadTextField
@@ -578,7 +578,7 @@ const AdvancedSearch: Component = () => {
                 name="include"
                 type="text"
                 value={advSearchState.includes}
-                placeholder="Ezeket a szavakat tartalmazza..."
+                placeholder="Legyenek benne e szavak..."
                 onChange={(v) => setAdvSearchState('includes', () => v)}
                 noExtraSpace={true}
                 icon={<div class={styles.searchIcon}></div>}
@@ -590,7 +590,7 @@ const AdvancedSearch: Component = () => {
                 name="exclude"
                 type="text"
                 value={advSearchState.excludes}
-                placeholder="Ezeket a szavakat NE tartalmazza..."
+                placeholder="Ne legyenek benne e szavak..."
                 onChange={(v) => setAdvSearchState('excludes', () => v)}
                 noExtraSpace={true}
                 icon={<div class={styles.excludeIcon}></div>}
@@ -599,7 +599,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Típus
+                Keresés típusa
               </div>
 
               <AdvancedSearchSelectBox
@@ -612,7 +612,7 @@ const AdvancedSearch: Component = () => {
             <Show when={orientationKinds.includes(advSearchState.kind)}>
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Orientation
+                  Orientáció
                 </div>
 
                 <AdvancedSearchSelectBox
@@ -626,7 +626,7 @@ const AdvancedSearch: Component = () => {
             <Show when={durationKinds.includes(advSearchState.kind)}>
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Min duration (seconds)
+                  Min. időtartama (másodperc)
                 </div>
 
                 <div class={styles.durationSlider}>
@@ -649,7 +649,7 @@ const AdvancedSearch: Component = () => {
 
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Max duration (seconds)
+                  Max. eddig tartott (másodperc)
                 </div>
 
                 <div class={styles.durationSlider}>
@@ -673,7 +673,7 @@ const AdvancedSearch: Component = () => {
             <Show when={readTimeKinds.includes(advSearchState.kind)}>
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Minimum olvasási idő (perc)
+                  Min. olvasási idő (perc)
                 </div>
 
                 <div class={styles.durationSlider}>
@@ -696,7 +696,7 @@ const AdvancedSearch: Component = () => {
 
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Maximum olvasási idő (perc)
+                  Max. olvasási idő (perc)
                 </div>
 
                 <div class={styles.durationSlider}>
@@ -720,7 +720,7 @@ const AdvancedSearch: Component = () => {
           <section>
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Közzétette:
+                Aki posztolta:
               </div>
 
               <AdvancedSearchUserSelect
@@ -732,7 +732,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Válasz neki:
+                Válasz volt neki:
               </div>
 
               <AdvancedSearchUserSelect
@@ -744,7 +744,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Zappolta:
+                Ki Zap-elte:
               </div>
 
               <AdvancedSearchUserSelect
@@ -759,7 +759,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Küldési idő:
+                Mikor posztolták:
               </div>
 
               <AdvancedSearchSelectBox
@@ -769,10 +769,10 @@ const AdvancedSearch: Component = () => {
               />
             </div>
 
-            <Show when={advSearchState.timeframe === 'Egyéni'}>
+            <Show when={advSearchState.timeframe === 'Custom'}>
               <div class={styles.searchRow}>
                 <div class={styles.caption}>
-                  Időablak:
+                  Időtartam:
                 </div>
 
                 <div class={styles.leftFloat}>
@@ -796,7 +796,7 @@ const AdvancedSearch: Component = () => {
                     maxDate={utils().getToday()}
                     renderInput={({ value, showDate }) => (
                       <button class={styles.linkButton} onClick={showDate}>
-                        {value().label || 'Válassz egy időszakot'}
+                        {value().label || 'Select a date range'}
                       </button>
                     )}
                     shouldCloseOnSelect
@@ -807,7 +807,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Tartomány:
+                Hatálya:
               </div>
 
               <AdvancedSearchSelectBox
@@ -819,7 +819,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Rendezés:
+                Rendezd így:
               </div>
 
               <AdvancedSearchSelectBox
@@ -831,7 +831,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Szűrők:
+                Filter(ek):
               </div>
 
               <div class={styles.leftFloat}>
@@ -840,13 +840,13 @@ const AdvancedSearch: Component = () => {
                   setOpen={(v: boolean) => setAdvSearchState('filtersOpened', () => v)}
                   triggerClass={styles.linkButton}
                   triggerContent={<div>{filtersTriggerLabel()}</div>}
-                  title={<div class={styles.dialogTitle}>Találatok szűrése</div>}
+                  title={<div class={styles.dialogTitle}>Search Filter</div>}
                 >
                   <div class={styles.filters}>
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum tartalom érték
+                        Min. tartalom pont
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -869,7 +869,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum interakciók
+                        Min. interakció
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -892,7 +892,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum lájkok
+                        Min. lájkok száma
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -915,7 +915,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum zappok
+                        Min. zap-ek
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -938,7 +938,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum válaszok
+                        Min replies
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -961,7 +961,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum újramegosztások
+                        Min. megosztás-szám
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -983,14 +983,14 @@ const AdvancedSearch: Component = () => {
                     </div>
 
                     <div class={styles.filterActions}>
-                      <ButtonLink onClick={clearFilters}>Alaphelyzet</ButtonLink>
+                      <ButtonLink onClick={clearFilters}>Clear</ButtonLink>
                       <div class={styles.rightFloat}>
                         <div class={styles.filtersCancel}>
-                          <ButtonSecondary onClick={cancelFilterChanges} >Mégsem</ButtonSecondary>
+                          <ButtonSecondary onClick={cancelFilterChanges} >Cancel</ButtonSecondary>
                         </div>
 
                         <div class={styles.filtersApply}>
-                          <ButtonPrimary onClick={applyFilters}>Alkalmaz</ButtonPrimary>
+                          <ButtonPrimary onClick={applyFilters}>Apply</ButtonPrimary>
                         </div>
                       </div>
                     </div>
@@ -1005,7 +1005,7 @@ const AdvancedSearch: Component = () => {
             <ButtonPrimary
               type="submit"
             >
-              Keresés
+              Search
             </ButtonPrimary>
           </div>
 

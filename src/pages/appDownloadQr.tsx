@@ -15,7 +15,7 @@ const AppDownloadQr: Component = () => {
       return;
     }
 
-    window.location.replace('https://primal.net/home');
+    window.location.replace('https://maganszovetseg.net/home');
   })
 
   return (

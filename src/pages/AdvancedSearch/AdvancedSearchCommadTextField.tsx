@@ -59,7 +59,7 @@ const AdvancedSearchCommandTextField: Component<{
             class={styles.faintButton}
             type="submit"
         >
-            Kattints az ENTER-re, hogy érvényesítsd a cáltozásokat
+            Kattints az enter-re, hogy érvényesítsd a cáltozásokat
         </button>
       </Show>
     </>

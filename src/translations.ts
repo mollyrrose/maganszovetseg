@@ -51,19 +51,19 @@ export const account = {
   },
   createNewDescription: {
     id: 'account.createNewDescription',
-    defaultMessage: 'Új vagy a Noszteren? Hozd létre a fiókodat most, és csatlakozz ehhez a varázslatos helyhez! Gyors és egyszerű!',
+    defaultMessage: 'Új vagy a MagánSzövetség.Net-en? Hozd létre a fiókodat most, és csatlakozz ehhez a varázslatos helyhez! Gyors és egyszerű!',
     description: 'Label inviting users to join Nostr',
   },
   create: {
     title: {
       id: 'settings.account.title',
-      defaultMessage: 'Fiók létrehozása',
+      defaultMessage: 'Fiók Létrehozása',
       description: 'Title of the create account page',
     },
     descriptions: {
       step_one: {
         id: 'settings.account.descriptions.step_one',
-        defaultMessage: 'Kezdjük az alapokkal! Csak a felhasználónév szükséges!',
+        defaultMessage: 'Kezdjük az alapokkal! Csak egy felhasználónév szükséges!',
         description: 'Description on step one',
       },
       step_two: {
@@ -106,7 +106,7 @@ export const pin = {
   },
   description: {
     id: 'pin.description',
-    defaultMessage: 'Adj meg egy PIN-kódot a fiókod védelméhez! Ezt minden belépéskor meg kell adnod a Primal webappban.',
+    defaultMessage: 'Adj meg egy PIN-kódot a fiókod védelméhez! Ezt minden belépéskor meg kell adnod a MagánSzövetség.Net webappban.',
     description: 'Label describing what the pin is used for',
   },
   enter: {
@@ -139,7 +139,7 @@ export const pin = {
 export const actions = {
   resetRelays: {
     id: 'actions.resetRelays',
-    defaultMessage: 'Relék visszaállítása',
+    defaultMessage: 'Relék szerkesztése',
     description: 'Reset relays label',
   },
   seeMore: {
@@ -149,7 +149,7 @@ export const actions = {
   },
   newNote: {
     id: 'actions.newNote',
-    defaultMessage: 'Új bejegyzés',
+    defaultMessage: 'Új jegyzet',
     description: 'New note action label',
   },
   newArticle: {
@@ -179,7 +179,7 @@ export const actions = {
   },
   loginNow: {
     id: 'actions.loginNow',
-    defaultMessage: 'Jelentkezz most be',
+    defaultMessage: 'Jelentkezz be a Noszter fiókoddal!',
     description: 'Login Now action, button label',
   },
   logout: {
@@ -244,17 +244,17 @@ export const actions = {
   },
   noteCopyPrimalLink: {
     id: 'actions.noteCopyPrimalLink',
-    defaultMessage: 'Primal link másolása',
+    defaultMessage: 'MagánSzövetség.Net link másolása',
     description: 'Label for the copy Primal note link context menu item',
   },
   notePostNew: {
     id: 'actions.notePostNew',
-    defaultMessage: 'Küldés',
+    defaultMessage: 'Posztold',
     description: 'Send new note, button label',
   },
   noteReply: {
     id: 'actions.noteReply',
-    defaultMessage: 'Válasz {name} felhasználónak',
+    defaultMessage: 'Válasz {name}-nek',
     description: 'Reply to button label',
   },
   sendDirectMessage: {
@@ -294,7 +294,7 @@ export const actions = {
   },
   muteUserConfirm: {
     id: 'actions.muteUserConfirm',
-    defaultMessage: 'Hozzáadod {name} felhasználót a némított listádhoz?',
+    defaultMessage: 'Hozzáadod {name}-t a némított listádhoz?',
     description: 'Label for mute user confirmation',
   },
   unmute: {
@@ -387,17 +387,17 @@ export const actions = {
     },
     copyLink: {
       id: 'actions.noteContext.copyLink',
-      defaultMessage: 'Bejegyzés link másolása',
+      defaultMessage: 'Jegyzet link másolása',
       description: 'Label for copy note link from context menu',
     },
     copyText: {
       id: 'actions.noteContext.copytext',
-      defaultMessage: 'Bejegyzés szöveg másolása',
+      defaultMessage: 'Jegyzet szöveg másolása',
       description: 'Label for copy note text from context menu',
     },
     copyId: {
       id: 'actions.noteContext.copyId',
-      defaultMessage: 'Bejegyzés azonosító másolása',
+      defaultMessage: 'Jegyzet azonosító másolása',
       description: 'Label for copy note ID from context menu',
     },
     copyRaw: {
@@ -412,7 +412,7 @@ export const actions = {
     },
     breadcast: {
       id: 'actions.noteContext.breadcast',
-      defaultMessage: 'Bejegyzés közzététele',
+      defaultMessage: 'Közzétételi jegyzet',
       description: 'Label for note broadcast from context menu',
     },
     muteAuthor: {
@@ -455,7 +455,7 @@ export const actions = {
 
 export const branding = {
   id: 'branding',
-  defaultMessage: 'Primal',
+  defaultMessage: 'MagánSzövetség.Net',
   description: 'Brand name',
 };
 
@@ -482,7 +482,7 @@ export const downloads = {
   },
   callToActionIOSTitle: {
     id: 'downloads.ctaIOSTitle',
-    defaultMessage: 'Primal iOS',
+    defaultMessage: 'MagánSzövetség iOS',
     description: 'Title for the iOS downloads\' page call-to-action',
   },
   callToActionIOSDescription: {
@@ -492,7 +492,7 @@ export const downloads = {
   },
   callToActionAndroidTitle: {
     id: 'downloads.ctaAndroidTitle',
-    defaultMessage: 'Primal Android',
+    defaultMessage: 'MagánSzövetség Android',
     description: 'Title for the Android downloads\' page call-to-action',
   },
   callToActionAndroidDescription: {
@@ -528,27 +528,27 @@ export const downloads = {
     },
     webApp: {
       id: 'downloads.webAppLink',
-      defaultMessage: 'Primal Web App',
+      defaultMessage: 'MagánSzövetség.Net Web App',
       description: 'Label for the link to the web app',
     },
     iosApp: {
       id: 'downloads.iosAppLink',
-      defaultMessage: 'Primal iOS App',
+      defaultMessage: 'MagánSzövetség.Net iOS App',
       description: 'Label for the link to the iOS app',
     },
     andApp: {
       id: 'downloads.andAppLink',
-      defaultMessage: 'Primal Android App',
+      defaultMessage: 'MagánSzövetség.Net Android App',
       description: 'Label for the link to the Android app',
     },
     cachingService: {
       id: 'downloads.cachingService',
-      defaultMessage: 'Primal gyorsítótárazási szolgáltatás',
+      defaultMessage: 'MagánSzövetség.Net gyorsítótárazási szolgáltatás',
       description: 'Label for the link to the caching service',
     },
     primalServer: {
       id: 'downloads.primalServer',
-      defaultMessage: 'Primal szerver',
+      defaultMessage: 'MagánSzövetség.Net szerver',
       description: 'Label for the link to the primal server',
     },
   },
@@ -602,42 +602,42 @@ export const explore = {
   statDisplay: {
     users: {
       id: 'explore.stats.users',
-      defaultMessage:'Felhasználó',
+      defaultMessage:'Felhasználók',
       description: 'Label for number of users stats',
     },
     pubkeys: {
       id: 'explore.stats.pubkeys',
-      defaultMessage: 'Nyilvános kulcs',
+      defaultMessage: 'Nyilvános kulcsok',
       description: 'Label for number of pubkeys stats',
     },
     zaps: {
       id: 'explore.stats.zaps',
-      defaultMessage: 'Zapp',
+      defaultMessage: 'Zap-ek',
       description: 'Label for number of zaps stats',
     },
     btcZapped: {
       id: 'explore.stats.btcZapped',
-      defaultMessage: 'BTC Zappolva',
+      defaultMessage: 'BTC került Zap-elésre',
       description: 'Label for number of zapped bitcoins stats',
     },
     pubnotes: {
       id: 'explore.stats.pubnotes',
-      defaultMessage: 'Nyilvános bejegyzés',
+      defaultMessage: 'Nyilvános jegyzetek',
       description: 'Label for number of public notes stats',
     },
     reposts: {
       id: 'explore.stats.reposts',
-      defaultMessage: 'Újramegosztás',
+      defaultMessage: 'Újraposztolások',
       description: 'Label for number of repost stats',
     },
     reactions: {
       id: 'explore.stats.reactions',
-      defaultMessage: 'Reakció',
+      defaultMessage: 'Reakciók',
       description: 'Label for number of reactions stats',
     },
     any: {
       id: 'explore.stats.any',
-      defaultMessage: 'Minden esemény',
+      defaultMessage: 'Összes esemény',
       description: 'Label for number of all stats',
     },
   }
@@ -651,7 +651,7 @@ export const feedProfile = {
 
 export const feedProfileDesription = {
   id: 'feedProfileDesription',
-  defaultMessage: '{name} bejegyzésfolyama',
+  defaultMessage: '{name} jegyzetfolyama',
   description: 'Generic description for a feed created from a profile',
 };
 
@@ -659,9 +659,9 @@ export const feedNewPosts = {
   id: 'feed.newPosts',
   defaultMessage: `{number, plural,
     =0 {}
-    one {# Új bejegyzés}
-    =99 {99+ Új bejegyzés}
-    other {# Új bejegyzés}}`,
+    one {# New Note}
+    =99 {99+ New Notes}
+    other {# New Notes}}`,
   description: 'Label for a button to load new notes',
 };
 
@@ -686,7 +686,7 @@ export const home = {
   },
   mostZapped: {
     id: 'home.sidebar.caption.mostzapped',
-    defaultMessage: 'Legtöbbet Zappolt',
+    defaultMessage: 'Legtöbbet Zap-elt',
     description: 'Caption for the home page sidebar showing a list of most zapped notes',
   },
   zapPostfix: {
@@ -727,7 +727,7 @@ export const navBar = {
   },
   reads: {
     id: 'navbar.reads',
-    defaultMessage: 'Olvasnivalók',
+    defaultMessage: 'Olvasnivaló',
     description: 'Label for the nav bar item link to Reads page',
   },
   explore: {
@@ -775,7 +775,7 @@ export const navBar = {
 export const note = {
   newPreview: {
     id: 'note.newPreview',
-    defaultMessage: 'Bejegyzés előnézete',
+    defaultMessage: 'Jegyzet előnézet',
     description: 'Caption for preview when creating a new note'
   },
   mentionIndication: {
@@ -792,24 +792,24 @@ export const note = {
     id: 'note.repostedOthers',
     defaultMessage: `{number, plural,
       =0 {}
-      one { és még # ember}
-      other { és még # ember}}`,
+      one { and # other}
+      other { and # others}}`,
     description: 'Label indicating that the note is reposted more than once',
   },
   reply: {
     id: 'note.reply',
-    defaultMessage: 'válaszol neki:',
+    defaultMessage: 'Neki válaszol:',
     description: 'Label indicating that the note is a reply',
   },
   saveNoteDraft: {
     title: {
       id: 'note.saveNoteDraft.title',
-      defaultMessage: 'Elmented a bejegyzés piszkozatát?',
+      defaultMessage: 'Elmented a jegyzet piszkozatát?',
       description: 'Title of the confirmation when the note is canceled',
     },
     description: {
       id: 'note.saveNoteDraft.description',
-      defaultMessage: 'Szeretnéd elmenteni ezt a bejegyzéset, hogy később folytathasd a szerkesztést?',
+      defaultMessage: 'Szeretnéd elmenteni ezt a jegyzetet, hogy később folytathasd a szerkesztést?',
       description: 'Description of the confirmation when the note is canceled',
     },
     optionYes: {
@@ -831,26 +831,25 @@ export const note = {
 };
 
 export const notificationTypeTranslations: Record<string, string> = {
-  [NotificationType.NEW_USER_FOLLOWED_YOU]: 'követni kezdett',
-  [NotificationType.USER_UNFOLLOWED_YOU]: 'nem követ többé',
+  [NotificationType.NEW_USER_FOLLOWED_YOU]: 'followed you',
+  [NotificationType.USER_UNFOLLOWED_YOU]: 'unfollowed you',
+  [NotificationType.YOUR_POST_WAS_ZAPPED]: 'zapped your note',
+  [NotificationType.YOUR_POST_WAS_LIKED]: 'liked your note',
+  [NotificationType.YOUR_POST_WAS_REPOSTED]: 'reposted your note',
+  [NotificationType.YOUR_POST_WAS_REPLIED_TO]: 'replied to your note',
 
-  [NotificationType.YOUR_POST_WAS_ZAPPED]: 'zappolta a bejegyzésed',
-  [NotificationType.YOUR_POST_WAS_LIKED]: 'lájkolta a bejegyzésed',
-  [NotificationType.YOUR_POST_WAS_REPOSTED]: 'megosztotta a bejegyzésed',
-  [NotificationType.YOUR_POST_WAS_REPLIED_TO]: 'válaszolt a bejegyzésedre',
+  [NotificationType.YOU_WERE_MENTIONED_IN_POST]: 'mentioned you in a note',
+  [NotificationType.YOUR_POST_WAS_MENTIONED_IN_POST]: 'mentioned your note',
 
-  [NotificationType.YOU_WERE_MENTIONED_IN_POST]: 'megemlített egy bejegyzésben',
-  [NotificationType.YOUR_POST_WAS_MENTIONED_IN_POST]: 'megemlítette a bejegyzésed',
+  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED]: 'zapped a note you were mentioned in',
+  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_LIKED]: 'liked a note you were mentioned in',
+  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED]: 'reposted a note you were mentioned in',
+  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO]: 'replied to a note you were mentioned in',
 
-  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED]: 'zappolt egy bejegyzést, amiben megemlítettek',
-  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_LIKED]: 'lájkolt egy bejegyzést, amiben megemlítettek',
-  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED]: 'megosztott egy bejegyzést, amiben megemlítettek',
-  [NotificationType.POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO]: 'válaszolt egy bejegyzésre, amiben megemlítettek',
-
-  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED]: 'zappolt egy bejegyzést, amiben megemlítették a bejegyzésed',
-  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED]: 'lájkolt egy bejegyzést, amiben megemlítették a bejegyzésed',
-  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED]: 'megosztott egy bejegyzést, amiben megemlítették a bejegyzésed',
-  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO]: 'válaszolt egy bejegyzésre, amiben megemlítették a bejegyzésed',
+  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED]: 'zapped a note your note was mentioned in',
+  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED]: 'liked a note your note was mentioned in',
+  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED]: 'reposted a note your note was mentioned in',
+  [NotificationType.POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO]: 'replied to a note your note was mentioned in',
 }
 
 export const notificationsNew: Record<number, MessageDescriptor> = Object.values(NotificationType).reduce((acc, type) => ({
@@ -859,8 +858,8 @@ export const notificationsNew: Record<number, MessageDescriptor> = Object.values
     id: `notifications.new.${type}`,
     defaultMessage: `{number, plural,
       =0 {}
-      one {és még # ember}
-      other {és még # ember}}
+      one {and # other}
+      other {and # others}}
       ${notificationTypeTranslations[type]}`,
     description: `New Notifiaction label for notifications of type ${type}`,
   },
@@ -898,26 +897,26 @@ export const notificationsSidebar = {
   },
   gainedFollowers: {
     id: 'notificationsSidebar.gainedFollowers',
-    defaultMessage: `új {number, plural,
+    defaultMessage: `new {number, plural,
       =0 {}
-      one {követő}
-      other {követő}}`,
+      one {follower}
+      other {followers}}`,
     description: 'Sidebar new follower stats description on the notification page',
   },
   lostFollowers: {
     id: 'notificationsSidebar.lostFollowers',
-    defaultMessage: `vesztett {number, plural,
+    defaultMessage: `lost {number, plural,
       =0 {}
-      one {követő}
-      other {követő}}`,
+      one {follower}
+      other {followers}}`,
     description: 'Sidebar lost follwers stats description on the notification page',
   },
   likes: {
     id: 'notifications.sidebar.likes',
     defaultMessage: `{number, plural,
       =0 {}
-      one {lájk}
-      other {lájk}}`,
+      one {like}
+      other {likes}}`,
     description: 'Sidebar likes stats caption on the notification page',
   },
   mentions: {
@@ -929,32 +928,32 @@ export const notificationsSidebar = {
     id: 'notifications.sidebar.mentionsYou',
     defaultMessage: `{number, plural,
       =0 {}
-      one {említés}
-      other {említés}} of you`,
+      one {mention}
+      other {mentions}} of you`,
     description: 'Sidebar mentions you stats description on the notification page',
   },
   mentionsYourPost: {
     id: 'notifications.sidebar.mentionsYourPost',
     defaultMessage: `{number, plural,
       =0 {}
-      one {bejegyzésed említése}
-      other {bejegyzésed említése}}`,
+      one {mention of your note}
+      other {mentions of your notes}}`,
     description: 'Sidebar mentions your note stats description on the notification page',
   },
   replies: {
     id: 'notifications.sidebar.replies',
     defaultMessage: `{number, plural,
       =0 {}
-      one {válasz}
-      other {válasz}}`,
+      one {reply}
+      other {replies}}`,
     description: 'Sidebar replies stats caption on the notification page',
   },
   reposts: {
     id: 'notifications.sidebar.reposts',
     defaultMessage: `{number, plural,
       =0 {}
-      one {újramegosztás}
-      other {újramegosztás}}`,
+      one {repost}
+      other {reposts}}`,
     description: 'Sidebar reposts stats caption on the notification page',
   },
   other: {
@@ -964,15 +963,15 @@ export const notificationsSidebar = {
   },
   zaps: {
     id: 'notificationsSidebar.zaps',
-    defaultMessage: 'Zappok',
+    defaultMessage: 'Zap-ek',
     description: 'Sidebar zaps stats caption on the notification page',
   },
   zapNumber: {
     id: 'notificationsSidebar.zapNumber',
     defaultMessage: `{number, plural,
       =0 {}
-      one {zapp}
-      other {zapp}}`,
+      one {zap}
+      other {zaps}}`,
     description: 'Sidebar zaps stats description on the notification page',
   },
   statsNumber: {
@@ -980,7 +979,7 @@ export const notificationsSidebar = {
     defaultMessage: `{number, plural,
       =0 {}
       one {sat}
-      other {sat}}`,
+      other {sats}}`,
     description: 'Sidebar sats stats description on the notification page',
   },
 };
@@ -995,9 +994,9 @@ export const notifications = {
     id: 'notification.newNotifs',
     defaultMessage: `{number, plural,
       =0 {}
-      one {# új értesítés}
-      =100 {99+ új értesítés}
-      other {# új értesítés}}`,
+      one {# new notification}
+      =100 {99+ new notifications}
+      other {# new notifications}}`,
     description: 'Label for a button to load new notifications',
   },
   all: {
@@ -1007,7 +1006,7 @@ export const notifications = {
   },
   zaps: {
     id: 'pages.notifications.zaps',
-    defaultMessage: 'Zappok',
+    defaultMessage: 'Zap-ek',
     description: 'Title of the Zaps notifications tab',
   },
   replies: {
@@ -1022,7 +1021,7 @@ export const notifications = {
   },
   reposts: {
     id: 'pages.notifications.reposts',
-    defaultMessage: 'Újramegosztások',
+    defaultMessage: 'Újraposztolások',
     description: 'Title of the Reposts notifications tab',
   },
 };
@@ -1082,7 +1081,7 @@ export const placeholders = {
   },
   mustHaveOneCachingService: {
     id: 'placeholders.mustHaveOneCachingService',
-    defaultMessage: 'Jelenleg az ügyfélnek legalább egy gyorsítótárazási szolgáltatásra van szüksége a működéshez. A jövőben hozzáadjuk a lehetőséget, hogy a Primal gyorsítótárazás nélkül is működjön, de ez egyelőre nem támogatott.',
+    defaultMessage: 'Jelenleg az ügyfélnek legalább egy gyorsítótárazási szolgáltatásra van szüksége a működéshez. A jövőben hozzáadjuk a lehetőséget, hogy a weblap gyorsítótárazás nélkül is működjön, de ez egyelőre nem támogatott.',
     description: 'Description when trying to remove the last caching service from the pool',
   },
   cachingPoolHelp: {
@@ -1092,7 +1091,7 @@ export const placeholders = {
   },
   resetRelaysHelp: {
     id: 'placeholders.resetRelaysHelp',
-    defaultMessage: 'Ez a művelet leválaszt minden jelenlegi relayről, és egy ajánlott relay-készlethez csatlakoztat.',
+    defaultMessage: 'Ez a művelet leválaszt minden jelenlegi reléről, és egy ajánlott relé-készlethez csatlakoztat.',
     description: 'text for caching pool help bubble',
   },
   comingSoon: {
@@ -1107,12 +1106,12 @@ export const placeholders = {
   },
   guestUserGreeting: {
     id: 'placeholders.guestUserGreeting',
-    defaultMessage: 'Üdv a Noszteren!',
+    defaultMessage: 'Üdv a MagánSzövetségben!',
     description: 'Header placeholder for guest user',
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
-    defaultMessage: 'Mondj valamit a Noszteren...',
+    defaultMessage: 'Merre fut épp a tudatod...',
     description: 'Placeholder for new note call-to-action',
   },
   pageWIPTitle: {
@@ -1122,7 +1121,7 @@ export const placeholders = {
   },
   welcomeMessage: {
     id: 'placeholders.welcomeMessage',
-    defaultMessage: 'Üdv a Noszteren!',
+    defaultMessage: 'Üdvözlünk! Kattints a Kezdés-re!',
     description: 'Default welcome message',
   },
   findUser: {
@@ -1170,12 +1169,12 @@ export const profile = {
   },
   sidebarCaptionNotes: {
     id: 'profile.sidebar.captionNotes',
-    defaultMessage: 'Népszerű bejegyzések',
+    defaultMessage: 'Népszerű jegyzetek',
     description: 'Caption for the profile page sidebar showing a list of trending notes by the profile',
   },
   sidebarNoNotes: {
     id: 'profile.sidebar.noNotes',
-    defaultMessage: 'Nincsenek trendi bejegyzések',
+    defaultMessage: 'Nincsenek trendi jegyzetek',
     description: 'Placeholde for profile sidebar when the profile is missing trending notes',
   },
   title: {
@@ -1190,7 +1189,7 @@ export const profile = {
   },
   jointDate: {
     id: 'profile.joinDate',
-    defaultMessage: 'Csatlakozott a Noszterhez ekkor: {date}',
+    defaultMessage: 'Ekkor csatlakozott a Noszterhez: {date}',
     description: 'Label indicating when the profile joined Nostr (oldest event)',
   },
   stats: {
@@ -1211,7 +1210,7 @@ export const profile = {
     },
     zaps: {
       id: 'profile.stats.zaps',
-      defaultMessage: 'Zappok',
+      defaultMessage: 'Zap-ek',
       description: 'Label for zaps profile stat',
     },
     sats: {
@@ -1226,12 +1225,12 @@ export const profile = {
     },
     articles: {
       id: 'profile.stats.articles',
-      defaultMessage: 'Olvasnivalók',
+      defaultMessage: 'Olvasások',
       description: 'Label for reads profile stat',
     },
     notes: {
       id: 'profile.stats.notes',
-      defaultMessage: 'Bejegyzések',
+      defaultMessage: 'Jegyzetek',
       description: 'Label for notes profile stat',
     },
     replies: {
@@ -1241,13 +1240,13 @@ export const profile = {
     },
     relays: {
       id: 'profile.stats.relays',
-      defaultMessage: 'Relék',
+      defaultMessage: 'Relay-ek, közösségi szerver csomópontok, melyekhez a Magánszövetség.Net kapcsolódik',
       description: 'Label for sats profile relays',
     },
   },
   isMuted: {
     id: 'profile.isMuted',
-    defaultMessage: '{name} le van némítva',
+    defaultMessage: '{name} el van némítva',
     description: 'Label indicating that the profile is muted',
   },
   isFiltered: {
@@ -1323,7 +1322,7 @@ export const search = {
   },
   searchNostr: {
     id: 'search.searchNostr',
-    defaultMessage: 'Noszter keresés',
+    defaultMessage: 'globális keresés',
     description: 'Label explaining full search action',
   },
   sidebarCaption: {
@@ -1364,7 +1363,7 @@ export const settings = {
     },
     description: {
       id: 'settings.account.description',
-      defaultMessage: 'Növelheted a fiókod biztonságát egy Noszter böngészőbővítmény, például {link} telepítésével. Ha a Noszter privát kulcsodat egy böngészőbővítményben tárolod, biztonságosan be tudsz jelentkezni bármely Noszter webalkalmazásba, beleértve a Primalt is.',
+      defaultMessage: 'Növelheted a fiókod biztonságát egy Noszter böngészőbővítmény, például {link} telepítésével. Ha a Noszter privát kulcsodat egy böngészőbővítményben tárolod, biztonságosan be tudsz jelentkezni bármely Noszter webalkalmazásba, beleértve a MagánSzövetség.Net-et is.',
       description: 'Warning about account security',
     },
     pubkey: {
@@ -1396,31 +1395,31 @@ export const settings = {
     },
     caption: {
       id: 'settings.appearance.caption',
-      defaultMessage: 'Téma kiválasztása',
+      defaultMessage: 'Téma/ háttérszín kiválasztása',
       description: 'Caption for theme selection',
     },
   },
   homeFeeds: {
     title: {
       id: 'settings.homeFeeds.title',
-      defaultMessage: 'Kezdőlap hírfolyam',
+      defaultMessage: 'Kezdőlap infó-folyamok',
       description: 'Title of the home feeds settings sub-page',
     },
     caption: {
       id: 'settings.homeFeeds.caption',
-      defaultMessage: 'Szerkeszd és rendezd a kezdőlapod hírfolyamaid',
+      defaultMessage: 'Szerkeszd és rendezd a kezdőlapod feedjeit',
       description: 'Caption for home feed ordering',
     },
   },
   readsFeeds: {
     title: {
       id: 'settings.readsFeeds.title',
-      defaultMessage: 'Olvasási hírfolyamok',
+      defaultMessage: 'Olvasható infó-folyamok',
       description: 'Title of the reads feeds settings sub-page',
     },
     caption: {
       id: 'settings.readsFeeds.caption',
-      defaultMessage: 'Szerkeszd és rendezd az olvasási oldalad hírfolyamaid',
+      defaultMessage: 'Szerkeszd és rendezd az olvasási oldalad feedjeit',
       description: 'Caption for reads feed ordering',
     },
   },
@@ -1432,7 +1431,7 @@ export const settings = {
     },
     description: {
       id: 'settings.filters.description',
-      defaultMessage: 'A Primal testreszabható tartalomszűrési szolgáltatásokat kínál. A saját némítási listád mellett más felhasználók némítási listáira is feliratkozhatsz. A Primal valós idejű spamészlelési rendszert és NSFW (nem biztonságos munkahelyi) tartalomszűrést is működtet, amelyekre szintén feliratkozhatsz.',
+      defaultMessage: 'A Magánszövetség.net testreszabható tartalomszűrési szolgáltatásokat kínál. A saját némítási listád mellett más felhasználók némítási listáira is feliratkozhatsz. A MagánSzövetség.Net valós idejű spamészlelési rendszert és NSFW (nem biztonságos munkahelyi) tartalomszűrést is működtet, amelyekre szintén feliratkozhatsz.',
       description: 'Description of the content filtering settings sub-page',
     },
     shortDescription: {
@@ -1493,7 +1492,7 @@ export const settings = {
       },
       trendingHelp: {
         id: 'settings.contentModeration.table.trendingHelp',
-        defaultMessage: 'A tartalom nem lesz ajánlott a népszerű és a legtöbbet zappolt hírfolyamokban.',
+        defaultMessage: 'A tartalom nem ajánlott a trending és a legtöbbet zapped feedekben.',
         description: 'Help description for trending filter',
       },
       contentHelp: {
@@ -1510,12 +1509,12 @@ export const settings = {
       },
       primal_spam: {
         id: 'settings.contentModeration.algos.spam',
-        defaultMessage: 'Primal spam szűrő',
+        defaultMessage: 'Magánszövetség.Net spam szűrő',
         description: 'Caption for spam algo',
       },
       primal_nsfw: {
         id: 'settings.contentModeration.algos.nsfw',
-        defaultMessage: 'Primal NSFW szűrő',
+        defaultMessage: 'MagánSzövetség.Net NSFW szűrő',
         description: 'Caption for NSFW algo',
       },
     },
@@ -1545,7 +1544,7 @@ export const settings = {
     },
     relays: {
       id: 'settings.network.relays',
-      defaultMessage: 'Relék',
+      defaultMessage: 'Noszter Rendszer-Kapcsolati Relék',
       description: 'Title of the relays section of the network settings sub-page',
     },
     myRelays: {
@@ -1555,7 +1554,7 @@ export const settings = {
     },
     noMyRelays: {
       id: 'settings.networks.noMyRelays',
-      defaultMessage: 'A Noszter fiókodban nincs relé megadva, ezért egy alapértelmezett relé-készlethez csatlakoztatunk. A kívánt relék beállításához válaszd ki őket az alábbi listából.',
+      defaultMessage: '. A kívánt relék beállításához válaszd ki őket az alábbi listából.',
       description: 'Caption informing the user that he has no relays configured',
     },
     recomended: {
@@ -1565,7 +1564,7 @@ export const settings = {
     },
     customRelay: {
       id: 'settings.network.customRelay',
-      defaultMessage: 'Csatlakozás a reléhez',
+      defaultMessage: 'Csatlakozás egy általam megadott globális kommunikációs csomóponthoz (Noszter reléhez):',
       description: 'Title of the custom relays section of the network settings sub-page',
     },
     cachingService: {
@@ -1590,7 +1589,7 @@ export const settings = {
     },
     proxyDescription: {
       id: 'settings.filters.proxyDescription',
-      defaultMessage: 'Ha engedélyezed, az IP-címed látható lesz a gyorsítótár-szolgáltatás számára, de nem a reléknek. A tartalmad a megadott relékre a gyorsítótár-szolgáltatás proxyként való használatával kerül publikálásra.',
+      defaultMessage: 'Ha engedélyezed, az IP-címed látható lesz a gyorsítótár-szolgáltatás számára, de a globális kommunikációs kapcsolatot lehetővé tevő relé számára nem lesz látható. A tartalmad a megadott relékre a gyorsítótár-szolgáltatás proxyként való használatával kerül publikálásra. IP címed mindig is láthatatlan marad, csak gyorsabb lesz a weblap elérésed.',
       description: 'Description of the proxy events settings sub-page',
     },
   },
@@ -1661,7 +1660,7 @@ export const settings = {
   },
   zaps: {
     id: 'settings.sections.zaps',
-    defaultMessage: 'Zappok',
+    defaultMessage: 'Zap-ek',
     description: 'Title of the zaps section on the settings page',
   },
   notifications: {
@@ -1677,12 +1676,12 @@ export const settings = {
     },
     yourMentions: {
       id: 'settings.sections.notifications.yourMentions',
-      defaultMessage: 'Bejegyzés, amiben megemlítettek:',
+      defaultMessage: 'Egy bejegyzés, amelyben megemlítettek:',
       description: 'Title of the notification settings sub-section for notes you were mentioned in',
     },
     yourPostMentions: {
       id: 'settings.sections.notifications.yourPostMentions',
-      defaultMessage: 'Bejegyzés, amiben a bejegyzésedet említették:',
+      defaultMessage: 'Egy bejegyzés, amelyben a te bejegyzésedet említették:',
       description: 'Title of the notification settings sub-section for notes your note was mentioned in',
     },
   },
@@ -1705,17 +1704,17 @@ export const settings = {
     displayName: {
       label: {
         id: 'pages.settings.profile.displayName.label',
-        defaultMessage: 'Megjelenített név',
+        defaultMessage: 'Profil név',
         description: 'Label for display name input on edit profile page',
       },
       help: {
         id: 'pages.settings.profile.displayName.help',
-        defaultMessage: 'Válassz egy hosszabb megjelenített nevet (pl. „Kiss Pista”)',
+        defaultMessage: 'Írd be hosszabban neved, mely megjelenik Profilodban (pl. „Kiss Pista”, vagy épp "Szél-Tündér Virág". Lehet becenév is.)',
         description: 'Help for displayName input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.displayName.placeholder',
-        defaultMessage: 'Adja meg a megjelenített nevet',
+        defaultMessage: 'Ide írd be a Profilodban megjelenő neved',
         description: 'Placeholder for display name input on edit profile page',
       },
     },
@@ -1732,7 +1731,7 @@ export const settings = {
       },
       help: {
         id: 'pages.settings.profile.name.help',
-        defaultMessage: 'Válassz egy rövid felhasználói nevet (pl. „kisspista”)',
+        defaultMessage: 'Válassz egy rövid-, ékezet nélküli felhasználónevet (pl. „kisspista” vagy "SzelTunder108")',
         description: 'Help for name input on edit profile page',
       },
       placeholder : {
@@ -1742,7 +1741,7 @@ export const settings = {
       },
       error: {
         id: 'pages.settings.profile.name.error',
-        defaultMessage: 'Szóközök és speciális karakterek nem használhatók a felhasználónévben.',
+        defaultMessage: 'Ékezetek, szóközök, speciális karakterek nem használhatók a felhasználónévben.',
         description: 'Error label for name input on edit profile page',
       },
       formError: {
@@ -1754,7 +1753,7 @@ export const settings = {
     website: {
       label: {
         id: 'pages.settings.profile.website.label',
-        defaultMessage: 'Weboldal',
+        defaultMessage: 'Weboldalam',
         description: 'Label for website input on edit profile page',
       },
       placeholder : {
@@ -1766,19 +1765,19 @@ export const settings = {
     about: {
       label: {
         id: 'pages.settings.profile.about.label',
-        defaultMessage: 'Rólam',
+        defaultMessage: 'Pár szó rólam',
         description: 'Label for about input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.about.placeholder',
-        defaultMessage: 'Mondj valamit magadról',
+        defaultMessage: 'Mondj valamit magadról... Mit szeretsz tenni? Mivel foglalkozol? Hol laksz? Miszámodra fontos a életben? Milyen értékrend szerint élsz? stb.',
         description: 'Placeholder for about input on edit profile page',
       },
     },
     lud16: {
       label: {
         id: 'pages.settings.profile.lud16.label',
-        defaultMessage: 'Bitcoin Lightning cím',
+        defaultMessage: 'Bitcoin Lightning cím (Opcionális) (gyors, és rendkívül kedvező árú bitcoin utalás egymásnak). Nincs ilyened? Nyithatsz itt: https://muun.com/',
         description: 'Label for lud16 input on edit profile page',
       },
       placeholder : {
@@ -1790,7 +1789,7 @@ export const settings = {
     nip05: {
       label: {
         id: 'pages.settings.profile.nip05.label',
-        defaultMessage: 'Ellenőrzött Noszter cím (NIP-05)',
+        defaultMessage: 'Ellenőrzött Noszter cím (NIP-05) (Opcionális)',
         description: 'Label for nip-05 input on edit profile page',
       },
       placeholder : {
@@ -1915,14 +1914,14 @@ export const timeframeDescriptors: Record<string, MessageDescriptor> = {
   },
   mostzapped: {
     id: 'explore.timeframes.mostzapped.caption',
-    defaultMessage: 'Zappolva',
+    defaultMessage: 'Zapp-elve',
     description: 'Caption for the mostzapped timeframe',
   },
 };
 
 export const toastZapFail = {
   id: 'toast.zapFail',
-  defaultMessage: 'Nem sikerült elküldeni ezt a Zappot',
+  defaultMessage: 'Nem sikerült elküldeni ezt a Zapot',
   description: 'Toast message indicating failed zap',
 };
 
@@ -1936,7 +1935,7 @@ export const toastZapProfile = {
 export const thread = {
   sidebar: {
     id: 'thread.sidebar',
-    defaultMessage: 'Válaszoltak erre a bejegyzésre',
+    defaultMessage: 'Válasz erre a bejegyzésre',
     description: 'Title of the Thread page sidebar',
   },
   sidebarMentions: {
@@ -2059,17 +2058,17 @@ export const toast = {
   },
   zapAsGuest: {
     id: 'toast.zapAsGuest',
-    defaultMessage: 'Be kell jelentkezned a zappoláshoz',
+    defaultMessage: 'Be kell jelentkezned a zapoláshoz',
     description: 'Toast message indicating user must be logged-in to perform a zap',
   },
   zapUnavailable: {
     id: 'toast.zapUnavailable',
-    defaultMessage: 'Ennek a bejegyzésnek a szerzője nem zappolható',
+    defaultMessage: 'Ennek a bejegyzésnek a szerzője nem zapolható',
     description: 'Toast message indicating user cannot receieve a zap',
   },
   zapDVMUnavailable: {
     id: 'toast.zapDVMUnavailable',
-    defaultMessage: 'Ennek a hírfolyamnak a szerzője nem zappolható',
+    defaultMessage: 'Ennek a hírfolyamnak a szerzője nem zapolható',
     description: 'Toast message indicating user cannot receieve a zap',
   },
   updateProfileSuccess: {
@@ -2086,7 +2085,7 @@ export const toast = {
 
 export const zapCustomOption = {
   id: 'zap.custom.option',
-  defaultMessage: 'Zappold {user} felhasználót ',
+  defaultMessage: 'Zap-eld {user}-t',
   description: 'Caption for custom zap amount modal',
 };
 
@@ -2167,7 +2166,7 @@ export const forgotPin = {
   },
   description: {
     id: 'forgotPin.description',
-    defaultMessage: 'Még mindig böngészheted a Nosztert a Primalon keresztül, de nem tudsz műveleteket végrehajtani (bejegyzések, kedvelések stb.), amíg újra be nem jelentkezel a privát kulcsoddal. Biztos, hogy folytatni szeretnéd?',
+    defaultMessage: 'Még mindig böngészheted a Nosztert a MagánSzövetség.Net-en keresztül, de nem tudsz műveleteket végrehajtani (bejegyzések, kedvelések stb.), amíg újra be nem jelentkezel a privát kulcsoddal. Biztos, hogy folytatni szeretnéd?',
     description: 'Explanation of what happens when pin is erased',
   },
   confirm: {
@@ -2208,7 +2207,7 @@ export const followWarning = {
 export const reads = {
   pageTitle: {
     id: 'reads.pageTitle',
-    defaultMessage: 'Olvasnivalók',
+    defaultMessage: 'Olvasnivaló',
     description: 'Reads page title',
   },
 };
@@ -2394,12 +2393,12 @@ export const premium = {
   labels: {
     foreverPremium: {
       id: 'pages.premium.labes.foreverPremium',
-      defaultMessage: 'Örökös Prémium',
+      defaultMessage: 'Örökös Prémium Előfizetés',
       description: 'Forever Premium perk title',
     },
     foreverPremiumDescription: {
       id: 'pages.premium.labes.foreverPremiumDescription',
-      defaultMessage: 'A prémium előfizetés legendák számára soha nem jár le.',
+      defaultMessage: 'A prémium előfizetés VIP Felhasználók számára sose jár le.',
       description: 'Forever Premium perk description',
     },
     privateBetaBuilds: {
@@ -2414,37 +2413,37 @@ export const premium = {
     },
     moreMediaSpace: {
       id: 'pages.premium.labes.moreMediaSpace',
-      defaultMessage: 'Sokkal több tárhely',
+      defaultMessage: 'Sokkal Több Tárhely',
       description: 'More Media perk title',
     },
     moreMediaSpaceDescription: {
       id: 'pages.premium.labes.moreMediaSpaceDescription',
-      defaultMessage: 'Szerezz 100GB Primal Premium média tárhelyet.',
+      defaultMessage: 'Szerezz 100GB-nyi MagánSzövetség.Net Prémium média-tárhelyet.',
       description: 'More Media perk description',
     },
     customLegendProfile: {
       id: 'pages.premium.labes.customLegendProfile',
-      defaultMessage: 'Legendás egyedi profil',
+      defaultMessage: 'VIP Felhasználó Egyedi Profil',
       description: 'Legendary Custom Profile perk title',
     },
     customLegendDescription: {
       id: 'pages.premium.labes.customLegendDescription',
-      defaultMessage: 'Választható igazolt jelvény szín és avatár körüli fényhatás beállítása.',
+      defaultMessage: 'Választható egy igazoló-jelvény szín és az avatár körüli fényhatás beállítása.',
       description: 'Legendary Custom Profile perk description',
     },
     legendPageCaption: {
       id: 'pages.premium.labes.legendPageCaption',
-      defaultMessage: 'Adományozz 1000$-t vagy többet, és szerezd meg:',
+      defaultMessage: 'Adományozz 100.000 Ft-ot vagy többet, és szerezd meg a következőket:',
       description: 'Legend page caption',
     },
     legendPageExplanation: {
       id: 'pages.premium.labes.legendPageExplanation',
-      defaultMessage: 'A Legend szintet azoknak hoztuk létre, akik jelentős mértékben hozzájárultak a Primal fejlődéséhez.',
+      defaultMessage: 'A Legend szintet azoknak hoztuk létre, akik jelentős mértékben hozzájárultak a MagánSzövetség.Net fejlődéséhez.',
       description: 'Legend page explanation',
     },
     supportFirstLine: {
       id: 'pages.premium.labes.supportFirstLine',
-      defaultMessage: 'Élvezed a Primalt?',
+      defaultMessage: 'Élvezed a MagánSzövetség.Net-et?',
       description: 'Support label first line',
     },
     supportSecondLine: {
@@ -2454,7 +2453,7 @@ export const premium = {
     },
     supportCaption: {
       id: 'pages.premium.labes.supportCaption',
-      defaultMessage: 'Légy részese a Noszter forradalomnak, és segíts tovább építeni ezt az ökoszisztémát.',
+      defaultMessage: 'Légy részese a MagánSzövetség forradalomnak, és segíts tovább építeni ezt a biztonságos öko-rendszert, mely megszabadít bennünket a Mátrix illúziórikus algoritmusaiból.',
       description: 'Support page caption',
     },
     leaveStars: {
@@ -2474,17 +2473,17 @@ export const premium = {
     },
     extendSubscriptionDescription: {
       id: 'pages.premium.labes.extendSubscriptionDescription',
-      defaultMessage: 'Hosszabbítsd meg meglévő előfizetésedet a nyugalom érdekében, és támogasd a Primal működését.',
+      defaultMessage: 'Hosszabbítsd meg meglévő előfizetésedet a nyugalom érdekében, és támogasd a MagánSzövetség.Net működését.',
       description: 'Support page extend subscription description',
     },
     becomeLegend: {
       id: 'pages.premium.labes.becomeLegend',
-      defaultMessage: 'Légy legenda',
+      defaultMessage: 'Légy VIP Felhasználó',
       description: 'Support page become legend caption',
     },
     becomeLegendDescription: {
       id: 'pages.premium.labes.becomeLegendDescription',
-      defaultMessage: 'Adományozz 1000$-t vagy többet, hogy örökös tagságot és exkluzív előnyöket szerezz!',
+      defaultMessage: 'Adományozz 108.000 Forinot vagy többet, hogy örökös tagságot és exkluzív előnyöket szerezz!',
       description: 'Support page become legend description',
     },
   },
@@ -2496,7 +2495,7 @@ export const premium = {
     },
     becomeLegend: {
       id: 'pages.premium.actions.becomeLegend',
-      defaultMessage: 'Légy Legendás Ferlhasználó most',
+      defaultMessage: 'Válj VIP Felhasználóvá, most!',
       description: 'Action that takes user to the Become a Legend page',
     },
     getIOS: {
@@ -2516,7 +2515,7 @@ export const premium = {
     },
     start: {
       id: 'pages.premium.actions.start',
-      defaultMessage: 'Primal név keresése',
+      defaultMessage: 'MagánSzövetség.Net név keresése',
       description: 'Find primal name action on the premium page',
     },
     back: {
@@ -2546,7 +2545,7 @@ export const premium = {
     },
     changeName: {
       id: 'pages.premium.actions.changeName',
-      defaultMessage: 'Változtasd meg a Primal neved',
+      defaultMessage: 'Változtasd meg a neved',
       description: 'Change Primal name action on the premium page',
     },
     extendPlan: {
@@ -2563,12 +2562,12 @@ export const premium = {
   title: {
     general: {
       id: 'pages.premium.title',
-      defaultMessage: 'Primal Premium',
+      defaultMessage: 'MagánSzövetség.Net Prémium',
       description: 'Title of the premium page',
     },
     name: {
       id: 'pages.premium.name',
-      defaultMessage: 'Válassz egy Primal nevet',
+      defaultMessage: 'Válassz egy MagánSzövetség.Net nevet',
       description: 'Title of the premium find name page',
     },
     subscription: {
@@ -2578,32 +2577,32 @@ export const premium = {
     },
     subscriptionSubtitle: {
       id: 'pages.premium.subscriptionSubtitle',
-      defaultMessage: 'A Primal neved elérhető.',
+      defaultMessage: 'A MagánSzövetség.Net neved elérhető.',
       description: 'Subtitle of the premium subscription page',
     },
     rename: {
       id: 'pages.premium.rename',
-      defaultMessage: 'Változtasd meg a Primal neved',
+      defaultMessage: 'Változtasd meg a MagánSzövetség.Net neved',
       description: 'Title of the premium rename page',
     },
     support: {
       id: 'pages.premium.support',
-      defaultMessage: 'Támogasd a Primalt',
+      defaultMessage: 'Támogasd a MagánSzövetség.Net-et',
       description: 'Title of the premium support page',
     },
     legend: {
       id: 'pages.premium.legend',
-      defaultMessage: 'Légy Primal Legenda',
+      defaultMessage: 'Légy MagánSzövetség.Net VIP Támogató',
       description: 'Title of the premium legend page',
     },
     legendShort: {
       id: 'pages.premium.legendShort',
-      defaultMessage: 'Primal Legenda',
+      defaultMessage: 'MagánSzövetség.Net VIP Támogató',
       description: 'Short title of the premium legend page',
     },
     relay: {
       id: 'pages.premium.relay',
-      defaultMessage: 'Primal Relay',
+      defaultMessage: 'MagánSzövetség.Net Relay',
       description: 'Title of the premium relay page',
     },
     media: {
@@ -2623,12 +2622,12 @@ export const premium = {
     },
     og: {
       id: 'pages.premium.og',
-      defaultMessage: 'Primal OG',
+      defaultMessage: 'MagánSzövetség.Net OG',
       description: 'Title of the Primal OG page',
     },
     ogLegend: {
       id: 'pages.premium.ogLegend',
-      defaultMessage: 'Primal Legenda',
+      defaultMessage: 'MagánSzövetség.Net VIP Támogató',
       description: 'Title of the Primal Legend page',
     },
   },
@@ -2665,17 +2664,17 @@ export const premium = {
       },
       m3: {
         id: 'pages.premium.success.m3',
-        defaultMessage: 'Feliratkoztál a Primal Premium-ra 3 hónapra.',
+        defaultMessage: 'Feliratkoztál a MagánSzövetség.Net Premium-ra 3 hónapra.',
         description: 'Payment success description for 3 month plan',
       },
       m12: {
         id: 'pages.premium.success.m12',
-        defaultMessage: 'Feliratkoztál a Primal Premium-ra 12 hónapra.',
+        defaultMessage: 'Feliratkoztál a MagánSzövetség.Net Premium-ra 12 hónapra.',
         description: 'Payment success description for 12 month plan',
       },
       legend: {
         id: 'pages.premium.success.legend',
-        defaultMessage: 'Mostantól Primal Legenda vagy.',
+        defaultMessage: 'Mostantól MagánSzövetség.Net VIP Támogató vagy.',
         description: 'Payment success description for legends',
       },
     }

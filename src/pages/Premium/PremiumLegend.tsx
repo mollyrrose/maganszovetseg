@@ -87,10 +87,10 @@ const PremiumLegend: Component<{
 
       <div class={styles.gratitude}>
         <div class={styles.gratitudeTitle}>
-          <img src={heart}></img> Our Eternal Gratitude <img src={heart}></img>
+          <img src={heart}></img> OÖrök Hálánk Fog Üldözni! <img src={heart}></img>
         </div>
         <div class={styles.gratitudeMessage}>
-          We’ll never forget our biggest supporters. People like you will help Nostr succeed.
+        Soha nem felejtjük el legnagyobb támogatóinkat. Az olyan emberek, mint te, segítenek a MagánSzövetségnek sikeressé válni.
         </div>
       </div>
 
@@ -100,7 +100,7 @@ const PremiumLegend: Component<{
         >
           <Switch>
             <Match when={isGuest()}>
-              <>Create account</>
+              <>VIP Felhasználói Fiók Létrehozása</>
             </Match>
             <Match when={hasNoMetadata()}>
               <>Edit profile</>

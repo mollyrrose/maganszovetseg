@@ -82,33 +82,7 @@ const Downloads: Component = () => {
               href='https://github.com/PrimalHQ/primal-web-app'
             />
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.iosApp)}
-              href='https://github.com/PrimalHQ/primal-ios-app'
-            />
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.andApp)}
-              href='https://github.com/PrimalHQ/primal-android-app'
-            />
-
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.cachingService)}
-              href='https://github.com/PrimalHQ/primal-caching-service'
-            />
-
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.primalServer)}
-              href='https://github.com/PrimalHQ/primal-server'
-            />
           </div>
         </div>
       </StickySidebar>
@@ -119,150 +93,53 @@ const Downloads: Component = () => {
 
       <div class={styles.downloadsContent}>
 
-        <div class={styles.promoVideo}>
-          <video
-            src='https://m.primal.net/MAww.mp4'
-            controls={true}
-            muted={true}
-            loop={true}
-            playsinline={true}
-            autoplay={true}
-          />
-        </div>
+      <br></br>
+        <div class={styles.qrCaption}>
+            A <strong>MagánSzövetség</strong> egy <strong>Magánjog</strong> alapján szerveződő <strong>természetes személyek szövetsége</strong>.
+             MagánSzövetség.Net fiókod létrehozásával kijelented, hogy span <strong>egyetértesz értékrendünkkel</strong>.
+             Ennek lényege, hogy éberséggel és örömteli látásmóddal támogatjuk a pozitivitást, a pozitív értékeket.
+             A negativitást nem támogatjuk. Rámutatunk annyira finoman és intelligensen ahogy lehetséges, de azon túl nem foglalkozunk vele. Mi egyszerűen tesszük a saját dolgunkat a világ jövője és minden lény javára.
+             </div>
+
 
         <div class={`${styles.appInfo} ${isIOS() ? styles.appInfoReverse : ''}`}>
 
-          <Show when={!isAndroid()}>
-            <div class={styles.appStore}>
-              <div class={styles.desktopCTA}>{intl.formatMessage(t.callToActionIOSTitle)}</div>
-
-              <div class={styles.callToActionIOS}>
-                <div class={styles.ctaTitle}>
-                  {intl.formatMessage(t.callToActionIOSTitle)}
-                </div>
-              </div>
-
-              <div class={styles.buidDetails}>
-                <div>
-                  {displayDate(iosRD()).toLowerCase()} | {intl.formatMessage(t.build)} {iosVersion()}
-                </div>
-              </div>
-
-              <a
-                href={appStoreLink}
-                target='_blank'
-              >
-                <img src={appstoreImg} />
-              </a>
-            </div>
-          </Show>
-
           <Show when={!isAndroid() && !isIOS()}>
-            <div class={styles.qrCode}>
-              <img src={primalQR} width={180} />
-              <div class={styles.qrCaption}>
-              {intl.formatMessage(t.callToActionQRTitle)}
-              </div>
+          <div class={styles.downloadContainer}>
+
+          <div class={styles.qrCode}>
+           <a href="./src/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
+           <img src="./src/assets/icons/DownloadPdf.png" width={180} />
+          </a>
+           <div class={styles.qrCaption}>
+             I. Értékrend Minimum <br></br><br></br>
+             Amiben mindannyian egyetértenünk a Magánszövetség.Net-en.
+          </div>
+          </div>
+          <br></br>
+          <div class={styles.qrCode}>
+            <a href="./src/assets/docs/II._ÉRTÉKREND_MÉDIUM.pdf" download>
+            <img src="./src/assets/icons/DownloadPdf.png" width={180} />
+             </a>
+             <div class={styles.qrCaption}>
+             II. Értékrend Médium <br></br><br></br>
+             Amivel egyetérthetsz, ha szeretnél. (Opcionálisan)
+             </div>
             </div>
+          </div>
+
           </Show>
 
-          <Show when={!isIOS()}>
-            <div class={styles.playStore}>
-              <div class={styles.desktopCTA}>{intl.formatMessage(t.callToActionAndroidTitle)}</div>
 
-              <div class={styles.callToActionAndroid}>
-                <div class={styles.ctaTitle}>
-                  {intl.formatMessage(t.callToActionAndroidTitle)}
-                </div>
-              </div>
 
-              <div class={styles.buidDetails}>
-                <div>
-                  {displayDate(andRD()).toLowerCase()} | {intl.formatMessage(t.build)} {andVersion()}
-                </div>
-              </div>
-
-              <a
-                href={playstoreLink}
-                target='_blank'
-                class={styles.playstoreLink}
-              >
-                <img src={playstoreImg} />
-              </a>
-
-              <a
-                href={`https://github.com/PrimalHQ/primal-android-app/releases/tag/${andVersion()}`}
-                target='_blank'
-                class={styles.apkLink}
-              >
-                {intl.formatMessage(t.getApk)}
-              </a>
-            </div>
-          </Show>
         </div>
       </div>
 
-      <Show
-        when={!isAndroid() && !isIOS()}
-        fallback={
-          <div class={styles.downloadsExtra}>
-            <div class={styles.sclabel}>Source code</div>
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label="Primal GitHub"
-              href={isIOS() ?
-                'https://github.com/PrimalHQ/primal-ios-app':
-                'https://github.com/PrimalHQ/primal-android-app'
-              }
-            />
-          </div>
-        }
-      >
-        <div class={styles.downloadsExtra}>
 
-          <div class={styles.title}>
-            {intl.formatMessage(t.links.title)}
-          </div>
-          <div class={styles.list}>
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.webApp)}
-              href='https://github.com/PrimalHQ/primal-web-app'
-            />
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.iosApp)}
-              href='https://github.com/PrimalHQ/primal-ios-app'
-            />
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.andApp)}
-              href='https://github.com/PrimalHQ/primal-android-app'
-            />
 
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.cachingService)}
-              href='https://github.com/PrimalHQ/primal-caching-service'
-            />
-
-            <ExternalLink
-              darkIcon={gitHubLight}
-              lightIcon={gitHubDark}
-              label={intl.formatMessage(t.links.primalServer)}
-              href='https://github.com/PrimalHQ/primal-server'
-            />
-          </div>
-        </div>
-      </Show>
     </div>
   );
 }

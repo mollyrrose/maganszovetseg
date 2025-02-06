@@ -17,72 +17,72 @@ export type FetureComparison = {
 
 const premiumFeatures = [
   {
-    name: 'Apps for Web, iOS, Android',
+    name: 'Web és mobil-alkalmazások (iOS, Android)',
     free: 'true',
     premium: 'true',
   },
   {
-    name: 'Built-in bitcoin lightning wallet',
+    name: 'Beépített bitcoin villámtárca (Lightning wallet)',
     free: 'true',
     premium: 'true',
   },
   {
-    name: 'Global Nostr text and user search',
+    name: 'Globalális Nostr szöveg- és felhasználó-keresés',
     free: 'true',
     premium: 'true',
   },
   {
-    name: 'Media storage capacity',
+    name: 'Médiatároló kapacitás',
     free: '1 GB',
     premium: '10 GB',
   },
   {
-    name: 'Media maximum file size',
+    name: 'A média maximális fájlmérete',
     free: '100 mb',
     premium: '1 GB',
   },
+  // {
+  //   name: 'Ellenőrzött Nostr cím',
+  //   free: 'false',
+  //   premium: 'true',
+  //   help: 'e. g. alice@MaganSzovetseg.net',
+  // },
+  // {
+  //   name: 'Egyedi email cím (a Lightning tárcához) (később)',
+  //   free: 'false',
+  //   premium: 'true',
+  //   help: 'e. g. aliz@maganszovetsed.net',
+  // },
   {
-    name: 'Verified Nostr Address',
+    name: 'VIP profil a MaganSzovetseg.net oldalon',
     free: 'false',
     premium: 'true',
-    help: 'e. g. alice@primal.net',
+    help: 'e. g. maganszovetseg.net/aliz',
   },
   {
-    name: 'Custom Lightning Address',
+    name: 'Speciális/fejlettebb Nostr keresés',
     free: 'false',
     premium: 'true',
-    help: 'e. g. alice@primal.net',
-  },
-  {
-    name: 'VIP Profile on primal.net',
-    free: 'false',
-    premium: 'true',
-    help: 'e. g. primal.net/alice',
-  },
-  {
-    name: 'Advanced Nostr search',
-    free: 'false',
-    premium: 'true',
-    help: 'Find anything on Nostr! Search by keywords & phrases, content type, who posted, who replied, who zapped, time posted, network scope, plus a bunch of filters.',
-  },
-  {
-    name: 'Premium paid relay',
-    free: 'false',
-    premium: 'true',
-    help: 'wss://premium.primal.net',
-  },
-  {
-    name: 'Nostr contact list backup',
-    free: 'false',
-    premium: 'true',
-    help: 'Primal creates a backup of 100+ most recent versions of your Nostr follow list. If your follow list gets erased or corrupted by another Nostr app, you will be able to restore it using the Contact List Backup tool in the Nostr Tools section for Primal Premium users.',
-  },
-  {
-    name: 'Nostr account content backup',
-    free: 'false',
-    premium: 'true',
-    help: 'Primal archives the complete history of all your Nostr content. You can rebroadcast any subset of your content to your selected set of relays at any time using the Content Backup tool in the Nostr Tools section for Primal Premium users.',
-  },
+    help: 'Találj bármit a Nostr-on! Keresés kulcsszavak és kifejezések, tartalom típusa, ki posztolt, ki válaszolt, ki zökkentett, közzétett idő, hálózati hatókör és egy csomó szűrő alapján.',
+   },
+  // {
+  //   name: 'Prémium fizetős relé (később)',
+  //   free: 'false',
+  //   premium: 'true',
+  //   help: 'wss://premium.MaganSzovetseg.net',
+  // },
+  // {
+  //   name: 'Nostr névjegyzék biztonsági mentés (később)',
+  //   free: 'false',
+  //   premium: 'true',
+  //   help: 'A Primal biztonsági másolatot készít a Nostr követőlista 100+ legújabb verziójáról. Ha a követési listát egy másik Nostr alkalmazás törli vagy megsérti, visszaállíthatja azt a Primal Premium felhasználók Nostr Tools szakaszában található Contact List Backup eszközzel. (Még nem elérhető, később vezetjük be.)',
+  // },
+  // {
+  //   name: 'Nostr fiók tartalmának biztonsági mentése',
+  //   free: 'false',
+  //   premium: 'true',
+  //   help: 'A Primal archiválja az összes Nostr-tartalom teljes történetét. Bármikor újrasugározhatja a tartalom bármely részhalmazát a kiválasztott közvetítők számára a Tartalom biztonsági mentése eszközzel a Nostr Tools részben a Primal Premium felhasználók számára. (Még nem elérhető, később vezetjük be.',
+  // },
   // {
   //   name: 'Premium feeds',
   //   free: 'false',
@@ -96,61 +96,61 @@ const premiumFeatures = [
   //   help: 'Get early exclusive access to Primal Beta releases.',
   // },
   {
-    name: 'Much more to come!',
+    name: 'Még sok minden érkezik!',
     free: 'false',
     premium: 'true',
-    help: 'We are working on a ton of new and exciting features for Primal Premium. We will announce them as we get closer to releasing them. In the meantime, please feel free to reach out and let us know what you would like to see included in Primal Premium. All suggestions are welcome!',
+    help: 'Rengeteg új és izgalmas funkción dolgozunk a Primal Premium számára. Amint közelebb kerülünk a megjelenésükhöz, bejelentjük őket. Addig is forduljon hozzánk bizalommal, és tudassa velünk, mit szeretne látni a Primal Premium szolgáltatásban. Minden javaslatot szívesen fogadunk!',
   },
 ]
 
 const faq = [
   {
-    question: 'How do I get support?',
-    answer: 'Simply email us at support@primal.net and include your Primal Name in the message. Support requests from Premium users are prioritized and typically handled on the same business day.',
+    question: 'Hogyan kaphatok támogatást?',
+    answer: 'Egyszerűen írjon nekünk e-mailt a support@MaganSzovetseg.net címre, és tüntesse fel az elsődleges nevét az üzenetben. A prémium felhasználók támogatási kérelmei prioritást élveznek, és általában ugyanazon a munkanapon kezelik őket.',
   },
   {
-    question: 'Can I change my Primal Name?',
-    answer: 'Yes! If you wish to change your Primal Name, simply use the “Change your Primal Name” option in the Manage Premium section of any Primal app. Your new name will be functional immediately and your old name will be released and available to other users to register.',
+    question: 'Megváltoztathatom a Magánszövetség alapnevemet?',
+    answer: 'Igen! Ha meg szeretné változtatni az elsődleges nevét, egyszerűen használja az Elsődleges név módosítása opciót bármely Primal alkalmazás Prémium kezelése szakaszában. Az új neve azonnal működőképes lesz, a régi neve pedig felszabadul, és más felhasználók számára elérhető lesz a regisztrációhoz.',
   },
   {
-    question: 'Do I have to use my Primal verified name and lightning address?',
+    question: 'Használnom kell a MaganSzovetseg.Net ellenőrzött nevemet és villámcímemet (Lightning Address)?',
     answer: 'No. As a Primal Premium user you are able to reserve a Primal Name, but you are not required to use it as your nostr verified address (NIP-05), nor the bitcoin lightning address. Simply set any nostr verified address and/or the bitcoin lightning address you wish to use in your Nostr account profile settings.',
   },
   {
-    question: 'Do I own my Primal Name indefinitely?',
-    answer: 'You have the right to use your Primal Name for the duration of your Primal Premium subscription. After the subscription expires, there is a grace period of 30 days during which your Primal Name will not be available to others to register. Primal Legend users have non-expiring subscriptions, so they can use their Primal Names indefinitely. Please note that all Primal Names are owned by Primal and rented to users. Primal reserves the right to revoke any name if we determine that the name is trademarked by somebody else, that there is a possible case of impersonation, or for any other case of abuse, as determined by Primal. Please refer to our <a data-link="terms">Terms_of_Service</a> for details.',
+    question: 'Határozatlan ideig birtokomban van a MagánSzövetség felhasználónevem?',
+    answer: 'Önnek joga van az elsődleges név használatára a MagánSzövetség Premium előfizetés időtartama alatt. Az előfizetés lejárta után 30 nap türelmi időszak áll rendelkezésre, amely alatt az Ön elsődleges neve nem lesz elérhető mások számára a regisztrációhoz. A Primal Legend felhasználók nem lejáró előfizetésekkel rendelkeznek, így korlátlan ideig használhatják az elsődleges nevüket. Kérjük, vegye figyelembe, hogy az összes elsődleges név a Primal tulajdonában van, és bérelhető a felhasználóknak. A Primal fenntartja a jogot bármely név visszavonására, ha azt állapítjuk meg, hogy a név valaki más védjegye, hogy fennáll a személyi adatokkal való visszaélés lehetősége, vagy a Primal által meghatározott egyéb visszaélések miatt. A részletekért tekintse meg a <a data-link="terms">Szolgáltatási feltételeket</a>.',
   },
   {
-    question: 'Can I buy multiple Primal Names?',
-    answer: 'We are working on adding the capability to manage multiple Primal Names. In the meantime, feel free to reach out to us via support@primal.net and we will try to accommodate.',
+    question: 'Vásárolhatok több MagánSzövetség nevet?',
+    answer: 'Egyelőre nem, de dolgozunk rajta.',
   },
   {
-    question: 'Is my payment information associated with my Nostr account?',
-    answer: 'No. Primal Premium can be purchased via an iOS App Store in-app purchase, Google Play in-app purchase, or directly over bitcoin lightning via the Primal web app. Regardless of the method of payment, your payment information is not associated with your Nostr account.',
+    question: 'A fizetési információim a Nostr-fiókommal vannak társítva?',
+    answer: 'Nem. A Magánszövetség Premium megvásárolható iOS App Store alkalmazáson belüli vásárlással, Google Play alkalmazáson belüli vásárlással, vagy közvetlenül a bitcoin Lightningen keresztül a MagánSzövetség webalkalmazáson keresztül. A fizetési módtól függetlenül az Ön fizetési információi nincsenek társítva Nostr-fiókjához.',
   },
   {
-    question: 'Can I extend my subscription? How does that work?',
-    answer: 'Yes, you can extend your subscription using any of the payment methods we support: iOS App Store in-app purchase, Google Play in-app purchase, or directly over bitcoin lightning via the Primal web app. Any payment will extend your subscription by the number of months purchased. For example, if you purchase 3 Months of Primal Premium using the Primal web app, and then subscribe again via your mobile device, your subscription expiry date will be four months in the future, and it will continue to be pushed out with every subsequent monthly payment.',
+    question: 'Meghosszabbíthatom az előfizetésemet? Hogyan működik ez?',
+    answer: 'Igen, meghosszabbíthatja előfizetését az általunk támogatott fizetési módok bármelyikével: iOS App Store alkalmazáson belüli vásárlás, Google Play alkalmazáson belüli vásárlás, vagy közvetlenül a bitcoin Lightningen keresztül a Primal webalkalmazáson keresztül. Bármilyen fizetés meghosszabbítja az előfizetést a vásárolt hónapok számával. Például, ha a Primal webalkalmazással vásárol 3 hónapos MagánSzövetség Prémiumot, majd újra előfizet mobileszközén, akkor az előfizetés lejárati dátuma a jövőben négy hónap lesz, és továbbra is minden további havi rendszerességgel kitolódik. fizetés.',
   },
   {
-    question: 'If I buy Primal Premium on my phone, will I have access to it on the web?',
-    answer: 'Yes. Your Primal Premium subscription is assigned to your Nostr account. Therefore, regardless of the way you choose to subscribe, your Primal Premium subscription will be available to you in all Primal apps: web, iOS, Android.',
+    question: 'If I buy MagánSzövetség Prémium on my phone, will I have access to it on the web?',
+    answer: 'Yes. Your MagánSzövetség Prémium subscription is assigned to your Nostr account. Therefore, regardless of the way you choose to subscribe, your Primal Premium subscription will be available to you in all Primal apps: web, iOS, Android.',
   },
   {
-    question: 'How does the Nostr contact list backup feature work?',
-    answer: 'Primal creates a backup of 100+ most recent versions of your Nostr follow list. If your follow list gets erased or corrupted by another Nostr app, you will be able to restore it using the Contact List Backup tool in the Nostr Tools section for Primal Premium users.',
+    question: 'Hogyan működik a Nostr névjegylista biztonsági mentési funkciója?',
+    answer: 'A MagánSzövetség biztonsági másolatot készít a Nostr követőlista 100+ legújabb verziójáról. Ha a követési listát egy másik Nostr alkalmazás törli vagy megsérti, visszaállíthatja azt a Primal Premium felhasználók Nostr Tools szakaszában található Contact List Backup eszközzel.',
   },
   {
-    question: 'How does the Nostr account content backup feature work?',
-    answer: 'Primal archives the complete history of all your Nostr content. You can rebroadcast any subset of your content to your selected set of relays at any time using the Content Backup tool in the Nostr Tools section for Primal Premium users.',
+    question: 'Hogyan működik a Nostr-fióktartalom biztonsági mentési funkciója?',
+    answer: 'A MagánSzövetség archiválja az összes Nostr-tartalom teljes történetét. A tartalom bármely részhalmazát bármikor újra sugározhatja a kiválasztott közvetítőkhöz a Tartalom biztonsági mentése eszközzel a Nostr Tools részben a MagánSzövetség Prémium felhasználók számára.',
   },
   {
-    question: 'What other Premium features are coming in the future?',
-    answer: 'We are working on a ton of new and exciting features for Primal Premium. We will announce them as we get closer to releasing them. In the meantime, please feel free to reach out and let us know what you would like to see included in Primal Premium. All suggestions are welcome!',
+    question: 'Milyen egyéb prémium funkciók lesznek elérhetők a jövőben?',
+    answer: 'Rengeteg új és izgalmas funkción dolgozunk a MagánSzövetség Prémium számára. Amint közelebb kerülünk a megjelenésükhöz, bejelentjük őket. Addig is forduljon bizalommal hozzánk, és tudassa velünk, mit szeretne látni a MagánSzövetség Prémiumban. Minden javaslatot szívesen fogadunk!',
   },
   {
-    question: 'I’d like to support Primal. Can I do more?',
-    answer: 'At Primal, we don’t rely on advertising. We don’t monetize user data. We open source all our work to help the Nostr ecosystem flourish. If you wish to help us continue doing this work, please see how you can <a data-link="support">support_us</a>. Thank you from the entire Primal Team! 🙏❤️',
+    question: 'Szeretném támogatni a MagánSzövetséget. Tehetek többet?',
+    answer: 'A MagánSzövetségnél nem bízunk a reklámokban. Nem használunk bevételt a felhasználói adatokból. A Nostr ökoszisztéma felvirágoztatása érdekében végzett munkánkat nyílt forráskóddal látjuk el. Ha segíteni szeretne nekünk ennek a munkának a folytatásában, kérjük, tekintse meg, hogyan <a data-link="support">támogasson minket</a>. Köszönjük a teljes MagánSzövetség Csapat nevében! 🙏❤️',
   },
 ]
 

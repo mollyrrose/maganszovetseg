@@ -36,7 +36,7 @@ const Appearance: Component = () => {
             checked={settings?.isAnimated !== undefined ? settings.isAnimated : true}
             onChange={settings?.actions.setAnimation}
           >
-            <div class={styles.appearanceCheckLabel}>Show Animations</div>
+            <div class={styles.appearanceCheckLabel}>Animáld az oldat, mutass mozgás-átmeneteket</div>
           </CheckBox2>
         </div>
       </div>

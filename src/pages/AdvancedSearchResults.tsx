@@ -72,11 +72,11 @@ const AdvancedSearchResults: Component = () => {
 
   return (
     <>
-      <PageTitle title="Összetett keresés eredmények"/>
+      <PageTitle title="Részletes keresés eredmények"/>
 
         <div class={styles.advancedSerchResultsHeader}>
           <div class={styles.caption}>
-            <div>search results</div>
+            <div>keresési eredmény</div>
           </div>
           <div class={styles.actions}>
 
@@ -90,7 +90,7 @@ const AdvancedSearchResults: Component = () => {
             <ButtonLink
               onClick={() => navigate('/asearch', { state: { query: queryString() } })}
             >
-              Vissza az összetett kereséshez
+              Vissza a részletes kereséshez
             </ButtonLink>
           </div>
         </div>
@@ -117,7 +117,7 @@ const AdvancedSearchResults: Component = () => {
           </Match>
           <Match when={!search?.isFetchingContent && (search?.notes.length === 0 || search?.reads.length === 0)}>
             <div class={styles.noResults}>
-              No results found
+              Nem találtunk eredményt a keresés során
 
               <For each={search?.errors}>
                 {error => <div class={styles.error}>{error}</div>}
@@ -132,14 +132,14 @@ const AdvancedSearchResults: Component = () => {
           <div class={styles.moreSearchInfo}>
             <div>
               <div class={styles.moreSearchCaption}>
-                This is a Primal Premium feed.
+                Ez egy MagánSzövetség Prémium hírfolyam.
               </div>
               <div class={styles.moreSearchDescription}>
-                Buy a Subscription to become a Nostr power user and support our work:
+              Vásároljon előfizetést, hogy Nostr "power user" legyen és támogassa munkánkat:
               </div>
             </div>
 
-            <A href='/premium' class={styles.premiumLink}>Get Primal Premium</A>
+            <A href='/premium' class={styles.premiumLink}>Válaszd a MagánSzövetség Prémium előfizetést!</A>
           </div>
         </Show>
       </div>

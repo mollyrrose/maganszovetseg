@@ -50,13 +50,13 @@ const FeedsTest: Component = () => {
 
   return (
     <>
-      <PageTitle title="Feeds" />
+      <PageTitle title="Folyamok" />
       <Wormhole
         to="search_section"
       >
         <Search />
       </Wormhole>
-      <PageCaption title="Feeds" />
+      <PageCaption title="Folyamok" />
 
       <div class={styles.page}>
         <Show when={noteFeeds.length > 0}>

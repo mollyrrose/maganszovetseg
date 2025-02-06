@@ -121,33 +121,33 @@ const Explore: Component = () => {
               <div class={styles.left}>
                 <Tabs.Trigger class={styles.exploreTab} value="feeds">
                   <div class={styles.tabLabel}>
-                    Folyamok
+                    Feeds
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="people">
                   <div class={styles.tabLabel}>
-                    Emberek
+                    People
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="zaps">
                   <div class={styles.tabLabel}>
-                    Zappok
+                    Zaps
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="media">
                   <div class={styles.tabLabel}>
-                    Média
+                    Media
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="topics">
                   <div class={styles.tabLabel}>
-                    Témák
+                    Topics
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Indicator class={styles.exploreTabIndicator} />
               </div>
               <div class={styles.right}>
-                <A href={'/asearch'}>Összetett keresés</A>
+                <A href={'/asearch'}>Részletes keresés</A>
               </div>
             </Tabs.List>
 

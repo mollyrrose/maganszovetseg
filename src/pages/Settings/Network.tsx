@@ -329,7 +329,7 @@ const Network: Component = () => {
             id="primal_relay_check"
             checked={account?.connectToPrimaryRelays}
             onChange={() => onCheckPrimalRelay()}
-            label={`Post a copy of all content to the Primal relay (${import.meta.env.PRIMAL_PRIORITY_RELAYS})`}
+            label={`Minden bejegyzést beengedek a Noszter glogális rendszeréhez kapcsolódó kommunikációs csomópontba (relébe). (${import.meta.env.PRIMAL_PRIORITY_RELAYS})`}
           />
         </Show>
       </div>
