@@ -108,22 +108,30 @@ const Downloads: Component = () => {
           <div class={styles.downloadContainer}>
 
           <div class={styles.qrCode}>
-           <a href="./src/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
-           <img src="./src/assets/icons/DownloadPdf.png" width={180} />
+		
+		<a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
+  		<img src="/icons/DownloadPdf.png" width={180} alt="Download PDF" />
+		</a>
 
-          </a>
+
            <div class={styles.qrCaption}>
-             I. Értékrend Minimum <br></br><br></br>
+             <strong>I. Értékrend Minimum</strong><br></br><br></br>
              Amiben mindannyian egyetértenünk a Magánszövetség.Net-en.
+
           </div>
           </div>
           <br></br>
+
+
           <div class={styles.qrCode}>
-            <a href="./src/assets/docs/II._ÉRTÉKREND_MÉDIUM.pdf" download>
-            <img src="./src/assets/icons/DownloadPdf.png" width={180} />
-             </a>
+
+		<a href="/assets/docs/II._ÉRTÉKREND_MÉDIUM.pdf" download>
+   			 <img src="/icons/DownloadPdf.png" width={180} alt="Töltsd le aPDF-et!" />
+		</a>
+
+
              <div class={styles.qrCaption}>
-             II. Értékrend Médium <br></br><br></br>
+             <strong>II. Értékrend Médium</strong><br></br><br></br>
              Amivel egyetérthetsz, ha szeretnél. (Opcionálisan)
              </div>
             </div>
