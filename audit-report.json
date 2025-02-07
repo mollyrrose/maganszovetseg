@@ -1,0 +1,303 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@babel/traverse": {
+      "name": "@babel/traverse",
+      "severity": "critical",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1096886,
+          "name": "@babel/traverse",
+          "dependency": "@babel/traverse",
+          "title": "Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code",
+          "url": "https://github.com/advisories/GHSA-67hx-6x53-jw92",
+          "severity": "critical",
+          "cwe": [
+            "CWE-184",
+            "CWE-697"
+          ],
+          "cvss": {
+            "score": 9.4,
+            "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H"
+          },
+          "range": "<7.23.2"
+        }
+      ],
+      "effects": [],
+      "range": "<7.23.2",
+      "nodes": [
+        "node_modules/@babel/traverse"
+      ],
+      "fixAvailable": true
+    },
+    "braces": {
+      "name": "braces",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1098094,
+          "name": "braces",
+          "dependency": "braces",
+          "title": "Uncontrolled resource consumption in braces",
+          "url": "https://github.com/advisories/GHSA-grv7-fg5c-xmjg",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-1050"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<3.0.3"
+        }
+      ],
+      "effects": [],
+      "range": "<3.0.3",
+      "nodes": [
+        "node_modules/braces"
+      ],
+      "fixAvailable": true
+    },
+    "nanoid": {
+      "name": "nanoid",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1101163,
+          "name": "nanoid",
+          "dependency": "nanoid",
+          "title": "Predictable results in nanoid generation when given non-integer values",
+          "url": "https://github.com/advisories/GHSA-mwcw-c2x4-8c55",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-835"
+          ],
+          "cvss": {
+            "score": 4.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": "<3.3.8"
+        },
+        {
+          "source": 1101164,
+          "name": "nanoid",
+          "dependency": "nanoid",
+          "title": "Predictable results in nanoid generation when given non-integer values",
+          "url": "https://github.com/advisories/GHSA-mwcw-c2x4-8c55",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-835"
+          ],
+          "cvss": {
+            "score": 4.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": ">=4.0.0 <5.0.9"
+        }
+      ],
+      "effects": [],
+      "range": "<3.3.8 || >=4.0.0 <5.0.9",
+      "nodes": [
+        "node_modules/@milkdown/utils/node_modules/nanoid",
+        "node_modules/nanoid"
+      ],
+      "fixAvailable": true
+    },
+    "postcss": {
+      "name": "postcss",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1094544,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS line return parsing error",
+          "url": "https://github.com/advisories/GHSA-7fh5-64p2-3v2j",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-74",
+            "CWE-144"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": "<8.4.31"
+        }
+      ],
+      "effects": [],
+      "range": "<8.4.31",
+      "nodes": [
+        "node_modules/postcss"
+      ],
+      "fixAvailable": true
+    },
+    "rollup": {
+      "name": "rollup",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1099758,
+          "name": "rollup",
+          "dependency": "rollup",
+          "title": "DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS",
+          "url": "https://github.com/advisories/GHSA-gcx4-mw62-g8wm",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+          },
+          "range": ">=3.0.0 <3.29.5"
+        }
+      ],
+      "effects": [],
+      "range": "3.0.0 - 3.29.4",
+      "nodes": [
+        "node_modules/rollup"
+      ],
+      "fixAvailable": true
+    },
+    "vite": {
+      "name": "vite",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1095180,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Vite XSS vulnerability in `server.transformIndexHtml` via URL payload",
+          "url": "https://github.com/advisories/GHSA-92r3-m2mg-pj97",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+          },
+          "range": ">=4.4.0 <4.4.12"
+        },
+        {
+          "source": 1095467,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Vite dev server option `server.fs.deny` can be bypassed when hosted on case-insensitive filesystem",
+          "url": "https://github.com/advisories/GHSA-c24v-8rfc-w8vw",
+          "severity": "high",
+          "cwe": [
+            "CWE-178",
+            "CWE-200",
+            "CWE-284"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": ">=4.0.0 <=4.5.1"
+        },
+        {
+          "source": 1096895,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Vite's `server.fs.deny` did not deny requests for patterns with directories.",
+          "url": "https://github.com/advisories/GHSA-8jhw-289h-jh2g",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-200",
+            "CWE-284"
+          ],
+          "cvss": {
+            "score": 5.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": ">=4.0.0 <=4.5.2"
+        },
+        {
+          "source": 1099694,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS",
+          "url": "https://github.com/advisories/GHSA-64vr-g452-qvp3",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+          },
+          "range": ">=4.0.0 <4.5.4"
+        },
+        {
+          "source": 1099696,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Vite's `server.fs.deny` is bypassed when using `?import&raw`",
+          "url": "https://github.com/advisories/GHSA-9cwx-2883-4wfx",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-200",
+            "CWE-284"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+          },
+          "range": ">=4.0.0 <=4.5.3"
+        },
+        {
+          "source": 1101617,
+          "name": "vite",
+          "dependency": "vite",
+          "title": "Websites were able to send any requests to the development server and read the response in vite",
+          "url": "https://github.com/advisories/GHSA-vg6x-rcgg-rjx6",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-346",
+            "CWE-350",
+            "CWE-1385"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=4.5.5"
+        }
+      ],
+      "effects": [],
+      "range": "<=4.5.5",
+      "nodes": [
+        "node_modules/vite"
+      ],
+      "fixAvailable": true
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 2,
+      "high": 3,
+      "critical": 1,
+      "total": 6
+    },
+    "dependencies": {
+      "prod": 654,
+      "dev": 86,
+      "optional": 2,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 740
+    }
+  }
+}

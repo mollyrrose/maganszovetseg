@@ -821,7 +821,13 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       onEvent: (_, content) => {
         const feeds = JSON.parse(content.content || '[]');
 
-        updateStore('readsFeeds', () => [...feeds]);
+        const translatedFeeds = feeds.map(feed => ({
+          ...feed,
+          name: translateToHungarian(feed.name),
+          description: translateToHungarian(feed.description),
+        }));
+
+        updateStore('readsFeeds', () => [...translatedFeeds]);
       },
       onEose: () => {
         unsub();
@@ -832,7 +838,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     fetchDefaultArticleFeeds(subId);
   }
 
-  const translateToHungarian = (text: string) => {
+const translateToHungarian = (text: string) => {
     const translations: Record<string, string> = {
       "Latest": "Legfrissebbek",
       "Latest notes by your follows": "Legfrissebb bejegyzések az általad követettektől",
@@ -852,6 +858,39 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       "Global trending notes in the past 1 hour": "Népszerű bejegyzések az elmúlt 1 órában",
       "Nostr Firehose": "Noszter Tűzfészek",
       "Latest global notes; be careful!": "Legfrissebb bejegyzések világszerte, légy óvatos!",
+      "Nostr Reads": "Noszter Olvasnivalók",
+      "Latest reads from your network": "Legfrissebbek olvasnivalók a hálózatodból",
+      "All reads": "Minden olvasnivaló",
+      "Latest global reads": "Legfrissebb olvasnivalók világszerte",
+      "Art Reads": "Művészet",
+      "Art Topic Reads from Primal": "Művészeti témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Bitcoin Reads": "Bitcoin",
+      "Bitcoin Topic Reads from Primal": "Bitcoin témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Finance Reads": "Pénzügyek",
+      "Finance Topic Reads from Primal": "Pénzügyi témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Food Reads": "Táplálkozás",
+      "Food Topic Reads from Primal": "Táplálkozás témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Gaming Reads": "Játék – Gaming",
+      "Gaming Topic Reads from Primal": "Játék témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Human Rights Reads": "Emberi jogok",
+      "Human Rights Reads from Primal": "Emberi jogi témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Music Reads": "Zene",
+      "Music Topic Reads from Primal": "Zenei témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "News Topic Reads": "Hírtémák",
+      "News Topic Reads from Primal": "Hírek, olvasnivalók a MagánSzövetség.Net-ben",
+      "Nostr Topic Reads from Primal": "Noszter témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Philosophy Reads": "Filozófia",
+      "Philosophy Topic Reads from Primal": "Filozófia témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Photography Reads": "Fotográfia",
+      "Photography Topic Reads from Primal": "Fényképezés témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Podcasts Reads": "Podcast-ok",
+      "Podcasts Topic Reads from Primal": "Podcast témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Sports Reads": "Sport",
+      "Sports Topic Reads from Primal": "Sport témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Technology Reads": "Technológia",
+      "Technology Topic Reads from Primal": "Technológia témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Travel Reads": "Utazás",
+      "Travel Topic Reads from Primal": "Utazás témájú olvasnivalók a MagánSzövetség.Net-ben",
     };
 
     return translations[text] || text;
