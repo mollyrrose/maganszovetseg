@@ -47,7 +47,7 @@ const AdvancedSearchCommandTextField: Component<{
         onKeyDown={onKeyDown}
         onChange={props.onCommandChange}
         >
-        <TextField.Label>Keresési utasítás</TextField.Label>
+        <TextField.Label>Keresési Parancs</TextField.Label>
         <TextField.TextArea
             autoResize={true}
             onFocus={() => setAllowCommandChange(() => true)}

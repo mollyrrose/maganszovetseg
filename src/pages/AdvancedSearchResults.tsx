@@ -72,7 +72,7 @@ const AdvancedSearchResults: Component = () => {
 
   return (
     <>
-      <PageTitle title="Részletes keresés eredmények"/>
+      <PageTitle title="Összetett keresés eredmények"/>
 
         <div class={styles.advancedSerchResultsHeader}>
           <div class={styles.caption}>
@@ -90,7 +90,7 @@ const AdvancedSearchResults: Component = () => {
             <ButtonLink
               onClick={() => navigate('/asearch', { state: { query: queryString() } })}
             >
-              Vissza a részletes kereséshez
+              Vissza az összetett kereséshez
             </ButtonLink>
           </div>
         </div>

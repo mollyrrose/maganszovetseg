@@ -110,6 +110,7 @@ const Downloads: Component = () => {
           <div class={styles.qrCode}>
            <a href="./src/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
            <img src="./src/assets/icons/DownloadPdf.png" width={180} />
+
           </a>
            <div class={styles.qrCaption}>
              I. Értékrend Minimum <br></br><br></br>

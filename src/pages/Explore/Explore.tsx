@@ -121,7 +121,7 @@ const Explore: Component = () => {
               <div class={styles.left}>
                 <Tabs.Trigger class={styles.exploreTab} value="feeds">
                   <div class={styles.tabLabel}>
-                    Hírfolyamok
+                    Folyamok
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="people">
@@ -147,7 +147,7 @@ const Explore: Component = () => {
                 <Tabs.Indicator class={styles.exploreTabIndicator} />
               </div>
               <div class={styles.right}>
-                <A href={'/asearch'}>Részletes keresés</A>
+                <A href={'/asearch'}>Összetett keresés</A>
               </div>
             </Tabs.List>
 

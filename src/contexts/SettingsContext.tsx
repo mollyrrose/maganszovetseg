@@ -814,31 +814,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     getMobileReleases(subid);
   };
 
-  const getDefaultReadsFeeds = () => {
-    const subId = `article_feeds_${APP_ID}`;
-
-    const unsub = subsTo(subId, {
-      onEvent: (_, content) => {
-        const feeds = JSON.parse(content.content || '[]');
-
-        const translatedFeeds = feeds.map(feed => ({
-          ...feed,
-          name: translateToHungarian(feed.name),
-          description: translateToHungarian(feed.description),
-        }));
-
-        updateStore('readsFeeds', () => [...translatedFeeds]);
-      },
-      onEose: () => {
-        unsub();
-        initReadsFeeds(account?.publicKey, store.readsFeeds);
-      },
-    });
-
-    fetchDefaultArticleFeeds(subId);
-  }
-
-const translateToHungarian = (text: string) => {
+  const translateToHungarian = (text: string) => {
     const translations: Record<string, string> = {
       "Latest": "Legfrissebbek",
       "Latest notes by your follows": "Legfrissebb bejegyzések az általad követettektől",
@@ -895,6 +871,39 @@ const translateToHungarian = (text: string) => {
 
     return translations[text] || text;
   };
+
+  const getDefaultReadsFeeds = () => {
+    const subId = `article_feeds_${APP_ID}`;
+
+    const unsub = subsTo(subId, {
+      onEvent: (_, content) => {
+        const feeds = JSON.parse(content.content || '[]');
+
+        const translatedFeeds = feeds.map(feed => {
+          if (feed.description === "Nostr Topic Reads from Primal") {
+            return {
+              ...feed,
+              name: "Noszter témájú olvasnivalók",
+              description: translateToHungarian(feed.description),
+            };
+          }
+          return {
+            ...feed,
+            name: translateToHungarian(feed.name),
+            description: translateToHungarian(feed.description),
+          };
+        });
+
+        updateStore('readsFeeds', () => [...translatedFeeds]);
+      },
+      onEose: () => {
+        unsub();
+        initReadsFeeds(account?.publicKey, store.readsFeeds);
+      },
+    });
+
+    fetchDefaultArticleFeeds(subId);
+  }
 
   const getDefaultHomeFeeds = () => {
     const subId = `home_feeds_${APP_ID}`;

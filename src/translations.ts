@@ -57,13 +57,13 @@ export const account = {
   create: {
     title: {
       id: 'settings.account.title',
-      defaultMessage: 'Fiók Létrehozása',
+      defaultMessage: 'Fiók létrehozása',
       description: 'Title of the create account page',
     },
     descriptions: {
       step_one: {
         id: 'settings.account.descriptions.step_one',
-        defaultMessage: 'Kezdjük az alapokkal! Csak egy felhasználónév szükséges!',
+        defaultMessage: 'Kezdjük az alapokkal! Csak a felhasználónév szükséges!',
         description: 'Description on step one',
       },
       step_two: {
