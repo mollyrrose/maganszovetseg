@@ -45,22 +45,22 @@ const sidebarOptions = [
   },
 
   {
-    label: 'Legtöbbet zappolt (24 óra)',
+    label: 'Legtöbbet jutalmazott (24 óra)',
     value: 'mostzapped_24h',
     id: 'mostzapped_24h',
   },
   {
-    label: 'Legtöbbet zappolt (12 óra)',
+    label: 'Legtöbbet jutalmazott (12 óra)',
     value: 'mostzapped_12h',
     id: 'mostzapped_12h',
   },
   {
-    label: 'Legtöbbet zappolt (4 óra)',
+    label: 'Legtöbbet jutalmazott (4 óra)',
     value: 'mostzapped_4h',
     id: 'mostzapped_4h',
   },
   {
-    label: 'Legtöbbet zappolt (1 óra)',
+    label: 'Legtöbbet jutalmazott (1 óra)',
     value: 'mostzapped_1h',
     id: 'mostzapped_1h',
   },

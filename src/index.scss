@@ -85,9 +85,9 @@
   --success-color-2: #2CA85E;
   --success-color-3: #0E8A40;
 
-  --premium-orange: #FA3C3C;
+  --premium-orange: #148b2a;
 
-  --media-stats-image: #BC1870;
+  --media-stats-image: #027934;
   --media-stats-video: #0090F8;
   --media-stats-other: #FF9F2F;
 
@@ -107,18 +107,18 @@
   --legend-gold: linear-gradient(180deg, #FFB700 0%, #FFB700 49%, #CB721E 50%, #FFB700 100%);
   --legend-aqua: linear-gradient(180deg, #6BCCFF 0%, #6BCCFF 49%, #247FFF 50%, #6BCCFF 100%);
   --legend-silver: linear-gradient(180deg, #CCC 0%, #CCC 49%, #777 50%, #CCC 100%);
-  --legend-purple: linear-gradient(135deg, #C803EC 15.94%, #5613FF 85.31%);
-  --legend-purplehaze: linear-gradient(135deg, #FB00C4 0%, #04F7FC 100%);
+  --legend-purple: linear-gradient(135deg, #056b38 15.94%, #8cd811 85.31%);
+  --legend-purplehaze: linear-gradient(135deg, #077b3f 0%, #04F7FC 100%);
   --legend-teal: linear-gradient(160deg, #40FCFF 20%, #007D9F 75%);
   --legend-brown: linear-gradient(160deg, #BB9971 20%, #5C3B22 75%);
   --legend-blue: linear-gradient(160deg, #01E0FF 4.5%, #0190F8 35%, #2555EE 75%);
-  --legend-sunfire: linear-gradient(135deg, #FFA722 4.5%, #FA3C3C 35%, #F00492 75%);
+  --legend-sunfire: linear-gradient(135deg, #FFA722 4.5%, #12861d 35%, #11963d 75%);
 
   --legend-glow-gold: #FFB700;
   --legend-glow-aqua: #6BCCFF;
   --legend-glow-silver: #CCC;
-  --legend-glow-purple: #B300D3;
-  --legend-glow-purplehaze: #8279DF;
+  --legend-glow-purple: #118a25;
+  --legend-glow-purplehaze: #11ad5c;
   --legend-glow-teal: #40FCFF;
   --legend-glow-brown: #BB9971;
   --legend-glow-blue: #01E0FF;
@@ -180,7 +180,7 @@ a {
 }
 
 .redBorder {
-  border: 2px solid red;
+  border: 2px solid rgb(9, 171, 22);
 }
 
 body::after{

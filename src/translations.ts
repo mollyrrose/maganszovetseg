@@ -612,12 +612,12 @@ export const explore = {
     },
     zaps: {
       id: 'explore.stats.zaps',
-      defaultMessage: 'Zap-ek',
+      defaultMessage: 'Jutalmazások',
       description: 'Label for number of zaps stats',
     },
     btcZapped: {
       id: 'explore.stats.btcZapped',
-      defaultMessage: 'BTC került Zap-elésre',
+      defaultMessage: 'BTC került jutalmazásra',
       description: 'Label for number of zapped bitcoins stats',
     },
     pubnotes: {
@@ -686,7 +686,7 @@ export const home = {
   },
   mostZapped: {
     id: 'home.sidebar.caption.mostzapped',
-    defaultMessage: 'Legtöbbet Zap-elt',
+    defaultMessage: 'Legtöbbet jutalmazott',
     description: 'Caption for the home page sidebar showing a list of most zapped notes',
   },
   zapPostfix: {
@@ -727,7 +727,7 @@ export const navBar = {
   },
   reads: {
     id: 'navbar.reads',
-    defaultMessage: 'Olvasnivaló',
+    defaultMessage: 'Olvasnivalók',
     description: 'Label for the nav bar item link to Reads page',
   },
   explore: {
@@ -963,7 +963,7 @@ export const notificationsSidebar = {
   },
   zaps: {
     id: 'notificationsSidebar.zaps',
-    defaultMessage: 'Zap-ek',
+    defaultMessage: 'Jutalmazások',
     description: 'Sidebar zaps stats caption on the notification page',
   },
   zapNumber: {
@@ -1006,7 +1006,7 @@ export const notifications = {
   },
   zaps: {
     id: 'pages.notifications.zaps',
-    defaultMessage: 'Zap-ek',
+    defaultMessage: 'Jutalmazások',
     description: 'Title of the Zaps notifications tab',
   },
   replies: {
@@ -1210,7 +1210,7 @@ export const profile = {
     },
     zaps: {
       id: 'profile.stats.zaps',
-      defaultMessage: 'Zap-ek',
+      defaultMessage: 'Jutalmazások',
       description: 'Label for zaps profile stat',
     },
     sats: {
@@ -1281,7 +1281,7 @@ export const profile = {
   },
   noZaps: {
     id: 'profile.noZaps',
-    defaultMessage: '{name} senkit sem zappelt',
+    defaultMessage: '{name} senkit sem jutalmazott',
     description: 'Label indicating that the profile has no zaps',
   },
   noRelays: {
@@ -1492,7 +1492,7 @@ export const settings = {
       },
       trendingHelp: {
         id: 'settings.contentModeration.table.trendingHelp',
-        defaultMessage: 'A tartalom nem ajánlott a trending és a legtöbbet zapped feedekben.',
+        defaultMessage: 'A tartalom nem ajánlott a trending és a legtöbbet jutalmazott a folyamokban.',
         description: 'Help description for trending filter',
       },
       contentHelp: {
@@ -1660,7 +1660,7 @@ export const settings = {
   },
   zaps: {
     id: 'settings.sections.zaps',
-    defaultMessage: 'Zap-ek',
+    defaultMessage: 'Jutalmazások',
     description: 'Title of the zaps section on the settings page',
   },
   notifications: {
@@ -1914,7 +1914,7 @@ export const timeframeDescriptors: Record<string, MessageDescriptor> = {
   },
   mostzapped: {
     id: 'explore.timeframes.mostzapped.caption',
-    defaultMessage: 'Zapp-elve',
+    defaultMessage: 'Jutalmazva',
     description: 'Caption for the mostzapped timeframe',
   },
 };
@@ -1928,7 +1928,7 @@ export const toastZapFail = {
 
 export const toastZapProfile = {
   id: 'toast.zapProfile',
-  defaultMessage: '{name} sikeresen zappolva',
+  defaultMessage: '{name} sikeresen jutalmazva',
   description: 'Toast message indicating successful zap',
 };
 
@@ -2085,7 +2085,7 @@ export const toast = {
 
 export const zapCustomOption = {
   id: 'zap.custom.option',
-  defaultMessage: 'Zap-eld {user}-t',
+  defaultMessage: 'Jutalmazd {user}-t',
   description: 'Caption for custom zap amount modal',
 };
 
@@ -2207,7 +2207,7 @@ export const followWarning = {
 export const reads = {
   pageTitle: {
     id: 'reads.pageTitle',
-    defaultMessage: 'Olvasnivaló',
+    defaultMessage: 'Olvasnivalók',
     description: 'Reads page title',
   },
 };

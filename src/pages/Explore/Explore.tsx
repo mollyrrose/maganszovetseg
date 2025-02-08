@@ -131,7 +131,7 @@ const Explore: Component = () => {
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="zaps">
                   <div class={styles.tabLabel}>
-                    Zappok
+                    Jutalmazások
                   </div>
                 </Tabs.Trigger>
                 <Tabs.Trigger class={styles.exploreTab} value="media">

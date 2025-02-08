@@ -144,7 +144,7 @@ const sortings: Record<string, () => string> = {
   'Idő': () => '',
   'Tartalom érték': () => 'orderby:score',
   'Válaszok száma': () => 'orderby:replies',
-  'Zappolt érték': () => 'orderby:satszapped',
+  'Jutalmazott érték': () => 'orderby:satszapped',
   'Interakciók száma': () => 'orderby:likes',
 };
 
@@ -533,7 +533,7 @@ const AdvancedSearch: Component = () => {
     if (advSearchState.minScore > 0) label += `Minimum érték=${advSearchState.minScore};`;
     if (advSearchState.minInteractions > 0) label += ` Minimum interakciók=${advSearchState.minInteractions};`;
     if (advSearchState.minLikes > 0) label += ` Minimum lájkok=${advSearchState.minLikes};`;
-    if (advSearchState.minZaps > 0) label += ` Minimum zappok=${advSearchState.minZaps};`;
+    if (advSearchState.minZaps > 0) label += ` Minimum jutalmazások=${advSearchState.minZaps};`;
     if (advSearchState.minReplies > 0) label += ` Minimum válaszok=${advSearchState.minReplies};`;
     if (advSearchState.minReposts > 0) label += ` Minimum újramegosztások=${advSearchState.minReposts};`;
 
@@ -744,7 +744,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Zappolta:
+              Jutalmazta:
               </div>
 
               <AdvancedSearchUserSelect
@@ -915,7 +915,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum zappok
+                        Minimum jutalmazások
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
