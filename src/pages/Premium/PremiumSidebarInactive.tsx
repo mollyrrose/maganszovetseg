@@ -18,25 +18,25 @@ const PremiumSidebarInactve: Component<{
 
     <div class={styles.premiumSidebar}>
     <div class={styles.premiumSidebarTitle}>
-      Why Get Primal Premium?
+      Miért jó a Prémium Felhasználói előfizetés?
     </div>
 
     <div class={styles.premiumSidebarDescription}>
       <p>
-        Become a Nostr power user and help shape the future! Open protocols like Nostr give us the opportunity to regain control over our online lives.
+      Legyen Noszter kiemelt-felhasználó és segítsen a jövő alakításában! Az olyan nyílt protokollok, mint a Nostr, lehetőséget adnak arra, hogy visszanyerjük az online életünk feletti irányítást.
       </p>
 
       <p>
-        At Primal, we don’t rely on advertising. We don’t monetize user data. Our users are our customers. Our sole focus is to make the best possible product for our users. We open source all our work to help the Nostr ecosystem flourish. By signing up for Primal Premium, you are enabling us to continue building for Nostr.
+      A MagánSzövetségnél nem támaszkodunk a reklámra. Nem használjuk pénzben a felhasználói adatokat. A felhasználóink a mi ügyfeleink. Kizárólag arra összpontosítunk, hogy a lehető legjobb terméket készítsük a felhasználóink számára. Minden munkánkat nyílt forráskódúvá tesszük, hogy segítsük a Nostr ökoszisztéma virágzását. A MagánSzövetség Premiumra való feliratkozással lehetővé teszed számunkra, hogy folytathassuk a Noszter fejlesztését.
       </p>
 
       <p>
-        Be the change you want to see in the world. If you don’t want to be the product, consider being the customer.
+      Légy az a változás, amit látni szeretnél a világban. Ha nem akarsz a termék lenni, fontold meg, hogy te leszel a vásárló.
       </p>
 
       <p>
-        Have a question?&nbsp;
-        <ButtonLink onClick={props.onOpenFAQ}>Check out our FAQ.</ButtonLink>
+        Kérdésed van?&nbsp;
+        <ButtonLink onClick={props.onOpenFAQ}>Olvasd el a Kérdés-Válaszok listát.</ButtonLink>
       </p>
     </div>
   </div>

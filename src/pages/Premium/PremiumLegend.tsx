@@ -87,7 +87,7 @@ const PremiumLegend: Component<{
 
       <div class={styles.gratitude}>
         <div class={styles.gratitudeTitle}>
-          <img src={heart}></img> OÖrök Hálánk Fog Üldözni! <img src={heart}></img>
+          Örök Hálánk Fog Üldözni!
         </div>
         <div class={styles.gratitudeMessage}>
         Soha nem felejtjük el legnagyobb támogatóinkat. Az olyan emberek, mint te, segítenek a MagánSzövetségnek sikeressé válni.

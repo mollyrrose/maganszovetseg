@@ -87,7 +87,7 @@ const SettingsZap: Component<{ id?: string }> = (props) => {
     <div id={props.id} class={styles.zapSettings}>
       <div class={styles.defaultZaps}>
         <div class={styles.caption}>
-          Set default zap amount:
+          A felajánlás mértékének alapbeállítása:
         </div>
         <div
           class={styles.zapInput}
@@ -108,7 +108,7 @@ const SettingsZap: Component<{ id?: string }> = (props) => {
       </div>
       <div class={styles.customZaps}>
         <div class={styles.caption}>
-          Set custom zap amount presets:
+          Állítsd be a felajánlás-kategóriáidat:
         </div>
         <div class={styles.zapOptions}>
           <For each={settings?.availableZapOptions}>

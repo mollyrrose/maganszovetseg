@@ -114,11 +114,11 @@ const faq = [
   },
   {
     question: 'Használnom kell a MaganSzovetseg.Net ellenőrzött nevemet és villámcímemet (Lightning Address)?',
-    answer: 'No. As a Primal Premium user you are able to reserve a Primal Name, but you are not required to use it as your nostr verified address (NIP-05), nor the bitcoin lightning address. Simply set any nostr verified address and/or the bitcoin lightning address you wish to use in your Nostr account profile settings.',
+    answer: 'Nem. MagánSzövetség Prémium felhasználóként lefoglalhatsz egy Primal nevet, de nem kötelező azt használnod a nostr ellenőrzött címedként (NIP-05), sem a bitcoin lightning címedként. Egyszerűen állítsd be bármelyik nostr ellenőrzött címet és/vagy a használni kívánt bitcoin villámcímet a Noszter-fiókod profilbeállításaiban.',
   },
   {
     question: 'Határozatlan ideig birtokomban van a MagánSzövetség felhasználónevem?',
-    answer: 'Önnek joga van az elsődleges név használatára a MagánSzövetség Premium előfizetés időtartama alatt. Az előfizetés lejárta után 30 nap türelmi időszak áll rendelkezésre, amely alatt az Ön elsődleges neve nem lesz elérhető mások számára a regisztrációhoz. A Primal Legend felhasználók nem lejáró előfizetésekkel rendelkeznek, így korlátlan ideig használhatják az elsődleges nevüket. Kérjük, vegye figyelembe, hogy az összes elsődleges név a Primal tulajdonában van, és bérelhető a felhasználóknak. A Primal fenntartja a jogot bármely név visszavonására, ha azt állapítjuk meg, hogy a név valaki más védjegye, hogy fennáll a személyi adatokkal való visszaélés lehetősége, vagy a Primal által meghatározott egyéb visszaélések miatt. A részletekért tekintse meg a <a data-link="terms">Szolgáltatási feltételeket</a>.',
+    answer: 'Önnek joga van az elsődleges név használatára a MagánSzövetség Premium előfizetés időtartama alatt. Az előfizetés lejárta után 30 nap türelmi időszak áll rendelkezésre, amely alatt az Ön elsődleges neve nem lesz elérhető mások számára a regisztrációhoz. A Primal Legend felhasználók nem lejáró előfizetésekkel rendelkeznek, így korlátlan ideig használhatják az elsődleges nevüket. Kérjük, vegye figyelembe, hogy az összes elsődleges név a Primal tulajdonában van, és bérelhető a felhasználóknak. A Primal fenntartja a jogot bármely név visszavonására, ha azt állapítjuk meg, hogy a név valaki más védjegye, hogy fennáll a személyi adatokkal való visszaélés lehetősége, vagy a Primal által meghatározott egyéb visszaélések miatt. A részletekért tekintse meg a <a data-link="terms">Felhasználói és Szolgáltatási feltételeket</a>.',
   },
   {
     question: 'Vásárolhatok több MagánSzövetség nevet?',
@@ -133,8 +133,8 @@ const faq = [
     answer: 'Igen, meghosszabbíthatja előfizetését az általunk támogatott fizetési módok bármelyikével: iOS App Store alkalmazáson belüli vásárlás, Google Play alkalmazáson belüli vásárlás, vagy közvetlenül a bitcoin Lightningen keresztül a Primal webalkalmazáson keresztül. Bármilyen fizetés meghosszabbítja az előfizetést a vásárolt hónapok számával. Például, ha a Primal webalkalmazással vásárol 3 hónapos MagánSzövetség Prémiumot, majd újra előfizet mobileszközén, akkor az előfizetés lejárati dátuma a jövőben négy hónap lesz, és továbbra is minden további havi rendszerességgel kitolódik. fizetés.',
   },
   {
-    question: 'If I buy MagánSzövetség Prémium on my phone, will I have access to it on the web?',
-    answer: 'Yes. Your MagánSzövetség Prémium subscription is assigned to your Nostr account. Therefore, regardless of the way you choose to subscribe, your Primal Premium subscription will be available to you in all Primal apps: web, iOS, Android.',
+    question: 'Ha megveszem a MagánSzövetség Prémiumot a telefonomon, akkor a weben is hozzáférhetek majd?',
+    answer: 'Igen. A MagánSzövetség Prémium előfizetése a Noszter-fiókjához van rendelve. Ezért, függetlenül attól, hogy milyen előfizetési módot választasz, a Prémium Prémium előfizetésed az összes Prémium alkalmazásban elérhető lesz számodra: web, iOS, Android.',
   },
   {
     question: 'Hogyan működik a Nostr névjegylista biztonsági mentési funkciója?',
@@ -220,10 +220,10 @@ const PremiumFeaturesDialog: Component<{
         <Tabs value={activeTab()} onChange={setActiveTab}>
           <Tabs.List class={styles.premiumFeaturesTabs}>
             <Tabs.Trigger class={styles.premiumFeaturesTab} value="features">
-              Premium Features
+              Prémium funkciók
             </Tabs.Trigger>
             <Tabs.Trigger class={styles.premiumFeaturesTab} value="faq">
-              Premium FAQ
+              Prémium FAQ
             </Tabs.Trigger>
             <Tabs.Indicator class={styles.premiumFeaturesTabIndicator} />
           </Tabs.List>

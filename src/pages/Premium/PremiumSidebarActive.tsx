@@ -108,8 +108,8 @@ const PremiumSidebarActive: Component<{
       </div>
 
       <div class={styles.premiumSidebarDescription}>
-        Have a question?&nbsp;
-        <ButtonLink onClick={props.onOpenFAQ}>Check out our FAQ.</ButtonLink>
+        Kérdésed van?&nbsp;
+        <ButtonLink onClick={props.onOpenFAQ}>Olvasd el a Kérdés-Válaszok listát.</ButtonLink>
       </div>
     </div>
   );

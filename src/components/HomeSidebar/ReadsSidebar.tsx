@@ -56,19 +56,19 @@ const sidebarOptions = [
   },
 
   {
-    label: 'Legtöbbet jutalmazott (24 óra)',
+    label: 'Legtöbbet zappolt (24 óra)',
     value: 'mostzapped_24h',
   },
   {
-    label: 'Legtöbbet jutalmazott (12 óra)',
+    label: 'Legtöbbet zappolt (12 óra)',
     value: 'mostzapped_12h',
   },
   {
-    label: 'Legtöbbet jutalmazott (4 óra)',
+    label: 'Legtöbbet zappolt (4 óra)',
     value: 'mostzapped_4h',
   },
   {
-    label: 'Legtöbbet jutalmazott (1 óra)',
+    label: 'Legtöbbet zappolt (1 óra)',
     value: 'mostzapped_1h',
   },
 ];
@@ -118,10 +118,10 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
 
     const unsub = subsTo(subId, {
       onEvent: (_, content) => {
-        const authors = JSON.parse(content.content || '[]') as string[];
+//        const authors = JSON.parse(content.content || '[]') as string[];
 
-        // const author = '1d22e00c32fcf2eb60c094f89f5cfa3ccd38a1b317dccda9b296fa6f50e00d0e';
-        // setFeautredAuthor(() => author);
+        //const author = 'npub1wt9pcrmk4zf9dzc4hse9tcpklx7kh7upygxcgddqkrt5qa6zz3qq4trv5c'; //Seal
+        //setFeautredAuthor(() => author);
 
         // const author = 'a8eb6e07bf408713b0979f337a3cd978f622e0d41709f3b74b48fff43dbfcd2b';
         // setFeautredAuthor(() => author);
@@ -129,13 +129,13 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
         // const author = '88cc134b1a65f54ef48acc1df3665063d3ea45f04eab8af4646e561c5ae99079';
         // setFeautredAuthor(() => author);
 
-        // const author = 'fa984bd7dbb282f07e16e7ae87b26a2a7b9b90b7246a44771f0cf5ae58018f52';
-        // setFeautredAuthor(() => author);
+         //const author = 'npub1dwcqst0aq2l99wna2vk098w0s2thm70tzpyrenm3alr0qq2xa59qlam7sl';//GZ
+         //setFeautredAuthor(() => author);
 
-        // const author = '3f770d65d3a764a9c5cb503ae123e62ec7598ad035d836e2a810f3877a745b24';
-        // setFeautredAuthor(() => author);
+         const author = '3f770d65d3a764a9c5cb503ae123e62ec7598ad035d836e2a810f3877a745b24';
+        setFeautredAuthor(() => author);
 
-        setFeautredAuthor(() => authors[Math.floor(Math.random() * authors.length)]);
+  //      setFeautredAuthor(() => authors[Math.floor(Math.random() * authors.length)]);
       },
       onEose: () => {
         setIsFetchingAuthors(() => false);

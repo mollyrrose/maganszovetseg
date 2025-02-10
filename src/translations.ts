@@ -63,7 +63,7 @@ export const account = {
     descriptions: {
       step_one: {
         id: 'settings.account.descriptions.step_one',
-        defaultMessage: 'Kezdjük az alapokkal! Csak a felhasználónév szükséges!',
+        defaultMessage: 'Kezdjük az alapokkal! A regisztrációhoz csak az Értékrend Minimum dokumentum letöltése, elfogadása, valamint csupán egy felhasználónév megadása szükséges!',
         description: 'Description on step one',
       },
       step_two: {
@@ -139,7 +139,7 @@ export const pin = {
 export const actions = {
   resetRelays: {
     id: 'actions.resetRelays',
-    defaultMessage: 'Relék szerkesztése',
+    defaultMessage: 'Adattovábbítók szerkesztése',
     description: 'Reset relays label',
   },
   seeMore: {
@@ -149,12 +149,12 @@ export const actions = {
   },
   newNote: {
     id: 'actions.newNote',
-    defaultMessage: 'Új jegyzet',
+    defaultMessage: 'Új Bejegyzés',
     description: 'New note action label',
   },
   newArticle: {
     id: 'actions.newArticle',
-    defaultMessage: 'Új cikk',
+    defaultMessage: 'Új Cikk',
     description: 'New article action label',
   },
   createPin: {
@@ -612,12 +612,12 @@ export const explore = {
     },
     zaps: {
       id: 'explore.stats.zaps',
-      defaultMessage: 'Jutalmazások',
+      defaultMessage: 'Felajánlások',
       description: 'Label for number of zaps stats',
     },
     btcZapped: {
       id: 'explore.stats.btcZapped',
-      defaultMessage: 'BTC került jutalmazásra',
+      defaultMessage: 'BTC került felajánlásra',
       description: 'Label for number of zapped bitcoins stats',
     },
     pubnotes: {
@@ -686,7 +686,7 @@ export const home = {
   },
   mostZapped: {
     id: 'home.sidebar.caption.mostzapped',
-    defaultMessage: 'Legtöbbet jutalmazott',
+    defaultMessage: 'Legtöbb felajánlás',
     description: 'Caption for the home page sidebar showing a list of most zapped notes',
   },
   zapPostfix: {
@@ -963,7 +963,7 @@ export const notificationsSidebar = {
   },
   zaps: {
     id: 'notificationsSidebar.zaps',
-    defaultMessage: 'Jutalmazások',
+    defaultMessage: 'Felajánlások',
     description: 'Sidebar zaps stats caption on the notification page',
   },
   zapNumber: {
@@ -1006,7 +1006,7 @@ export const notifications = {
   },
   zaps: {
     id: 'pages.notifications.zaps',
-    defaultMessage: 'Jutalmazások',
+    defaultMessage: 'Felajánlások',
     description: 'Title of the Zaps notifications tab',
   },
   replies: {
@@ -1210,7 +1210,7 @@ export const profile = {
     },
     zaps: {
       id: 'profile.stats.zaps',
-      defaultMessage: 'Jutalmazások',
+      defaultMessage: 'Felajánlások',
       description: 'Label for zaps profile stat',
     },
     sats: {
@@ -1240,7 +1240,7 @@ export const profile = {
     },
     relays: {
       id: 'profile.stats.relays',
-      defaultMessage: 'Relay-ek, közösségi szerver csomópontok, melyekhez a Magánszövetség.Net kapcsolódik',
+      defaultMessage: 'adattovábbítók',
       description: 'Label for sats profile relays',
     },
   },
@@ -1281,7 +1281,7 @@ export const profile = {
   },
   noZaps: {
     id: 'profile.noZaps',
-    defaultMessage: '{name} senkit sem jutalmazott',
+    defaultMessage: '{name} senkinek se adott felajánlást',
     description: 'Label indicating that the profile has no zaps',
   },
   noRelays: {
@@ -1492,7 +1492,7 @@ export const settings = {
       },
       trendingHelp: {
         id: 'settings.contentModeration.table.trendingHelp',
-        defaultMessage: 'A tartalom nem ajánlott a trending és a legtöbbet jutalmazott a folyamokban.',
+        defaultMessage: 'A tartalom nem ajánlott a trendi és a legtöbb felajánlást kapott a folyamokban.',
         description: 'Help description for trending filter',
       },
       contentHelp: {
@@ -1544,22 +1544,22 @@ export const settings = {
     },
     relays: {
       id: 'settings.network.relays',
-      defaultMessage: 'Noszter Rendszer-Kapcsolati Relék',
+      defaultMessage: 'Noszter Rendszer-Kapcsolati Adattovábbítók',
       description: 'Title of the relays section of the network settings sub-page',
     },
     myRelays: {
       id: 'settings.network.myRelays',
-      defaultMessage: 'Saját relék',
+      defaultMessage: 'Saját adattovábbítók',
       description: 'Title of the my relays section of the network settings sub-page',
     },
     noMyRelays: {
       id: 'settings.networks.noMyRelays',
-      defaultMessage: '. A kívánt relék beállításához válaszd ki őket az alábbi listából.',
+      defaultMessage: '. A kívánt adattovábbítók beállításához válaszd ki őket az alábbi listából.',
       description: 'Caption informing the user that he has no relays configured',
     },
     recomended: {
       id: 'settings.network.recomended',
-      defaultMessage: 'Ajánlott relék',
+      defaultMessage: 'Ajánlott adattovábbítók',
       description: 'Title of the recomended relays section of the network settings sub-page',
     },
     customRelay: {
@@ -1589,13 +1589,13 @@ export const settings = {
     },
     proxyDescription: {
       id: 'settings.filters.proxyDescription',
-      defaultMessage: 'Ha engedélyezed, az IP-címed látható lesz a gyorsítótár-szolgáltatás számára, de a globális kommunikációs kapcsolatot lehetővé tevő relé számára nem lesz látható. A tartalmad a megadott relékre a gyorsítótár-szolgáltatás proxyként való használatával kerül publikálásra. IP címed mindig is láthatatlan marad, csak gyorsabb lesz a weblap elérésed.',
+      defaultMessage: 'Ha engedélyezed, az IP-címed látható lesz a gyorsítótár-szolgáltatás számára, de a globális kommunikációs kapcsolatot lehetővé tevő relé számára nem lesz látható. A tartalmad a megadott adattovábbítókra a gyorsítótár-szolgáltatás proxyként való használatával kerül publikálásra. IP címed mindig is láthatatlan marad, csak gyorsabb lesz a weblap elérésed.',
       description: 'Description of the proxy events settings sub-page',
     },
   },
   relays: {
     id: 'settings.relays',
-    defaultMessage: 'Relék',
+    defaultMessage: 'Adattovábbítók',
     description: 'Title of the relays sections of the settings sidebar',
   },
   cashingService: {
@@ -1660,7 +1660,7 @@ export const settings = {
   },
   zaps: {
     id: 'settings.sections.zaps',
-    defaultMessage: 'Jutalmazások',
+    defaultMessage: 'Felajánlások',
     description: 'Title of the zaps section on the settings page',
   },
   notifications: {
@@ -1709,12 +1709,12 @@ export const settings = {
       },
       help: {
         id: 'pages.settings.profile.displayName.help',
-        defaultMessage: 'Írd be hosszabban neved, mely megjelenik Profilodban (pl. „Kiss Pista”, vagy épp "Szél-Tündér Virág". Lehet becenév is.)',
+        defaultMessage: 'Írd be hosszabban neved, mely megjelenik Profilodban (pl. „Király István)". Lehet becenév is. (pl. IstiKirály)',
         description: 'Help for displayName input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.displayName.placeholder',
-        defaultMessage: 'Ide írd be a Profilodban megjelenő neved',
+        defaultMessage: 'Írd be a Profilodban megjelenő neved (pl. Király István)',
         description: 'Placeholder for display name input on edit profile page',
       },
     },
@@ -1731,12 +1731,12 @@ export const settings = {
       },
       help: {
         id: 'pages.settings.profile.name.help',
-        defaultMessage: 'Válassz egy rövid-, ékezet nélküli felhasználónevet (pl. „kisspista” vagy "SzelTunder108")',
+        defaultMessage: 'Válassz egy rövid-, ékezet nélküli felhasználónevet (pl. „kiralypista108”)',
         description: 'Help for name input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.name.placeholder',
-        defaultMessage: 'Adja meg a felhasználónevet',
+        defaultMessage: 'Írd be a kívánt felhasználóneved (pl. kiralypista108)',
         description: 'Placeholder for name input on edit profile page',
       },
       error: {
@@ -1777,12 +1777,12 @@ export const settings = {
     lud16: {
       label: {
         id: 'pages.settings.profile.lud16.label',
-        defaultMessage: 'Bitcoin Lightning cím (Opcionális) (gyors, és rendkívül kedvező árú bitcoin utalás egymásnak). Nincs ilyened? Nyithatsz itt: https://muun.com/',
+        defaultMessage: 'Bitcoin Lightning cím (Opcionális), mely egy gyors, és rendkívül kedvező árú bitcoin utalás egymásnak. Ennek segítségével-, erre tudnak neked felajánlásokat adni a MagánSzövetség.Net tagok, a posztjaid alatt levő villám linkre kattintva. Nincs ilyened? Nyithatsz BTC Lightning pénztárcát pl. itt is: https://breez.com/',
         description: 'Label for lud16 input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.lud16.placeholder',
-        defaultMessage: 'Add meg a LN címedet',
+        defaultMessage: 'Add meg a Bitcoin Lightning wallet-et/pénztárcád címét/kódját',
         description: 'Placeholder for lud16 input on edit profile page',
       },
     },
@@ -1914,7 +1914,7 @@ export const timeframeDescriptors: Record<string, MessageDescriptor> = {
   },
   mostzapped: {
     id: 'explore.timeframes.mostzapped.caption',
-    defaultMessage: 'Jutalmazva',
+    defaultMessage: 'Felajánlást kapott',
     description: 'Caption for the mostzapped timeframe',
   },
 };
@@ -1928,7 +1928,7 @@ export const toastZapFail = {
 
 export const toastZapProfile = {
   id: 'toast.zapProfile',
-  defaultMessage: '{name} sikeresen jutalmazva',
+  defaultMessage: '{name} felajánlást kapott',
   description: 'Toast message indicating successful zap',
 };
 
@@ -2085,7 +2085,7 @@ export const toast = {
 
 export const zapCustomOption = {
   id: 'zap.custom.option',
-  defaultMessage: 'Jutalmazd {user}-t',
+  defaultMessage: 'Ajánl fej {user} számára',
   description: 'Caption for custom zap amount modal',
 };
 
@@ -2398,7 +2398,7 @@ export const premium = {
     },
     foreverPremiumDescription: {
       id: 'pages.premium.labes.foreverPremiumDescription',
-      defaultMessage: 'A prémium előfizetés VIP Felhasználók számára sose jár le.',
+      defaultMessage: 'A prémium előfizetés Prémium Felhasználók számára sose jár le.',
       description: 'Forever Premium perk description',
     },
     privateBetaBuilds: {
@@ -2423,7 +2423,7 @@ export const premium = {
     },
     customLegendProfile: {
       id: 'pages.premium.labes.customLegendProfile',
-      defaultMessage: 'VIP Felhasználó Egyedi Profil',
+      defaultMessage: 'Prémium Felhasználó Egyedi Profil',
       description: 'Legendary Custom Profile perk title',
     },
     customLegendDescription: {
@@ -2478,7 +2478,7 @@ export const premium = {
     },
     becomeLegend: {
       id: 'pages.premium.labes.becomeLegend',
-      defaultMessage: 'Légy VIP Felhasználó',
+      defaultMessage: 'Légy Prémium Felhasználó',
       description: 'Support page become legend caption',
     },
     becomeLegendDescription: {
@@ -2495,7 +2495,7 @@ export const premium = {
     },
     becomeLegend: {
       id: 'pages.premium.actions.becomeLegend',
-      defaultMessage: 'Válj VIP Felhasználóvá, most!',
+      defaultMessage: 'Válj Prémium Felhasználóvá, most!',
       description: 'Action that takes user to the Become a Legend page',
     },
     getIOS: {
@@ -2592,12 +2592,12 @@ export const premium = {
     },
     legend: {
       id: 'pages.premium.legend',
-      defaultMessage: 'Légy MagánSzövetség.Net VIP Támogató',
+      defaultMessage: 'Légy MagánSzövetség.Net Prémium Támogató',
       description: 'Title of the premium legend page',
     },
     legendShort: {
       id: 'pages.premium.legendShort',
-      defaultMessage: 'MagánSzövetség.Net VIP Támogató',
+      defaultMessage: 'MagánSzövetség.Net Prémium Támogató',
       description: 'Short title of the premium legend page',
     },
     relay: {
@@ -2627,7 +2627,7 @@ export const premium = {
     },
     ogLegend: {
       id: 'pages.premium.ogLegend',
-      defaultMessage: 'MagánSzövetség.Net VIP Támogató',
+      defaultMessage: 'MagánSzövetség.Net Prémium Felhasználó',
       description: 'Title of the Primal Legend page',
     },
   },
@@ -2674,7 +2674,7 @@ export const premium = {
       },
       legend: {
         id: 'pages.premium.success.legend',
-        defaultMessage: 'Mostantól MagánSzövetség.Net VIP Támogató vagy.',
+        defaultMessage: 'Mostantól MagánSzövetség.Net Prémium Felhasználó vagy.',
         description: 'Payment success description for legends',
       },
     }

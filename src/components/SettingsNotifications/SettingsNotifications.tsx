@@ -65,7 +65,7 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
   const notificationLabels: Record<string, string> = {
     NEW_USER_FOLLOWED_YOU: 'új felhasználó követni kezdett',
 
-    YOUR_POST_WAS_ZAPPED: 'a bejegyzésed megjutalmazták',
+    YOUR_POST_WAS_ZAPPED: 'a bejegyzésed felajánlást kapott',
     YOUR_POST_WAS_LIKED: 'a bejegyzésed lájkolták',
     YOUR_POST_WAS_REPOSTED: 'a bejegyzésed újramegosztották',
     YOUR_POST_WAS_REPLIED_TO: 'a bejegyzésedre válaszoltak',
@@ -73,12 +73,12 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
     YOU_WERE_MENTIONED_IN_POST: 'megemlítettek egy bejegyzésben',
     YOUR_POST_WAS_MENTIONED_IN_POST: 'megemlítették a bejegyzésedet egy bejegyzésben',
 
-    POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: 'megjutalmazták',
+    POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
     POST_YOU_WERE_MENTIONED_IN_WAS_LIKED: 'lájkolták',
     POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED: 'újramegosztották',
     POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO: 'válaszoltak rá',
 
-    POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: 'megjutalmazták',
+    POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED: 'lájkolták',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED: 'újramegosztották',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO: 'válaszoltak rá',

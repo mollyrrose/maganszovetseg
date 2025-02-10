@@ -12,17 +12,176 @@ const Terms: Component = () => {
   return (
     <div class={styles.terms} >
       <h1>
-        MagánSzövetség Felhasználói Feltételek
+        MagánSzövetség Felhasználói és Szolgáltatási Feltételek
       </h1>
-      <p>
-      Utolsó frissítés: 2025. február 1
-      </p>
-      <p>
-      Ez a Szerződés Ön és a MagánSzövetség.Net („MGSz”, „mi”, „mi” vagy „mieink”) között jön létre, amely a MagánSzövetség.Net alkalmazásainak és szolgáltatásainak Ön általi használatára vonatkozik, beleértve, de nem kizárólagosan a MagánSzövetség.Net webet. alkalmazás, agánSzövetség.Net iOS alkalmazás, MagánSzövetség.Net Android alkalmazás, MagánSzövetség.Net böngészőbővítmény, MagánSzövetség.Net Prémium Service, vagy MagánSzövetség.Net Hosted Wallet Service (együttesen „Szolgáltatások”). Jelen Szerződés kötelező érvényű kötelezettséget jelent Ön és a MagánSzövetség.Net között. A szolgáltatásokat a MagánSzövetség.Net, ideértve adott esetben leányvállalatainkat is. Szolgáltatásaink használatával Ön magára nézve kötelezőnek ismeri el a jelen Szerződést, az Elfogadható használati Szabályzatot, valamint a Szolgáltatások használatára vonatkozó további rendelkezéseket és feltételeket (együttesen a „Szabályzat”), amelyek magukban foglalhatják a harmadik féltől származó feltételeket és feltételeket. felek. Ha nem fogadja el az összes megadott feltételt, nem használhatja Szolgáltatásainkat.
-      </p>
-      <p>
-      A jelen Szerződést időszakonként felülvizsgáljuk és frissítjük, és a frissített változatot közzétesszük a MagánSzövetség.Net weboldalán, a 9. szakaszban (Szerződés vagy szolgáltatások változásai) leírtak szerint.
-      </p>
+      <p>Utolsó frissítés: 2025. február 1</p>
+      <p>Ez a Szerződés Ön és a MagánSzövetség.Net („MGSz”, „mi”, „mi” vagy „mieink”) között jön létre, amely a MagánSzövetség.Net alkalmazásainak és szolgáltatásainak Ön általi használatára vonatkozik, beleértve, de nem kizárólagosan a MagánSzövetség.Net webet. alkalmazás, agánSzövetség.Net iOS alkalmazás, MagánSzövetség.Net Android alkalmazás, MagánSzövetség.Net böngészőbővítmény, MagánSzövetség.Net Prémium Service, vagy MagánSzövetség.Net Hosted Wallet Service (együttesen „Szolgáltatások”). Jelen Szerződés kötelező érvényű kötelezettséget jelent Ön és a MagánSzövetség.Net között. A szolgáltatásokat a MagánSzövetség.Net, ideértve adott esetben leányvállalatainkat is. Szolgáltatásaink használatával Ön magára nézve kötelezőnek ismeri el a jelen Szerződést, az Elfogadható használati Szabályzatot, valamint a Szolgáltatások használatára vonatkozó további rendelkezéseket és feltételeket (együttesen a „Szabályzat”), amelyek magukban foglalhatják a harmadik féltől származó feltételeket és feltételeket. felek. Ha nem fogadja el az összes megadott feltételt, nem használhatja Szolgáltatásainkat.</p>
+      <p>A jelen Szerződést időszakonként felülvizsgáljuk és frissítjük, és a frissített változatot közzétesszük a MagánSzövetség.Net weboldalán, a 9. szakaszban (Szerződés vagy szolgáltatások változásai) leírtak szerint.</p>
+
+
+
+      <section>
+        <h2>
+        0. Pozitivitás-Minimum Értékrend
+        </h2>
+
+  	<section>
+          <h3>Mi a Pozitivitás-Minimum Értékrend, vagy Értékrend Minimum?</h3>
+<p>A pozitivitás mindenre kiterjedő univerzalitása minden egyént, közösséget, szervezetet és szerveződést egybefog.
+</p>
+<p>Egy új-, pozitív világ kialakításának alapja csakis pozitivátáson alapulhat.
+</p>
+<p>Mi negatív vagy pozitív? - tehetjük fel a kérdést, hiszen minden relatív.
+</p>
+<p>Az, hogy kinek mi a pozitív vagy negatív az nem annak polaritásában vagy intenzitásában változik, hanem az egyes pontok fontosságában az élet és a fejlődés különböző szakaszaiban. Kinek mi fontos? Az, hogy ki, milyen szakaszában van életének, meghatározza, hogy mi fontos számára.
+</p>
+<p>Mindamelleett, hogy a motiváció felülírhat úgy negatív mint pozitív cselekedeteket és annak eredményét a mentális lenyomatokat-, magokat melyeket elültetünk, létezik egy általános polaritás, általánosan meghatározható jó és nem jó.
+</p>
+<p>Mindez a látásmódunktól függ. Örömteli látásmód vagy keserű látásmód mellyel rendelkezük? Mindez, életünk eddig elültetett mentális magjaitól függ. Ha jüt tettünk mással, most jól érezzük magunkat és jó körülmények közt élünk. Ha állandó ellenállásban voltunk eddig eltelt életünk során az emberekkel és a hatóságokkal, úgy nagy valószínűséggel szorongunk és nem élünk túl bőséggel teli életet.
+</p>
+<p>Nem könnyű elismerni, hogy az életünk nagymértékben függ attól, hogy mit gondolunk, mondunk és cselekszünk.
+</p>
+<p>A másik tényező, melytől életünk függ az a külvilág. A külvilág (és mások) tendenciái és a mi tendenciáink találkozásakor ezek hatnak egymásra és a közös mixből alakul ki életünk.
+</p>
+<p>Rendeteg szállal kötődünk rendeteg emberhez, még ha nem is gondolnánk az.
+</p>
+<p>Fontos, és jelentőséggelteli ezért minden megnyilvánulásunk, hiszen a megnyilvánulásunk egyidejűleg rengeteg emberre hat.
+</p>
+<p>A közös, jó jövő érdekében esszenciális, hogy mindnyájan e közös jót ültessük el a társadalomban.
+</p>
+<p>Jó és szeretettelien kedves módon nyilvánuljunk meg és megértéssel fogadjuk azt, aki nem; legalábbis egy ideig.
+</p>
+<p>Fontos hát e pozitív és negatív tényezők tisztázása főként olyan Platóni univerzalitások (általános tényezők) megnevezésével, melyek mindenkit érintenek.
+</p>
+<p>Például, mondhatjuk az, hogy a szeretet jó. Ez egy univerzalitás. Ezzel mindenki-, mindenhol egyetért az univerzum bármely pontjában.
+</p>
+<p>Ebben, és hasonló univerzalitásokban kell nekünk is egyetértenünk, mert össze fog ezenmód bennünket egy közös kovászként.
+</p>
+<p>E közösen elfogadott pozitív minimum értékrenddel történő egyetértésből ezt követően megjelenhetnek annak színváltozatai.
+</p>
+<p>Különböző közösségek hozzáadhatják saját jellemzőiket és különböző egyedi megközelítést és tényezőt emelhetnek kommunikációk vagy hitük zászlajára.
+</p>
+<p>A szavahihetőség vagy igazmondás univerzalitásából a "magyar szó", vagy "szkíta egyenesség", vagy "székely szókimondás" lesz, melyek mind az eretedi kifejezés saját közösségen belüli változatai, válfajai.
+</p>
+<p>Megtehetjük, hogy kedvünkre színezzük és saját közösségünk izlése szerintire alakítjuk az univerzalitást, azonban annak univerzális gyökere ugyanaz marad.
+</p>
+<p>Ezen univerzalitás-szinten meghatározott pozitivitás tud összetartani bennünket függetlenül az közösségeink egyedi szinezetétől-, preferenciáitól. Ez tud csak összetartani bennünket.
+</p>
+<p>A MagánSzövetség.Net létrejöttének egyik oka a közösségek és látásmódjaik összekapcsolása egy közös betonalapként, melyre mindenki a saját ízlése szerint építheti a házát, olyan stílusban amiben csak szeretné.
+</p>
+<p>Ennek érdekében leírunk itt egy pozitivitás-negativitás listát, melyet különböző közösségi csoportok jeles képviselői együtt állítottak össze.
+</p>
+<p>Ez egy dinamikus lista, bármikor kiegészíthetjünk.
+</p>
+<p>A MagánSzövetség.Net tagjai az oldal használatával elfogadják, hogy ezzel egyetértenek és ezt támogatják.
+</p>
+<p>Ezt egy magánjog alapú szerződésként kezeljük, mely az oldal használatával a felhasználók között köttetett meg.
+</p>
+<p>Mindannyian felelősek vagyunk, mindannyiunkért. A minimum értékrend megállapodásunk alapként szolgál arra, hogy amennyiben valaki nem aszerint jár el figyelmeztessük és konzekvenciákat foganatosítsunk annak megszegésekor. Minthogy magánjog alapon megállapodunk úgy a pozitivitás kultiválásában, mint a nem-pozitivitás konzekvenciákkal történő szabályzásában, valamint az, hogy ezt a MagánSzövetség.Nek felhasználók az oldalra való regisztrálásukkal digitálisan (noszter publikus kulcsukkal) aláírják, az azt jelenti, hogy a MagánSzövetség.Net felhasználói egy magánjogi szövetségbe lépnek egymással. Egy MagánSzövetségbe.
+</p>
+<p>Ennek része úgy a magánjog alapú törvényhozás, a magánjog alapú jogérvényesítés és a Magánszövetség magánjog alapú kormányzása.
+</p>
+<p>Ezáltal, együtt, egy magánjogon alapuló közösséget-, társadalmi formát építünk.
+</p>
+<p>A pozitivitás és negativitás univerzalitásait a Spirál Dinamika nevű szocio-pszichológiai rendszer lépcsői szerint csoportosítjuk, mely jelképezi az egyén és a közösségek fejlődési szakaszait is egyben.
+</p>
+	
+        </section>
+
+
+
+
+        <section>
+          <h3>0.1 Túlélés ("Bézs")</h3>
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: beszűkült, agresszív, önző, ’ha az én tehenem megdöglött, a másiké is dögöljön meg’, narkotikum/ tudat-módosítószer/ alkohol-függő, más életére tör, elveszi mások fedelét, pénzét, párját, nyugalmát.
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: túlél, biztonságot teremt, ’élni és élni hagyni’, jég hátán is megél, alvóhelyet teremt, víz elérését biztosítja maga számára, élni és élni hagyni, megvédi mások fedelét, életét, pénzét, párját, nyugalmát
+</p>
+        </section>
+
+        <section>
+          <h3>0.2 Család, rokonság, nemzet, otthon, misztikum ("Lila")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: nem alkalmazkodik a családhoz/ közösséghez/ nemzethez, túlmisztifikál, túl erős összetartás vagy családi/törzsi/nemzeti kötelességek, túl erős ezotéria, pletykás/ árulkodó, túl babonás, extrém csapatmániás (’csak a mi csapatunk’, ’csak a mi nemzetünk’, ’csak mi …’), túl merev szokások, “évszázadok óta így csináljuk, ennek így kell lennie”
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: családi/nemzeti kommunikáció, nagy család/ közösség/ nemzet összetartása, a tagok kölcsönös szeretete, ’egy mindenkiért, mindenki egyért’, kölcsönösség, csapatjáték, nyitottság a természet energiák felé, nemzet összefog, egy mindenkiért, mindeki egyért
+</p>
+        </section>
+
+        <section>
+          <h3>0.3 Egoista 'erő-isten', fizikai erővel való dominancia, saját erő keresése, fizikai versengés, sport ("Piros")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: egoista, fizikailag erőfitogtató, önfejű, Önelégült, önző, Erő A Tudomány Felett,
+a NR.1.: “Én vagyok az első”, durva, törtető, hajcsár, felsőbbrendűségérzés, főnöki erőfölény kihasználása, érzelmek ignorálása, mások ignorálása, nem törődik a következményekkel, bosszúálló, a Sztár, Felvágó- a pénzével hetvenkedő, szexuálisan hetvenkedő, “Szuper-Maszkulin”, Piszkos-szájú (’b’ szavas), erővel Maffia-vezér, élvezetből vagy saját érdekből veszi el mások életét, buta megmondó-ember/ követelőző-ember; dühöngő-töltelék, bosszúálló, erővel elnyomó, egoista, magánakvaló, szitkozódó, “b-betűs szót” sokszor használó, hetvenkedő, “megmondóember”, szexuális ragadozó, a gyengéket és nőket elnyomó
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: hős, követhető vezető ki az első sorban tör előre a csatában, önbizalmat adó, bátor, önfeláldozó, megbízható, erős (mentálisan és fizikailag), élsportoló, határozott, képes megvédeni családját/ közösségét/ nemzetét és ha kell akkor annak megvédése érdekében veszi el mások életét, bátor honvédő, hős harcos, szuperhős, félelemnélküli, vállalja a felelősséget, lehet rá számítani, egyszerűen őszinte, elvégzi amit el kell végezni mert ki más tudná elvégezni mint ő?, a barát akire minden körülmények közt számíthatsz, pozitív lázadó, magabiztos, határozott, beismerni és megbocsátani tudó, harcos hős, ki megvédi a LILÁT, élsportoló, fizikai erejét a munkájában- / a háztája körül pozitívan felhasznáni tudó, a gyengéket és nőket védelmező
+</p>
+        </section>
+
+        <section>
+          <h3>0.4 Törvénybe vésett igazság-bajnok; rend, fegyelem, hierarchia, 'a magasabb ügy' ("Kék")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: begyöpösödött, merev/ rugalmatlan, fundamentalista, szélsőséges rendszerimádó, képtelen alkalmazkodni, túlzottan szabálykövető, változni nem szeret, bürokrata, túldefiniáló, embertelenül túlszabályzó - “ne lépj a fűre”, túl-hierarchizáló, diktatórikus – ”csak neki lehet igaza mer ő a kinevezett főnök”, rabságot vagy függőséget teremtő, megkérdőjelezhetetlen és egyedüli ‘igazság’, vagy a dogmák – ”ez így van és így kell, mert mindig is ezt tettük”, szabályok az emberi értékek fölött, előreljes centralizácó, vezetéstől való függőséget és kiszolgáltatottságot teremtő, jogi/ rendszabályi eszközökkel való hatalom/ uralom/ kontroll, demokráciában elcsalt választás vagy ’felülről’ jelölt vezető, tisztelet kierőszakolása, mivel az ártatlanoknak és elesetteknek nincs erőteljes politikai szavazóértéke így a politikai erő nem foglalkozik velük, csak egyetlen igazság van ami a saját igazsága, melyet fegyveresen véd és terjeszt, polgárjog=szolgajog, nagy bürokrácia, káosz teremtése az “oszdd meg és uralkodj” elvén, a pozitív rendszer lerombolása majd önérdekű “új világrend” újjáépítése
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: rendezett, fegyelmezett, szabálykövető, magasabb ügyet szolgálja, biztonságérzetet nyújt, jogszerű, igazmondó, igazságos, tisztán definiált hierarchikus struktúra és működési folyamatok, precíz de minimalista (nem készít fölösleges és hosszú dokumentumokat), transzparens, jog a véleményformáláshoz- önkifejezéshez és szabad választáshoz, az emberi értékek és értékrend a törvény – annak betartása -, gentleman, demokratikus és abba másokat is beinvitáló (direkt demokrácia), meritokratikusan (érdemek alapján) teszi lehetővé a hierarchikus pozíciók elfoglalását, jogi/ rendszabályi eszközök által biztosított centralizáció helyett decentralizált/ lokalizált döntéshozási jog, opcionális választási lehetőségek biztosítása ahol lehetséges, a nép által felépített hierarchikus rendszer (mint a tizedes rendszer), tisztelet kialakul példamutatáson keresztül (meritokrácia – az érdemeken alapuló vezetés), ártatlanok és elesettek védelme törvényileg szabályzott módon, nép-képviseleti demokrácia, direkt demokrácia, képviseleti hierarchia, rend, igazságos törvények magánjog alapján, transzparencia
+</p>
+
+        </section>
+
+        <section>
+          <h3>0.5 Tudományos, tanult, materialista, stratéga és ezáltal hatékonyan önérvényesítő ("Narancs")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: karriermániás, törtető, mindenáron ‘kitörni’ vágyó – „legyen a miénk nagyobb-, jobb mint a szomszédé” -, mohó, kapzsi, pénzéhes, kizsákmányoló, együttérzés nélküli profitorientáció, üzletileg átverő/ hátsó szándékú, stratégiával letaposó, információt ‘szorongató’, ragadozó, hiú, beképzelt, autoriter, öntelt, lenéző, etikátlan, magát nagyobbnak lefestő, függőséget teremtő – pl. a tanítvány a mesternek életen át 10%-ot kell adjon üzleti nyereségéből –, a szavakkal is lehet stratégiailag játszani és saját érdekemben tekergetni őket (pengeélen kommunikálás – se az igazat, se hamisat nem mond -, füllentés, hazugság), önző, kuporgató Dagobert Bácsi, tudást szorongató és nem megosztó
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: törekvő de nem törtető, ambíciózus, racionális, céltudatos, megfontolt, stratéga, újdonságkereső, tanulni és tudni vágyó, tudományt tisztelő, újító, innovatív, kreatív, sikeres és másokat sikeressé tevő, a siker ‘titkát’ megosztó, üzletileg korrekt és morális, önálló és önállóvá tevő, üzletrészt/ részvényt biztosító, fair a kommunikációban is, tiszta kommunikáció a hatékonyság jegyében – „ne raboljuk egymás idejét”, tudást és információt terjesztő, pénzét mások javára fordító, stratégiájában elsősorban a belső fejlődést támogató
+</p>
+
+        </section>
+
+        <section>
+          <h3>0.6 Érzelmileg szenzitív, fenntartható közösség-kedvelő, agy helyett inkább a szív, bió, természet-közeli életmód ("Sárga")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: döntésképtelen, gonosz/ harci-zöld – „mean-green” -, minden-zöld – „csak a zöld az igaz út” – (nem-zöldek nem elfogadása), más memetikát (nemzöldet, pl. kifejezetten a narancsot) utáló és eltaszító, Birka-Béke-Zöld – „csak a béke az igaz út és egészen biztosan mindenki jó szándékú”-, összehasonlítás ellenes - „mindenkit e kell fogadni bármit is tesz” -, Túl érzékeny Nyafi-Zöld – „jaj te már megint konteózol” -, egészségmániás, természetmániás, tüntetőleg lennadrág és tarisznya-mániás, közösséget kihasználó és abból csak kivevő (felhasználva annak forrásait), túl szentimentális és idealista és nem használja a szívével együtt az eszét is, méregzöld (mindenki más hülye csak mi nem), “mindenki egyenlő, de én vagyok a legegyenlőbb”, “fogjunk össze de én vezetek”
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: közösségért és/ vagy a környezetért tenni akaró, pozitívan közösségi, közösségbe elvárás nélkül beletesz (pénzt, időt, energiát, kacsolatokat, bármit), hosszú távú fenntarthatóságra és önellátásra törekvő, természetet nem kihasználó de okosan felhasználó, emberi kapcsolatok fontosabbak számára mint bármely materialitás, törődően gondoskodó felebarátaival is, közösségformáló, egészségtudatos, befogadó, tudományosan érvelő, előző memetikai szinteket elfogadó, döntését IT rendszerrel támogató (gyorsítás, döntés szükségesség), zöld ‘de nem a füle’, nem naiv hanem stratégikusan megfontolt, a szívén kívül az eszét is használja, a zöld témákban is képes észérvekkel/ tudományos érvekkel érvelni, hogy az előző szinteken levők is értsék, kifejezetten figyel a kapcsolatok win-win jellegére, önsegélyező/ önellátó/ önfenntartó közösségi társulások, direkt demokrácia melyben a megválasztott vezető döntéséseit is bármikor felülírhatja a közösség akarata, megértés és elfogadás fontossága, ártatlanok és elesettek védelme közösségileg, szívélyeses közösségi de közben észnél van, nyitott a magasabb rezgések-, az energiák világa és a tudat természetének megismerése felé, befogadó, okos módszerekkel bioételt fogyasztó és önellátásra törekvő
+</p>
+
+        </section>
+
+        <section>
+          <h3>0.7 Integratív rendszer-gondolkodó, nagy-, komplex rendszereket építő ("Türkíz")</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: tudja hogy könyebben átlát komplex szituációkat másoknál ezért beképzeltté válik; kihasználja saját képességeit más érdeke ellenében, játszmázik, befolyásol, manipulál; megtévesztő, megzavaró, megosztó kommunikáció; az agyának mestere de szívének nem; nem szól, ha mások hibáznak, hanem hagyja őket üres köröket futni, vagy arra készteti őket; nem tisztázza a stabil alapokat, hanem igazi mély értékrend és stratégia nélküli operatív-káoszt kelt mely végül szükségszerűen összedől; irányítási és egoista hírnév iránti vágy; megtévesztő kommunikáció/ metakommunikációt alkalmaz hiszen tudja hogy kinek mit miért és hogyan kell mondani, melyet a saját javára fordít; nagy/ széleskörű rendszert épít, de közben úgy alakítja, hogy az kizárólag a saját rejett agendáját szolgálja, komplex rendszereket a maga érdekében létrehozó
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: bármely memetikai szinten gondolkodni, kommunikálni, cselekedni tudó; nemcsak a külvilágot ismeri, hanem belső érzelmei és gondolatai átalakításának mesterségét is tanulja, gyakorolja; átlátja a helyzeteket, az agyát és a szívét is mesterien kezeli, megértő, türelmes, előre tervező, nagy tapasztalatú, komplexen gondolkodó; másokat saját tempójukban gondolkodni és fejlődni hagyó; saját igazát nem erőltető; olyan komplex rendszereket kezelni és összeállítani tudó melyekben nem csak a rendszer (az agy szüleménye) hanem az ember is (a szív dolga is) a lényeg; mások érdekében több tudományág mesterévé válik, hogy az ő „nyelvükön” segíthessen, komplex rendszereket a világ-, az emberiség érdekében létrehozó
+</p>
+
+        </section>
+
+        <section>
+          <h3>0.8 Holisztikus globális család az emberiség; a belső-, és a valóság természetének megismerése; kvantumfizika-érdeklődő</h3>
+
+<p>Rosz, nem jó, nem kívánatos, kerülendő, nem támogatandó, negatív: ‘Paradicsom-ból’ bizonyos csoportokat kizáró („mindenki legyen boldog, kivéve a …”); a valóság természetét (pl a kvantumfizika tudományán keresztül) nem-pozitív céllal kutató, a globális családban mindenkit segíteni kell, kivéve a Gyevi Bírót
+</p>
+<p>Jó, kívánatos, kifejlesztendő, támogatandó, pozitív: a valóság természetét pozitív motivációval kutató (kvantumfizikát fogyasztó); dolgokat ‘megérző’, ‘ráérző’, intuitív; nemcsak az emberiség-, hanem minden létforma harmóniájára törekvő; minden ‘szitán átlátó’, de nem mondja ki oktalanul amit megtud (tiszteletben tartva mások életét, privát titkaikat) hanem megtartja magának; mások mentális paradicsomára törekvő, a globális családban mindenkinek segít
+A fenntiekkel magánemberként, önszántamból, bármely nyomás nélkül egyetértek.
+A MaganSzovetseg.Net tagjaként a negatív oldalnak éber tudatába kerülök, miközben a pozitív oldalat jó motivációval kultiválom, teszem, segítem.
+</p>
+
+        </section>
+
+
+ <section>
+          <h3>0.9 ...</h3>
+<p>Bőségesen elegendő a közösségeink összekapcsolásához és közös munkánk megalapozásához eddig a Spirál-dinamika színtig elemeznünk a jó és a nemjó fogalmát.
+A végső célunk azonban nem a Spirál Dinamika szintjein felfelé történő fejlődés, hanem a fejlődés gondolatától, koncepciójától-, annak akaratlan késztetésétől-, és magának a fejlődni akarónak az illúzórikus-, mindennel és mindkivel összekapcsolt jellegének felismerése. 
+</p>
+        </section>
+
+
+
+
+      </section>
 
       <section>
         <h2>
@@ -66,9 +225,22 @@ const Terms: Component = () => {
         </h2>
 
         <section>
-        Kérjük, olvassa el a www.primal.net/privacy webhelyen elérhető "Elsődleges adatvédelmi szabályzatot" az információk gyűjtésével, felhasználásával és közzétételével kapcsolatos információkért, beleértve az Ön személyes adatait is. Ön tudomásul veszi és elfogadja, hogy a Szolgáltatások használatával hozzájárul adatainak gyűjtéséhez, felhasználásához és közzétételéhez, az Adatvédelmi szabályzatban meghatározottak szerint. Bármely olyan személy személyes adatainak megadásával (kivéve Önt), aki tranzakciókat fogadhat Öntől a Szolgáltatások használatának részeként, Ön beleegyezik abba, hogy az adott személytől beleegyezését szerezte ahhoz, hogy személyes adatait, valamint hozzájárul ahhoz, hogy ezeket a személyes adatokat gyűjtsük, felhasználjuk, tároljuk és nyilvánosságra hozzuk, az Adatvédelmi szabályzatunkban meghatározott módon és célokra.
-        </section>
+        <h3>Adatait a MagánSzövetség.Net nem rögzíti, nem tárolja, nem kezeli.</h3>
+ <p>Adatai direkt módon a Noszter (Nostr.com) kommunikációs protokoll és annak reléibe kerülnek regisztráláskor, miközben titkosítva vannak az Ön saját privát Noszter kulcsával. Ezt a beállítások oldalán letöltheti. A letöltést mindenképp javasoljuk.
+</p>
+<p>A Noszter egy olyan protokoll, melyet számos kliens-programból (mint a MagánSzövetség.Net) el lehet érni. A regisztrált Noszter accountjával (felhasználói fiókjának publikus és privát kulcsával - mely mondható, hogy egy hosszú jelszó -) bármely kliensből be tud jelentkezni a Noszter hálózatba, akár azon kliensben regisztrált akár nem.
+</p>
+<p>Adatai nem egy helyen kerülnek tárolásra, hanem annak darabja a noszter hálózat relé-szeerverein szétszórva találkatóak. Így, azokat a MagánSzövetség nem ismeri és nem is fér hozzájuk. Még ha hozzáférne is, még akkor sem tudná a MagánSzövetség egyetlen tagja sem elolvasni, hiszen az az ön privát Noszter kulcsával kerül titkosításra, melyet csak Önnek ír ki a rendszer. Privát és publikus Noszter kulcsát töltse le a Beállítások menüből és tárolja biztonsággal.
+</p>
+<p>A GDPR-nak ezenmód nincs validitása a Noszter rendszerre nézve.
+</p>
+<p>A Noszter fiókok jellemzői emellett, hogy nem lehet törölni őket, hiszen nincs senki aki hozzáfér a Noszter rendszerbe egyszer már beküldött tartalmakhoz (személyi adatok, vagy képek, üzenetek, stb.). Ezeket nincs mód törölni. Amit az ember egyszer beposztolt, az ott marad az idők végezetéig, és kereshető marad. A felhasználói fiókok megszüntetésének módja ezért a semlegesítés - a fiók felhasználó nevét átírjuk valamilyen semleges megnevezésre, pl toroltfiok1, töröljük nevünket, és egyéb adatainkat, feltöltünk a profil képünk helyett egy semleges képet. Ezáltal fiókunk értelmét veszti, és nem jelenik meg a név-keresésekben. Az addig beposztolt tartalmaink viszont azon fióknév alatt lesznek megtalálhatóak amire átírtuk a felhasználónevünket.
+</p>
+<p>Kérjük, olvassa el emellett a www.primal.net/privacy webhelyen elérhető "Elsődleges adatvédelmi szabályzatot" az információk gyűjtésével, felhasználásával és közzétételével kapcsolatos információkért, beleértve az Ön személyes adatait is. A MagánSzövetség.Net a Primal nyílt forráskódú hálózat magyarosított-, kiegészített és személyre szabott klónja. Ön tudomásul veszi és elfogadja, hogy a Szolgáltatások használatával hozzájárul adatainak gyűjtéséhez, felhasználásához és közzétételéhez, az Adatvédelmi szabályzatban meghatározottak szerint. Bármely olyan személy személyes adatainak megadásával (kivéve Önt), aki tranzakciókat fogadhat Öntől a Szolgáltatások használatának részeként, Ön beleegyezik abba, hogy az adott személytől beleegyezését szerezte ahhoz, hogy személyes adatait, valamint hozzájárul ahhoz, hogy ezeket a személyes adatokat gyűjtsük, felhasználjuk, tároljuk és nyilvánosságra hozzuk, az Adatvédelmi szabályzatunkban meghatározott módon és célokra.
+        </p>
       </section>
+      </section>
+
 
       <section>
         <h2>

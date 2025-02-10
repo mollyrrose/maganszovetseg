@@ -38,7 +38,7 @@ const Privacy: Component = () => {
 
         <section>
           <h3>2.1 Felhasználói fiók létrehozása.</h3>
-          A MagánSzövetség.Net szolgáltatások lehetővé teszik, hogy fiókot hozzon létre a nyilvános Nostr hálózaton. A fiók létrehozásakor megadott összes információ nem kötelező, kivéve a kívánt felhasználónevet. Minden személyes adat, amelyet a fiók létrehozásának folyamata során közöl, a nyilvános Nostr hálózaton lévő relék számára a Nostr-fiókok szokásos módon kerülnek közzétételre. Ezek az információk nyilvánosak, és bárki láthatja őket a Nostr hálózaton. A MagánSzövetség.Net nem gyűjt további információkat Önről a fiók létrehozásának folyamata során.
+          A MagánSzövetség.Net szolgáltatások lehetővé teszik, hogy fiókot hozzon létre a nyilvános Nostr hálózaton. A fiók létrehozásakor megadott összes információ nem kötelező, kivéve a kívánt felhasználónevet. Minden személyes adat, amelyet a fiók létrehozásának folyamata során közöl, a nyilvános Nostr hálózaton lévő adattovábbítók számára a Nostr-fiókok szokásos módon kerülnek közzétételre. Ezek az információk nyilvánosak, és bárki láthatja őket a Nostr hálózaton. A MagánSzövetség.Net nem gyűjt további információkat Önről a fiók létrehozásának folyamata során.
         </section>
 
         <section>

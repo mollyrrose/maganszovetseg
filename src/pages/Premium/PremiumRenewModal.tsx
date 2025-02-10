@@ -59,7 +59,7 @@ const PremiumRenewModal: Component<{
         <div class={styles.footer}>
           <div class={styles.disclaimer}>
           By clicking “Buy Now” you acknowledge<br/>
-          that  you agree to our <a href="https://primal.net/terms" target="__blank">Terms of Service</a>
+          that  you agree to our <a href="https://primal.net/terms" target="__blank">Felhasználói és szolgáltatási feltételek</a>
           </div>
           <div class={styles.actions}>
             <ButtonSecondary

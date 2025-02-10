@@ -442,6 +442,10 @@ const CreateAccount: Component = () => {  const intl = useIntl();
               <Show when={fileToUpload() !== undefined}>
                 <div class={styles.uploadingOverlay}></div>
               </Show>
+
+
+
+
               <Show
                 when={banner()}
                 fallback={
@@ -564,6 +568,56 @@ const CreateAccount: Component = () => {  const intl = useIntl();
         </div>
 
         <form onSubmit={onSubmit}>
+
+
+
+        <div><span style={{ fontSize: "6px", fontWeight: "bold", display: "block" }}>Értékrend Minimum</span>
+        </div>
+
+
+
+
+
+        <div className={styles.qrContainer} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "20px" }}>
+          {/* Left Column: QR Code + Title */}
+
+          <div className="qrContainer" style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "20px" }}>
+  {/* Left Column: QR Code + Title */}
+  <div className="qrCode" style={{ flex: "0 1 auto", textAlign: "center" }}>
+    <a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
+      <img
+        className="downloadPdfImg"
+        src="/icons/DownloadPdf_nh.png"
+        width={100}
+        alt="Download PDF"
+        style={{ transition: "all 0.3s ease" }}
+      />
+    </a>
+  </div>
+</div>
+
+<style jsx>{`
+  .qrCode img:hover {
+    content: url('/icons/DownloadPdf.png'); /* Change image on hover */
+  }
+`}</style>
+
+
+           {/* Right Column: Long Text (Aligned to Top) */}
+         <div className={styles.inputLabel} style={{ flex: "1", display: "flex", alignItems: "flex-start" }}>
+            <label>
+                   <span className={styles.help}>
+        Kattins az ikonra, hogy letöltsd az Értékrend Minimum dokumentumot. Ez tartalmazza azt a pozitív értékrend-felsorolást, mellyel mindannyian egyetértünk a MagánSzövetség.Net-en. 
+        Lényege, hogy elkerüljük vagy negligáljuk a rosszat/ a negativitást, és támogatjuk a jót/ a pozitivitást. 
+        Fiókod létrehozásával digitálisan aláírod e dokumentumot. Töltsd le, és olvasd el legalább a dokumentum elején levő összefoglalót, mielőtt regisztrálsz!
+                   </span>
+           </label>
+          </div>
+        </div>
+
+        <br></br>
+
+
           <div class={currentStep() === 'name' ? '' : 'invisible'}>
             <div class={styles.inputLabel}>
               <label for='name'>
@@ -604,11 +658,46 @@ const CreateAccount: Component = () => {  const intl = useIntl();
                 </span>
               </label>
             </div>
+
             <input
               name='displayName'
               type='text'
               placeholder={intl.formatMessage(tSettings.profile.displayName.placeholder)}
             />
+
+
+
+
+
+
+
+
+
+    <div class={styles.inputLabel}>
+    <br></br>
+              <label>
+                <span class={styles.help}>
+                A "Következő" zöld gomb megnyomásával a világot összekötő Noszter (ang.: nostr) kapcsolati hálózatba regisztrálsz. Ehhez, a Maganszövetseg.Net csupán hozzáférési felületet (klienst) biztosít. Regisztrációddal automatikusan létrehozol egy hosszú kód-szerű felhasználónevet (Publikus kulcsot), mely nyilvánosan azonosít téged a Noszter hálózatban. Emellett, regisztrációddal létrehozol egy Privát kulcsot is (mely hasonlatos egy nagyon hosszú és biztonságos jelszóhoz). Ezt követően a bejegyzéseidet semmilyen illetéktelen személy/szervezet/hivatal nem tudja megnyitni az internetes hálózatban (és annak szerverein). Nem tudja adataidat és üzeneteidet elolvasni, csak az, akinek e Privát kulcs a birtokában van. Még mi a MagánSzövetség.Net üzemeltetői sem tudjuk megtekinteni adataidat, üzeneteidet, csak Te magad. A Privát kulcsod mentsd el, tárold biztonságos helyen, és ne add oda senkinek. A Publikus kulcsodat (hosszú felhasználónevedet) megoszthatod bátran.               
+                </span>
+              </label>
+    </div>
+
+   <div class={styles.inputLabel}>
+   <label>
+                <span class={styles.help}>
+                  
+                A <strong><a href="MaganSzovetseg.Net/Terms" download>
+                Felhasználói és Szolgáltatási Feltételeket</a></strong>
+                , valamint az 
+                <strong><a href="MaganSzovetseg.Net/Privacy" download>Adatvédelmi Nyilatkozatot </a></strong>
+                 itt találod. A regisztrációddal automatikusan elfogadod őket.
+                </span>
+              </label>
+
+   <br></br>
+   </div>
+
+
 
             <div class={`${styles.moreInputs} ${isMoreVisible() ? styles.show : styles.hide}`}>
               <div class={styles.inputLabel}>

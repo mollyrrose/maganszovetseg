@@ -181,8 +181,8 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       onNotice: () => {
         toaster?.sendWarning(intl.formatMessage({
           id: 'settings.loadFail',
-          defaultMessage: 'Failed to load settings. Will be using local settings.',
-          description: 'Toast message after settings have failed to be loaded from the server',
+          defaultMessage: 'Nem tudtuk betölteni a beállításokat. Az offline beállításokat fogjuk használni.',
+          description: 'A beállításokat követően nem tudtuk letölteni az üzenetet a szerverről.',
         }));
       },
       onEose: () => {
@@ -648,7 +648,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       onNotice: () => {
         toaster?.sendWarning(intl.formatMessage({
           id: 'settings.loadFail',
-          defaultMessage: 'Failed to load settings. Will be using local settings.',
+          defaultMessage: 'Nem tudtuk betölteni a beállításokat. Az offline beállításokat fogjuk használni.',
           description: 'Toast message after settings have failed to be loaded from the server',
         }));
       },
@@ -751,8 +751,8 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       onNotice: () => {
         toaster?.sendWarning(intl.formatMessage({
           id: 'settings.loadFail',
-          defaultMessage: 'Failed to load settings. Will be using local settings.',
-          description: 'Toast message after settings have failed to be loaded from the server',
+          defaultMessage: 'Nem tudtuk betölteni a beállításokat. Az offline beállításokat fogjuk használni.',
+          description: 'A beállítást követően nem tudtuk letölteni az üzenetet a szerverről.',
         }));
       },
       onEose: () => {
@@ -880,6 +880,16 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
         const feeds = JSON.parse(content.content || '[]');
 
         const translatedFeeds = feeds.map(feed => {
+
+          //console.log("Original Feed:", feed); // Ellenőrizzük, hogy milyen adatokat kapunk
+          //feeds.forEach(feed => {
+          //  console.log("Checking feed:", feed);
+          //  console.log("feed.name:", feed.name);
+          //  console.log("feed.description:", feed.description);
+          //});
+
+
+
           if (feed.description === "Nostr Topic Reads from Primal") {
             return {
               ...feed,
