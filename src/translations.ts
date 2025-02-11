@@ -6,7 +6,7 @@ import { ScopeDescriptor } from "./types/primal";
 export const account = {
   alreadyHaveAccount: {
     id: 'account.alreadyHaveAccount',
-    defaultMessage: 'Már van Noszter fiókod?',
+    defaultMessage: 'Már van fiókod?',
     description: 'Already have a Nostr accountlabel',
   },
   prominentNostriches: {
@@ -179,7 +179,7 @@ export const actions = {
   },
   loginNow: {
     id: 'actions.loginNow',
-    defaultMessage: 'Jelentkezz be a Noszter fiókoddal!',
+    defaultMessage: 'Jelentkezz be a Privát Kulcsoddal!',
     description: 'Login Now action, button label',
   },
   logout: {
@@ -1368,7 +1368,7 @@ export const settings = {
     },
     pubkey: {
       id: 'settings.account.pubkey',
-      defaultMessage: 'Nyilvános kulcsod',
+      defaultMessage: 'Általunk generált hosszú felhasználóneved (Nyilvános kulcsod)',
       description: 'Your public key section caption',
     },
     pubkeyDesc: {
@@ -1378,7 +1378,7 @@ export const settings = {
     },
     privkey: {
       id: 'settings.account.privkey',
-      defaultMessage: 'Privát kulcsod',
+      defaultMessage: 'Általun generált hosszú jelszavad (Privát kulcsod)',
       description: 'Your private key section caption',
     },
     privkeyDesc: {
@@ -1693,18 +1693,18 @@ export const settings = {
     },
     uploadAvatar: {
       id: 'pages.settings.profile.uploadAvatar',
-      defaultMessage: 'Avatar feltöltése',
+      defaultMessage: 'Profilkép feltöltése',
       description: 'Label for avatar upload on edit profile page',
     },
     uploadBanner: {
       id: 'pages.settings.profile.uploadBanner',
-      defaultMessage: 'Banner feltöltése',
+      defaultMessage: 'Háttérkép feltöltése',
       description: 'Label for banner upload on edit profile page',
     },
     displayName: {
       label: {
         id: 'pages.settings.profile.displayName.label',
-        defaultMessage: 'Profil név',
+        defaultMessage: 'Profilban látszódó név',
         description: 'Label for display name input on edit profile page',
       },
       help: {

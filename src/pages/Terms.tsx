@@ -77,7 +77,7 @@ const Terms: Component = () => {
 </p>
 <p>Ezt egy magánjog alapú szerződésként kezeljük, mely az oldal használatával a felhasználók között köttetett meg.
 </p>
-<p>Mindannyian felelősek vagyunk, mindannyiunkért. A minimum értékrend megállapodásunk alapként szolgál arra, hogy amennyiben valaki nem aszerint jár el figyelmeztessük és konzekvenciákat foganatosítsunk annak megszegésekor. Minthogy magánjog alapon megállapodunk úgy a pozitivitás kultiválásában, mint a nem-pozitivitás konzekvenciákkal történő szabályzásában, valamint az, hogy ezt a MagánSzövetség.Nek felhasználók az oldalra való regisztrálásukkal digitálisan (noszter publikus kulcsukkal) aláírják, az azt jelenti, hogy a MagánSzövetség.Net felhasználói egy magánjogi szövetségbe lépnek egymással. Egy MagánSzövetségbe.
+<p>Mindannyian felelősek vagyunk, mindannyiunkért. A minimum értékrend megállapodásunk alapként szolgál arra, hogy amennyiben valaki nem aszerint jár el figyelmeztessük és konzekvenciákat foganatosítsunk annak megszegésekor. Minthogy magánjog alapon megállapodunk úgy a pozitivitás kultiválásában, mint a nem-pozitivitás konzekvenciákkal történő szabályzásában, valamint az, hogy ezt a MagánSzövetség.Nek felhasználók az oldalra való regisztrálásukkal digitálisan (noszter nyilvános kulcsukkal) aláírják, az azt jelenti, hogy a MagánSzövetség.Net felhasználói egy magánjogi szövetségbe lépnek egymással. Egy MagánSzövetségbe.
 </p>
 <p>Ennek része úgy a magánjog alapú törvényhozás, a magánjog alapú jogérvényesítés és a Magánszövetség magánjog alapú kormányzása.
 </p>

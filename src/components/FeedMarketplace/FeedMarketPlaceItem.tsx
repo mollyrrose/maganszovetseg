@@ -20,7 +20,10 @@ import ButtonFeedSupport from '../Buttons/ButtonFeedSupport'; // Importáljuk az
 
 // Feed-ekhez tartozó URL-ek
 const feedUrls: Record<string, string> = {
-  'Egyesítsük Erőinket Mozgalom (EEM)': 'https://example.com/eem',
+  'Egyesítsük Erőinket Mozgalom (EEM)': 'https://example.com/szkitatv',
+  'Nexus TV': 'https://nexustv.hu/tamogatas/',
+  'B-Terv - Legyen B-terved az önellátás': 'https://www.donably.com/b-terv',
+  'Szkíta Egyesület': 'https://www.donably.com/szkitatv',
   //'Fluffy Frens': 'https://example.com/fluffy-frens',
   // További feed-ek és URL-ek
 };
