@@ -15,15 +15,8 @@ import { CustomZapInfo, useAppContext } from '../../contexts/AppContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
 import { lottieDuration } from '../Note/NoteFooter/NoteFooter';
 import { A } from '@solidjs/router';
-import ButtonFeedSupport from '../Buttons/ButtonFeedSupport'; // Importáljuk az új komponenst
+import ButtonLink from '../Buttons/ButtonLink';
 
-
-// Feed-ekhez tartozó URL-ek
-const feedUrls: Record<string, string> = {
-  'Egyesítsük Erőinket Mozgalom (EEM)': 'https://example.com/eem',
-  //'Fluffy Frens': 'https://example.com/fluffy-frens',
-  // További feed-ek és URL-ek
-};
 
 const FeedMarketItem: Component<{
   dvm: PrimalDVM | undefined,
@@ -52,12 +45,6 @@ const FeedMarketItem: Component<{
 
   const size = () => props.size || 'list';
 
-  // Feed nevének lekérése
-  const feedName = () => props.dvm?.name || '';
-
-  // Feed URL-ének lekérése
-  const feedUrl = () => feedUrls[feedName()] || null;
-
   createEffect(() => {
     if (props.stats) {
       setState(() => ({
@@ -71,7 +58,7 @@ const FeedMarketItem: Component<{
         zapped: props.actions?.zapped || false,
       }));
     }
-  });
+  })
 
   const likes = () => state.likes;
   const satszapped = () => state.satszapped;
@@ -81,8 +68,8 @@ const FeedMarketItem: Component<{
 
     const { amount, primalVerifiedRequired } = props.dvm;
     const amountValue = parseInt(amount);
-    return (amount !== 'free' && !isNaN(amountValue) && amountValue > 0) || primalVerifiedRequired;
-  };
+    return (amount !== 'free' && !isNaN(amountValue) && amountValue > 0) || primalVerifiedRequired
+  }
 
   const doLike = async (e: MouseEvent) => {
     e.preventDefault();
@@ -114,6 +101,7 @@ const FeedMarketItem: Component<{
     }
   };
 
+
   let quickZapDelay = 0;
 
   const customZapInfo: () => CustomZapInfo = () => ({
@@ -128,26 +116,75 @@ const FeedMarketItem: Component<{
     app?.actions.closeCustomZapModal();
     setState('satszapped', (sz) => sz + (zapOption.amount || 0));
     setState('zapped', () => true);
+
+    // batch(() => {
+    //   updateReactionsState('zappedAmount', () => zapOption.amount || 0);
+    //   updateReactionsState('satsZapped', (z) => z + (zapOption.amount || 0));
+    //   updateReactionsState('zapped', () => true);
+    //   updateReactionsState('showZapAnim', () => true)
+    // });
+
+    // addTopZap(zapOption);
+    // addTopZapFeed(zapOption)
   };
 
   const onSuccessZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('zapped', () => true);
+
+    // const pubkey = account?.publicKey;
+
+    // if (!pubkey) return;
+
+    // batch(() => {
+    //   updateReactionsState('zapCount', (z) => z + 1);
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => true);
+    // });
   };
 
   const onFailZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('satszapped', (sz) => sz - (zapOption.amount || 0));
     setState('zapped', () => props.actions?.zapped || false);
+
+    // batch(() => {
+    //   updateReactionsState('zappedAmount', () => -(zapOption.amount || 0));
+    //   updateReactionsState('satsZapped', (z) => z - (zapOption.amount || 0));
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => props.note.post.noteActions.zapped);
+    // });
+
+    // removeTopZap(zapOption);
+    // removeTopZapFeed(zapOption);
   };
 
   const onCancelZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('satszapped', (sz) => sz - (zapOption.amount || 0));
     setState('zapped', () => props.actions?.zapped || false);
+
+    // batch(() => {
+    //   updateReactionsState('zappedAmount', () => -(zapOption.amount || 0));
+    //   updateReactionsState('satsZapped', (z) => z - (zapOption.amount || 0));
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => props.note.post.noteActions.zapped);
+    // });
+
+    // removeTopZap(zapOption);
+    // removeTopZapFeed(zapOption);
   };
 
   const startZap = (e: MouseEvent | TouchEvent) => {
@@ -220,6 +257,14 @@ const FeedMarketItem: Component<{
     setState('satszapped', (sz) => sz + (amount || 0));
     setState('isZapping', () => true);
 
+    // batch(() => {
+    //   props.updateState && props.updateState('isZapping', () => true);
+    //   props.updateState && props.updateState('satsZapped', (z) => z + amount);
+    //   props.updateState && props.updateState('showZapAnim', () => true);
+    // });
+
+    // props.onZapAnim && props.onZapAnim({ amount, message, emoji })
+
     setTimeout(async () => {
       if (!props.dvm || !props.author) return;
       const success = await zapDVM(props.dvm, props.author, account.publicKey, amount, message, account.activeRelays);
@@ -232,6 +277,7 @@ const FeedMarketItem: Component<{
           amount,
           message,
         });
+
         return;
       }
 
@@ -241,7 +287,8 @@ const FeedMarketItem: Component<{
         message,
       });
     }, lottieDuration());
-  };
+
+  }
 
   return (
     <div
@@ -252,45 +299,53 @@ const FeedMarketItem: Component<{
       <div class={styles.left}>
         <div class={styles.avatar}>
           <Avatar size="vs2" src={props.dvm?.picture || props.dvm?.image || ''} />
+          {/* <Show when={props.metadata?.isPrimal && size() === 'list'}>
+            <div class={styles.smallPrimalLogo}></div>
+          </Show> */}
         </div>
         <div class={styles.paid}>
           <Show
             when={isPaid()}
             fallback={<div class={styles.freeToken}>Díjmentes</div>}
           >
-            <div class={styles.paidToken}>Fizetős</div>
+            <div class={styles.paidToken}>Fizefős</div>
           </Show>
         </div>
       </div>
-      
+
       <div class={styles.right}>
         <div class={styles.info}>
-          <div class={styles.title}>{feedName()}</div>
-          <div class={styles.about}>{props.dvm?.about || ''}
-          <br></br>
-          
-          <Show when={feedUrl()}>
-           <div class={styles.feedButton}>
-           <ButtonFeedSupport href={feedUrl()} target="_blank">Támogatás</ButtonFeedSupport>
+          <div class={styles.title}>{props.dvm?.name || ''}</div>
+          <div class={styles.about}>{props.dvm?.about || ''}</div>
+        </div>
+
+          <Show when={props.metadata?.isPrimal && size() === 'header'}>
+            <div class={styles.createdBy}>
+              <div class={styles.primalLogo}></div>
+              <span>Léterhozó:</span> <span class={styles.authorName}>MagánSzövetség</span>
             </div>
           </Show>
 
+       
 
 
 
-          </div>
-  
-
-        </div>
 
 
 
-        <Show when={props.metadata?.isPrimal && size() === 'header'}>
-          <div class={styles.createdBy}>
-            <div class={styles.primalLogo}></div>
-            <span>Léterhozó:</span> <span class={styles.authorName}>MagánSzövetség</span>
-          </div>
-        </Show>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div class={styles.actions}>
           <div class={styles.commonUsersList}>
@@ -331,8 +386,9 @@ const FeedMarketItem: Component<{
           </div>
         </div>
       </div>
+
     </div>
-  );
-};
+  )
+}
 
 export default FeedMarketItem;

@@ -1639,7 +1639,7 @@ const EditBox: Component<{
               hidden={true}
               accept="image/*,video/*,audio/*"
             />
-            <label for={`upload-${instanceId}`} class={`attach_icon ${styles.attachIcon}`}>
+            <label for={`upload-${instanceId}`} class={`attach_icon ${styles.attachIcon}`}>"   "
             </label>
           </div>
           <div class={styles.editorOption}>

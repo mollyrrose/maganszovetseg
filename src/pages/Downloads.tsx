@@ -132,7 +132,7 @@ const Downloads: Component = () => {
             <div class="qrCaption" style={{ fontSize: '10px', marginTop: '18px', textAlign: 'center' }}>
               <strong>II. Értékrend Médium</strong><br /><br />
               <span style={{ fontSize: '10px' }}>
-                Opcionálisan egyetérthetsz. Töltsd le és olvasd el!
+                Opcionálisan egyetérthetsz.
               </span>
             </div>
           </div>

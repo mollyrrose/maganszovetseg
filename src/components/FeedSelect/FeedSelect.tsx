@@ -123,7 +123,7 @@ const FeedSelect: Component<{ isPhone?: boolean, id?: string, big?: boolean}> = 
         isSelected={isSelected}
         isPhone={props.isPhone}
         big={props.big}
-        caption="Bejegyzésfolyam"
+        caption="Folyamok"
         captionAction={<A href="/settings/home_feeds">Szerkesztés</A>}
       />
       <Show when={isDev() && home?.selectedFeed?.spec.includes('advsearch')}>

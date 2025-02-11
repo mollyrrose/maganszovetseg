@@ -1,3 +1,31 @@
+.feedSupportButton {
+ 
+ display: inline-flex; // Gomb tartalmának középre igazítása
+  display: inline-flex; // Gomb tartalmának középre igazítása
+  justify-content: center; //flex-start; center; Gomb balra igazítása
+  margin-left: 0; // Balra rendezés
+  margin-top: 00px; // Térköz a "Díjmentes" gomb alatt
+  background-color: #90EE90; // Világos meleg zöld szín
+  border-radius: 3px; // Ugyanolyan kerek, mint a "Díjmentes" gomb
+  padding: 0px 0px; // Belső térköz (méret csökkentése)
+  align-items: center;
+  width: 33.33%; // Szélesség az eredeti egyharmada
+  font-size: 13px; // Szöveg mérete az eredeti fele
+  transition: background-color 0.3s ease; // Sima átmenet hover esetén
+  margin-bottom: 0px; // Térköz a leírás és a gomb között
+
+  text-decoration: none; // Aláhúzás eltávolítása
+  color: #000; // Szöveg színe
+  border: none; // Keret eltávolítása
+  cursor: pointer; // Mutató ikon
+
+
+  &:hover {
+    background-color: #76f776; // Sötétebb zöld hover esetén
+    font-color: #000000; // fehér hover esetén
+  }
+}
+
 .primary {
   display: flex;
   justify-content: center;

@@ -1,70 +1,3 @@
-
-
-.feedButton {
-  display: inline-flex; // Gomb tartalmának középre igazítása
-  justify-content: center; //flex-start; center; Gomb balra igazítása
-  margin-left: 0; // Balra rendezés
-  margin-top: 10px; // Térköz a "Díjmentes" gomb alatt
-  background-color: #90EE90; // Világos meleg zöld szín
-  border-radius: 3px; // Ugyanolyan kerek, mint a "Díjmentes" gomb
-  padding: 0px 0px; // Belső térköz (méret csökkentése)
-  align-items: center;
-  width: 33.33%; // Szélesség az eredeti egyharmada
-  font-size: 13px; // Szöveg mérete az eredeti fele
-  transition: background-color 0.3s ease; // Sima átmenet hover esetén
-  margin-bottom: 10px; // Térköz a leírás és a gomb között
-
-  &:hover {
-    background-color: #76f776; // Sötétebb zöld hover esetén
-    font-color: #000000; // fehér hover esetén
-  }
-
-  // A ButtonLink komponens stílusainak felülírása
-  a {
-    background-color: inherit; // Örökli a szülő háttérszínét
-    border-radius: inherit; // Örökli a szülő kerekítését
-    padding: inherit; // Örökli a szülő belső térközét
-    font-size: inherit; // Örökli a szülő szövegméretét
-    width: inherit; // Örökli a szülő szélességét
-    text-decoration: none; // Aláhúzás eltávolítása
-    color: inherit; // Szöveg színe örökölve
-    display: flex; // Gomb tartalmának középre igazítása
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-
-
-.left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px; // Térköz a "Díjmentes" gomb és a "Felajánló Link" gomb között
-  width: 40px;
-
-  .avatar {
-    position: relative;
-
-    .smallPrimalLogo {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-
-      display: block;
-      width: 16px;
-      height: 16px;
-      background-color: var(--background-header-input);
-      border: 2px solid var(--background-header-input);
-      border-radius: 99px;
-      background-image: url(../../assets/icons/logo_fire.svg);
-      background-size: cover;
-    }
-  }
-}
-
-
-
-
 .feedMarketplaceTitle {
   color: var(--text-primary);
   font-size: 18px;
@@ -353,21 +286,18 @@
 }
 
 .freeToken {
-  display: none; // Elrejti a "Díjmentes" gombot
- /* color: var(--background-site);
+  color: var(--background-site);
   font-size: 10px;
   font-weight: 700;
   line-height: 8px;
 
   background-color: var(--text-secondary);
   border-radius: 20px;
-  display: inline-flex; // Változtasd flex-ről inline-flex-re
-  padding: 5px 12px; // Térköz a szöveg körül
-  align-items: center; // Szöveg függőlegesen középre
-  justify-content: center; // Szöveg vízszintesen középre
-  min-width: 40px; // Minimális szélesség
-  white-space: nowrap; // Szöveg ne törjön több sorba
-*/
+  display: flex;
+  width: 40px;
+  padding: 5px 7px;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .primalLogo {

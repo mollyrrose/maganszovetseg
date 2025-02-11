@@ -72,18 +72,22 @@ const SaveFeedDialog: Component<{
       open={props.open}
       setOpen={toggleFeed}
       triggerClass={styles.addToFeed}
+
+      
       triggerContent={
         <Show
           when={isFeedAdded()}
           fallback={<>
             <div class={styles.addIcon}></div>
             <div>
-              Add ezt az keresést a {props.feedType} hírfolyamomhoz
+              Követni kívánom
             </div>
           </>}
         >
-          Távolítsd el ezt a keresést a {props.feedType} hírfolyamomból
+          Nem kívánom követni
         </Show>
+
+
       }
       title={<div class={styles.addToFeedDialogTitle}>
         Save to <span>{props.feedType}</span> Feeds

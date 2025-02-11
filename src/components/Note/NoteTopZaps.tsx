@@ -115,7 +115,7 @@ const NoteTopZaps: Component<{
               onClick={props.doZap}
             >
               <div class={styles.zapIcon}></div>
-              <div class={styles.zapText}>Zap</div>
+              <div class={styles.zapText}>Felajánlás</div>
             </button>
           </Show>
         </TransitionGroup>

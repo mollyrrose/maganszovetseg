@@ -113,7 +113,7 @@ const FeedMarketPlaceDialog: Component<{
       setOpen={props.setOpen}
       title={
         <div class={styles.feedMarketplaceTitle}>
-          Hírfolyam Piactér
+          Folyam-Piactér
         </div>
       }
       triggerClass={'hidden'}
@@ -138,7 +138,7 @@ const FeedMarketPlaceDialog: Component<{
 
             <div class={styles.feedMarketplaceFooter}>
               <div class={styles.instruction}>
-                Válassz egy hírfolyamot az előnézethez
+                Válassz egy Folyamot, és kattints rá az előnézethez!
               </div>
 
               <ButtonSecondary
@@ -190,7 +190,7 @@ const FeedMarketPlaceDialog: Component<{
                 props.onAddFeed(feed)
               }}
             >
-              Hírfolyam hozzáadása
+              Folyam hozzáadása
             </ButtonPrimary>
           </div>
         </Match>

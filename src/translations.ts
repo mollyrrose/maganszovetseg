@@ -219,12 +219,12 @@ export const actions = {
   },
   addFeedToHome: {
     id: 'actions.addFeedToHome',
-    defaultMessage: 'Ezt a hírcsatornát hozzáadom a főoldalamhoz',
+    defaultMessage: 'Ezt a folyamot hozzáadom a főoldalamhoz',
     description: 'Add feed to home, button label',
   },
   addFeedToHomeNamed: {
     id: 'actions.addFeedToHomeNamed',
-    defaultMessage: '{name} hírcsatornájának hozzáadása a főoldalhoz',
+    defaultMessage: '{name} folyamának hozzáadása a főoldalhoz',
     description: 'Add named feed to home, button label',
   },
   disabledAddFeedToHome: {
@@ -234,7 +234,7 @@ export const actions = {
   },
   removeFromHomeFeedNamed: {
     id: 'actions.removeFromHomeFeedNamed',
-    defaultMessage: '{name} hírcsatornájának eltávolítása a főoldalról',
+    defaultMessage: '{name} folyamának eltávolítása a főoldalról',
     description: 'Remove named feed from home, button label',
   },
   noteCopyNostrLink: {
@@ -340,12 +340,12 @@ export const actions = {
     },
     addFeed: {
       id: 'actions.profileContext.addFeed',
-      defaultMessage: 'Felhasználó hírcsatornájának hozzáadása',
+      defaultMessage: 'Felhasználó folyamának hozzáadása',
       description: 'Label for adding user\'s feed to home, from profile context menu',
     },
     removeFeed: {
       id: 'actions.profileContext.removeFeed',
-      defaultMessage: 'Felhasználó hírcsatornájának eltávolítása',
+      defaultMessage: 'Felhasználó folyamának eltávolítása',
       description: 'Label for removing user\'s feed from home, from profile context menu',
     },
     muteUser: {
@@ -382,7 +382,7 @@ export const actions = {
     },
     zap: {
       id: 'actions.noteContext.zapNote',
-      defaultMessage: 'Egyedi Zap küldése',
+      defaultMessage: 'Egyedi mennyiségű BTC felajánlás küldése',
       description: 'Label for note zap from context menu',
     },
     copyLink: {
@@ -443,7 +443,7 @@ export const actions = {
   },
   zap: {
     id: 'actions.zap',
-    defaultMessage: 'Zap küldése',
+    defaultMessage: 'Felajánlás küldése',
     description: 'Label for zap',
   },
   reactions: {
@@ -487,7 +487,7 @@ export const downloads = {
   },
   callToActionIOSDescription: {
     id: 'downloads.ctaAndroidDescription',
-    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni hírcsatornák létrehozására és kezelésére.',
+    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
     description: 'Description for the iOS downloads\' page call-to-action',
   },
   callToActionAndroidTitle: {
@@ -497,7 +497,7 @@ export const downloads = {
   },
   callToActionAndroidDescription: {
     id: 'downloads.ctaAndroidDescription',
-    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni hírcsatornák létrehozására és kezelésére.',
+    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
     description: 'Description for the Android downloads\' page call-to-action',
   },
   callToActionQRTitle: {
@@ -645,13 +645,13 @@ export const explore = {
 
 export const feedProfile = {
   id: 'feedProfile',
-  defaultMessage: '{name} hírfolyama',
+  defaultMessage: '{name} Folyama',
   description: 'Generic name for a feed created from a profile',
 };
 
 export const feedProfileDesription = {
   id: 'feedProfileDesription',
-  defaultMessage: '{name} jegyzetfolyama',
+  defaultMessage: 'Minden {name} általt posztot bejegyzés',
   description: 'Generic description for a feed created from a profile',
 };
 
@@ -1111,7 +1111,7 @@ export const placeholders = {
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
-    defaultMessage: 'Merre fut épp a tudatod...',
+    defaultMessage: 'Merre futnak épp gondolataid?...',
     description: 'Placeholder for new note call-to-action',
   },
   pageWIPTitle: {
@@ -1179,7 +1179,7 @@ export const profile = {
   },
   title: {
     id: 'profile.title',
-    defaultMessage: '{name} - Noszter profil',
+    defaultMessage: '{name} - MagánSzövetség profil',
     description: 'Page title for Profile page'
   },
   followsYou: {
@@ -1402,7 +1402,7 @@ export const settings = {
   homeFeeds: {
     title: {
       id: 'settings.homeFeeds.title',
-      defaultMessage: 'Kezdőlap infó-folyamok',
+      defaultMessage: 'Kezdőlap Folyamok',
       description: 'Title of the home feeds settings sub-page',
     },
     caption: {
@@ -1414,7 +1414,7 @@ export const settings = {
   readsFeeds: {
     title: {
       id: 'settings.readsFeeds.title',
-      defaultMessage: 'Olvasható infó-folyamok',
+      defaultMessage: 'Olvasható Folyamok',
       description: 'Title of the reads feeds settings sub-page',
     },
     caption: {
@@ -1615,22 +1615,22 @@ export const settings = {
   },
   feeds: {
     id: 'settings.sections.feeds',
-    defaultMessage: 'Kezdőoldali hírfolyamok',
+    defaultMessage: 'Kezdőoldali Folyamok',
     description: 'Title of the feeds section on the settings page',
   },
   feedsAddNew: {
     id: 'settings.feedsAddNew',
-    defaultMessage: 'Új hírfolyam hozzáadása',
+    defaultMessage: 'Új Folyam hozzáadása',
     description: 'Label for the button for adding new feed to the feeds list',
   },
   feedsRestore: {
     id: 'settings.feedsRestore',
-    defaultMessage: 'Alapértelmezett hírfolyamok visszaállítása',
+    defaultMessage: 'Alapértelmezett Folyamok visszaállítása',
     description: 'Label for the button for restoring default feeds to the feeds list',
   },
   feedsRestoreConfirm: {
     id: 'settings.feedsRestoreConfirm',
-    defaultMessage: 'Az alapértelmezett hírfolyamok visszaállítása törölni fogja az összes egyéni beállításodat.',
+    defaultMessage: 'Az alapértelmezett Folyamok visszaállítása törölni fogja az összes egyéni beállításodat.',
     description: 'Label explaining the impact of restoring default feeds',
   },
   zapsRestoreConfirm: {
@@ -1921,7 +1921,7 @@ export const timeframeDescriptors: Record<string, MessageDescriptor> = {
 
 export const toastZapFail = {
   id: 'toast.zapFail',
-  defaultMessage: 'Nem sikerült elküldeni ezt a Zapot',
+  defaultMessage: 'Nem sikerült elküldeni ezt a mennyiségű felajánlást',
   description: 'Toast message indicating failed zap',
 };
 
@@ -2068,7 +2068,7 @@ export const toast = {
   },
   zapDVMUnavailable: {
     id: 'toast.zapDVMUnavailable',
-    defaultMessage: 'Ennek a hírfolyamnak a szerzője nem zapolható',
+    defaultMessage: 'E Folyamnak a szerzőjének lehetséges felajánlást küldeni',
     description: 'Toast message indicating user cannot receieve a zap',
   },
   updateProfileSuccess: {

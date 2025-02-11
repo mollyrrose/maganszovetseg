@@ -248,7 +248,7 @@ const ExploreFeeds: Component = () => {
               href={'/explore#feeds'}
             >
                 <div class={styles.backIcon}></div>
-                <div>Hírfolyam Piactér</div>
+                <div>Folyam-Piactér</div>
             </A>
             <ButtonFlip
               when={isFeedAdded()}
@@ -256,11 +256,11 @@ const ExploreFeeds: Component = () => {
               onClick={toggleFeed}
               fallback={
                 <>
-                  Add ezt a hírfolyamot a {addFeedDestination()} hírfolyamodhoz
+                  Követni kívánom
                 </>
               }
               >
-              <>Töröld ezt a hírfolyamot a {addFeedDestination()} hírfolyamodból</>
+              <>Nem kívánom követni</>
             </ButtonFlip>
           </div>
 

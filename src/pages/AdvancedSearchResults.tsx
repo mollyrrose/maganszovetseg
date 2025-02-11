@@ -132,7 +132,7 @@ const AdvancedSearchResults: Component = () => {
           <div class={styles.moreSearchInfo}>
             <div>
               <div class={styles.moreSearchCaption}>
-                Ez egy MagánSzövetség Prémium hírfolyam.
+                Ez egy MagánSzövetség Prémium Folyam.
               </div>
               <div class={styles.moreSearchDescription}>
               Vásároljon előfizetést, hogy Nostr "power user" legyen és támogassa munkánkat:
