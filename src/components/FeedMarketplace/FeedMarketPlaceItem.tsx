@@ -274,7 +274,7 @@ const FeedMarketItem: Component<{
           
           <Show when={feedUrl()}>
            <div class={styles.feedButton}>
-           <ButtonFeedSupport href={feedUrl()} target="_blank">Támogatás</ButtonFeedSupport>
+           <ButtonFeedSupport href={feedUrl()} target="_blank">Felajánlás</ButtonFeedSupport>
             </div>
           </Show>
 

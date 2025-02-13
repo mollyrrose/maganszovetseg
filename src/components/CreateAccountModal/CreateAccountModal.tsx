@@ -49,10 +49,13 @@ const CreateAccountModal: Component<{
           </ButtonPrimary>
         </div>
         <div class={styles.alternative}>
+        <br />
         {intl.formatMessage(t.alreadyHaveAccount)}&nbsp;
           <ButtonLink onClick={props.onLogin}>
-            {intl.formatMessage(tActions.loginNow)}
+          <strong>{intl.formatMessage(tActions.loginNow)}</strong>
           </ButtonLink>
+          <br /><br />
+        {intl.formatMessage(t.alreadyHaveAccountExp)}&nbsp;
         </div>
       </div>
 

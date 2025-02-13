@@ -118,6 +118,9 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
 
     const unsub = subsTo(subId, {
       onEvent: (_, content) => {
+
+      //https://nostrcheck.me/converter/ Public key to hexa
+
 //        const authors = JSON.parse(content.content || '[]') as string[];
 
         //const author = 'npub1wt9pcrmk4zf9dzc4hse9tcpklx7kh7upygxcgddqkrt5qa6zz3qq4trv5c'; //Seal
@@ -129,11 +132,13 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
         // const author = '88cc134b1a65f54ef48acc1df3665063d3ea45f04eab8af4646e561c5ae99079';
         // setFeautredAuthor(() => author);
 
-         //const author = 'npub1dwcqst0aq2l99wna2vk098w0s2thm70tzpyrenm3alr0qq2xa59qlam7sl';//GZ
+         //const author = '72ca1c0f76a892568b15bc3255e036f9bd6bfb81220d8435a0b0d74077421440';//seal
          //setFeautredAuthor(() => author);
 
          const author = '3f770d65d3a764a9c5cb503ae123e62ec7598ad035d836e2a810f3877a745b24';
         setFeautredAuthor(() => author);
+
+
 
   //      setFeautredAuthor(() => authors[Math.floor(Math.random() * authors.length)]);
       },

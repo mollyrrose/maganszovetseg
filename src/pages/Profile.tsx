@@ -70,7 +70,58 @@ import { getKnownProfiles } from '../Router';
 import { scrollWindowTo } from '../lib/scroll';
 import PremiumCohortInfo from './Premium/PremiumCohortInfo';
 
+
+
 const Profile: Component = () => {
+
+
+
+
+
+
+/* //https://nostrcheck.me/converter/
+  const feedUrls: Record<string, string> = {
+    //'Egyesítsük Erőinket Mozgalom (EEM)': 'https://example.com/szkitatv',
+    //'Nexus TV': 'https://nexustv.hu/tamogatas/',
+    //'B-Terv - Legyen B-terved az önellátás': 'https://www.donably.com/b-terv',
+    'npub1gtsvc5e8yaxrxa3jy55dq98suvaf6jn3ldzgvf8u0s6cwppmz90qdacmmq': 'https://www.donably.com/szkitatv',
+    //'Fluffy Frens': 'https://example.com/fluffy-frens',
+    // További feed-ek és URL-ek
+  };
+*/
+
+
+    // Feed nevének lekérése
+//    const feedName = () => props.dvm?.name || ''; //profileName van helyette
+
+    // Feed URL-ének lekérése
+    //const feedUrl = () => feedUrls[feedName()] || null;
+
+
+
+
+
+
+
+
+
+// Ellenőrzés, hogy az aktuális public key benne van-e a feedUrls objektumban
+//const isKeyInFeedUrls = feedUrls.hasOwnProperty(currentUserPubKey);
+
+//true, false
+
+
+
+
+
+
+
+//const isProfileKeyInFeedUrls = feedUrls.hasOwnProperty(profile.profileKey);
+
+
+
+
+
 
   const settings = useSettingsContext();
   const toaster = useToastContext();
@@ -782,6 +833,25 @@ const Profile: Component = () => {
                 />
               </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <ButtonSecondary
                 onClick={() => setOpenQr(true)}
                 shrink={true}
@@ -915,7 +985,7 @@ const Profile: Component = () => {
 
                       <Show when={profile?.commonFollowers && profile.commonFollowers.length > 0}>
                         <div class={`${styles.commonFollows} animated`}>
-                          <div class={styles.label}>Követik</div>
+                          <div class={styles.label}>követik:</div>
                           <div class={styles.avatars}>
                             <For each={profile?.commonFollowers.slice(0, 5)}>
                               {(follower, index) => (
@@ -1004,7 +1074,7 @@ const Profile: Component = () => {
 
                         <Show when={profile?.commonFollowers && profile.commonFollowers.length > 0}>
                           <div class={styles.commonFollows}>
-                            <div class={styles.label}>Követik</div>
+                            <div class={styles.label}>követik:</div>
                             <div class={styles.avatars}>
                               <For each={profile?.commonFollowers.slice(0, 5)}>
                                 {(follower, index) => (

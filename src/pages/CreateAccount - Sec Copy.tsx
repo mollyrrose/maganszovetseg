@@ -184,20 +184,6 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
     let relaySettings = account.defaultRelays.reduce<NostrRelays>((acc, r) => ({ ...acc, [r]: { write: true, read: true }}), {});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
     let metadata: Record<string, string> = {};
 
     [ 'displayName',
@@ -217,45 +203,6 @@ const CreateAccount: Component = () => {  const intl = useIntl();
         }
       }
     });
-*/
-
-//adding the supportLink to the metadata object
-    let metadata: Record<string, string> = {};
-
-    [ 'displayName',
-      'name',
-      'website',
-      'about',
-      'lud16',
-      'nip05',
-      'picture',
-      'banner',
-      'country',  // user country, optional
-      'mapaddress',  // user address for map display, optional
-      'language', // user language, to be selected
-      'clientregurl', //url of nostr client, where the user initially registered
-      'myrss', // the rss feed of the user 
-      'donationink', // the FIAT donation link of the user
-    ].forEach(key => {
-      if (data.get(key)) {
-        metadata[key] = data.get(key) as string;
-    
-        if (key === 'displayName') {
-          metadata['display_name'] = data.get(key) as string;
-        }
-      }
-    });
-
-    metadata['country'] = "Hungary";
-    metadata['mapadress'] = "Hungary";
-    metadata['language'] = "clienturl";
-    metadata['clientregurl'] = "MaganSzovetseg.Net";
-    metadata['myRSS'] = "";
-    metadata['donationlink'] = "";
-
-
-
-
 
     const { success } = await sendProfile({ ...metadata }, account?.proxyThroughPrimal || false, account.relays, relaySettings);
 
@@ -724,6 +671,8 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
 
 
+
+
     <div class={styles.inputLabel}>
     <br></br>
               <label>
@@ -736,13 +685,13 @@ const CreateAccount: Component = () => {  const intl = useIntl();
    <div class={styles.inputLabel}>
    <label>
                 <span class={styles.help}>
-                
-                A <strong><a href="https://MaganSzovetseg.Net/Terms" target="_blank">Felhasználói és Szolgáltatási Feltételeket</a></strong>
+                  
+                A <strong><a href="MaganSzovetseg.Net/Terms" download>
+                Felhasználói és Szolgáltatási Feltételeket</a></strong>
                 , valamint az 
-                <strong><a href="https://MaganSzovetseg.Net/Privacy" target="_blank">Adatvédelmi Nyilatkozatot </a></strong>
+                <strong><a href="MaganSzovetseg.Net/Privacy" download>Adatvédelmi Nyilatkozatot </a></strong>
                  itt találod. A regisztrációddal automatikusan elfogadod őket.
                 </span>
-
               </label>
 
    <br></br>
@@ -750,14 +699,10 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
 
 
-
-
             <div class={`${styles.moreInputs} ${isMoreVisible() ? styles.show : styles.hide}`}>
-              
               <div class={styles.inputLabel}>
                 <label for='picture'>{intl.formatMessage(tSettings.profile.picture.label)}</label>
               </div>
-
               <input
                 name='picture'
                 type='text'
@@ -772,7 +717,6 @@ const CreateAccount: Component = () => {  const intl = useIntl();
               <div class={styles.inputLabel}>
                 <label for='banner'>{intl.formatMessage(tSettings.profile.banner.label)}</label>
               </div>
-
               <input
                 name='banner'
                 type='text'
@@ -783,11 +727,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
                   target.value && setBannerPreview(target.value);
                 }}
               />
-              
             </div>
-
-
-
 
 
           </div>
@@ -814,14 +754,8 @@ const CreateAccount: Component = () => {  const intl = useIntl();
               onInput={onExpandableTextareaInput}
             />
 
-
-
-
-
-            
             <div class={styles.inputLabel}>
-            <label for='lud16'>{intl.formatMessage(tSettings.profile.lud16.label)}</label>
-            
+              <label for='lud16'>{intl.formatMessage(tSettings.profile.lud16.label)}</label>
             </div>
             <input
               name='lud16'
@@ -835,9 +769,6 @@ const CreateAccount: Component = () => {  const intl = useIntl();
               name='nip05'
               type='text'
             />
-            
-
-
           </div>
 
 

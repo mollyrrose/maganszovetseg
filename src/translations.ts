@@ -9,6 +9,13 @@ export const account = {
     defaultMessage: 'Már van fiókod?',
     description: 'Already have a Nostr accountlabel',
   },
+  //uj
+  alreadyHaveAccountExp: {
+    id: 'account.alreadyHaveAccountExp',
+    defaultMessage: 'Fiókodba csak a rendszer által generált hosszú jelszóval tudsz belépni, melyet a regisztálást követően a kilépésed (logout) előtt elmentettél. Enélkül nem tudsz belépni. A rendszer a fiókodat és tartalmát korlátlan ideig megőrzi. Hozz létre új fiókot, egy mási felhasználónévvel! (pl. kisspista helyett kisspista108) és ez alkalommal mentsd le a Beállítások/Fiók menüpontból a hosszú jelszavadat (Privát Kulcsodat). Használj jelszótárolót/ jelszókezelőt (pl. ProtonPass) mely megjegyzi a jelszavad, hogy egy kattintással bejelentkezhess.',
+    description: 'Already have a Nostr accountlabel',
+  },
+
   prominentNostriches: {
     id: 'actions.prominentNostriches',
     defaultMessage: 'Kiemelt Noszter felhasználók',
@@ -16,7 +23,7 @@ export const account = {
   },
   follow: {
     id: 'actions.follow',
-    defaultMessage: 'Követés',
+    defaultMessage: 'Követés!!',
     description: 'Follow button label',
   },
   unfollow: {
@@ -179,7 +186,7 @@ export const actions = {
   },
   loginNow: {
     id: 'actions.loginNow',
-    defaultMessage: 'Jelentkezz be a Privát Kulcsoddal!',
+    defaultMessage: 'Jelentkezz be a hosszú jelszavaddal (Privát Kulcsoddal) !',
     description: 'Login Now action, button label',
   },
   logout: {
@@ -330,22 +337,22 @@ export const actions = {
   profileContext: {
     copyPubkey: {
       id: 'actions.profileContext.copyPubkey',
-      defaultMessage: 'Felhasználó nyilvános kulcsának másolása',
+      defaultMessage: 'Felhasználó hosszú felhasználónevének (nyilvános kulcsának) másolása',
       description: 'Label for copy user\'s pubkey from profile context menu',
     },
     copyLink: {
       id: 'actions.profileContext.copyLink',
-      defaultMessage: 'Felhasználói link másolása',
+      defaultMessage: 'Felhasználó profil linkjének másolása',
       description: 'Label for copy user\'s link from profile context menu',
     },
     addFeed: {
       id: 'actions.profileContext.addFeed',
-      defaultMessage: 'Felhasználó folyamának hozzáadása',
+      defaultMessage: 'Felhasználó folyamának követése',
       description: 'Label for adding user\'s feed to home, from profile context menu',
     },
     removeFeed: {
       id: 'actions.profileContext.removeFeed',
-      defaultMessage: 'Felhasználó folyamának eltávolítása',
+      defaultMessage: 'Felhasználó folyamának eltávolítása a folyamomból',
       description: 'Label for removing user\'s feed from home, from profile context menu',
     },
     muteUser: {
@@ -1693,12 +1700,12 @@ export const settings = {
     },
     uploadAvatar: {
       id: 'pages.settings.profile.uploadAvatar',
-      defaultMessage: 'Profilkép feltöltése',
+      defaultMessage: 'Profilkép feltöltés',
       description: 'Label for avatar upload on edit profile page',
     },
     uploadBanner: {
       id: 'pages.settings.profile.uploadBanner',
-      defaultMessage: 'Háttérkép feltöltése',
+      defaultMessage: 'Háttérkép feltöltés',
       description: 'Label for banner upload on edit profile page',
     },
     displayName: {

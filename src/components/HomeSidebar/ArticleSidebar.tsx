@@ -107,7 +107,7 @@ const ArticleSidebar: Component< { id?: string, user: PrimalUser, article: Prima
                 when={recomended.length > 0}
               >
                 <div class={`${styles.headingReads} animated`}>
-                  More Reads from {userName(props.article.user)}
+                  További cikkek e szezrőtől {userName(props.article.user)}
                 </div>
 
                 <div class={`${styles.section} animated`}>

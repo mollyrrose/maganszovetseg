@@ -7,6 +7,7 @@ import PageCaption from '../../components/PageCaption/PageCaption';
 import { A, useNavigate } from '@solidjs/router';
 import { useAccountContext } from '../../contexts/AccountContext';
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
+import ButtonSecondary from '../../components/Buttons/ButtonSecondary';
 
 const Menu: Component = () => {
 
@@ -76,21 +77,25 @@ const Menu: Component = () => {
         </Show>
       </div>
 
+      <br></br><br></br>
       <Show when={account?.sec}>
+
+      <div class={styles.inputLabel}>
+      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account">MENTSD LE az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
+      </div>
+
         <div class={styles.webVersion}>
-          <ButtonPrimary onClick={() => {
+          <ButtonSecondary onClick={() => {
             account?.actions.logout();
             navigate('/home');
           }}>
             {intl.formatMessage(tActions.logout)}
-          </ButtonPrimary>
+          </ButtonSecondary>
         </div>
+
       </Show>
 
-      <div class={styles.webVersion}>
-        <div class={styles.title}>version</div>
-        <div class={styles.value}>{version}</div>
-      </div>
+    
     </div>
   )
 }

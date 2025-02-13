@@ -5,6 +5,7 @@ import Avatar from "../Avatar/Avatar";
 import EditBox from "./EditBox/EditBox";
 import styles from  "./NewNote.module.scss";
 
+
 const NewNote: Component<{ onSuccess: (note: SendNoteResult) => void}> = (props) => {
 
   const account = useAccountContext();
@@ -22,6 +23,7 @@ const NewNote: Component<{ onSuccess: (note: SendNoteResult) => void}> = (props)
                 user={activeUser()}
               />
             </div>
+
             <div class={styles.rightSide}>
               <EditBox
                 onSuccess={props.onSuccess}

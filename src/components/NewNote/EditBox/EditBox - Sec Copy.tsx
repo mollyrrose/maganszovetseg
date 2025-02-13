@@ -51,10 +51,6 @@ import ArticleHighlight from "../../ArticleHighlight/ArticleHighlight";
 import DOMPurify from "dompurify";
 import { useAppContext } from "../../../contexts/AppContext";
 
-import Quill from 'quill';
-import 'quill/dist/quill.snow.css'; // Import Quill styles
-
-
 type AutoSizedTextArea = HTMLTextAreaElement & { _baseScrollHeight: number };
 
 
@@ -1264,14 +1260,6 @@ const EditBox: Component<{
     setParsedMessage(parsed);
   };
 
-<a
-  class={styles.inputLabel}
-  onClick={() => setIsQuillActive((prev) => !prev)}
->
-  cikk<br/>szerk.
-</a>
-
-
 
   const parseForReferece = async (value: string) => {
     const content = await replaceLinkPreviews(
@@ -1592,24 +1580,12 @@ const EditBox: Component<{
                 statNumber={profile?.profileHistory.stats[user.pubkey]?.followers_count || search?.scores[user.pubkey]}
                 statLabel={intl.formatMessage(tSearch.followers)}
                 onClick={() => selectUser(user)}
-                highlighted={highlightedUser() === index()} 
-               />               
+                highlighted={highlightedUser() === index()}
+              />
             )}
           </For>
         </div>
       </Show>
-      
-      
-  
-
-
-
-
-
-
-
-
-
 
       <Show when={isEmojiInput() && emojiQuery().length > emojiSearchLimit && emojiResults.length > 0}>
         <div
@@ -1629,7 +1605,6 @@ const EditBox: Component<{
           </For>
         </div>
       </Show>
-
 
       <ConfirmAlternativeModal
         open={isConfirmEditorClose()}
@@ -1679,8 +1654,6 @@ const EditBox: Component<{
                 class={`emoji_icon ${styles.emojiIcon} ${isPickingEmoji() ? styles.highlight : ''}`}
               ></div>
             </ButtonGhost>
-
-
 
             <Show when={isPickingEmoji()}>
               <EmojiPickPopover

@@ -27,9 +27,6 @@ import { APP_ID } from '../App';
 import { useSettingsContext } from '../contexts/SettingsContext';
 import { useAppContext } from '../contexts/AppContext';
 
-//new
-import ButtonFeedSupport from '../Buttons/ButtonFeedSupport'; // Importáljuk az új komponenst
-
 type AutoSizedTextArea = HTMLTextAreaElement & { _baseScrollHeight: number };
 
 
@@ -218,8 +215,6 @@ const EditProfile: Component = () => {
       'nip05',
       'picture',
       'banner',
-      'supportLink', //new
-      'myRSS', //new
     ].forEach(key => {
       if (data.get(key)) {
         metadata[key] = data.get(key) as string;
@@ -438,24 +433,6 @@ const EditProfile: Component = () => {
         />
 
         <div class={styles.inputLabel}>
-          <label for='supportLink'>Támogatói linkem</label>
-        </div>
-        <input
-          name='supportLink'
-          type='text'
-          placeholder="Van támogató linked? (pl. Donably.com)"
-        />
-
-        <div class={styles.inputLabel}>
-          <label for='myRSS'>RSS hír/blog-csatorna linkem</label>
-        </div>
-        <input
-          name='myRSS'
-          type='text'
-          placeholder="Van RSS Feed-ed?"
-        />
-
-        <div class={styles.inputLabel}>
           <label for='lud16'>{intl.formatMessage(tSettings.profile.lud16.label)}</label>
         </div>
         <input
@@ -475,6 +452,44 @@ const EditProfile: Component = () => {
           value={profile?.userProfile?.nip05 || ''}
         />
 
+        <div class={styles.moreTrigger}>
+          <button
+            type='button'
+            class={`${isMoreVisible() ? styles.shown : styles.hidden}`}
+            onClick={() => setIsMoreVisible(!isMoreVisible()) }
+          >More</button>
+        </div>
+
+        <div class={`${styles.moreInputs} ${isMoreVisible() ? styles.show : styles.hide}`}>
+          <div class={styles.inputLabel}>
+            <label for='picture'>{intl.formatMessage(tSettings.profile.picture.label)}</label>
+          </div>
+          <input
+            name='picture'
+            type='text'
+            placeholder={intl.formatMessage(tSettings.profile.picture.placeholder)}
+            value={avatarPreview() || ''}
+            onChange={(e: Event) => {
+              const target = e.target as HTMLInputElement;
+              target.value && setAvatarPreview(target.value);
+            }}
+          />
+
+          <div class={styles.inputLabel}>
+            <label for='banner'>{intl.formatMessage(tSettings.profile.banner.label)}</label>
+          </div>
+          <input
+            name='banner'
+            type='text'
+            placeholder={intl.formatMessage(tSettings.profile.banner.placeholder)}
+            value={bannerPreview() || ''}
+            onChange={(e: Event) => {
+              const target = e.target as HTMLInputElement;
+              target.value && setBannerPreview(target.value);
+            }}
+          />
+        </div>
+
         <div class={styles.formSubmit}>
           <ButtonPrimary
             type='submit'
@@ -489,35 +504,8 @@ const EditProfile: Component = () => {
             {intl.formatMessage(tActions.cancel)}
           </ButtonSecondary>
         </div>
-
-        <br></br>
-        <br></br>
-
-        <div class={styles.inputLabel}>
-      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account">MENTSD LE az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
-      </div>
-      <div class={styles.webVersion}>
-          <ButtonSecondary onClick={() => {
-            account?.actions.logout();
-            navigate('/home');
-          }}>
-            {intl.formatMessage(tActions.logout)}
-          </ButtonSecondary>
-        </div>
-
-
       </form>
-
-
-
-      
-
-
-
-
     </div>
-
-    
   );
 }
 
