@@ -232,6 +232,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
       'banner',
       'country',  // user country, optional
       'mapaddress',  // user address for map display, optional
+      'mapliveaddress',  // actual geolocation of the browser for map display, optional
       'language', // user language, to be selected
       'clientregurl', //url of nostr client, where the user initially registered
       'myrss', // the rss feed of the user 
@@ -818,7 +819,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
 
 
-            
+            {/* BTC lightning out 
             <div class={styles.inputLabel}>
             <label for='lud16'>{intl.formatMessage(tSettings.profile.lud16.label)}</label>
             
@@ -836,7 +837,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
               type='text'
             />
             
-
+            */}
 
           </div>
 

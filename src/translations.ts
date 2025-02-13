@@ -629,7 +629,7 @@ export const explore = {
     },
     pubnotes: {
       id: 'explore.stats.pubnotes',
-      defaultMessage: 'Nyilvános jegyzetek',
+      defaultMessage: 'Nyilvános bejegyzések',
       description: 'Label for number of public notes stats',
     },
     reposts: {
@@ -1181,7 +1181,7 @@ export const profile = {
   },
   sidebarNoNotes: {
     id: 'profile.sidebar.noNotes',
-    defaultMessage: 'Nincsenek trendi jegyzetek',
+    defaultMessage: 'Nincsenek trendi bejegyzései',
     description: 'Placeholde for profile sidebar when the profile is missing trending notes',
   },
   title: {
@@ -1196,7 +1196,7 @@ export const profile = {
   },
   jointDate: {
     id: 'profile.joinDate',
-    defaultMessage: 'Ekkor csatlakozott a Noszterhez: {date}',
+    defaultMessage: 'ekkor csatlakozott: {date}',
     description: 'Label indicating when the profile joined Nostr (oldest event)',
   },
   stats: {
@@ -1232,12 +1232,12 @@ export const profile = {
     },
     articles: {
       id: 'profile.stats.articles',
-      defaultMessage: 'Olvasások',
+      defaultMessage: 'Cikkek',
       description: 'Label for reads profile stat',
     },
     notes: {
       id: 'profile.stats.notes',
-      defaultMessage: 'Jegyzetek',
+      defaultMessage: 'Bejegyzések',
       description: 'Label for notes profile stat',
     },
     replies: {

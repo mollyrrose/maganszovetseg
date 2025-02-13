@@ -455,6 +455,7 @@ const EditProfile: Component = () => {
           placeholder="Van RSS Feed-ed?"
         />
 
+        {/* BTC lightning out
         <div class={styles.inputLabel}>
           <label for='lud16'>{intl.formatMessage(tSettings.profile.lud16.label)}</label>
         </div>
@@ -474,6 +475,7 @@ const EditProfile: Component = () => {
           placeholder={intl.formatMessage(tSettings.profile.nip05.placeholder)}
           value={profile?.userProfile?.nip05 || ''}
         />
+        */}
 
         <div class={styles.formSubmit}>
           <ButtonPrimary
@@ -507,12 +509,6 @@ const EditProfile: Component = () => {
 
 
       </form>
-
-
-
-      
-
-
 
 
     </div>
