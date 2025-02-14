@@ -6,7 +6,7 @@ import packageJson from './package.json';
 export default defineConfig({
   plugins: [solidPlugin()],
   preview: {
-    allowedHosts: ['maganszovetseg.net']
+    allowedHosts: ['maganszovetseg.net', 'demo.maganszovetseg.net'], // Allow both domains
   },
   server: {
     port: 3000,
