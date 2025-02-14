@@ -95,7 +95,7 @@ export const login = {
   },
   description: {
     id: 'login.description',
-    defaultMessage: 'Add meg a Noszter privát kulcsodat (nsec kezdetű):',
+    defaultMessage: 'Add meg a a hosszú jelszavadat (privát kulcsodat) (nsec kezdetű):',
     description: 'Label describing the login proccess',
   },
   invalidNsec: {
@@ -1118,7 +1118,7 @@ export const placeholders = {
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
-    defaultMessage: 'Merre futnak épp gondolataid?...',
+    defaultMessage: 'Merre visznek épp magukkal gondolataim?...',
     description: 'Placeholder for new note call-to-action',
   },
   pageWIPTitle: {
@@ -1143,7 +1143,7 @@ export const placeholders = {
   },
   search: {
     id: 'placeholders.search',
-    defaultMessage: 'Keresés...',
+    defaultMessage: 'Keresés... (pl. név, publikus kulcs)',
     description: 'Search input placeholder',
   },
   selectFeed: {
