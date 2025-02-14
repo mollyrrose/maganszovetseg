@@ -818,8 +818,8 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     const translations: Record<string, string> = {
       "Latest": "Legfrissebbek",
       "Latest notes by your follows": "Legfrissebb bejegyzések az általad követettektől",
-      "Latest with Replies": "Legfrissebbek Válaszokkal",
-      "Latest notes and replies by your follows": "Legfrissebb bejegyzések és válaszok az általad követettektől",
+      "Latest with Replies": "Legfrissebbek hozzászólásokkal",
+      "Latest notes and replies by your follows": "Legfrissebb bejegyzések és hozzászólások az általad követettektől",
       "Trending 7d": "Népszerű (7 nap)",
       "Global trending notes in the past 7 days": "Népszerű bejegyzések az elmúlt 7 napban",
       "Trending 48h": "Népszerű (48 óra)",

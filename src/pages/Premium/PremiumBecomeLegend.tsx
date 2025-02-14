@@ -103,22 +103,26 @@ const PremiumBecomeLegend: Component<{
         </div>
       </div>
 
-      <div class={styles.premiumActive}>
-        <PremiumCohortInfo
-          userTier={'premium-legend'}
-          cohortInfo={{
-            cohort_1: 'Legend',
-            cohort_2: `${(new Date()).getFullYear()}`,
-            tier: 'premium-legend',
-            expires_on: (new Date()).getTime() + 1_000,
-          }}
-          legendConfig={{
-            style: 'GOLD',
-            custom_badge: true,
-            avatar_glow: true,
-          }}
-        />
-      </div>
+{/* Premium button out */}
+{/*
+  <div class={styles.premiumActive}>
+    <PremiumCohortInfo
+      userTier={'premium-legend'}
+      cohortInfo={{
+        cohort_1: 'Legend',
+        cohort_2: `${(new Date()).getFullYear()}`,
+        tier: 'premium-legend',
+        expires_on: (new Date()).getTime() + 1_000,
+      }}
+      legendConfig={{
+        style: 'GOLD',
+        custom_badge: true,
+        avatar_glow: true,
+      }}
+    />
+  </div>
+*/}
+
 
       <TransactionAmount
         reverse={true}

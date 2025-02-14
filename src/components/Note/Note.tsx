@@ -381,7 +381,7 @@ const Note: Component<{
                 class={styles.reactSummary}
                 onClick={() => openReactionModal()}
               >
-                <span class={styles.number}>{reactionSum()}</span> Reakció
+                <span class={styles.number}>{reactionSum()}</span> reakció
               </button>
             </div>
 
@@ -526,8 +526,8 @@ const Note: Component<{
                   note={props.note}
                   state={reactionsState}
                   updateState={updateReactionsState}
-                  customZapInfo={customZapInfo()}
-                  onZapAnim={addTopZapFeed}
+                  //customZapInfo={customZapInfo()}
+                  //onZapAnim={addTopZapFeed}
                   size="short"
                 />
               </div>

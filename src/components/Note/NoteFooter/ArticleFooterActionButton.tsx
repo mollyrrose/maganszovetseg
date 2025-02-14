@@ -25,8 +25,14 @@ const ArticleFooterActionButton: Component<{
   title?: string,
   large?: boolean,
 }> = (props) => {
+  // Ne jelenjen meg, ha a type 'zap'
+  if (props.type === 'zap') {
+    return null; // Visszatérünk null-lal, ha 'zap' típusú gombot nem akarunk megjeleníteni
+  }
 
-  return (
+
+
+ return (
     <button
       id={`btn_${props.type}_${props.note.id}`}
       class={`${styles.stat} ${props.highlighted ? styles.highlighted : ''}`}
@@ -40,12 +46,14 @@ const ArticleFooterActionButton: Component<{
       <div class={`${buttonTypeClasses[props.type]} ${props.large ? styles.large : ''}`}>
         <div
           class={`${styles.icon} ${props.large ? styles.large : ''}`}
-          style={props.hidden ? 'visibility: hidden': 'visibility: visible'}
+          style={props.hidden ? 'visibility: hidden' : 'visibility: visible'}
         ></div>
         <div class={styles.statNumber}>{props.label || ''}</div>
       </div>
     </button>
-  )
-}
+  );
+};
+
+
 
 export default ArticleFooterActionButton;

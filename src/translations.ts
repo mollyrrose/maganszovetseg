@@ -23,12 +23,12 @@ export const account = {
   },
   follow: {
     id: 'actions.follow',
-    defaultMessage: 'Követés!!',
+    defaultMessage: 'követni kezdem',
     description: 'Follow button label',
   },
   unfollow: {
     id: 'actions.unfollow',
-    defaultMessage: 'Követés leállítása',
+    defaultMessage: 'követés leállítása',
     description: 'Unfollow button label',
   },
   followAll: {
@@ -261,7 +261,7 @@ export const actions = {
   },
   noteReply: {
     id: 'actions.noteReply',
-    defaultMessage: 'Válasz {name}-nek',
+    defaultMessage: 'Hozzászóltam {name} bejegyzéséhez',
     description: 'Reply to button label',
   },
   sendDirectMessage: {
@@ -734,7 +734,7 @@ export const navBar = {
   },
   reads: {
     id: 'navbar.reads',
-    defaultMessage: 'Olvasnivalók',
+    defaultMessage: 'Magazin',
     description: 'Label for the nav bar item link to Reads page',
   },
   explore: {
@@ -1018,7 +1018,7 @@ export const notifications = {
   },
   replies: {
     id: 'pages.notifications.replies',
-    defaultMessage: 'Válaszok',
+    defaultMessage: 'hozzászólások',
     description: 'Title of the Replies notifications tab',
   },
   mentions: {
@@ -1202,7 +1202,7 @@ export const profile = {
   stats: {
     gallery: {
       id: 'profile.gallery',
-      defaultMessage: 'Média',
+      defaultMessage: 'Egyéb médiája',
       description: 'Label for gallery profile stat',
     },
     follow: {
@@ -1232,22 +1232,22 @@ export const profile = {
     },
     articles: {
       id: 'profile.stats.articles',
-      defaultMessage: 'Cikkek',
+      defaultMessage: 'Cikke',
       description: 'Label for reads profile stat',
     },
     notes: {
       id: 'profile.stats.notes',
-      defaultMessage: 'Bejegyzések',
+      defaultMessage: 'Bejegyzése',
       description: 'Label for notes profile stat',
     },
     replies: {
       id: 'profile.stats.replies',
-      defaultMessage: 'Válaszok',
+      defaultMessage: 'hozzászólása',
       description: 'Label for replies profile stat',
     },
     relays: {
       id: 'profile.stats.relays',
-      defaultMessage: 'adattovábbítók',
+      defaultMessage: 'adattovábbítója',
       description: 'Label for sats profile relays',
     },
   },
@@ -1268,12 +1268,12 @@ export const profile = {
   },
   noArticles: {
     id: 'profile.noArticles',
-    defaultMessage: '{name} nem posztolt még olvasnivalót',
+    defaultMessage: '{name} nem posztolt még cikkeket',
     description: 'Label indicating that the profile has no reads',
   },
   noReplies: {
     id: 'profile.noReplies',
-    defaultMessage: '{name} nem posztolt még válaszokat',
+    defaultMessage: '{name} nem posztolt még hozzászólást',
     description: 'Label indicating that the profile has no replies',
   },
   noFollowers: {
@@ -1662,7 +1662,7 @@ export const settings = {
   },
   feedLatestWithReplies: {
     id: 'feeds.feedLatestWithReplies',
-    defaultMessage: 'Legfrissebb válaszokkal',
+    defaultMessage: 'Legfrissebb hozzászólásokkal',
     description: 'Label for the `latest;following` with `include_replies` flag (active user\'s) feed',
   },
   zaps: {
@@ -2214,7 +2214,7 @@ export const followWarning = {
 export const reads = {
   pageTitle: {
     id: 'reads.pageTitle',
-    defaultMessage: 'Olvasnivalók',
+    defaultMessage: 'Cikkek',
     description: 'Reads page title',
   },
 };

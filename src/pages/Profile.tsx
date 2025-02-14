@@ -852,6 +852,7 @@ const Profile: Component = () => {
 
 
 
+
               <ButtonSecondary
                 onClick={() => setOpenQr(true)}
                 shrink={true}
@@ -859,6 +860,7 @@ const Profile: Component = () => {
                 <div class={styles.qrIcon}></div>
               </ButtonSecondary>
 
+{/* BTC lightning out 
               <Show when={!isCurrentUser()}>
                 <ButtonSecondary
                   onClick={() => app?.actions.openCustomZapModal(customZapInfo())}
@@ -867,6 +869,9 @@ const Profile: Component = () => {
                   <div class={styles.zapIcon}></div>
                 </ButtonSecondary>
               </Show>
+*/}
+
+
 
               <Show when={account?.publicKey}>
                 <ButtonSecondary
@@ -960,17 +965,29 @@ const Profile: Component = () => {
                         </div>
                       </Show>
                     </div>
+
+
                     <div class={styles.columnRight}>
-                      <div class={`${styles.followings} animated`}>
-                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
-                          <div class={styles.number}>{(profile?.userStats?.follows_count || 0).toLocaleString()}</div>
-                          <div class={styles.label}>követés</div>
-                        </button>
-                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
-                          <div class={styles.number}>{(profile?.userStats?.followers_count || 0).toLocaleString()}</div>
-                          <div class={styles.label}>követő</div>
-                        </button>
-                      </div>
+
+<div class={`${styles.followings} animated`}>
+  <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
+    <div class={styles.number}>
+      {(profile?.userStats?.follows_count || 0)
+        .toLocaleString('en-US') // Make sure it uses the standard format
+        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+    </div>
+    <div class={styles.label}>követés</div>
+  </button>
+  <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
+    <div class={styles.number}>
+      {(profile?.userStats?.followers_count || 0)
+        .toLocaleString('en-US') // Make sure it uses the standard format
+        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+    </div>
+    <div class={styles.label}>követő</div>
+  </button>
+</div>
+
 
                       <Show when={profile?.userStats.time_joined}>
                         <div class={`${styles.joined} animated`}>
@@ -1023,15 +1040,27 @@ const Profile: Component = () => {
                       </div>
 
                       <div class={styles.followings}>
-                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
-                          <div class={styles.number}>{(profile?.userStats?.follows_count || 0).toLocaleString()}</div>
-                          <div class={styles.label}>követés</div>
-                        </button>
-                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
-                          <div class={styles.number}>{(profile?.userStats?.followers_count || 0).toLocaleString()}</div>
-                          <div class={styles.label}>követő</div>
-                        </button>
-                      </div>
+  <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
+    <div class={styles.number}>
+      {(profile?.userStats?.follows_count || 0)
+        .toLocaleString('en-US') // Make sure it uses the standard format
+        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+    </div>
+    <div class={styles.label}>követés</div>
+  </button>
+  <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
+    <div class={styles.number}>
+      {(profile?.userStats?.followers_count || 0)
+        .toLocaleString('en-US') // Make sure it uses the standard format
+        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+    </div>
+    <div class={styles.label}>követő</div>
+  </button>
+</div>
+
+
+
+
                     </div>
                     <div class={`${styles.verificationInfo} animated`}>
                         <div class={styles.verified}>

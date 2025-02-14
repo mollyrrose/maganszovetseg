@@ -128,20 +128,30 @@ const AdvancedSearchResults: Component = () => {
 
         <Show when={search?.isFetchingContent}><Loader /></Show>
 
-        <Show when={!isPremium()}>
-          <div class={styles.moreSearchInfo}>
-            <div>
-              <div class={styles.moreSearchCaption}>
-                Ez egy MagánSzövetség Prémium Folyam.
-              </div>
-              <div class={styles.moreSearchDescription}>
-              Vásároljon előfizetést, hogy Nostr "power user" legyen és támogassa munkánkat:
-              </div>
-            </div>
 
-            <A href='/premium' class={styles.premiumLink}>Válaszd a MagánSzövetség Prémium előfizetést!</A>
-          </div>
-        </Show>
+
+
+        <Show when={!isPremium()}>
+  <div class={styles.moreSearchInfo}>
+    <div>
+      <div class={styles.moreSearchCaption}>
+        Keressük...
+      </div>
+      {/* 
+      <div class={styles.moreSearchDescription}>
+        Vásároljon előfizetést, hogy Nostr "power user" legyen és támogassa munkánkat:
+      </div>
+      */}
+    </div>
+    {/* 
+    <A href='/premium' class={styles.premiumLink}>Válaszd a MagánSzövetség Prémium előfizetést!</A>
+    */}
+  </div>
+</Show>
+
+
+
+
       </div>
 
       <Paginator loadNextPage={() => search?.actions.fetchContentNextPage(queryString())} />

@@ -43,6 +43,8 @@ const PremiumCohortInfo: Component<{
     return '';
   }
 
+  {/* Premium button out */}
+{/*
   return (
     <A href={destination()} class={styles.premiumActive}>
       <div class={`${styles.legendPremium} ${styles[`legend_${props.legendConfig?.style}`]}`}>
@@ -53,6 +55,10 @@ const PremiumCohortInfo: Component<{
       </div>
     </A>
   );
+*/}
+
+
+
 }
 
 export default PremiumCohortInfo;

@@ -258,6 +258,8 @@ export const zapDVM = async (dvm: PrimalDVM, author: PrimalUser, sender: string 
 }
 
 export const getZapEndpoint = async (user: PrimalUser): Promise<string | null>  => {
+  /* BTC lightning out */
+  /* 
   try {
     let lnurl: string = ''
     let {lud06, lud16} = user;
@@ -284,11 +286,12 @@ export const getZapEndpoint = async (user: PrimalUser): Promise<string | null>  
   } catch (err) {
     logError('Error zapping: ', err);
     return null;
-    /*-*/
   }
+  */
 
   return null;
 }
+
 
 export const canUserReceiveZaps = (user: PrimalUser | undefined) => {
   return !!user && (!!user.lud16 || !!user.lud06);

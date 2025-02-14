@@ -82,7 +82,7 @@ const NavMenu: Component< { id?: string } > = (props) => {
 
   const noReadsConfirm: ConfirmInfo = {
     title: "Hamarosan jön!",
-    description: "A Primal még nem rendelkezik cikkírási képességekkel. Tartalomkészítők számára a Highlightert ajánljuk. Szeretnéd kipróbálni?",
+    description: "A MagánSzövetség.Net még nem rendelkezik cikkírási képességekkel, de már építjük. Tartalomkészítők számára a Highlightert ajánljuk. Szeretnéd kipróbálni?",
     confirmLabel: "Igen, tovább a Highlighterre",
     abortLabel: "Nem, köszönöm",
     onConfirm: () => {

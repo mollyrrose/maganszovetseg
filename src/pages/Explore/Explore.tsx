@@ -14,7 +14,7 @@ import { useExploreContext } from '../../contexts/ExploreContext';
 import { A, useLocation } from '@solidjs/router';
 import FeedMarketPlace from '../../components/FeedMarketplace/FeedMarketPlace';
 import ExplorePeople from './ExplorePeople';
-import ExploreZaps from './ExploreZaps';
+//import ExploreZaps from './ExploreZaps';
 import ExploreMedia from './ExploreMedia';
 import ExploreTopics from './ExploreTopics';
 import NostrStats from '../../components/NostrStats/NostrStats';
@@ -74,9 +74,7 @@ const Explore: Component = () => {
         // profile.gallery.length === 0 && profile.actions.fetchGallery(profile.profileKey);
         // profile.gallery.length === 0 && profile.actions.getProfileMegaFeed(profile.profileKey, 'media');
         break;
-      case 'zaps':
-        // profile.zaps.length === 0 && profile.actions.fetchZapList(profile.profileKey);
-        break;
+
       case 'relays':
         // Object.keys(profile.relays || {}).length === 0 && profile.actions.fetchRelayList(profile.profileKey);
         break;
@@ -129,11 +127,9 @@ const Explore: Component = () => {
                     Emberek
                   </div>
                 </Tabs.Trigger>
-                <Tabs.Trigger class={styles.exploreTab} value="zaps">
-                  <div class={styles.tabLabel}>
-                    Felajánlások
-                  </div>
-                </Tabs.Trigger>
+
+
+
                 <Tabs.Trigger class={styles.exploreTab} value="media">
                   <div class={styles.tabLabel}>
                     Média
@@ -158,9 +154,8 @@ const Explore: Component = () => {
             <Tabs.Content class={styles.tabContent} value="people">
               <ExplorePeople />
             </Tabs.Content>
-            <Tabs.Content class={styles.tabContent} value="zaps">
-              <ExploreZaps />
-            </Tabs.Content>
+         
+
             <Tabs.Content class={styles.tabContent} value="media">
               <ExploreMedia />
             </Tabs.Content>

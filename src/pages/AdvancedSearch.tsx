@@ -100,13 +100,16 @@ const timeframes: Record<string, (s?: any) => string> = {
     return 'since:lastyear';
   },
 
-  'Egyéni': (stateTimeframe: { since: string, until: string}) => {
-    if (stateTimeframe.since.length === 0 && stateTimeframe.until.length === 0) {
-      return '';
-    }
+// 'Egyéni': (stateTimeframe: { since: string, until: string }) => {
+//   if (stateTimeframe.since.length === 0 && stateTimeframe.until.length === 0) {
+//     return '';
+//   }
 
-    return `since:${stateTimeframe.since} until:${stateTimeframe.until}`;
-  },
+//   return `since:${stateTimeframe.since} until:${stateTimeframe.until}`;
+// },
+
+
+
 };
 
 const sentiments: Record<string, () => string> = {
@@ -128,9 +131,9 @@ const scopes: Record<string, () => string> = {
 
 const kinds: Record<string, () => string> = {
   'Bejegyzések': () => 'kind:1',
-  'Olvasnivalók': () => 'kind:30023',
-  'Bejegyzés válaszok': () => 'kind:1 repliestokind:1',
-  'Olvasnivaló hozzászólások': () => 'kind:1 repliestokind:30023',
+  'Cikkek': () => 'kind:30023',
+  'Bejegyzés hozzászólások': () => 'kind:1 repliestokind:1',
+  'Cikk hozzászólások': () => 'kind:1 repliestokind:30023',
   'Képek': () => 'filter:image',
   'Videó': () => 'filter:video',
   'Hang': () => 'filter:audio',
@@ -143,7 +146,7 @@ const orientations = ['Bármely', 'Függőleges', 'Vízszintes'];
 const sortings: Record<string, () => string> = {
   'Idő': () => '',
   'Tartalom érték': () => 'orderby:score',
-  'Válaszok száma': () => 'orderby:replies',
+  'Hozzászólások száma': () => 'orderby:replies',
   'Felajánlott érték': () => 'orderby:satszapped',
   'Interakciók száma': () => 'orderby:likes',
 };
@@ -530,11 +533,13 @@ const AdvancedSearch: Component = () => {
   const filtersTriggerLabel = () => {
     let label = '';
 
-    if (advSearchState.minScore > 0) label += `Minimum érték=${advSearchState.minScore};`;
-    if (advSearchState.minInteractions > 0) label += ` Minimum interakciók=${advSearchState.minInteractions};`;
-    if (advSearchState.minLikes > 0) label += ` Minimum lájkok=${advSearchState.minLikes};`;
-    if (advSearchState.minZaps > 0) label += ` Minimum felajánlás=${advSearchState.minZaps};`;
-    if (advSearchState.minReplies > 0) label += ` Minimum válaszok=${advSearchState.minReplies};`;
+    if (advSearchState.minScore > 0) label += `Rendszer-értékelésének minimum száma=${advSearchState.minScore};`;
+    if (advSearchState.minInteractions > 0) label += ` Interakciók minimum száma=${advSearchState.minInteractions};`;
+    if (advSearchState.minLikes > 0) label += ` Lájkok/szivek minimum száma=${advSearchState.minLikes};`;
+
+    //if (advSearchState.minZaps > 0) label += ` Felajánlások minimum száma=${advSearchState.minZaps};`;
+    
+    if (advSearchState.minReplies > 0) label += ` Hozzászólások minimum száma=${advSearchState.minReplies};`;
     if (advSearchState.minReposts > 0) label += ` Minimum újramegosztások=${advSearchState.minReposts};`;
 
     if (label.length == 0) label = 'Szűrők szerkesztése';
@@ -742,6 +747,7 @@ const AdvancedSearch: Component = () => {
               />
             </div>
 
+{/* BTC lightning out 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
               Felajánlotta:
@@ -753,13 +759,17 @@ const AdvancedSearch: Component = () => {
                 onRemoveUser={removeZapper}
               />
             </div>
+*/}
+
+
+
           </section>
 
           <section>
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Küldési idő:
+                Közzététel ideje:
               </div>
 
               <AdvancedSearchSelectBox
@@ -807,7 +817,7 @@ const AdvancedSearch: Component = () => {
 
             <div class={styles.searchRow}>
               <div class={styles.caption}>
-                Tartomány:
+                Hol keressen?
               </div>
 
               <AdvancedSearchSelectBox
@@ -846,7 +856,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum tartalom érték
+                        Közzétett tartalmak (min)
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -869,7 +879,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum interakciók
+                        Interakciók száma (min)
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -892,7 +902,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum lájkok
+                        Kedvelések száma (min)
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -913,6 +923,7 @@ const AdvancedSearch: Component = () => {
                       </div>
                     </div>
 
+{/* BTC lightning out 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
                         Minimum felajánlások
@@ -936,9 +947,12 @@ const AdvancedSearch: Component = () => {
                       </div>
                     </div>
 
+
+ */}
+
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum válaszok
+                        Hozzászólások (min)
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider
@@ -961,7 +975,7 @@ const AdvancedSearch: Component = () => {
 
                     <div class={styles.filterRow}>
                       <div class={styles.filterCaption}>
-                        Minimum újramegosztások
+                        Újramegosztások (min)
                       </div>
                       <div class={styles.filterValue}>
                         <AdvancedSearchSlider

@@ -218,12 +218,15 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
     <div id={props.id} class={styles.readsSidebar}>
       <Show when={account?.isKeyLookupDone}>
         <div class={styles.headingPicks}>
-          Kiemelt szerző
+          Kiemelt szerzők
         </div>
 
         <div class={styles.section}>
           <AuthorSubscribe author={reads?.featuredAuthor} />
         </div>
+
+  
+
 
         <div class={styles.headingPicks}>
           Kiemelt cikkek
@@ -287,6 +290,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
           </Transition>
         </div>
 
+        
       </Show>
     </div>
   );

@@ -268,80 +268,100 @@ const ProfileTabs: Component<{
     window.removeEventListener('scroll', onScroll);
   });
 
+
+
+
+
+
+
+
+
+  function humanizeNumber(value) {
+    if (value >= 10000) {
+      // Scale the number to show two significant digits before 'e'
+      const exponent = Math.floor(Math.log10(value)) - 1;
+      const scaled = value / Math.pow(10, exponent);
+      let formatted = scaled.toFixed(1).replace('.', ',');
+  
+      // Remove ",0" if rounding results in X,0e
+      if (formatted.endsWith(',0')) {
+        formatted = formatted.slice(0, -2); // Remove last two characters (",0")
+      }
+  
+      return `${formatted}e`;
+    } else {
+      return value.toLocaleString('en-US').replace(/,/g, ' ');
+    }
+  }
+  
+  
+
+
+  
   return (
       <Tabs value={hash()} onChange={onChangeValue} defaultValue={hash()}>
-        <Show when={profile && profile.fetchedUserStats}>
-          <Tabs.List class={styles.profileTabs}>
-            <Tabs.Trigger class={styles.profileTab} value="notes">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats?.note_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.notes)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+<Show when={profile && profile.fetchedUserStats}>
+  <Tabs.List class={styles.profileTabs}>
+    <Tabs.Trigger class={styles.profileTab} value="notes">
+      <div class={styles.stat}>
+        <div class={styles.statNumber}>
+          {humanizeNumber(profile?.userStats?.note_count || 0)}
+        </div>
+        <div class={styles.statName}>
+          {intl.formatMessage(t.stats.notes)}
+        </div>
+      </div>
+    </Tabs.Trigger>
 
-            <Tabs.Trigger class={styles.profileTab} value="replies">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats?.reply_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.replies)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+    <Tabs.Trigger class={styles.profileTab} value="replies">
+      <div class={styles.stat}>
+        <div class={styles.statNumber}>
+          {humanizeNumber(profile?.userStats?.reply_count || 0)}
+        </div>
+        <div class={styles.statName}>
+          {intl.formatMessage(t.stats.replies)}
+        </div>
+      </div>
+    </Tabs.Trigger>
 
-            <Tabs.Trigger class={styles.profileTab} value="reads">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats?.long_form_note_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.articles)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+    <Tabs.Trigger class={styles.profileTab} value="reads">
+      <div class={styles.stat}>
+        <div class={styles.statNumber}>
+          {humanizeNumber(profile?.userStats?.long_form_note_count || 0)}
+        </div>
+        <div class={styles.statName}>
+          {intl.formatMessage(t.stats.articles)}
+        </div>
+      </div>
+    </Tabs.Trigger>
 
-            <Tabs.Trigger class={styles.profileTab} value="media">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats.media_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.gallery)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+    <Tabs.Trigger class={styles.profileTab} value="media">
+      <div class={styles.stat}>
+        <div class={styles.statNumber}>
+          {humanizeNumber(profile?.userStats.media_count || 0)}
+        </div>
+        <div class={styles.statName}>
+          {intl.formatMessage(t.stats.gallery)}
+        </div>
+      </div>
+    </Tabs.Trigger>
 
-            <Tabs.Trigger class={styles.profileTab} value="zaps">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats?.total_zap_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.zaps)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+    <Tabs.Trigger class={styles.profileTab} value="relays">
+      <div class={styles.stat}>
+        <div class={styles.statNumber}>
+          {humanizeNumber(profile?.userStats?.relay_count || 0)}
+        </div>
+        <div class={styles.statName}>
+          {intl.formatMessage(t.stats.relays)}
+        </div>
+      </div>
+    </Tabs.Trigger>
 
-            <Tabs.Trigger class={styles.profileTab} value="relays">
-              <div class={styles.stat}>
-                <div class={styles.statNumber}>
-                  {humanizeNumber(profile?.userStats?.relay_count || 0)}
-                </div>
-                <div class={styles.statName}>
-                  {intl.formatMessage(t.stats.relays)}
-                </div>
-              </div>
-            </Tabs.Trigger>
+    <Tabs.Indicator class={styles.profileTabIndicator} />
+  </Tabs.List>
+</Show>
 
 
-            <Tabs.Indicator class={styles.profileTabIndicator} />
-          </Tabs.List>
-        </Show>
 
         <Tabs.Content class={styles.tabContent} value="reads">
           <div class={styles.profileNotes}>

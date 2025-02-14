@@ -1,5 +1,6 @@
 import { batch, Component, createEffect, Show } from 'solid-js';
-import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal';
+//import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal';
+import { MenuItem, PrimalArticle, PrimalNote } from '../../../types/primal';
 import { sendArticleRepost } from '../../../lib/notes';
 
 import styles from './NoteFooter.module.scss';
@@ -152,6 +153,17 @@ const ArticleFooter: Component<{
     }
   };
 
+
+
+
+
+
+
+
+
+
+
+
   const startZap = (e: MouseEvent | TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -297,6 +309,27 @@ const ArticleFooter: Component<{
 
   }
 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const buttonTypeClasses: Record<string, string> = {
     zap: styles.zapType,
     like: styles.likeType,
@@ -324,14 +357,17 @@ const ArticleFooter: Component<{
       onClick={(e) => {e.preventDefault();}}
     >
 
-      <Show when={props.state.showZapAnim}>
-        <ZapAnimation
-          id={`note-med-zap-${props.note.id}`}
-          src={zapMD}
-          class={props.large ? styles.largeZapLottie : styles.mediumZapLottie}
-          ref={medZapAnimation}
-        />
-      </Show>
+{/* BTC lightning out */}
+      {/*
+    <Show when={props.state.showZapAnim}>
+      <ZapAnimation
+       id={`note-med-zap-${props.note.id}`}
+       src={zapMD}
+       class={props.large ? styles.largeZapLottie : styles.mediumZapLottie}
+        ref={medZapAnimation}
+      />
+    </Show>
+*/}
 
       <ArticleFooterActionButton
         note={props.note}
@@ -343,20 +379,24 @@ const ArticleFooter: Component<{
         large={props.large}
       />
 
-      <ArticleFooterActionButton
-        note={props.note}
-        onClick={(e: MouseEvent) => e.preventDefault()}
-        onMouseDown={startZap}
-        onMouseUp={commitZap}
-        onTouchStart={startZap}
-        onTouchEnd={commitZap}
-        type="zap"
-        highlighted={props.state.zapped || props.state.isZapping}
-        label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
-        hidden={props.state.hideZapIcon}
-        title={props.state.satsZapped.toLocaleString()}
-        large={props.large}
-      />
+
+{/* BTC lightning out */}
+{/*
+<ArticleFooterActionButton
+  note={props.note}
+  onClick={(e: MouseEvent) => e.preventDefault()}
+  onMouseDown={startZap}
+  onMouseUp={commitZap}
+  onTouchStart={startZap}
+  onTouchEnd={commitZap}
+  type="zap"
+  highlighted={props.state.zapped || props.state.isZapping}
+  label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
+  hidden={props.state.hideZapIcon}
+  title={props.state.satsZapped.toLocaleString()}
+  large={props.large}
+/>
+*/}
 
       <ArticleFooterActionButton
         note={props.note}

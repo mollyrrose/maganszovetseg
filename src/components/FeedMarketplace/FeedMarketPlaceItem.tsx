@@ -272,11 +272,15 @@ const FeedMarketItem: Component<{
           <div class={styles.about}>{props.dvm?.about || ''}
           <br></br>
           
-          <Show when={feedUrl()}>
-           <div class={styles.feedButton}>
-           <ButtonFeedSupport href={feedUrl()} target="_blank">Felajánlás</ButtonFeedSupport>
-            </div>
-          </Show>
+{/* BTC lightning out */}          
+{/* 
+<Show when={feedUrl()}>
+  <div class={styles.feedButton}>
+    <ButtonFeedSupport href={feedUrl()} target="_blank">Felajánlás</ButtonFeedSupport>
+  </div>
+</Show>
+*/}
+
 
 
 
@@ -311,27 +315,34 @@ const FeedMarketItem: Component<{
           </div>
 
           <div class={styles.stats}>
-            <DvmFooterActionButton
-              dvm={props.dvm}
-              onClick={doLike}
-              type="like"
-              highlighted={state.liked || account?.likes.includes(props.dvm?.id || '')}
-              label={likes() === 0 ? '' : truncateNumber(likes(), 2)}
-              title={likes().toLocaleString()}
-            />
-            <DvmFooterActionButton
-              dvm={props.dvm}
-              onClick={(e: MouseEvent) => e.stopPropagation()}
-              onMouseDown={startZap}
-              onMouseUp={commitZap}
-              onTouchStart={startZap}
-              onTouchEnd={commitZap}
-              type="zap"
-              highlighted={state.zapped || state.isZapping}
-              label={satszapped() === 0 ? '' : truncateNumber(satszapped(), 2)}
-              title={satszapped().toLocaleString()}
-            />
-          </div>
+  <DvmFooterActionButton
+    dvm={props.dvm}
+    onClick={doLike}
+    type="like"
+    highlighted={state.liked || account?.likes.includes(props.dvm?.id || '')}
+    label={likes() === 0 ? '' : truncateNumber(likes(), 2)}
+    title={likes().toLocaleString()}
+  />
+
+  {/* BTC lightning out */}
+  {/* 
+  <DvmFooterActionButton
+    dvm={props.dvm}
+    onClick={(e: MouseEvent) => e.stopPropagation()}
+    onMouseDown={startZap}
+    onMouseUp={commitZap}
+    onTouchStart={startZap}
+    onTouchEnd={commitZap}
+    type="zap"
+    highlighted={state.zapped || state.isZapping}
+    label={satszapped() === 0 ? '' : truncateNumber(satszapped(), 2)}
+    title={satszapped().toLocaleString()}
+  />
+  */}
+</div>
+
+
+
         </div>
       </div>
     </div>

@@ -54,31 +54,36 @@ const PremiumUserInfo: Component<{
       </div>
 
       <div class={styles.premiumActive}>
-        <Switch
-          fallback={
-            <div class={styles.activePremium}>
-              <div class={styles.caption}>{props.data.membershipStatus.cohort_1 || ''}</div>
-              <div class={styles.date}>
-                <div>{props.data.membershipStatus.cohort_2 || shortDate(props.data.membershipStatus.expires_on || 0)}</div>
-              </div>
-            </div>
-          }
-        >
-          <Match when={isExpired()}>
-            <div class={styles.expiredPremium}>
-              <div class={styles.caption}>Expired</div>
-              <div class={styles.date}><div>{shortDate(props.data.membershipStatus.expires_on || 0)}</div></div>
-            </div>
-          </Match>
-          <Match when={isLegend()}>
-            <div class={`${styles.legendPremium} ${styles[`legend_${props.legendConfig?.style}`]}`}>
-              <div class={styles.caption}>{props.data.membershipStatus.cohort_1 || ''}</div>
-              <div class={styles.date}>
-                <div>{props.data.membershipStatus.cohort_2 || shortDate(props.data.membershipStatus.expires_on || 0)}</div>
-              </div>
-            </div>
-          </Match>
-        </Switch>
+      <Switch
+  fallback={
+    <div class={styles.activePremium}>
+      <div class={styles.caption}>{props.data.membershipStatus.cohort_1 || ''}</div>
+      <div class={styles.date}>
+        <div>{props.data.membershipStatus.cohort_2 || shortDate(props.data.membershipStatus.expires_on || 0)}</div>
+      </div>
+    </div>
+  }
+>
+  <Match when={isExpired()}>
+    <div class={styles.expiredPremium}>
+      <div class={styles.caption}>Expired</div>
+      <div class={styles.date}><div>{shortDate(props.data.membershipStatus.expires_on || 0)}</div></div>
+    </div>
+  </Match>
+
+  {/* Premium button out */}
+  {/*
+  <Match when={isLegend()}>
+    <div class={`${styles.legendPremium} ${styles[`legend_${props.legendConfig?.style}`]}`}>
+      <div class={styles.caption}>{props.data.membershipStatus.cohort_1 || ''}</div>
+      <div class={styles.date}>
+        <div>{props.data.membershipStatus.cohort_2 || shortDate(props.data.membershipStatus.expires_on || 0)}</div>
+      </div>
+    </div>
+  </Match>
+  */}
+</Switch>
+
       </div>
     </div>
   );

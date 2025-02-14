@@ -44,6 +44,9 @@ const sidebarOptions = [
     separator: true,
   },
 
+  // BTC lightning out
+  // Felajánlások kikommentelése (nem töröltük a kódot, csak kommentbe tettük)
+  /* 
   {
     label: 'Legtöbb felajánlás (24 óra)',
     value: 'mostzapped_24h',
@@ -64,6 +67,7 @@ const sidebarOptions = [
     value: 'mostzapped_1h',
     id: 'mostzapped_1h',
   },
+  */
 ];
 
 const HomeSidebar: Component< { id?: string } > = (props) => {

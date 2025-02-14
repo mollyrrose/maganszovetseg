@@ -10,6 +10,9 @@ const buttonTypeClasses: Record<string, string> = {
   repost: styles.repostType,
 };
 
+
+
+
 const NoteFooterActionButton: Component<{
   type: 'zap' | 'like' | 'reply' | 'repost',
   note: PrimalNote,
@@ -25,6 +28,11 @@ const NoteFooterActionButton: Component<{
   title?: string,
   large?: boolean,
 }> = (props) => {
+  
+  // Ne jelenjen meg a 'zap' gomb
+  if (props.type === 'zap') {
+    return null; // Visszatérünk null-lal, így nem renderelődik a gomb
+  }
 
   return (
     <button
@@ -40,12 +48,13 @@ const NoteFooterActionButton: Component<{
       <div class={`${buttonTypeClasses[props.type]} ${props.large ? styles.large : ''}`}>
         <div
           class={`${styles.icon} ${props.large ? styles.large : ''}`}
-          style={props.hidden ? 'visibility: hidden': 'visibility: visible'}
+          style={props.hidden ? 'visibility: hidden' : 'visibility: visible'}
         ></div>
         <div class={styles.statNumber}>{props.label || ''}</div>
       </div>
     </button>
-  )
-}
+  );
+};
+
 
 export default NoteFooterActionButton;
