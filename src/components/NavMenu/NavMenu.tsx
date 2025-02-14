@@ -82,9 +82,9 @@ const NavMenu: Component< { id?: string } > = (props) => {
 
   const noReadsConfirm: ConfirmInfo = {
     title: "Hamarosan jön!",
-    description: "A MagánSzövetség.Net még nem rendelkezik cikkírási képességekkel, de már építjük. Tartalomkészítők számára a Highlightert ajánljuk. Szeretnéd kipróbálni?",
+    description: "A MagánSzövetség.Net még nem rendelkezik cikkírási képességekkel, de már építjük!",
     confirmLabel: "Igen, tovább a Highlighterre",
-    abortLabel: "Nem, köszönöm",
+    abortLabel: "Ok",
     onConfirm: () => {
       window.open('https://highlighter.com', '_blank')?.focus();
     },
@@ -137,20 +137,30 @@ const NavMenu: Component< { id?: string } > = (props) => {
               <Show
                 when={isBigScreen()}
                 fallback={
+
+                  
                   <ButtonPrimary
                     id={props.id}
                     onClick={() => app?.actions.openConfirmModal(noReadsConfirm)}
                   >
                     <div class={styles.postIcon}></div>
                   </ButtonPrimary>
+                  
+
+
                 }
               >
+
+
                 <ButtonPrimary
                   id={props.id}
                   onClick={() => app?.actions.openConfirmModal(noReadsConfirm)}
                 >
                   {intl.formatMessage(tActions.newArticle)}
                 </ButtonPrimary>
+
+              
+
               </Show>
             </Match>
           </Switch>
@@ -162,9 +172,13 @@ const NavMenu: Component< { id?: string } > = (props) => {
           <div class={styles.message}>
             {intl.formatMessage(tPlaceholders.welcomeMessage)}
           </div>
+                          
           <ButtonPrimary onClick={account?.actions.showGetStarted}>
             {intl.formatMessage(tActions.getStarted)}
           </ButtonPrimary>
+
+
+
         </div>
       </Show>
     </div>

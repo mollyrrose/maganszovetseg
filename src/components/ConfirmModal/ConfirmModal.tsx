@@ -40,6 +40,8 @@ const ConfirmModal: Component<{
           {props.description}
         </div>
         <div class={styles.feedConfirmationActions}>
+         
+         {/*
           <Show when={props.onConfirm}>
             <ButtonPrimary
               onClick={props.onConfirm}
@@ -47,6 +49,8 @@ const ConfirmModal: Component<{
               {props.confirmLabel || intl.formatMessage(t.confirm)}
             </ButtonPrimary>
           </Show>
+*/}
+          
 
           <Show when={props.onAbort}>
             <ButtonSecondary

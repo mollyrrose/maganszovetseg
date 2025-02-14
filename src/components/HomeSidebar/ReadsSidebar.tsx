@@ -110,6 +110,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
     getReadsTopics(subId);
   }
 
+  
   const getFeaturedAuthor = () => {
     if (!reads) return;
     if (reads.featuredAuthor) return;

@@ -172,6 +172,49 @@
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.featured-user-sidebar {
+  width: 300px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .modal {
   position: fixed;
   z-index: 1200;

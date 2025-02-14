@@ -36,7 +36,41 @@ import ButtonFlip from '../components/Buttons/ButtonFlip';
 import Uploader from '../components/Uploader/Uploader';
 import { useSettingsContext } from '../contexts/SettingsContext';
 
+
+
+
 type AutoSizedTextArea = HTMLTextAreaElement & { _baseScrollHeight: number };
+
+ //create NIP-05 with Cloudflare API
+import { createNIP05Record } from "../api/cloudflare";
+const MyComponent = () => {
+  const handleRegister = async () => {
+    const username = accountName();
+    const nostrPubKey = account.publicKey;
+
+    if (!usernameRegex.test(username)) {
+      toast?.sendWarning("⚠️ Érvénytelen felhasználónév!");
+      return;
+    }
+
+    await createNIP05Record(username, nostrPubKey);
+    toast?.sendSuccess(`✅ NIP-05 rekord létrehozva: ${username}@maganszovetseg.net`);
+  };
+
+  return (
+    <div class={styles.container}>
+      {/* Your existing JSX */}
+      <form onSubmit={handleRegister}>
+        {/* Your form fields */}
+        <button type="submit">Create NIP-05</button>
+      </form>
+      {/* Continue with your JSX */}
+    </div>
+  );
+};
+
+
+
 
 const CreateAccount: Component = () => {  const intl = useIntl();
   const profile = useProfileContext();
@@ -197,6 +231,10 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
 
 
+
+
+
+
 /*
     let metadata: Record<string, string> = {};
 
@@ -249,7 +287,8 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
     metadata['country'] = "Hungary";
     metadata['mapadress'] = "Hungary";
-    metadata['language'] = "clienturl";
+    metadata['mapliveaddress'] = "Hungary";    
+    metadata['language'] = "Hungarian";
     metadata['clientregurl'] = "MaganSzovetseg.Net";
     metadata['myRSS'] = "";
     metadata['donationlink'] = "";
@@ -621,7 +660,14 @@ const CreateAccount: Component = () => {  const intl = useIntl();
           </div>
         </div>
 
+
+
         <form onSubmit={onSubmit}>
+
+
+
+
+
 
 
 

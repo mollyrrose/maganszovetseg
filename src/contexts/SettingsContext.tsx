@@ -814,6 +814,31 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     getMobileReleases(subid);
   };
 
+
+
+
+
+// A felhasználó böngészőnyelvének meghatározása
+var userLang = navigator.language || navigator.userLanguage;
+
+// Nyelv alapú fordítás (ez egy alap példa, amit bővíthetsz egy API-val)
+function translateContent() {
+    if (userLang.startsWith('en')) {
+        // Ha angol nyelvet használ, angol szöveget mutat
+        console.log("English content");
+    } else if (userLang.startsWith('hu')) {
+        // Ha magyar nyelvet használ, magyar szöveget mutat
+        console.log("Magyar tartalom");
+    } else {
+        console.log("Default content");
+    }
+}
+
+// A tartalom fordítása
+translateContent();
+
+
+
   const translateToHungarian = (text: string) => {
     const translations: Record<string, string> = {
       "Latest": "Legfrissebbek",
@@ -834,39 +859,39 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       "Global trending notes in the past 1 hour": "Népszerű bejegyzések az elmúlt 1 órában",
       "Nostr Firehose": "Noszter Tűzfészek",
       "Latest global notes; be careful!": "Legfrissebb bejegyzések világszerte, légy óvatos!",
-      "Nostr Reads": "Noszter Olvasnivalók",
-      "Latest reads from your network": "Legfrissebbek olvasnivalók a hálózatodból",
-      "All reads": "Minden olvasnivaló",
-      "Latest global reads": "Legfrissebb olvasnivalók világszerte",
+      "Nostr Reads": "Noszter cikkek",
+      "Latest reads from your network": "Legfrissebbek cikkek a nemzetközi hálózatodból",
+      "All reads": "Minden cikk",
+      "Latest global reads": "Legfrissebb cikkek a világ minden részéről",
       "Art Reads": "Művészet",
-      "Art Topic Reads from Primal": "Művészeti témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Art Topic Reads from Primal": "Művészeti témájú cikkek a MagánSzövetség.Net-ben",
       "Bitcoin Reads": "Bitcoin",
-      "Bitcoin Topic Reads from Primal": "Bitcoin témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Bitcoin Topic Reads from Primal": "Bitcoin témájú cikkek a MagánSzövetség.Net-ben",
       "Finance Reads": "Pénzügyek",
-      "Finance Topic Reads from Primal": "Pénzügyi témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Finance Topic Reads from Primal": "Pénzügyi témájú cikkek a MagánSzövetség.Net-ben",
       "Food Reads": "Táplálkozás",
-      "Food Topic Reads from Primal": "Táplálkozás témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Food Topic Reads from Primal": "Táplálkozás témájú cikkek a MagánSzövetség.Net-ben",
       "Gaming Reads": "Játék – Gaming",
-      "Gaming Topic Reads from Primal": "Játék témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Gaming Topic Reads from Primal": "Játék témájú cikkek a MagánSzövetség.Net-ben",
       "Human Rights Reads": "Emberi jogok",
-      "Human Rights Reads from Primal": "Emberi jogi témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Human Rights Reads from Primal": "Emberi jogi témájú cikkek a MagánSzövetség.Net-ben",
       "Music Reads": "Zene",
-      "Music Topic Reads from Primal": "Zenei témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Music Topic Reads from Primal": "Zenei témájú cikkek a MagánSzövetség.Net-ben",
       "News Topic Reads": "Hírtémák",
-      "News Topic Reads from Primal": "Hírek, olvasnivalók a MagánSzövetség.Net-ben",
-      "Nostr Topic Reads from Primal": "Noszter témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "News Topic Reads from Primal": "Hírek, cikkek a MagánSzövetség.Net-ben",
+      "Nostr Topic Reads from Primal": "Noszter témájú cikkek a MagánSzövetség.Net-ben",
       "Philosophy Reads": "Filozófia",
-      "Philosophy Topic Reads from Primal": "Filozófia témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Philosophy Topic Reads from Primal": "Filozófia témájú cikkek a MagánSzövetség.Net-ben",
       "Photography Reads": "Fotográfia",
-      "Photography Topic Reads from Primal": "Fényképezés témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Photography Topic Reads from Primal": "Fényképezés témájú cikkek a MagánSzövetség.Net-ben",
       "Podcasts Reads": "Podcast-ok",
-      "Podcasts Topic Reads from Primal": "Podcast témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Podcasts Topic Reads from Primal": "Podcast témájú cikkek a MagánSzövetség.Net-ben",
       "Sports Reads": "Sport",
-      "Sports Topic Reads from Primal": "Sport témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Sports Topic Reads from Primal": "Sport témájú cikkek a MagánSzövetség.Net-ben",
       "Technology Reads": "Technológia",
-      "Technology Topic Reads from Primal": "Technológia témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Technology Topic Reads from Primal": "Technológia témájú cikkek a MagánSzövetség.Net-ben",
       "Travel Reads": "Utazás",
-      "Travel Topic Reads from Primal": "Utazás témájú olvasnivalók a MagánSzövetség.Net-ben",
+      "Travel Topic Reads from Primal": "Utazás témájú cikkek a MagánSzövetség.Net-ben",
     };
 
     return translations[text] || text;

@@ -54,7 +54,7 @@ const BookmarksSelect: Component<{
 
     opts.push(
       {
-        label: 'Mentett olvasnivalók',
+        label: 'Mentett cikkek',
         value: 'reads',
       }
     );

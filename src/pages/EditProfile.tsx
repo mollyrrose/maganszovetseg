@@ -496,7 +496,7 @@ const EditProfile: Component = () => {
         <br></br>
 
         <div class={styles.inputLabel}>
-      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account">MENTSD LE az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
+      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account"><strong>MENTSD LE</strong> az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
       </div>
       <div class={styles.webVersion}>
           <ButtonSecondary onClick={() => {
