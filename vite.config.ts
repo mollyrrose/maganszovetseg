@@ -9,7 +9,8 @@ export default defineConfig({
     allowedHosts: ['maganszovetseg.net', 'demo.maganszovetseg.net'], // Allow both domains
   },
   server: {
-    port: 3000,
+    port: 4174,
+    allowedHosts: true,
   },
   build: {
     target: 'esnext',
@@ -22,4 +23,5 @@ export default defineConfig({
   esbuild: {
     keepNames: true,
   },
+
 });
