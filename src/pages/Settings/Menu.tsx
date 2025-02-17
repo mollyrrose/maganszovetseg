@@ -63,13 +63,13 @@ const Menu: Component = () => {
             <div class={styles.chevron}></div>
           </A>
         </Show>
-
+        {/*
         <A href="/settings/network">
           {intl.formatMessage(t.network.title)}
           <div class={styles.chevron}></div>
         </A>
         
-        {/*
+
         <Show when={account?.hasPublicKey()}>
           <A href="/settings/zaps">
             {intl.formatMessage(t.zaps)}

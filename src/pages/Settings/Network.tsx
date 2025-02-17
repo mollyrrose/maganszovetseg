@@ -146,7 +146,7 @@ const Network: Component = () => {
   }
 
 
-  {/*
+  
   const onCachingServiceInput = () => {
     if (!cachingServiceInput || cachingServiceInput.value === '') {
       return;
@@ -182,7 +182,7 @@ const Network: Component = () => {
 
     getDefaultRelays(`settings_drs_${APP_ID}`);
   });
-*/}
+
 
 
   return (
@@ -218,7 +218,7 @@ const Network: Component = () => {
         </div>
       </div>
 
-        {/*
+      
       <div class={styles.settingsContent}>
 
 
@@ -287,9 +287,9 @@ const Network: Component = () => {
 
       
     </div>
-    */}
+    
 
-{/*
+
       <div class={styles.settingsContent}>
         <div class={styles.bigCaption}>
           {intl.formatMessage(t.network.relays)}
@@ -358,10 +358,10 @@ const Network: Component = () => {
           <span>{intl.formatMessage(tPlaceholders.resetRelaysHelp)}</span>
         </HelpTip>
       </div>
-*/}
 
 
-{/*
+
+
       <div class={styles.settingsContentBorderless}>
         <div class={`${styles.settingsCaption} ${styles.secondCaption}`}>
           {intl.formatMessage(t.network.customRelay)}
@@ -390,7 +390,7 @@ const Network: Component = () => {
 
         <div style="height: 48px"></div>
       </div>
-*/}
+
 
 
       <ConfirmModal
