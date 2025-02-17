@@ -85,6 +85,8 @@ const Downloads: Component = () => {
       <PageTitle title={intl.formatMessage(t.title)} />
       <PageCaption title={intl.formatMessage(t.title)} />
 
+      
+
       <div class="downloadsContent">
         <br />
         <div class="qrCaption">
@@ -139,6 +141,12 @@ const Downloads: Component = () => {
 
         </div>
       </div>
+
+
+
+
+
+
     </div>
   );
 };

@@ -180,20 +180,20 @@
 
 form {
   padding-inline: 20px;
-  .inputLabel {
+  .inputLabel_bold {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-
+  
     label {
       color: var(--text-primary);
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 15px; 
+      font-weight: 600; 
       line-height: 20px;
       margin: 0;
     }
-
+  
     .required {
       display: flex;
       justify-content: flex-end;
@@ -202,14 +202,46 @@ form {
       font-weight: 400;
       line-height: 22px;
       color: var(--text-tertiary-2);
-
+  
       .star {
         color: var(--warning-color);
         font-weight: 600;
-        margin-right: 2PX;
+        margin-right: 2px;
       }
     }
   }
+  
+  .inputLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  
+    label {
+      color: var(--text-primary);
+      font-size: 15px; 
+      font-weight: 400;
+      line-height: 20px;
+      margin: 0;
+    }
+  
+    .required {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+      color: var(--text-tertiary-2);
+  
+      .star {
+        color: var(--warning-color);
+        font-weight: 600;
+        margin-right: 2px;
+      }
+    }
+  }
+  
 
   input, textarea {
     border: none;
@@ -433,4 +465,13 @@ form {
     margin: 0px 16px;
   }
 
+}
+
+
+.bitcoinIcon {
+  background: url('/src/assets/icons/bitcoin_icon.png') no-repeat center;
+  width: 24px;  /* Adjust width as needed */
+  height: 24px; /* Adjust height as needed */
+  background-size: contain;
+  display: inline-block;
 }

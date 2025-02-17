@@ -1,3 +1,4 @@
+//{/* scr/pages/EditProfile.tsx */}
 import { Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
 import styles from './EditProfile.module.scss';
 import PageCaption from '../components/PageCaption/PageCaption';
@@ -8,6 +9,8 @@ import {
   toast as tToast,
   upload as tUpload,
 } from '../translations';
+
+
 import { useIntl } from '@cookbook/solid-intl';
 import Avatar from '../components/Avatar/Avatar';
 import { useProfileContext } from '../contexts/ProfileContext';
@@ -27,8 +30,30 @@ import { APP_ID } from '../App';
 import { useSettingsContext } from '../contexts/SettingsContext';
 import { useAppContext } from '../contexts/AppContext';
 
-//new
-import ButtonFeedSupport from '../Buttons/ButtonFeedSupport'; // Importáljuk az új komponenst
+
+
+
+
+{/*
+import('../components/ProfileQrCodeModal/ProfileQrCodeModalBTC').then((module) => {
+  console.log('Dynamic Import Success:', module.default);
+  const ProfileQrCodeModalBTC = module.default;
+
+  return (
+    <ProfileQrCodeModalBTC
+      open={openQrBTC()}
+      onClose={() => setOpenQrBTC(false)}
+      profile={profile?.userProfile || {}}
+    />
+  );
+}).catch((error) => {
+  console.error('Dynamic Import Failed:', error);
+});
+*/}
+
+
+
+
 
 type AutoSizedTextArea = HTMLTextAreaElement & { _baseScrollHeight: number };
 
@@ -109,23 +134,49 @@ const EditProfile: Component = () => {
     elm.value = savedValue
   }
 
+
+
+
+  //check if fields exist at load-in, if not, creat it
   const onExpandableTextareaInput: () => void = () => {
     const maxHeight = document.documentElement.clientHeight || window.innerHeight || 0;
-
     const elm = textArea as AutoSizedTextArea;
-
     const minRows = parseInt(elm.getAttribute('data-min-rows') || '0');
-
+  
     !elm._baseScrollHeight && getScrollHeight(elm);
-
+  
     if (elm.scrollHeight >= (maxHeight / 3)) {
       return;
     }
-
+  
     elm.rows = minRows;
     const rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 20);
     elm.rows = minRows + rows;
-  }
+  
+    // NEW: Initialize msn_ fields if they don't exist
+    ['msn_country', 'msn_mapaddress', 'msn_mapliveaddress', 'msn_language', 'msn_clientregurl', 'msn_myrss', 'msn_donationlink', 'msn_btc', 'msn_mobileappusername', 'msn_email'].forEach((key) => {
+      if (!('msn_mobileappusername' in profile?.userProfile)) {
+        profile?.actions.updateProfile({ ...profile.userProfile, [key]: '' });
+      }
+  
+      // Update the corresponding input field
+      const inputElement = document.querySelector(`input[name="${key}"]`) as HTMLInputElement | null;
+      if (inputElement) {
+        inputElement.value = profile?.userProfile?.[key] || '';
+        console.log('Re-populating input field:', key, 'with value:', profile?.userProfile?.[key]);
+      }
+    });
+  };
+
+
+
+
+
+
+
+
+
+
 
   onMount(() => {
     setOpenSockets(true);
@@ -135,12 +186,21 @@ const EditProfile: Component = () => {
     setOpenSockets(false);
   })
 
+
+
+
+
+
+
+
+
+  //form initialization logic
   createEffect(() => {
     if (account?.isKeyLookupDone) {
       account.publicKey && setProfile(account.publicKey);
     }
   });
-
+//new
   createEffect(() => {
     if (profile?.userProfile?.about) {
       onExpandableTextareaInput();
@@ -159,11 +219,98 @@ const EditProfile: Component = () => {
     }
   });
 
+// NEW: Add effects for msn_ fields
+createEffect(() => {
+  if (profile?.userProfile?.msn_country) {
+    const countryInput = document.querySelector('input[name="msn_country"]') as HTMLInputElement;
+    if (countryInput) {
+      countryInput.value = profile.userProfile.msn_country || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_mapaddress) {
+    const mapAddressInput = document.querySelector('input[name="msn_mapaddress"]') as HTMLInputElement;
+    if (mapAddressInput) {
+      mapAddressInput.value = profile.userProfile.msn_mapaddress || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_mapliveaddress) {
+    const liveAddressInput = document.querySelector('input[name="msn_mapliveaddress"]') as HTMLInputElement;
+    if (liveAddressInput) {
+      liveAddressInput.value = profile.userProfile.msn_mapliveaddress || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_language) {
+    const languageInput = document.querySelector('input[name="msn_language"]') as HTMLInputElement;
+    if (languageInput) {
+      languageInput.value = profile.userProfile.msn_language || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_clientregurl) {
+    const clientRegUrlInput = document.querySelector('input[name="msn_clientregurl"]') as HTMLInputElement;
+    if (clientRegUrlInput) {
+      clientRegUrlInput.value = profile.userProfile.msn_clientregurl || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_myrss) {
+    const rssInput = document.querySelector('input[name="msn_myrss"]') as HTMLInputElement;
+    if (rssInput) {
+      rssInput.value = profile.userProfile.msn_myrss || '';
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_donationlink) {
+    const donationLinkInput = document.querySelector('input[name="msn_donationlink"]') as HTMLInputElement;
+    if (donationLinkInput) {
+      donationLinkInput.value = profile.userProfile.msn_donationlink || '';
+    }
+  }
+});
+
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_btc) {
+    const btcInput = document.querySelector('input[name="msn_btc"]') as HTMLInputElement | null;
+    if (btcInput) {
+      btcInput.value = profile.userProfile.msn_btc || '';
+      console.log('Re-populating input field: msn_btc with value:', profile.userProfile.msn_btc);
+    }
+  }
+});
+
+createEffect(() => {
+  if (profile?.userProfile?.msn_mobileappusername) {
+    const mobileAppUsernameInput = document.querySelector('input[name="msn_mobileappusername"]') as HTMLInputElement;
+    if (mobileAppUsernameInput) {
+      mobileAppUsernameInput.value = profile.userProfile.msn_mobileappusername || '';
+    }
+  }
+});
+//----
+
   const onNameInput = () => {
     const value = nameInput?.value || '';
 
     setIsNameValid(usernameRegex.test(value))
   };
+
+
 
   const resetUpload = () => {
     if (fileUploadAvatar) {
@@ -177,6 +324,9 @@ const EditProfile: Component = () => {
     setFileToUpload(undefined);
     setUploadTarget('none');
   };
+
+
+
 
   const onUpload = (target: 'picture' | 'banner', fileUpload: HTMLInputElement | undefined) => {
 
@@ -192,6 +342,14 @@ const EditProfile: Component = () => {
     }
   }
 
+
+
+
+
+
+
+
+  //new
   const onSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
@@ -207,32 +365,64 @@ const EditProfile: Component = () => {
       toast?.sendWarning(intl.formatMessage(tSettings.profile.name.formError));
       return false;
     }
-
+    
     let metadata: Record<string, string> = {};
 
-    [ 'displayName',
-      'name',
-      'website',
-      'about',
-      'lud16',
-      'nip05',
-      'picture',
-      'banner',
-      'supportLink', //new
-      'myRSS', //new
-    ].forEach(key => {
-      if (data.get(key)) {
-        metadata[key] = data.get(key) as string;
-
-        if (key === 'displayName') {
-          metadata['display_name'] = data.get(key) as string;
+    // Loop through all keys to get values and set them to metadata
+    ['displayName', 'name', 'website', 'about', 'lud16', 'nip05', 'picture', 'banner', 'msn_country', 'msn_mapaddress', 'msn_mapliveaddress', 'msn_language', 'msn_clientregurl', 'msn_myrss', 'msn_donationlink', 'msn_btc', 'msn_mobileappusername', 'msn_email'].forEach(key => {
+      const value = data.get(key);
+    
+      if (value) {
+        metadata[key] = value as string; // Set the value if it exists
+      } else {
+        // Apply default values only if the key doesn't have an updated value
+        switch (key) {
+          case 'msn_country':
+            metadata['msn_country'] = "Hungary";
+            break;
+          case 'msn_mapaddress':
+            metadata['msn_mapaddress'] = "Hungary";
+            break;
+          case 'msn_mapliveaddress':
+            metadata['msn_mapliveaddress'] = "Hungary";
+            break;
+          case 'msn_language':
+            metadata['msn_language'] = "Hungarian";
+            break;
+          case 'msn_clientregurl':
+            metadata['msn_clientregurl'] = "MaganSzovetseg.Net";
+            break;
+          case 'msn_myrss':
+            metadata['msn_myrss'] = "";
+            break;
+          case 'msn_donationlink':
+            metadata['msn_donationlink'] = "";
+            break;
+          case 'msn_btc':
+              metadata['msn_btc'] = "";
+              break;
+          case 'msn_mobileappusername':
+            metadata['msn_mobileappusername'] = "";
+            break;
+          case 'msn_email':
+            metadata['msn_email'] = "";
+            break;
+          default:
+            // For other fields, you may want to leave them unchanged
+            break;
         }
+      }
+  
+      // Special case for 'displayName' to store as 'display_name'
+      if (key === 'displayName') {
+        metadata['display_name'] = value as string;
       }
     });
 
     const oldProfile = profile?.userProfile || {};
 
-    const { success, note } = await sendProfile({ ...oldProfile, ...metadata}, account?.proxyThroughPrimal || false, account.activeRelays, account.relaySettings);
+    // Send the metadata to Nostr
+    const { success, note } = await sendProfile({ ...oldProfile, ...metadata }, account?.proxyThroughPrimal || false, account.activeRelays, account.relaySettings);
 
     if (success) {
       note && triggerImportEvents([note], `import_profile_${APP_ID}`, () => {
@@ -240,14 +430,87 @@ const EditProfile: Component = () => {
         note && account.actions.updateAccountProfile(note.pubkey);
         note && navigate(app?.actions.profileLink(note.pubkey) || '/home')
         toast?.sendSuccess(intl.formatMessage(tToast.updateProfileSuccess))
+  
+        console.log('Metadata saved successfully:', metadata); // Log the saved metadata
+        console.log('Form value for msn_mapaddress:', data.get('msn_mapaddress'));
+        console.log('Constructed metadata for msn_mapaddress:', metadata['msn_mapaddress']);
       });
       return false;
     }
 
+
+
+
+
+    
+  
     toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail))
 
     return false;
   };
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    const oldProfile = profile?.userProfile || {};
+
+
+
+    //new
+  
+    const EditProfile: Component = async () => {  // Make this function async
+      try {
+        // Send the metadata to Nostr
+        const { success, note } = await sendProfile(
+          { ...oldProfile, ...metadata }, 
+          account?.proxyThroughPrimal || false, 
+          account.activeRelays, 
+          account.relaySettings
+        );
+      
+        if (success) {
+          if (note) {
+            triggerImportEvents([note], `import_profile_${APP_ID}`, () => {
+              note && profile?.actions.updateProfile(note.pubkey);
+              note && account.actions.updateAccountProfile(note.pubkey);
+              note && navigate(app?.actions.profileLink(note.pubkey) || '/home');
+              toast?.sendSuccess(intl.formatMessage(tToast.updateProfileSuccess));
+      
+              console.log('Metadata saved successfully:', metadata); // Log the saved metadata
+              console.log('Form value for msn_mapaddress:', data.get('msn_mapaddress'));
+              console.log('Constructed metadata for msn_mapaddress:', metadata['msn_mapaddress']);
+            });
+          }
+          return false;
+        }
+      
+        toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail));
+        return false;
+      } catch (error) {
+        console.error("Error saving metadata:", error);
+        toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail));
+        return false;
+      }
+    };
+    
+
+
+
+
+
 
   return (
     <div class={styles.container}>
@@ -377,7 +640,7 @@ const EditProfile: Component = () => {
 
       <form onSubmit={onSubmit}>
 
-        <div class={styles.inputLabel}>
+        <div class={styles.inputLabel_bold}>
           <label for='name'>{intl.formatMessage(tSettings.profile.name.label)}</label>
           <span class={styles.required}>
             <span class={styles.star}>*</span>
@@ -404,7 +667,9 @@ const EditProfile: Component = () => {
             </div>
           </Show>
 
-        <div class={styles.inputLabel}>
+
+
+        <div class={styles.inputLabel_bold}>
           <label for='displayName'>{intl.formatMessage(tSettings.profile.displayName.label)}</label>
         </div>
         <input
@@ -413,8 +678,9 @@ const EditProfile: Component = () => {
           placeholder={intl.formatMessage(tSettings.profile.displayName.placeholder)}
           value={profile?.userProfile?.displayName || profile?.userProfile?.display_name || ''}
         />
+        <br />
 
-        <div class={styles.inputLabel}>
+        <div class={styles.inputLabel_bold}>
           <label for='website'>{intl.formatMessage(tSettings.profile.website.label)}</label>
         </div>
         <input
@@ -423,8 +689,9 @@ const EditProfile: Component = () => {
           placeholder={intl.formatMessage(tSettings.profile.website.placeholder)}
           value={profile?.userProfile?.website || ''}
         />
+        <br />     <br />
 
-        <div class={styles.inputLabel}>
+        <div class={styles.inputLabel_bold}>
           <label for='about'>{intl.formatMessage(tSettings.profile.about.label)}</label>
         </div>
         <textarea
@@ -437,23 +704,142 @@ const EditProfile: Component = () => {
           onInput={onExpandableTextareaInput}
         />
 
-        <div class={styles.inputLabel}>
-          <label for='supportLink'>Támogatói linkem</label>
+        <div class={styles.inputLabel_bold}>
+          <label for='msn_mapaddress'>Címem</label>
         </div>
         <input
-          name='supportLink'
+          name='msn_mapaddress'
           type='text'
-          placeholder="Van támogató linked? (pl. Donably.com)"
+          placeholder="Fizikai címem (v. napközbeni tartózkodási helyem)."
         />
+          <div class={styles.inputLabel}>
+          <label for="msn_mapaddress">Fizikai címem (napközbeni tartózkodási hely - pl. munkahely -, vagy lakcím), hogy a MagánSzövetség tagjai napközben a valós világban is elérhessenek. Profilodban nem látszik majd. A térképen - melyet fejlesztük - azok számára lesz látható akiket követsz (akik barátaid).
+          </label>
+          <br />
+        </div>
+        <br />
 
-        <div class={styles.inputLabel}>
-          <label for='myRSS'>RSS hír/blog-csatorna linkem</label>
+
+        <div class={styles.inputLabel_bold}>
+  <label for="msn_email">Biztonságos E-mail címem</label>
+</div>
+<input
+  name="msn_email"
+  type="text"
+  placeholder="Biztonságos, díjmentes ProtonMail. NEM Gmail, Freemail..."
+  onInput={(event) => {
+    const forbiddenWords = ["gmail", "outlook", "yahoo", "freemail", "citromail", "indamail"];
+    let inputValue = event.target.value.toLowerCase();
+
+    // Check if any forbidden word exists in the input
+    forbiddenWords.forEach((word) => {
+      if (inputValue.includes(word)) {
+        inputValue = inputValue.replace(new RegExp(word, "gi"), ""); // Remove the forbidden word
+      }
+    });
+
+    event.target.value = inputValue; // Update the field without forbidden words
+  }}
+/>
+<div class={styles.inputLabel}>
+  <label for="msn_email">
+    Az email küldésnél a MagánSzövetség.Net-en belüli üzenetküldés sokkal bitonságosabb, mert direktben a másik felhasználóhoz érkezik és nem megy át internet szolgáltató szervereken (pl. Vodafone, Telekom); így nem megfigyelhető.
+    Mindemellett Csak biztonságosnak számító email címet adj meg mely titkosítja az üzenetedet, pl. ProtonMail, Tutanota.
+    Ne adj meg gmail, outlook, yahoo, freemail, citromail, indamail email címet, mert azt 'az egész világ' látja.
+  </label>
+</div>
+
+
+{/*
+        <div class={styles.inputLabel_bold}>
+          <label for='msn_email'>Biztonságos E-mail címem</label>
         </div>
         <input
-          name='myRSS'
+          name='msn_email'
           type='text'
-          placeholder="Van RSS Feed-ed?"
+          placeholder="Biztonságos, díjmentes ProtonMail. NEM Gmail, Freemail vagy a többi."
         />
+        <div class={styles.inputLabel}>
+          <label for="msn_email">Az email küldésnél a MagánSzövetség.Net-en belüli üzenetküldés sokkal bitonságosabb, mert direktben a másik felhasználóhoz érkezik és nem megy át internet szolgáltató szervereken (pl. Vodafone, Telekom); így nem megfigyelhető. Mindemellett Csak biztonságosnak számító email címet adj meg mely titkosítja az üzenetedet, pl. ProtonMail, Tutanota. Ne adj meg gmail, outlook, yahoo, freemail, citromail, indamail email címet, mert azt 'az egész világ' látja.</label>
+        </div>
+*/}
+        <br />
+
+        <div class={styles.inputLabel_bold}>
+          <label for="msn_mobileappusername">Telefonos alkalmazás azonosítóm</label>
+        </div>
+        <input
+        name="msn_mobileappusername"
+        type="text"
+        placeholder="Mega.nz alkalmazás email, vagy Signal felhasználónév"
+        />
+        <p class={styles.inputLabel}>
+        <label for="msn_mobileappusername">A legbiztonságosabb telefonos beszélgető/ videóhívó alkalmazás a Mega.nz, mely naponta váltogatja a titkosítási kulcsát, file tárolást/megosztást is lehetővé tesz. Jónak számít még a Signal mobil alkalmazás, mely szintén nem ad 'hátsó kiskaput' nyomás hatására, mint a Telegram tette. Hozz létre egy Mega.nz fiókot a fennti biztonságos email-eddel, vagy hozz látre egy felhasználónevet a Signal-ban, mellyel a telefonszámod kiadása nélkül is tudsz hívásokat/videóhívásokat bonyolítani.</label>
+        </p>
+       <br />
+
+        <div class={styles.inputLabel_bold}>
+          <label for='msn_donationlink'>Felajánló linkem</label>
+        </div>
+        <input
+          name='msn_donationlink'
+          type='text'
+          placeholder="Van felajánlási linked? (pl. Donably.com)"
+        />
+        <p class={styles.inputLabel}>
+          <label for="msn_donationlink">Közösségi vezető vagy, vagy van egy projekted melyre gyűjtesz? Használd ki a magánSzövetség közösségi finanszírozási erejét. Hozz létre egy felajánló linket bármely támogatás-kiszolgáló fórumon, mint pl a Donably.com, és a MagánSzövetség.Net megjelenít profilodon egy "Felajánlás" gombot, melyre kattintva követőid felajánlásokat tehetnek. A MagánSzövetség nem kezel pénzt eközben, nem von le díjat és az adózásodért magad felelsz, melyről a felajánlás platformodon tudsz több információt találni.
+        </label>
+        </p>
+        <br />
+
+
+
+
+        <div class={styles.inputLabel_bold}>
+          <label for='msn_btc'>Bitcoin (BTC) tárcám címe</label>
+        </div>
+        <input
+          name='msn_btc'
+          type='text'
+          placeholder="Hasonló: bc1q3khvh3d3peshzu2nre3c6kx91esjet6gn1y2929hzfc5x8qk3w9s3wcsjr"
+        />
+        <p class={styles.inputLabel}>
+          <label for="msn_btc">Add meg a Bitcoin (BTC) tárcád cím-kódját, hogy a kapcsolataid bitcoin felajánlásokat küldhessenek neked, vagy vásárolhassanak tőled bitcoint használva.
+        </label>
+        </p>
+        <br />
+{/*
+       <div class={styles.inputLabel_bold}>
+          <label for="msn_btc">
+            {intl.formatMessage({ id: tSettingsBTC.profile.msn_btc.label.id, defaultMessage: tSettingsBTC.profile.msn_btc.label.defaultMessage })}
+          </label>
+        </div>
+       <input
+          name="msn_btc"
+          type="text"
+          placeholder={intl.formatMessage({ id: tSettingsBTC.profile.msn_btc.label.id, defaultMessage: tSettingsBTC.profile.msn_btc.label.placeholderText })} 
+          value={profile?.userProfile?.msn_btc || ''}
+        />
+        <p class={styles.inputLabel}>
+         <label for="msn_btc">
+          {intl.formatMessage({ id: tSettingsBTC.profile.msn_btc.label.id, defaultMessage: tSettingsBTC.profile.msn_btc.label.description })}
+          </label>
+        </p>
+
+        <br />
+*/}
+
+
+
+        <div class={styles.inputLabel_bold}>
+          <label for='msn_myrss'>RSS hír/blog-csatorna linkem</label>
+        </div>
+        <input
+          name='msn_myrss'
+          type='text'
+          placeholder="Van RSS hírfolyamod?"
+        />
+          <br />
 
         {/* BTC lightning out
         <div class={styles.inputLabel}>
@@ -477,6 +863,7 @@ const EditProfile: Component = () => {
         />
         */}
 
+
         <div class={styles.formSubmit}>
           <ButtonPrimary
             type='submit'
@@ -495,6 +882,8 @@ const EditProfile: Component = () => {
         <br></br>
         <br></br>
 
+
+
         <div class={styles.inputLabel}>
       <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account"><strong>MENTSD LE</strong> az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
       </div>
@@ -509,12 +898,37 @@ const EditProfile: Component = () => {
 
 
       </form>
+      </div>
 
 
-    </div>
 
     
   );
 }
+
+
+
+export interface PrimalUser {
+  pubkey: string;
+  npub: string;
+  displayName?: string;
+  name?: string;
+  about?: string;
+  picture?: string;
+  banner?: string;
+  nip05?: string;
+  lud16?: string;
+  msn_country?: string;
+  msn_mapaddress?: string;
+  msn_mapliveaddress?: string;
+  msn_language?: string;
+  msn_clientregurl?: string;
+  msn_myrss?: string;
+  msn_donationlink?: string;
+  msn_btc?: string;
+  msn_mobileappusername?: string;
+  msn_email?: string;
+}
+
 
 export default EditProfile;

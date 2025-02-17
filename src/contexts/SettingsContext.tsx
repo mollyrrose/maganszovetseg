@@ -879,7 +879,7 @@ translateContent();
       "Music Topic Reads from Primal": "Zenei témájú cikkek a MagánSzövetség.Net-ben",
       "News Topic Reads": "Hírtémák",
       "News Topic Reads from Primal": "Hírek, cikkek a MagánSzövetség.Net-ben",
-      "Nostr Topic Reads from Primal": "Noszter témájú cikkek a MagánSzövetség.Net-ben",
+      "Nostr Topic Reads from Primal": "Cikkek a biztonságos kapcsolati hálók világából a MagánSzövetség.Net-ben",
       "Philosophy Reads": "Filozófia",
       "Philosophy Topic Reads from Primal": "Filozófia témájú cikkek a MagánSzövetség.Net-ben",
       "Photography Reads": "Fotográfia",
@@ -918,7 +918,7 @@ translateContent();
           if (feed.description === "Nostr Topic Reads from Primal") {
             return {
               ...feed,
-              name: "Noszter témájú olvasnivalók",
+              name: "Kapcsolati hálók témájú cikkek",
               description: translateToHungarian(feed.description),
             };
           }

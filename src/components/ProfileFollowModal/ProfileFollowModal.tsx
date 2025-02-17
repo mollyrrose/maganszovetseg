@@ -137,10 +137,10 @@ const ProfileFollowModal: Component<{
         <Tabs value={activeTab()} onChange={setActiveTab}>
           <Tabs.List class={styles.profileTabs}>
             <Tabs.Trigger class={styles.profileTab} value="follows">
-              Following{props.stats?.following ? ` (${humanizeNumber(props.stats.following)})` : ''}
+              Követem őket{props.stats?.following ? ` (${humanizeNumber(props.stats.following)})` : ''}
             </Tabs.Trigger>
             <Tabs.Trigger class={styles.profileTab} value="followers">
-              Followers{props.stats?.followers ? ` (${humanizeNumber(props.stats.followers)})` : ''}
+              Követnek engem{props.stats?.followers ? ` (${humanizeNumber(props.stats.followers)})` : ''}
             </Tabs.Trigger>
             <Tabs.Indicator class={styles.profileTabIndicator} />
           </Tabs.List>
@@ -182,7 +182,7 @@ const ProfileFollowModal: Component<{
             </div>
             <div class={styles.footer}>
               <div class={styles.date}>
-                Last updated: {date(profile?.contactListDate || 0).label} ago
+                Legutóbb frissítve: {date(profile?.contactListDate || 0).label}
               </div>
               <div class={styles.actions}>
               </div>
@@ -203,9 +203,10 @@ const ProfileFollowModal: Component<{
                     <div class={styles.mutedProfile}>
                       {intl.formatMessage(
                         t.noFollowers,
-                        { name: profile?.userProfile ? userName(profile?.userProfile) : profile?.profileKey },
-                      )}
+                        { name: profile?.userProfile ? `A ${userName(profile?.userProfile)}` : `A ${profile?.profileKey}` },
+                        )}
                     </div>
+
                   }
                 >
                   {follower =>

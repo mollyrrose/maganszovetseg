@@ -3,7 +3,7 @@ import { Component, For } from 'solid-js';
 import userFollow from '../../assets/icons/notifications/user_followed.svg';
 import userUnFollow from '../../assets/icons/notifications/user_unfollowed.svg';
 
-import postZapped from '../../assets/icons/notifications/post_zapped.svg';
+//import postZapped from '../../assets/icons/notifications/post_zapped.svg';
 import postLiked from '../../assets/icons/notifications/post_liked.svg';
 import postReposted from '../../assets/icons/notifications/post_reposted.svg';
 import postReplied from '../../assets/icons/notifications/post_replied.svg';
@@ -11,12 +11,12 @@ import postReplied from '../../assets/icons/notifications/post_replied.svg';
 import mention from '../../assets/icons/notifications/mention.svg';
 import mentionedPost from '../../assets/icons/notifications/mentioned_post.svg';
 
-import mentionZapped from '../../assets/icons/notifications/mention_zapped.svg';
+//import mentionZapped from '../../assets/icons/notifications/mention_zapped.svg';
 import mentionLiked from '../../assets/icons/notifications/mention_liked.svg';
 import mentionReposted from '../../assets/icons/notifications/mention_reposted.svg';
 import mentionReplied from '../../assets/icons/notifications/mention_replied.svg';
 
-import mentionedPostZapped from '../../assets/icons/notifications/mentioned_post_zapped.svg';
+//import mentionedPostZapped from '../../assets/icons/notifications/mentioned_post_zapped.svg';
 import mentionedPostLiked from '../../assets/icons/notifications/mentioned_post_liked.svg';
 import mentionedPostReposted from '../../assets/icons/notifications/mentioned_post_reposted.svg';
 import mentionedPostReplied from '../../assets/icons/notifications/mentioned_post_replied.svg';
@@ -40,7 +40,7 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
 
   const basicNotifications = [
     'NEW_USER_FOLLOWED_YOU',
-    'YOUR_POST_WAS_ZAPPED',
+  //  'YOUR_POST_WAS_ZAPPED',
     'YOUR_POST_WAS_LIKED',
     'YOUR_POST_WAS_REPOSTED',
     'YOUR_POST_WAS_REPLIED_TO',
@@ -49,14 +49,14 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
   ];
 
   const yourMentionNotifications = [
-    'POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED',
+ //   'POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED',
     'POST_YOU_WERE_MENTIONED_IN_WAS_LIKED',
     'POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED',
     'POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO',
   ];
 
   const yourPostMentionNotifications = [
-    'POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED',
+ //   'POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED',
     'POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED',
     'POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED',
     'POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO',
@@ -65,7 +65,7 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
   const notificationLabels: Record<string, string> = {
     NEW_USER_FOLLOWED_YOU: 'új felhasználó követni kezdett',
 
-    YOUR_POST_WAS_ZAPPED: 'a bejegyzésed felajánlást kapott',
+ //   YOUR_POST_WAS_ZAPPED: 'a bejegyzésed felajánlást kapott',
     YOUR_POST_WAS_LIKED: 'a bejegyzésed kedvelték',
     YOUR_POST_WAS_REPOSTED: 'a bejegyzésed újramegosztották',
     YOUR_POST_WAS_REPLIED_TO: 'a bejegyzésedhez hozzászóltak',
@@ -73,12 +73,12 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
     YOU_WERE_MENTIONED_IN_POST: 'megemlítettek egy bejegyzésben',
     YOUR_POST_WAS_MENTIONED_IN_POST: 'megemlítették a bejegyzésedet egy bejegyzésben',
 
-    POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
+  //  POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
     POST_YOU_WERE_MENTIONED_IN_WAS_LIKED: 'kedvelték',
     POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED: 'újramegosztották',
     POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO: 'hozzászóltak',
 
-    POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
+  //  POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: 'felajánlást kapott',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED: 'kedvelték',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED: 'újramegosztották',
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO: 'hozzászóltak rá',
@@ -88,7 +88,7 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
     NEW_USER_FOLLOWED_YOU: userFollow,
     USER_UNFOLLOWED_YOU: userUnFollow,
 
-    YOUR_POST_WAS_ZAPPED: postZapped,
+  //  YOUR_POST_WAS_ZAPPED: postZapped,
     YOUR_POST_WAS_LIKED: postLiked,
     YOUR_POST_WAS_REPOSTED: postReposted,
     YOUR_POST_WAS_REPLIED_TO: postReplied,
@@ -96,12 +96,12 @@ const SettingsNotifications: Component<{ id?: string }> = (props) => {
     YOU_WERE_MENTIONED_IN_POST: mention,
     YOUR_POST_WAS_MENTIONED_IN_POST: mentionedPost,
 
-    POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: mentionZapped,
+  //  POST_YOU_WERE_MENTIONED_IN_WAS_ZAPPED: mentionZapped,
     POST_YOU_WERE_MENTIONED_IN_WAS_LIKED: mentionLiked,
     POST_YOU_WERE_MENTIONED_IN_WAS_REPOSTED: mentionReposted,
     POST_YOU_WERE_MENTIONED_IN_WAS_REPLIED_TO: mentionReplied,
 
-    POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: mentionedPostZapped,
+  //  POST_YOUR_POST_WAS_MENTIONED_IN_WAS_ZAPPED: mentionedPostZapped,
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_LIKED: mentionedPostLiked,
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPOSTED: mentionReposted,
     POST_YOUR_POST_WAS_MENTIONED_IN_WAS_REPLIED_TO: mentionedPostReplied,

@@ -1,3 +1,4 @@
+//{/* scr/pages/Profile.tsx */}
 import { A, createAsync, useBeforeLeave, useNavigate, useParams } from '@solidjs/router';
 import { nip19 } from '../lib/nTools';
 import {
@@ -45,7 +46,10 @@ import VerificationCheck from '../components/VerificationCheck/VerificationCheck
 
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import NoteImage from '../components/NoteImage/NoteImage';
+
 import ProfileQrCodeModal from '../components/ProfileQrCodeModal/ProfileQrCodeModal';
+import ProfileQrCodeModalBTC from '../components/ProfileQrCodeModal/ProfileQrCodeModalBTC';
+
 import { CustomZapInfo, useAppContext } from '../contexts/AppContext';
 import ProfileAbout from '../components/ProfileAbout/ProfileAbout';
 import ButtonPrimary from '../components/Buttons/ButtonPrimary';
@@ -69,6 +73,17 @@ import ProfileCardSkeleton from '../components/Skeleton/ProfileCardSkeleton';
 import { getKnownProfiles } from '../Router';
 import { scrollWindowTo } from '../lib/scroll';
 import PremiumCohortInfo from './Premium/PremiumCohortInfo';
+
+
+
+//import('../components/ProfileQrCodeModal/ProfileQrCodeModalBTC').then((module) => {
+//  console.log('Dynamic Import Success:', module.default);
+//}).catch((error) => {
+//  console.error('Dynamic Import Failed:', error);
+//});
+
+
+
 
 
 
@@ -138,7 +153,10 @@ const Profile: Component = () => {
   const [showContext, setContext] = createSignal(false);
   const [confirmReportUser, setConfirmReportUser] = createSignal(false);
   const [confirmMuteUser, setConfirmMuteUser] = createSignal(false);
+  
   const [openQr, setOpenQr] = createSignal(false);
+  const [openQrBTC, setOpenQrBTC] = createSignal(false);
+
 
   const [followsModal, setFollowsModal] = createSignal<'follows' | 'followers' | false>(false);
 
@@ -836,29 +854,113 @@ const Profile: Component = () => {
 
 
 
+{/*
+              <Show when={isCurrentUser()}>
+                <div class={styles.editProfileButton}>
+                <ButtonSecondary
+                   onClick={() => {
+                   const donationLink = profile?.userProfile?.msn_donationlink || "";
+                    console.log("Donation Link:", donationLink); // Debugging console log
+            
+                   if (donationLink) {
+                   window.open(donationLink, "_blank"); // Open the link in a new tab
+                     } else {
+                      console.warn("No donation link found.");
+                     }
+                   }}
+                   title={intl.formatMessage(tActions.donationlinkclick)}
+                >
+                <div>{intl.formatMessage(tActions.donationlinkclick)}</div>
+                </ButtonSecondary>
+                </div>
+              </Show>
+*/}
+            <Show when={profile?.userProfile?.msn_donationlink && profile.userProfile.msn_donationlink.trim() !== ""}>
+              <div class={styles.editProfileButton}>
+              <ButtonSecondary
+               onClick={() => {
+               let donationLink = profile?.userProfile?.msn_donationlink || "";
+                console.log("Donation Link:", donationLink);
+
+                // If the donation link doesn't start with a protocol, use a protocol-relative URL
+                if (donationLink && !/^https?:\/\//i.test(donationLink)) {
+                  donationLink = '//' + donationLink;
+                }
+
+                if (donationLink) {
+                  window.open(donationLink, "_blank");
+                }
+              }}
+               title={intl.formatMessage(tActions.donationlinkclick)}
+               >
+               <div>{intl.formatMessage(tActions.donationlinkclick)}</div>
+             </ButtonSecondary>
+              </div>
+            </Show>
 
 
 
+{/*
+              <Show when={profile?.userProfile?.msn_donationlink && profile.userProfile.msn_donationlink !== ""}>
+  <ButtonSecondary
+    
+  onClick={() => {
+      const donationLink = profile?.userProfile?.msn_donationlink || "";
+      if (donationLink) {
+        window.open(donationLink, "_blank"); // Open the link in a new tab
+      }
+    }}
+    shrink={true}
+    title={intl.formatMessage(tActions.donate)}
+  >
+    <div>{intl.formatMessage(tActions.donate)}</div>
+  </ButtonSecondary>
+</Show>
+
+ */}
+
+
+              {/* BTC button working 
+              <Show when={profile?.userProfile?.msn_btc && profile.userProfile.msn_btc.trim() !== ""}>
+                <ButtonSecondary onClick={() => setOpenQrBTC(true)} shrink={true}>
+                 <div class={styles.bitcoinIcon}></div>
+                </ButtonSecondary>
+              </Show>
+              */}
 
 
 
-
-
-
-
-
-
-
+              {/* BTC button working, with debugging*/}
+              <Show when={profile?.userProfile?.msn_btc && profile.userProfile.msn_btc.trim() !== ""}>
+                <ButtonSecondary
+                  onClick={() => {
+                    console.log('Opening BTC QR modal');
+                    setOpenQrBTC(true);
+                  }}
+                  shrink={true}
+                  >
+                  <div class={styles.bitcoinIcon}></div>
+                </ButtonSecondary>
+              </Show>
 
 
 
 
               <ButtonSecondary
                 onClick={() => setOpenQr(true)}
+                
                 shrink={true}
               >
                 <div class={styles.qrIcon}></div>
               </ButtonSecondary>
+
+
+
+
+
+
+
+
 
 {/* BTC lightning out 
               <Show when={!isCurrentUser()}>
@@ -1039,24 +1141,26 @@ const Profile: Component = () => {
                         </Show>
                       </div>
 
+
+
                       <div class={styles.followings}>
-  <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
-    <div class={styles.number}>
-      {(profile?.userStats?.follows_count || 0)
-        .toLocaleString('en-US') // Make sure it uses the standard format
-        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
-    </div>
-    <div class={styles.label}>követés</div>
-  </button>
-  <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
-    <div class={styles.number}>
-      {(profile?.userStats?.followers_count || 0)
-        .toLocaleString('en-US') // Make sure it uses the standard format
-        .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
-    </div>
-    <div class={styles.label}>követő</div>
-  </button>
-</div>
+                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'follows')}>
+                          <div class={styles.number}>
+                         {(profile?.userStats?.follows_count || 0)
+                          .toLocaleString('en-US') // Make sure it uses the standard format
+                          .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+                          </div>
+                         <div class={styles.label}>követés</div>
+                        </button>
+                        <button class={styles.stats} onClick={() => setFollowsModal(() => 'followers')}>
+                        <div class={styles.number}>
+                       {(profile?.userStats?.followers_count || 0)
+                      .toLocaleString('en-US') // Make sure it uses the standard format
+                      .replace(/,/g, ' ')}    {/* Replace commas with spaces */}
+                     </div>
+                      <div class={styles.label}>követő</div>
+                      </button>
+                      </div>
 
 
 
@@ -1160,11 +1264,50 @@ const Profile: Component = () => {
         }}
       />
 
+
+
       <ProfileQrCodeModal
         open={openQr()}
         onClose={() => setOpenQr(false)}
         profile={profile?.userProfile}
       />
+
+
+      <ProfileQrCodeModalBTC
+        open={openQrBTC()}
+        onClose={() => setOpenQrBTC(false)}
+        profile={profile?.userProfile}
+      />
+
+
+
+
+
+
+
+     {/* working
+         <ProfileQrCodeModalBTC
+        open={openQrBTC()} // Ensure this state updates
+        onClose={() => {
+          console.log('BTC modal closed');
+          setOpenQrBTC(false);
+        }}
+        profile={profile?.userProfile}
+      />
+      */}
+
+
+
+  {/* 
+      <ProfileQrCodeModalBTC
+        open={openQrBTC()}
+        onClose={() => setOpenQrBTC(false)}
+        profile={profile?.userProfile}
+      />
+
+      */}
+
+
     </>
   )
 }

@@ -90,18 +90,18 @@ const SaveFeedDialog: Component<{
 
       }
       title={<div class={styles.addToFeedDialogTitle}>
-        Save to <span>{props.feedType}</span> Feeds
+        Ments el a <span>{props.feedType}</span> Folyamokat
       </div>}
     >
       <div class={styles.addToFeedDialogContent}>
         <div class={styles.form}>
           <TextField class={styles.searchCommand} value={feedName()} onChange={setFeedName}>
-            <TextField.Label>Feed name:</TextField.Label>
+            <TextField.Label>Folyam név:</TextField.Label>
             <TextField.Input />
           </TextField>
 
           <TextField class={styles.searchCommand} value={feedDescription()} onChange={setFeedDescription}>
-            <TextField.Label>Feed description</TextField.Label>
+            <TextField.Label>Folyam leírás</TextField.Label>
             <TextField.Input />
           </TextField>
         </div>
@@ -110,7 +110,7 @@ const SaveFeedDialog: Component<{
             onClick={() => props.setOpen && props.setOpen(false)}
             light={true}
           >
-            Cancel
+            Mégse
           </ButtonSecondary>
           <ButtonPremium
             onClick={() => {
@@ -118,7 +118,7 @@ const SaveFeedDialog: Component<{
               props.setOpen && props.setOpen(false);
             }}
           >
-            Save
+            Mentsd el
           </ButtonPremium>
         </div>
       </div>

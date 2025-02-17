@@ -1,3 +1,4 @@
+//{/* scr/translations.ts */}
 import { MessageDescriptor } from "@cookbook/solid-intl";
 import { NotificationType } from "./constants";
 import { ScopeDescriptor } from "./types/primal";
@@ -12,7 +13,7 @@ export const account = {
   //uj
   alreadyHaveAccountExp: {
     id: 'account.alreadyHaveAccountExp',
-    defaultMessage: 'Fiókodba csak a rendszer által generált hosszú jelszóval tudsz belépni, melyet a regisztálást követően a kilépésed (logout) előtt elmentettél. Enélkül nem tudsz belépni. A rendszer a fiókodat és tartalmát korlátlan ideig megőrzi. Hozz létre új fiókot, egy mási felhasználónévvel! (pl. kisspista helyett kisspista108) és ez alkalommal mentsd le a Beállítások/Fiók menüpontból a hosszú jelszavadat (Privát Kulcsodat). Használj jelszótárolót/ jelszókezelőt (pl. ProtonPass) mely megjegyzi a jelszavad, hogy egy kattintással bejelentkezhess.',
+    defaultMessage: 'Fiókodba csak a rendszer által generált hosszú jelszóval tudsz belépni, melyet a regisztálást követően a kilépésed (logout) előtt elmentettél. Enélkül nem tudsz belépni. A rendszer a fiókodat és tartalmát korlátlan ideig megőrzi. Hozz létre új fiókot, egy mási felhasználónévvel! (pl. kisspista helyett kisspista108) és ez alkalommal mentsd le a Beállítások/Fiók menüpontból a hosszú jelszavadat (Privát Kulcsodat). Használj jelszótárolót/ jelszókezelőt mely megjegyzi a jelszavad, hogy egy kattintással bejelentkezhess.',
     description: 'Already have a Nostr accountlabel',
   },
 
@@ -80,7 +81,7 @@ export const account = {
       },
       step_three: {
         id: 'settings.account.descriptions.step_three',
-        defaultMessage: 'Találtunk néhány Noszter fiókot, amelyeket követhetsz:',
+        defaultMessage: 'Találtunk néhány fiókot a nemzetközi hálózatba, amelyeket követésre javaslunk. Kattins a :',
         description: 'Description on step three',
       },
     }
@@ -293,6 +294,11 @@ export const actions = {
     id: 'actions.editProfile',
     defaultMessage: 'Profil szerkesztése',
     description: 'Edit profile action label',
+  },
+  donationlinkclick: {
+    id: 'actions.donationlinkclick',
+    defaultMessage: 'Felajánlás',
+    description: 'Donation button',
   },
   reportUserConfirm: {
     id: 'actions.reportUserConfirm',
@@ -711,12 +717,12 @@ export const messages = {
   },
   follows: {
     id: 'messages.follows',
-    defaultMessage: 'követések',
+    defaultMessage: 'követők',
     description: 'DM relation selection label for follows',
   },
   other: {
     id: 'messages.other',
-    defaultMessage: 'egyéb',
+    defaultMessage: 'mások',
     description: 'DM relation selection label for other',
   },
   markAsRead: {
@@ -1078,12 +1084,12 @@ export const placeholders = {
   },
   searchByNpub: {
     id: 'placeholders.searchByNpub',
-    defaultMessage: 'keresés npub alapján...',
+    defaultMessage: 'keresés nyilvános felhasználónév (public key/ npub...) alapján...',
     description: 'Placeholder for searching by npub',
   },
   addNpub: {
     id: 'placeholders.addNpub',
-    defaultMessage: 'npub hozzáadása...',
+    defaultMessage: 'nyilvános felhasználónév (public key/ npub...) hozzáadása',
     description: 'Placeholder for adding npub',
   },
   mustHaveOneCachingService: {
@@ -1118,7 +1124,7 @@ export const placeholders = {
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
-    defaultMessage: 'Merre visznek épp magukkal gondolataim?...',
+    defaultMessage: 'Merre visznek épp magukkal gondolatok?...',
     description: 'Placeholder for new note call-to-action',
   },
   pageWIPTitle: {
@@ -1143,7 +1149,7 @@ export const placeholders = {
   },
   search: {
     id: 'placeholders.search',
-    defaultMessage: 'Keresés... (pl. név, publikus kulcs)',
+    defaultMessage: 'Keresés... (név, nyilvános kulcs,...)',
     description: 'Search input placeholder',
   },
   selectFeed: {
@@ -1296,12 +1302,31 @@ export const profile = {
     defaultMessage: '{name} nincs egy relayen sem',
     description: 'Label indicating that the profile has no relays',
   },
+
+  
   qrModal: {
     pubkey: {
       id: 'profile.qrModal.pubkey',
       defaultMessage: 'Nyilvános kulcs',
       description: 'Public key tab title in profile qr code modal',
     },
+
+  qrModalBTC: { 
+      btcAddress: {
+        id: 'profile.qrModalBTC.btcAddress',
+        defaultMessage: 'Bitcoin (BTC) tárcaám címe',
+        description: 'Hasonló: bc1q3khvh3d3peshzu2nre3c6kx91esjet6gn1y2929hzfc5x8qk3w9s3wcsjr',
+        message: 'A Bitcoin cím biztonságos és titkosított tranzakciókat tesz lehetővé. Addd meg a Bitcoin címed (pl.: bc1...) hogy mások támogathassanak, vagy vásárolhassanak tőled.',
+      },
+      noBtcAddress: {
+        id: 'profile.qrModalBTC.noBtcAddress',
+        defaultMessage: 'Nincs Bitcoin cím megadva',
+        description: 'Szerkeszd a profilod és adj meg egy BTC tárca címet. Hasonló ehhez: bc1q3khvh3d3peshzu2nre3c6kx91esjet6gn1y2929hzfc5x8qk3w9s3wcsjr',
+        
+      },
+  },
+
+
     ln: {
       id: 'profile.qrModal.ln',
       defaultMessage: 'Lightning cím',
@@ -1310,6 +1335,24 @@ export const profile = {
 
   }
 };
+
+
+{/*
+export const settingsBTC = {
+  profile: {
+    msn_btc: {
+      label: {
+        id: 'settingsBTC.profile.msn_btc.label',
+        defaultMessage: 'Bitcoin (BTC) tárcám címe',
+        placeholderText: 'Hasonló: bc1q3khvh3d3peshzu2nre3c6kx91esjet6gn1y2929hzfc5x8qk3w9s3wcsjr',
+        description: 'Add meg a Bitcoin (BTC) tárcád cím-kódját, hogy a kapcsolataid bitcoin felajánlásokat küldhessenek neked, vagy vásárolhassanak tőled bitcoint használva.',
+      },
+    },
+  },
+};
+*/}
+
+
 
 export const search = {
   followers: {
@@ -1409,7 +1452,7 @@ export const settings = {
   homeFeeds: {
     title: {
       id: 'settings.homeFeeds.title',
-      defaultMessage: 'Kezdőlap Folyamok',
+      defaultMessage: 'Kezdőlap Folyamok Idő-Rendje',
       description: 'Title of the home feeds settings sub-page',
     },
     caption: {
@@ -1421,7 +1464,7 @@ export const settings = {
   readsFeeds: {
     title: {
       id: 'settings.readsFeeds.title',
-      defaultMessage: 'Olvasható Folyamok',
+      defaultMessage: 'Magazin Cikk-Folyamok',
       description: 'Title of the reads feeds settings sub-page',
     },
     caption: {
@@ -1622,7 +1665,7 @@ export const settings = {
   },
   feeds: {
     id: 'settings.sections.feeds',
-    defaultMessage: 'Kezdőoldali Folyamok',
+    defaultMessage: 'Kezdőlap Folyamok Idő-Rendje',
     description: 'Title of the feeds section on the settings page',
   },
   feedsAddNew: {
@@ -1678,17 +1721,17 @@ export const settings = {
     },
     core: {
       id: 'settings.sections.notifications.core',
-      defaultMessage: 'Alapértesítések:',
+      defaultMessage: 'Bejegyzéseiddel kapcsolatos értesítések:',
       description: 'Title of the notification settings sub-section for core notifications',
     },
     yourMentions: {
       id: 'settings.sections.notifications.yourMentions',
-      defaultMessage: 'Egy bejegyzés, amelyben megemlítettek:',
+      defaultMessage: 'Bejegyzések, amelyekben megemlítettek:',
       description: 'Title of the notification settings sub-section for notes you were mentioned in',
     },
     yourPostMentions: {
       id: 'settings.sections.notifications.yourPostMentions',
-      defaultMessage: 'Egy bejegyzés, amelyben a te bejegyzésedet említették:',
+      defaultMessage: 'Bejegyzések, melyekben a bejegyzésedet megemlítették:',
       description: 'Title of the notification settings sub-section for notes your note was mentioned in',
     },
   },

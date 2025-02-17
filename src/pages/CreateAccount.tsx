@@ -1,3 +1,4 @@
+//{/* scr/pages/CreateAccount.tsx */}
 import { useIntl } from '@cookbook/solid-intl';
 import { useNavigate } from '@solidjs/router';
 import { Component, createEffect, createSignal, For, Match, onCleanup, onMount, Show, Switch } from 'solid-js';
@@ -41,19 +42,19 @@ import { useSettingsContext } from '../contexts/SettingsContext';
 
 type AutoSizedTextArea = HTMLTextAreaElement & { _baseScrollHeight: number };
 
- //create NIP-05 with Cloudflare API
+   //create NIP-05 with Cloudflare API
 import { createNIP05Record } from "../api/cloudflare";
 const MyComponent = () => {
   const handleRegister = async () => {
     const username = accountName();
     const nostrPubKey = account.publicKey;
 
-    if (!usernameRegex.test(username)) {
+if (!usernameRegex.test(username)) {
       toast?.sendWarning("⚠️ Érvénytelen felhasználónév!");
-      return;
-    }
+  return;
+}
 
-    await createNIP05Record(username, nostrPubKey);
+await createNIP05Record(username, nostrPubKey);
     toast?.sendSuccess(`✅ NIP-05 rekord létrehozva: ${username}@maganszovetseg.net`);
   };
 
@@ -268,13 +269,24 @@ const CreateAccount: Component = () => {  const intl = useIntl();
       'nip05',
       'picture',
       'banner',
-      'country',  // user country, optional
-      'mapaddress',  // user address for map display, optional
-      'mapliveaddress',  // actual geolocation of the browser for map display, optional
-      'language', // user language, to be selected
-      'clientregurl', //url of nostr client, where the user initially registered
-      'myrss', // the rss feed of the user 
-      'donationink', // the FIAT donation link of the user
+
+      // msn_ = maganszovetseg.Net Client metatags
+      'msn_country',  // user country, optional
+      'msn_mapaddress',  // user address for map display, optional, used in a map component, so that can also physically connect and purchase from each other
+      'msn_mapliveaddress',  // actual geolocation of the browser for map display, so when are on the road/out, they can meet for a coffee
+      'msn_language', // user language, so that we can show them the content they understand
+      'msn_clientregurl', //url of nostr client, where the user initially registered, as all clients have their own communities to reach
+      'msn_myrss', // the rss feed of the user so that serious publicists from eg. Substack can share their content
+      'msn_donationlink', // the FIAT donation link of the users to utilize also the FIAT world
+      'msn_btc', // because many people still have traditional BTC wallets that they wish to use, as well
+      'msn_mobileappusername', // Telegram/ Signal / Threema username for voice calls and video chat, let us let them talk to each other 
+      'msn_email', // if they need to send files to each other, in the css we recommend secure mails, like protonmail, tutanota, etc.
+      'msn_userserial'
+
+
+
+
+
     ].forEach(key => {
       if (data.get(key)) {
         metadata[key] = data.get(key) as string;
@@ -285,19 +297,27 @@ const CreateAccount: Component = () => {  const intl = useIntl();
       }
     });
 
-    metadata['country'] = "Hungary";
-    metadata['mapadress'] = "Hungary";
-    metadata['mapliveaddress'] = "Hungary";    
-    metadata['language'] = "Hungarian";
-    metadata['clientregurl'] = "MaganSzovetseg.Net";
-    metadata['myRSS'] = "";
-    metadata['donationlink'] = "";
+    //defaults in MaganSzovetseg.Net
+    metadata['msn_country'] = "Hungary"; 
+    metadata['msn_mapaddress'] = "Hungary";
+    metadata['msn_mapliveaddress'] = "Hungary";    
+    metadata['msn_language'] = "Hungarian";
+    metadata['msn_clientregurl'] = "MaganSzovetseg.Net";
+    metadata['msn_myrss'] = "";
+    metadata['msn_donationlink'] = "";
+    metadata['msn_btc'] = "";
+    metadata['msn_mobileappusername'] = "";
+    metadata['msn_email'] = "";
 
 
 
 
 
-    const { success } = await sendProfile({ ...metadata }, account?.proxyThroughPrimal || false, account.relays, relaySettings);
+
+
+
+    const { success } = await sendProfile(metadata as Record<string, string>, account?.proxyThroughPrimal || false, account.relays, relaySettings);
+
 
     if (success) {
       await (new Promise((res) => setTimeout(() => res(true), 100)));
@@ -335,6 +355,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
       form.reset();
 
       setShowCreatePin(true);
+      
 
       return false;
     }
@@ -385,6 +406,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
     groupNames: [],
     groups: {},
   });
+
 
   const getSugestedUsers = () => {
     const subId = `get_suggested_users_${APP_ID}`;
@@ -673,47 +695,44 @@ const CreateAccount: Component = () => {  const intl = useIntl();
 
         <div><span style={{ fontSize: "6px", fontWeight: "bold", display: "block" }}>Értékrend Minimum</span>
         </div>
-
-
-
-
-
-        <div className={styles.qrContainer} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "20px" }}>
-          {/* Left Column: QR Code + Title */}
+    <div className={styles.qrContainer} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "20px" }}>
+      {/* Left Column: QR Code + Title */}
 
           <div className="qrContainer" style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "20px" }}>
   {/* Left Column: QR Code + Title */}
-  <div className="qrCode" style={{ flex: "0 1 auto", textAlign: "center" }}>
-    <a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
-      <img
-        className="downloadPdfImg"
-        src="/icons/DownloadPdf_nh.png"
-        width={100}
-        alt="Download PDF"
-        style={{ transition: "all 0.3s ease" }}
-      />
-    </a>
-  </div>
-</div>
-
-<style jsx>{`
-  .qrCode img:hover {
-    content: url('/icons/DownloadPdf.png'); /* Change image on hover */
-  }
-`}</style>
-
-
-           {/* Right Column: Long Text (Aligned to Top) */}
-         <div className={styles.inputLabel} style={{ flex: "1", display: "flex", alignItems: "flex-start" }}>
-            <label>
-                   <span className={styles.help}>
-        Kattins az ikonra, hogy letöltsd az Értékrend Minimum dokumentumot. Ez tartalmazza azt a pozitív értékrend-felsorolást, mellyel mindannyian egyetértünk a MagánSzövetség.Net-en. 
-        Lényege, hogy elkerüljük vagy negligáljuk a rosszat/ a negativitást, és támogatjuk a jót/ a pozitivitást. 
-        Fiókod létrehozásával digitálisan aláírod e dokumentumot. Töltsd le, és olvasd el legalább a dokumentum elején levő összefoglalót, mielőtt regisztrálsz!
-                   </span>
-           </label>
-          </div>
+        <div className="qrCode" style={{ flex: "0 1 auto", textAlign: "center" }}>
+          <a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
+            <img
+              className="downloadPdfImg"
+              src="/icons/DownloadPdf_nh.png"
+              width={100}
+              alt="Download PDF"
+              style={{ transition: "all 0.3s ease" }}
+            />
+          </a>
         </div>
+    
+      </div>
+
+
+
+
+
+
+
+
+
+      {/* Right Column: Long Text (Aligned to Top) */}
+      <div className={styles.inputLabel} style={{ flex: "1", display: "flex", alignItems: "flex-start" }}>
+        <label>
+          <span className={styles.help}>
+            Kattins az ikonra, hogy letöltsd az Értékrend Minimum dokumentumot. Ez tartalmazza azt a pozitív értékrend-felsorolást, mellyel mindannyian egyetértünk a MagánSzövetség.Net-en.
+            Lényege, hogy elkerüljük vagy negligáljuk a rosszat/ a negativitást, és támogatjuk a jót/ a pozitivitást.
+            Fiókod létrehozásával digitálisan aláírod e dokumentumot. Töltsd le, és olvasd el legalább a dokumentum elején levő összefoglalót, mielőtt regisztrálsz!
+          </span>
+        </label>
+      </div>
+    </div>
 
         <br></br>
 
@@ -775,7 +794,7 @@ const CreateAccount: Component = () => {  const intl = useIntl();
     <br></br>
               <label>
                 <span class={styles.help}>
-                A "Következő" zöld gomb megnyomásával a világot összekötő Noszter (ang.: nostr) kapcsolati hálózatba regisztrálsz, melyben már majdnem 2 millió olyan ember van kinek szívügye a szólásszabadság és az információ-biztonság. Ehhez, a Maganszövetseg.Net csupán hozzáférési felületet (klienst) biztosít. Regisztrációddal automatikusan létrehozol egy hosszú kód-szerű felhasználónevet (Nyilvános kulcsot), mely nyilvánosan azonosít téged a Noszter hálózatban. Emellett, regisztrációddal létrehozol egy Privát kulcsot is (mely hasonlatos egy nagyon hosszú és biztonságos jelszóhoz). Ezt követően a bejegyzéseidet semmilyen illetéktelen személy/szervezet/hivatal nem tudja megnyitni az internetes hálózatban (és annak szerverein). Nem tudja adataidat és üzeneteidet elolvasni, csak az, akinek e Privát kulcs a birtokában van. Még mi a MagánSzövetség.Net üzemeltetői sem tudjuk megtekinteni adataidat, üzeneteidet, csak Te magad. A Privát kulcsod mentsd el, tárold biztonságos helyen, és ne add oda senkinek. A Nyilvános kulcsodat (hosszú felhasználónevedet) megoszthatod bátran.               
+                A "Következő" zöld gomb megnyomásával a világot összekötő Noszter nevű (ang.: nostr) kapcsolati hálózatba regisztrálsz, melyben már majdnem 2 millió olyan ember van kinek szívügye a szólásszabadság és az információ-biztonság. Ehhez, a Maganszövetseg.Net csupán hozzáférési felületet (klienst) biztosít. Regisztrációddal automatikusan létrehozol egy hosszú kód-szerű felhasználónevet (Nyilvános kulcsot), mely nyilvánosan azonosít téged a Noszter hálózatban. Emellett, regisztrációddal létrehozol egy Privát kulcsot is (mely hasonlatos egy nagyon hosszú és biztonságos jelszóhoz). Ezt követően a bejegyzéseidet semmilyen illetéktelen személy/szervezet/hivatal nem tudja megnyitni az internetes hálózatban (és annak szerverein). Nem tudja adataidat és üzeneteidet elolvasni, csak az, akinek e Privát kulcs a birtokában van. Még mi a MagánSzövetség.Net üzemeltetői sem tudjuk megtekinteni adataidat, üzeneteidet, csak Te magad. A Privát kulcsod mentsd el, tárold biztonságos helyen, és ne add oda senkinek. A Nyilvános kulcsodat (hosszú felhasználónevedet) megoszthatod bátran.               
                 </span>
               </label>
     </div>

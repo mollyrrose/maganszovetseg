@@ -243,6 +243,16 @@
   mask: url(../assets/icons/qr_code.svg) no-repeat 0px / 16px;
 }
 
+.bitcoinIcon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 0px;
+  background-color: var(--text-primary);
+  -webkit-mask: url(../assets/icons/bitcoin_icon.png) no-repeat 0px / 16px;
+  mask: url(../assets/icons/bitcoin_icon.png) no-repeat 0px / 16px;
+}
+
 .contextIcon {
   width: 18px;
   height: 18px;

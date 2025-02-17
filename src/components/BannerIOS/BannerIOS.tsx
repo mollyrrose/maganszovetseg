@@ -34,7 +34,7 @@ const BannerIOS: Component< { id?: string } > = (props) => {
       window.location.href = appstoreFail;
     }
   };
-
+{/*
   return (
     <Show when={isIOS() && showBanner()}>
       <button class={styles.iosBanner} onClick={linkToiOS}>
@@ -49,6 +49,8 @@ const BannerIOS: Component< { id?: string } > = (props) => {
       </button>
     </Show>
   );
+*/}
+
 }
 
 export default hookForDev(BannerIOS);
