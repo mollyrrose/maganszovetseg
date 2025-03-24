@@ -16,8 +16,8 @@ const SaveFeedDialog: Component<{
 }> = (props) => {
   const settings = useSettingsContext();
 
-  const [feedName, setFeedName] = createSignal('Seach results');
-  const [feedDescription, setFeedDescription] = createSignal('Primal Saved Search');
+  const [feedName, setFeedName] = createSignal('Keresés eredménye');
+  const [feedDescription, setFeedDescription] = createSignal('Mentett Keresés');
 
   const generateFeedDefinition = () => {
 

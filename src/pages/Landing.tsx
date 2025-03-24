@@ -104,14 +104,14 @@ const Landing: Component = () => {
       <div class={styles.landingTestemonials}>
         <div class={styles.testemonial}>
           <p class={styles.pink}>
-          A Nostr & Bitcoin Lightning megváltoztatja a játékot. A MagánSzövetség.Net nem csak jobb, mint a Wallet of Satoshi, hanem 1000x jobb, mint a Venmo.
+          A noszter és a Bitcoin Lightning megváltoztatja a játékot. A MagánSzövetség.Net nem csak jobb, mint a Wallet of Satoshi, hanem 1000x jobb, mint a Venmo.
           </p>
           <img src={nvk} />
         </div>
 
         <div class={styles.testemonial}>
           <p class={styles.cyan}>
-          A MagánSzövetség.Net a Twitterhez és a TikTokhoz hasonló platformok szabadságtechnológiai alternatívája. Az igazi szólásszabadságnak nincsenek kapuőrei.</p>
+          A MagánSzövetség.Net az X-hez (Twitterhez) és a TikTokhoz hasonló platformok szabadságtechnológiai alternatívája. Az igazi szólásszabadságnak nincsenek kapuőrei.</p>
           <img src={odell} />
         </div>
 

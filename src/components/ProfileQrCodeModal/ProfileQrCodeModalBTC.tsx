@@ -1,4 +1,4 @@
-// src/components/ProfileQrCodeModal/ProfileQrCodeModalBTC.tsx
+// src/components/ProfileQrCodeModal/ProfileQrCodeModalBTC.tsx // A BTC CÍMRE KÉSZÍTSEN EGY QR KODOT
 
 import { useIntl } from '@cookbook/solid-intl';
 import { Component, Show } from 'solid-js';

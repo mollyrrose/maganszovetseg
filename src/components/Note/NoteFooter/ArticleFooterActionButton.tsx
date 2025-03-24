@@ -25,7 +25,7 @@ const ArticleFooterActionButton: Component<{
   title?: string,
   large?: boolean,
 }> = (props) => {
-  // Ne jelenjen meg, ha a type 'zap'
+  // Ne jelenjen meg, ha a type 'zap'; BTC lightning out
   if (props.type === 'zap') {
     return null; // Visszatérünk null-lal, ha 'zap' típusú gombot nem akarunk megjeleníteni
   }

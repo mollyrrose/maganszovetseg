@@ -8,6 +8,7 @@ import { settings as t } from '../../translations';
 import StickySidebar from '../../components/StickySidebar/StickySidebar';
 import SettingsSidebar from '../../components/SettingsSidebar/SettingsSidebar';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import { downloads as td } from '../../translations';
 
 const Settings: Component<any> = (props) => {
 
@@ -23,7 +24,36 @@ const Settings: Component<any> = (props) => {
 
       <StickySidebar>
         <SettingsSidebar />
+      <div class={styles.downloadsSidebar}>
+          <div class={styles.title}>
+            {intl.formatMessage(td.links.title2)}
+          </div>
+
+          <div class={styles.list}>
+  <div class={styles.buttonContainer}>
+    <button
+      class={styles.secondaryButton}
+      onClick={() => window.open('https://www.donably.com/maganszovetseg', '_blank')}
+    >
+      Forintban kártyával
+    </button>
+
+    <button
+      class={styles.bitcoinButton}
+      onClick={() => navigator.clipboard.writeText('bc1qry8c2sdqg2sq80gle2d0l7e6gy0hx2pxzlzmv8')}
+    >
+      Bitcoin cím másol.
+    </button>
+  </div>
+</div>
+
+
+
+
+       </div>
+
       </StickySidebar>
+
 
       {props.children}
     </div>

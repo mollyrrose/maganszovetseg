@@ -1,6 +1,9 @@
 import { ContentModeration, FeedPage, LnbcInvoice, } from "./types/primal";
-import logoFire from './assets/icons/logo_fire.png';
-import logoIce from './assets/icons/logo_fire.png';
+//import logoFire from './assets/icons/logo_fire.png';
+const logoFire = 'https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png';
+
+//import logoIce from './assets/icons/logo_fire.png';
+const logoIce = 'https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png';
 
 export const second = 1000;
 export const minute = 60 * second;
@@ -52,10 +55,10 @@ export const themes = [
 export const minKnownProfiles: {"names": Record<string,string>} = {
   "names": {
 
-    "sealjosephson": "npub1wt9pcrmk4zf9dzc4hse9tcpklx7kh7upygxcgddqkrt5qa6zz3qq4trv5c",
+    "sealjosephson": "72ca1c0f76a892568b15bc3255e036f9bd6bfb81220d8435a0b0d74077421440",
     "miljan": "d61f3bc5b3eb4400efdae6169a5c17cabf3246b514361de939ce4a1a0da6ef4a",
-    //"marko": "123afae7d187ba36d6ddcd97dbf4acc59aeffe243f782592ff8f25ed579df306",
-    //"essguess": "0b13870379cf18ae6b6d516d9f0833e0273c7a6758652a698e11f04c9c1a0d29",
+    "MagánSzövetség.Net Ügyfélszolgálat": "abf9805b9b554058587d7f938ee2b52c8c41f51c5d311842da02efbec52cc7d5",
+    "MagánSzövetség - Szabadság, Béke, Élet!": "d774c995c768c89c0e21862a37a778010bff576b9649a8144acc3beea2801273",
     //"pr": "dd9b989dfe5e0840a92538f3e9f84f674e5f17ab05932efbacb4d8e6c905f302",
     //"marija": "b8a518a60fab9f3969b62238860f4643003b6437b75d60860dd8de34fb21c931",
     //"moysie": "2a55ed52ed31f85f8bdef3bdd165aa74265d82c952193d7b76fb4c76cccc4231",
@@ -280,6 +283,7 @@ export const appleMusicRegex = /music\.apple\.com\/([a-z]{2}\/)?(?:album|playlis
 export const nostrNestsRegex = /nostrnests\.com\/[a-zA-Z0-9]+/i;
 export const wavlakeRegex = /https?:\/\/(?:player\.|www\.)?wavlake\.com\/(?!top|new|artists|account|activity|login|preferences|feed|profile)(?:(?:track|album)\/[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}|[a-z-]+)/i;
 export const youtubeRegex = /(?:https?:\/\/)?(?:www|m\.)?(?:youtu\.be\/|youtube\.com\/(?:live\/|shorts\/|embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
+export const megaRegex = /https:\/\/mega\.nz\/file\/([a-zA-Z0-9_-]+)#([a-zA-Z0-9_-]+)/;
 export const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9\u00F0-\u02AF@:%._\+~#=]{1,256}\.[a-zA-Z0-9\u00F0-\u02AF()]{1,8}\b([-a-zA-Z0-9\u00F0-\u02AF()@:%_\+.~#?&//=]*)/i;
 export const urlRegexG = /https?:\/\/(www\.)?[-a-zA-Z0-9\u00F0-\u02AF@:%._\+~#=]{1,256}\.[a-zA-Z0-9\u00F0-\u02AF()]{1,8}\b([-a-zA-Z0-9\u00F0-\u02AF()@:%_\+.~#?&//=]*)/ig;
 export const urlExtractRegex = /https?:\/\/\S+\.[^()]+(?:\([^)]*\))*/;
@@ -404,8 +408,8 @@ export const profileContactListPage = 50;
 export const pinEncodePrefix = 'prpec';
 export const pinEncodeIVSeparator = '?iv=';
 
-export const suggestedUsersToFollow = [
-  "npub1wt9pcrmk4zf9dzc4hse9tcpklx7kh7upygxcgddqkrt5qa6zz3qq4trv5c", //Seal
+export const suggestedUsersToFollow = [ // IN HEX FORMAT
+  "72ca1c0f76a892568b15bc3255e036f9bd6bfb81220d8435a0b0d74077421440", //Seal
   "82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2", //jack
   //"3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d", //fiatjaf
   //"e88a691e98d9987c964521dff60025f60700378a4879180dcbbb4a5027850411", //nvk

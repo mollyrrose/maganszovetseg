@@ -175,7 +175,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
           !temp && saveSettings();
         }
         catch (e) {
-          logError('Error parsing settings response: ', e);
+          logError('Hiba a beállítások válaszának elemzésekor: ', e);
         }
       },
       onNotice: () => {
@@ -819,7 +819,10 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
 
 
 // A felhasználó böngészőnyelvének meghatározása
-var userLang = navigator.language || navigator.userLanguage;
+//var userLang = navigator.language || navigator.userLanguage;
+
+//Alapértelmezett - minden magyar
+var userLang = "hu";
 
 // Nyelv alapú fordítás (ez egy alap példa, amit bővíthetsz egy API-val)
 function translateContent() {
@@ -857,9 +860,9 @@ translateContent();
       "Global trending notes in the past 4 hours": "Népszerű bejegyzések az elmúlt 4 órában",
       "Trending 1h": "Népszerű (1 óra)",
       "Global trending notes in the past 1 hour": "Népszerű bejegyzések az elmúlt 1 órában",
-      "Nostr Firehose": "Noszter Tűzfészek",
+      "Nostr Firehose": "Tűzfészek",
       "Latest global notes; be careful!": "Legfrissebb bejegyzések világszerte, légy óvatos!",
-      "Nostr Reads": "Noszter cikkek",
+      "Nostr Reads": "Cikkek a nagyvilágból**",
       "Latest reads from your network": "Legfrissebbek cikkek a nemzetközi hálózatodból",
       "All reads": "Minden cikk",
       "Latest global reads": "Legfrissebb cikkek a világ minden részéről",
@@ -872,7 +875,7 @@ translateContent();
       "Food Reads": "Táplálkozás",
       "Food Topic Reads from Primal": "Táplálkozás témájú cikkek a MagánSzövetség.Net-ben",
       "Gaming Reads": "Játék – Gaming",
-      "Gaming Topic Reads from Primal": "Játék témájú cikkek a MagánSzövetség.Net-ben",
+      "Gaming Topic Reads from Primal": "Online Játék témájú cikkek a MagánSzövetség.Net-ben",
       "Human Rights Reads": "Emberi jogok",
       "Human Rights Reads from Primal": "Emberi jogi témájú cikkek a MagánSzövetség.Net-ben",
       "Music Reads": "Zene",
@@ -918,7 +921,7 @@ translateContent();
           if (feed.description === "Nostr Topic Reads from Primal") {
             return {
               ...feed,
-              name: "Kapcsolati hálók témájú cikkek",
+              name: "Kapcsolati háló témájú cikkek",
               description: translateToHungarian(feed.description),
             };
           }
@@ -927,6 +930,7 @@ translateContent();
             name: translateToHungarian(feed.name),
             description: translateToHungarian(feed.description),
           };
+          
         });
 
         updateStore('readsFeeds', () => [...translatedFeeds]);

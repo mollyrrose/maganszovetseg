@@ -1,5 +1,7 @@
 import { Component, createMemo, createSignal, Show } from 'solid-js';
-import defaultAvatar from '../../assets/icons/default_avatar.svg';
+//import defaultAvatar from '../../assets/icons/default_avatar.svg';
+const defaultAvatar = 'https://cdnwin.maganszovetseg.net/src/assets/icons/default_avatar.svg';
+
 import { useMediaContext } from '../../contexts/MediaContext';
 import { hookForDev } from '../../lib/devTools';
 import { getMediaUrl } from '../../lib/media';

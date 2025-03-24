@@ -28,7 +28,7 @@ const SettingsSidebar: Component<{ id?: string }> = (props) => {
 
     <div id={props.id}>
 
-      {/*
+      {/* //Ne szerkesszék a reléket
       <div class={styles.headingConnectedRelays}>
         <div>
           {intl.formatMessage(t.relays)}

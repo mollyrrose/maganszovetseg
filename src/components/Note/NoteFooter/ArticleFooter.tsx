@@ -1,5 +1,5 @@
 import { batch, Component, createEffect, Show } from 'solid-js';
-//import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal';
+//import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal'; //BTC lightning out
 import { MenuItem, PrimalArticle, PrimalNote } from '../../../types/primal';
 import { sendArticleRepost } from '../../../lib/notes';
 

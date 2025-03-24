@@ -183,6 +183,8 @@ a {
   border: 2px solid rgb(9, 171, 22);
 }
 
+
+/* // NON-CDN START
 body::after{
   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
   content:
@@ -280,6 +282,130 @@ body::after{
   -webkit-mask: url(./assets/icons/weather.svg) no-repeat 0 / 100%;
   mask: url(./assets/icons/weather.svg) no-repeat 0 / 100%;
 }
+
+
+*/ // NON-CDN END
+
+
+
+// CDN START
+body::after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1; /* hide images */
+  content:
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/5stars.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/legend.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/forever.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/beta.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/preston.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/media.png')
+
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/bookmarks.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/bookmarks_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/search.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/search_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/messages.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/messages_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/notifications.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/notifications_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/downloads.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/downloads_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/settings.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/settings_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long_selected.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_dark.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_light.png')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/highlight_create.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/highlight_quote.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/highlight_comment.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/highlight_remove.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/copy.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/search_filled.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/close.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/caret.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/purple_check.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/purple_ostrich.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/video.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/gallery.svg')
+    url('https://cdnwin.maganszovetseg.net/src/assets/icons/lightning_white.svg');
+}
+
+.reply_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_reply.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_reply_fill.svg') no-repeat 0 / 100%;
+}
+
+.reply_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_reply_fill.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_reply_fill.svg') no-repeat 0 / 100%;
+}
+
+.repost_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_repost.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_repost_fill.svg') no-repeat 0 / 100%;
+}
+
+.repost_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_repost_fill.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_repost_fill.svg') no-repeat 0 / 100%;
+}
+
+.zap_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_zap.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_zap_fill.svg') no-repeat 0 / 100%;
+}
+
+.zap_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_zap_fill.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_zap_fill.svg') no-repeat 0 / 100%;
+}
+
+.like_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_like.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_like_fill.svg') no-repeat 0 / 100%;
+}
+
+.like_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_like_fill.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/feed_like_fill.svg') no-repeat 0 / 100%;
+}
+
+.attach_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/attach_media2.png') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/attach_media2.png') no-repeat 0 / 100%;
+}
+
+.emoji_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/emoji.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/emoji.svg') no-repeat 0 / 100%;
+}
+
+.latest_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/latest.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/latest.svg') no-repeat 0 / 100%;
+}
+
+.heart_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/heart.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/heart.svg') no-repeat 0 / 100%;
+}
+
+.weather_icon {
+  -webkit-mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/weather.svg') no-repeat 0 / 100%;
+  mask: url('https://cdnwin.maganszovetseg.net/src/assets/icons/weather.svg') no-repeat 0 / 100%;
+}
+
+// CDN END
+
+
 
 .bordered {
   border:solid 1px var(--subtile-devider);

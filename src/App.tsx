@@ -18,6 +18,9 @@ import { AdvancedSearchProvider } from './contexts/AdvancedSearchContext';
 import { DMProvider } from './contexts/DMContext';
 import { SecureIdentifier } from "./component/SecureIdentifier";
 
+
+
+
 export const version = import.meta.env.PRIMAL_VERSION;
 export const APP_ID = `web_${version}_${Math.floor(Math.random()*10000000000)}`;
 

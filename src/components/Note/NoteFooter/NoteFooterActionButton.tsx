@@ -31,7 +31,7 @@ const NoteFooterActionButton: Component<{
   
   // Ne jelenjen meg a 'zap' gomb
   if (props.type === 'zap') {
-    return null; // Visszatérünk null-lal, így nem renderelődik a gomb
+    return null; // Visszatérünk null-lal, így nem renderelődik a gomb; BTC lightning out
   }
 
   return (

@@ -526,7 +526,7 @@ const Note: Component<{
                   note={props.note}
                   state={reactionsState}
                   updateState={updateReactionsState}
-                  //customZapInfo={customZapInfo()}
+                  //customZapInfo={customZapInfo()} //BTC lightning out
                   //onZapAnim={addTopZapFeed}
                   size="short"
                 />

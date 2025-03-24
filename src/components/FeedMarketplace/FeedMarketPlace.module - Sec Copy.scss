@@ -74,7 +74,8 @@
         background-color: var(--background-header-input);
         border: 2px solid var(--background-header-input);
         border-radius: 99px;
-        background-image: url(../../assets/icons/logo_fire.svg);
+        //background-image: url(../../assets/icons/logo_fire.png);
+        background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
         background-size: cover;
       }
     }
@@ -304,6 +305,7 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  background-image: url(../../assets/icons/logo_fire.svg);
+  //background-image: url(../../assets/icons/logo_fire.png);
+  background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
   background-size: cover;
 }

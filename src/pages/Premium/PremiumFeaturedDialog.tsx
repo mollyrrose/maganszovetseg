@@ -220,10 +220,10 @@ const PremiumFeaturesDialog: Component<{
         <Tabs value={activeTab()} onChange={setActiveTab}>
           <Tabs.List class={styles.premiumFeaturesTabs}>
             <Tabs.Trigger class={styles.premiumFeaturesTab} value="features">
-              Prémium funkciók
+              Prémium Funkciók
             </Tabs.Trigger>
             <Tabs.Trigger class={styles.premiumFeaturesTab} value="faq">
-              Prémium FAQ
+              Prémium Kérdések
             </Tabs.Trigger>
             <Tabs.Indicator class={styles.premiumFeaturesTabIndicator} />
           </Tabs.List>
@@ -238,9 +238,9 @@ const PremiumFeaturesDialog: Component<{
               <table>
                 <thead>
                   <tr>
-                    <th>Feature</th>
-                    <th>Primal Free</th>
-                    <th>Primal Premium</th>
+                    <th>Funkció</th>
+                    <th>Primal Ingyenes</th>
+                    <th>Primal Prémium</th>
                   </tr>
                 </thead>
 
@@ -287,7 +287,7 @@ const PremiumFeaturesDialog: Component<{
             light={true}
             onClick={() => props.setOpen(false)}
           >
-            Close
+            Bezárás
           </ButtonSecondary>
         </div>
       </div>

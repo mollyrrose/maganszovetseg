@@ -55,6 +55,7 @@ const sidebarOptions = [
     separator: true,
   },
 
+{/* BTC Out
   {
     label: 'Legtöbb felajánlásban részesült (24 óra)',
     value: 'mostzapped_24h',
@@ -71,6 +72,9 @@ const sidebarOptions = [
     label: 'Legtöbbet felajánlásban részesült (1 óra)',
     value: 'mostzapped_1h',
   },
+
+*/}
+
 ];
 
 const ReadsSidebar: Component< { id?: string } > = (props) => {
@@ -219,7 +223,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
     <div id={props.id} class={styles.readsSidebar}>
       <Show when={account?.isKeyLookupDone}>
         <div class={styles.headingPicks}>
-          Kiemelt szerzők
+          Kiemelt szerző
         </div>
 
         <div class={styles.section}>

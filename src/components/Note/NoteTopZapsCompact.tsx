@@ -16,7 +16,7 @@ const NoteTopZapsCompact: Component<{
   const account = useAccountContext();
   const [dontAnimate, setDontAnimate] = createSignal(true);
 
-  // This computes the top zaps from either the props or the note itself
+  // This computes the top zaps from either the props or the note itself; BTC lightning out
   const topZaps = () => {
     const zaps = props.topZaps ? [...props.topZaps] : [...props.note.topZaps];
     return zaps.slice(0, 4);

@@ -67,6 +67,7 @@ let midTime = 0;
 let endTime = 0
 
 export type ProfileContextStore = {
+  isLoading: boolean,
   profileKey: string | undefined,
   userProfile: PrimalUser | undefined,
   userStats: UserStats,
@@ -184,6 +185,7 @@ export const ProfileProvider = (props: { children: ContextChildren }) => {
   let commonFollowers: PrimalUser[] = [];
 
   const initialData = {
+    isLoading: false,
     profileKey: undefined,
     userProfile: undefined,
     userStats: { ...emptyStats },
@@ -1058,6 +1060,7 @@ export const ProfileProvider = (props: { children: ContextChildren }) => {
   const [store, updateStore] = createStore<ProfileContextStore>({
     ...initialData,
     actions: {
+    
       clearNotes,
       clearArticles,
       clearGallery,
