@@ -103,7 +103,7 @@ const PremiumLegend: Component<{
               <>VIP Felhasználói Fiók Létrehozása</>
             </Match>
             <Match when={hasNoMetadata()}>
-              <>Edit profile</>
+              <>Profil szerkesztése</>
             </Match>
             <Match when={true}>
               <>{intl.formatMessage(t.actions.becomeLegend)}</>

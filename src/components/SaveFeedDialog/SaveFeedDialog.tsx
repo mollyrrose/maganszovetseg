@@ -16,8 +16,8 @@ const SaveFeedDialog: Component<{
 }> = (props) => {
   const settings = useSettingsContext();
 
-  const [feedName, setFeedName] = createSignal('Seach results');
-  const [feedDescription, setFeedDescription] = createSignal('Primal Saved Search');
+  const [feedName, setFeedName] = createSignal('Keresés eredménye');
+  const [feedDescription, setFeedDescription] = createSignal('Mentett Keresés');
 
   const generateFeedDefinition = () => {
 
@@ -72,8 +72,6 @@ const SaveFeedDialog: Component<{
       open={props.open}
       setOpen={toggleFeed}
       triggerClass={styles.addToFeed}
-
-      
       triggerContent={
         <Show
           when={isFeedAdded()}
@@ -90,7 +88,7 @@ const SaveFeedDialog: Component<{
 
       }
       title={<div class={styles.addToFeedDialogTitle}>
-        Ments el a <span>{props.feedType}</span> Folyamokat
+        Mentsd el a <span>{props.feedType}</span> Folyamokat
       </div>}
     >
       <div class={styles.addToFeedDialogContent}>

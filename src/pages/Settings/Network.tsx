@@ -145,8 +145,6 @@ const Network: Component = () => {
     account?.actions.resetRelays(recomendedRelays);
   }
 
-
-  {/*
   const onCachingServiceInput = () => {
     if (!cachingServiceInput || cachingServiceInput.value === '') {
       return;
@@ -167,8 +165,6 @@ const Network: Component = () => {
     }
   }
 
-
-
   createEffect(() => {
     const unsub = subsTo(`settings_drs_${APP_ID}`, {
       onEvent: (_, content) => {
@@ -182,47 +178,17 @@ const Network: Component = () => {
 
     getDefaultRelays(`settings_drs_${APP_ID}`);
   });
-*/}
-
 
   return (
-
     <div>
       <PageTitle title={`${intl.formatMessage(t.network.title)} ${intl.formatMessage(t.title)}`} />
- 
+
       <PageCaption>
         <A href='/settings' >{intl.formatMessage(t.index.title)}</A>:&nbsp;
         <div>{intl.formatMessage(t.network.title)}</div>
       </PageCaption>
 
-
-
       <div class={styles.settingsContent}>
-        <div class={styles.settingsCaption}>
-          <CheckBox2
-            id='proxyEvents'
-            label=""
-            onChange={() => {settings?.actions.setProxyThroughPrimal(!account?.proxyThroughPrimal)}}
-            checked={account?.proxyThroughPrimal}
-          />
-          <span>{intl.formatMessage(t.network.proxyEvents)}</span>
-          <HelpTip zIndex={1_000}>
-            <span>
-              {intl.formatMessage(t.network.proxyDescription)}
-            </span>
-          </HelpTip>
-        </div>
-
-        <div class={styles.moderationDescription}>
-          {intl.formatMessage(t.network.proxyDescription)}
-        </div>
-      </div>
-
-        {/*
-      <div class={styles.settingsContent}>
-
-
-
         <div class={`${styles.bigCaption}`}>
           {intl.formatMessage(t.network.cachingService)}
         </div>
@@ -283,13 +249,8 @@ const Network: Component = () => {
       >
         {intl.formatMessage(tActions.restoreCachingService)}
       </ButtonLink>
-
-
-      
     </div>
-    */}
 
-{/*
       <div class={styles.settingsContent}>
         <div class={styles.bigCaption}>
           {intl.formatMessage(t.network.relays)}
@@ -341,11 +302,11 @@ const Network: Component = () => {
 
       <div class={styles.settingsContentPaddingOnly}>
         <Show when={!isPrimalRelayInUserSettings()}>
-          <CheckBox2
+          <Checkbox
             id="primal_relay_check"
             checked={account?.connectToPrimaryRelays}
             onChange={() => onCheckPrimalRelay()}
-            label={`Minden bejegyzést beengedek a Noszter glogális rendszeréhez kapcsolódó kommunikációs csomópontba (relébe). (${import.meta.env.PRIMAL_PRIORITY_RELAYS})`}
+            label={`Minden bejegyzést beengedek a MagánSzövetság globális rendszeréhez kapcsolódó kommunikációs csomópontba (relébe). (${import.meta.env.PRIMAL_PRIORITY_RELAYS})`}
           />
         </Show>
       </div>
@@ -358,10 +319,7 @@ const Network: Component = () => {
           <span>{intl.formatMessage(tPlaceholders.resetRelaysHelp)}</span>
         </HelpTip>
       </div>
-*/}
 
-
-{/*
       <div class={styles.settingsContentBorderless}>
         <div class={`${styles.settingsCaption} ${styles.secondCaption}`}>
           {intl.formatMessage(t.network.customRelay)}
@@ -390,8 +348,30 @@ const Network: Component = () => {
 
         <div style="height: 48px"></div>
       </div>
-*/}
 
+
+      <div class={styles.settingsContent}>
+        <div class={styles.settingsCaption}>
+          <CheckBox2
+            id='proxyEvents'
+            label=""
+            onChange={() => {settings?.actions.setProxyThroughPrimal(!account?.proxyThroughPrimal)}}
+            checked={account?.proxyThroughPrimal}
+          />
+          <span>{intl.formatMessage(t.network.proxyEvents)}</span>
+          <HelpTip zIndex={1_000}>
+            <span>
+              {intl.formatMessage(t.network.proxyDescription)}
+            </span>
+          </HelpTip>
+        </div>
+
+        <div class={styles.moderationDescription}>
+          {intl.formatMessage(t.network.proxyDescription)}
+        </div>
+      </div>
+
+      <div style="height: 64px"></div>
 
       <ConfirmModal
         open={confirmRemoveRelay().length > 0}
@@ -406,9 +386,6 @@ const Network: Component = () => {
         onAbort={() => setConfirmRemoveRelay('')}
       />
     </div>
-
-
-
   )
 }
 

@@ -1,5 +1,5 @@
 import { A, useNavigate } from '@solidjs/router';
-import { batch, Component, createEffect, createSignal, For, Show } from 'solid-js';
+import { batch, Component, createEffect, createSignal, For, JSXElement, Show } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { wordsPerMinute } from '../../constants';
 import { useAccountContext } from '../../contexts/AccountContext';
@@ -33,7 +33,9 @@ const ArticleCompactPreview: Component<{
   onRender?: (article: PrimalArticle, el: HTMLAnchorElement | undefined) => void,
   hideFooter?: boolean,
   hideContext?: boolean,
-  boredered?: boolean,
+  bordered?: boolean,
+  noLinks?: string,
+  onClick?: () => {},
 }> = (props) => {
 
   const app = useAppContext();
@@ -41,7 +43,7 @@ const ArticleCompactPreview: Component<{
   const thread = useThreadContext();
   const media = useMediaContext();
   const settings = useSettingsContext();
-  const navigate = useNavigate();
+  const navigate = props.noLinks === 'links' ? () => { } : useNavigate();
 
   const [reactionsState, updateReactionsState] = createStore<NoteReactionsState>({
     likes: props.article.likes || 0,
@@ -327,7 +329,7 @@ const ArticleCompactPreview: Component<{
   const articleUrl = () => {
     const vanityName = app?.verifiedUsers[props.article.pubkey];
 
-    if (!vanityName) return `/e/${props.article.naddr}`;
+    if (!vanityName) return `/a/${props.article.naddr}`;
 
     const decoded = nip19.decode(props.article.naddr);
 
@@ -336,12 +338,31 @@ const ArticleCompactPreview: Component<{
     return `/${vanityName}/${data.identifier}`;
   }
 
-  return (
-    <A
-      ref={articlePreview}
-      class={styles.articleCompact}
-      href={articleUrl()}
-    >
+  const wrapper = (children: JSXElement) => {
+    if (props.noLinks === 'links') {
+      return (
+        <div
+          class={styles.articleCompact}
+          onClick={() => props.onClick && props.onClick()}
+        >
+          {children}
+        </div>
+      );
+    }
+
+    return (
+      <A
+        ref={articlePreview}
+        class={styles.articleCompact}
+        href={articleUrl()}
+      >
+        {children}
+      </A>
+    )
+  }
+
+  return wrapper(
+    <>
       <div class={styles.image}>
         <Show
           when={props.article.image}
@@ -403,7 +424,7 @@ const ArticleCompactPreview: Component<{
               <div class={styles.zapIcon}></div>
                 <NoteTopZapsTiny
                   note={props.article}
-                  action={(zap: TopZap) => app && navigate(app.actions.profileLink(zap.pubkey))}
+                  action={(zap: TopZap) => app && props.noLinks !== 'links' && navigate(app.actions.profileLink(zap.pubkey))}
                   topZaps={props.article.topZaps}
                   topZapLimit={3}
                   hideMessage={true}
@@ -439,7 +460,7 @@ const ArticleCompactPreview: Component<{
         </div>
       </Show> */}
 
-    </A>
+    </>
   );
 }
 

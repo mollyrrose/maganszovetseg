@@ -1,15 +1,15 @@
 import { useIntl } from '@cookbook/solid-intl';
 import { Tabs } from '@kobalte/core/tabs';
-import { A } from '@solidjs/router';
+import { A, useNavigate } from '@solidjs/router';
 import { Component, createEffect, createSignal, For, Match, Show, Switch } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { APP_ID } from '../../App';
-import { Kind } from '../../constants';
+import { Kind, urlRegexG } from '../../constants';
 import { useAccountContext } from '../../contexts/AccountContext';
 import { ReactionStats, useAppContext } from '../../contexts/AppContext';
 import { hookForDev } from '../../lib/devTools';
 import { hexToNpub } from '../../lib/keys';
-import { getEventQuotes, getEventQuoteStats, getEventReactions, getEventZaps, setLinkPreviews } from '../../lib/notes';
+import { getEventQuotes, getEventQuoteStats, getEventReactions, getEventZaps, parseLinkPreviews, setLinkPreviews } from '../../lib/notes';
 import { truncateNumber2 } from '../../lib/notifications';
 import { subsTo } from '../../sockets';
 import { convertToNotes } from '../../stores/note';
@@ -25,6 +25,7 @@ import Paginator from '../Paginator/Paginator';
 import VerificationCheck from '../VerificationCheck/VerificationCheck';
 
 import styles from './ReactionsModal.module.scss';
+import DOMPurify from 'dompurify';
 
 
 const ReactionsModal: Component<{
@@ -37,6 +38,7 @@ const ReactionsModal: Component<{
   const intl = useIntl();
   const account = useAccountContext();
   const app = useAppContext();
+  const navigate = useNavigate();
 
   const [selectedTab, setSelectedTab] = createSignal('default');
 
@@ -336,24 +338,7 @@ const ReactionsModal: Component<{
         }
 
         if (content?.kind === Kind.LinkMetadata) {
-          const metadata = JSON.parse(content.content);
-
-          const data = metadata.resources[0];
-          if (!data) {
-            return;
-          }
-
-          const preview = {
-            url: data.url,
-            title: data.md_title,
-            description: data.md_description,
-            mediaType: data.mimetype,
-            contentType: data.mimetype,
-            images: [data.md_image],
-            favicons: [data.icon_url],
-          };
-
-          setLinkPreviews(() => ({ [data.url]: preview }));
+          parseLinkPreviews(JSON.parse(content.content));
           return;
         }
       },
@@ -393,6 +378,12 @@ const ReactionsModal: Component<{
   }
 
   const totalCount = () => props.stats.likes + (quoteCount() || props.stats.quotes || 0) + props.stats.reposts + props.stats.zaps;
+
+  const parseForLinks = (text: string) => {
+    const purified = DOMPurify.sanitize(text);
+
+    return purified.replace(urlRegexG, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+  };
 
   return (
     <AdvancedSearchDialog
@@ -462,7 +453,11 @@ const ReactionsModal: Component<{
                     onClick={props.onClose}
                   >
                     <div class={styles.likeIcon}></div>
-                    <Avatar src={admirer.picture} size="vs" />
+                    <Avatar
+                      user={admirer}
+                      src={admirer.picture}
+                      size="vs"
+                    />
                     <div class={styles.userName}>
                       <div class={styles.name}>
                         {userName(admirer)}
@@ -515,7 +510,11 @@ const ReactionsModal: Component<{
                       <div class={styles.zapIcon}></div>
                       <div class={styles.amount}>{zap.amount < 100_000 ? zap.amount.toLocaleString() : truncateNumber2(zap.amount)}</div>
                     </div>
-                    <Avatar src={zap.sender?.picture} size="vs" />
+                    <Avatar
+                      user={zap.sender}
+                      src={zap.sender?.picture}
+                      size="vs"
+                    />
                     <div class={styles.zapInfo}>
                       <div class={styles.userName}>
                         <div class={styles.name}>
@@ -523,8 +522,7 @@ const ReactionsModal: Component<{
                         </div>
                         <VerificationCheck user={zap} />
                       </div>
-                      <div class={styles.zapMessage}>
-                        {zap.message}
+                      <div class={styles.zapMessage} innerHTML={parseForLinks(zap.message)}>
                       </div>
                     </div>
                   </A>
@@ -569,7 +567,11 @@ const ReactionsModal: Component<{
                     onClick={props.onClose}
                   >
                     <div class={styles.repostIcon}></div>
-                    <Avatar src={reposter.picture} size="vs" />
+                    <Avatar
+                      user={reposter}
+                      src={reposter.picture}
+                      size="vs"
+                    />
                     <div class={styles.userName}>
                       <div class={styles.name}>
                         {userName(reposter)}
@@ -616,7 +618,12 @@ const ReactionsModal: Component<{
                     note={quote}
                     shorten={true}
                     noteType="reaction"
-                    onClick={props.onClose}
+                    onClick={(note: PrimalNote) => {
+                      if (note) {
+                        navigate(`/e/${note.noteIdShort}`)
+                      }
+                      props.onClose && props.onClose();
+                    }}
                   />
                 )}
               </For>

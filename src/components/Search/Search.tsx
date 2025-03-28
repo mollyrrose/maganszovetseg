@@ -4,7 +4,7 @@ import { Component, createEffect, createSignal, For, Show } from 'solid-js';
 import { useSearchContext } from '../../contexts/SearchContext';
 import { nip05Verification, userName } from '../../stores/profile';
 import { PrimalUser } from '../../types/primal';
-import { debounce } from '../../utils';
+import { debounce, isPhone } from '../../utils';
 import Avatar from '../Avatar/Avatar';
 import Loader from '../Loader/Loader';
 import { useToastContext } from '../Toaster/Toaster';
@@ -52,12 +52,14 @@ const Search: Component<{
 
     const q = DOMPurify.sanitize(data.get('searchQuery') as string || '');
 
+    const urlSafe = encodeURIComponent(q);
+
     if (q.length > 0) {
       if (props.onInputConfirm) {
         props.onInputConfirm(q);
       }
       else {
-        navigate(`/search/${q.replaceAll('#', '%23')}`);
+        navigate(`/search/${urlSafe.replaceAll('#', '%23')}`);
       }
       onBlur();
       resetQuery();
@@ -117,10 +119,43 @@ const Search: Component<{
     search?.actions.findUsers(query());
   });
 
+  const formClass = () => {
+    let k = styles.search;
+
+    if (isPhone()) {
+      k += ` ${styles.phone}`;
+      return k;
+    }
+
+    if (props.fullWidth) {
+      k += ` ${styles.wide}`;
+    }
+
+    return k
+  }
+
+  const holderClass = () => {
+    let k = styles.searchHolder;
+
+    if (isPhone()) {
+      k += ` ${styles.phoneSearch}`;
+    }
+
+    if (isFocused()) {
+      k += ` ${styles.focused}`;
+    }
+
+    if (props.fullWidth) {
+      k += ` ${styles.wideHolder}`;
+    }
+
+    return k
+  }
+
   return (
-    <div id={props.id} class={`${styles.searchHolder} ${isFocused() ? styles.focused : ''} ${props.fullWidth ? styles.wideHolder : ''}`}>
+    <div id={props.id} class={holderClass()}>
       <form
-        class={`${styles.search} ${props.fullWidth ? styles.wide : ''}`}
+        class={formClass()}
         onsubmit={onSearch}
         autocomplete="off"
       >

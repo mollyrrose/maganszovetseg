@@ -25,6 +25,7 @@ import { useSearchContext } from '../contexts/SearchContext';
 import AdvancedSearchCommadTextField from '../components/AdvancedSearch/AdvancedSearchCommadTextField';
 import { useAppContext } from '../contexts/AppContext';
 import { useAccountContext } from '../contexts/AccountContext';
+import { isPhone } from '../utils';
 
 export type SearchState = {
   includes: string,
@@ -558,7 +559,7 @@ const AdvancedSearch: Component = () => {
 
     search?.actions.setAdvancedSearchCommand(cmd);
 
-    navigate(`/asearch/${encodeURIComponent(cmd)}`);
+    navigate(`/search/${encodeURIComponent(cmd)}`);
   }
 
   return (
@@ -760,9 +761,6 @@ const AdvancedSearch: Component = () => {
               />
             </div>
 */}
-
-
-
           </section>
 
           <section>

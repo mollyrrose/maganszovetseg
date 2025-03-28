@@ -12,7 +12,88 @@
     line-height: 36px;
     margin-bottom: 8px;
   }
+  .downloadsContainer {
+    padding: 20px;
+  }
+  
 
+/* FRAME CONTAINER */
+.frameContainer {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 
+    inset 2px 2px 5px rgba(255, 255, 255, 0.6), 
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1), 
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+  
+  .centeredContent {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .inputLabel {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.6), inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+    font-size: 12px; /* Reduced to 70% */
+    line-height: 1.6;
+  }
+  
+  .smallText {
+    font-size: 70%; /* Adjust size as needed */
+    line-height: 1.4; /* Improves readability */
+    text-align: justify; /* Optional: Aligns text better */
+  }
+
+  
+  /* Adjusting QR section */
+  .qrWrapper {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .qrCode {
+    text-align: center;
+    width: 200px; /* Made wider */
+    padding: 15px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 
+      2px 2px 5px rgba(0, 0, 0, 0), 
+      -2px -2px 5px rgba(255, 255, 255, 0.6);
+  }
+  
+  .qrCode img {
+    border: none; /* Removes any border */
+    box-shadow: none; /* Removes any shadow */
+    background: transparent; /* Ensures no background color */
+  }
+  
+  
+  .qrCaption {
+    margin-top: 8px;
+    max-width: 200px;
+    text-align: center;
+  }
+  
+  .qrCaption p {
+    font-size: 50%; /* Reduces only paragraph text */
+  }
+  
+  .qrCaption strong {
+    font-size: 80%; /* Slightly smaller but still emphasized */
+  }
+  
   .ctaDescription {
     color: var(--text-secondary-2);
     text-align: center;
@@ -191,6 +272,56 @@
   }
 }
 
+.downloadsContainer {
+  padding: 20px;
+}
+
+/* FRAME CONTAINER */
+.frameContainer {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 
+    inset 2px 2px 5px rgba(255, 255, 255, 0.6), 
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1), 
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.centeredContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.inputLabel {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.6), inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.qrWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.qrCode {
+  text-align: center;
+}
+
+.qrCaption {
+  font-size: 12px;
+  margin-top: 10px;
+  max-width: 150px;
+}
+
 .downloadsSidebar {
   .title {
     color: var(--text-secondary-2);
@@ -212,6 +343,8 @@
         display: inline-block;
         margin-right: 9px;
         background-image: url( '../assets/icons/github.svg');
+        //background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/github.svg');
+
         background-size: contain;
       }
 
@@ -221,6 +354,8 @@
         display: inline-block;
         margin-right: 9px;
         background-image: url( '../assets/icons/github_light.svg');
+        //background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/github_light.svg');
+
         background-size: contain;
       }
 
@@ -238,6 +373,174 @@
 .downloadsExtra {
   display: none;
 }
+
+
+//a 3 letöltés alatti button-ok és +1 a hosszú
+/* Container for the 3 sets (icon-text-button) */
+.qrWrapper {
+  display: flex;
+  justify-content: space-between; /* Distribute space evenly */
+  gap: 20px; /* Add spacing between the sets */
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+/* Individual QR Code Container */
+.qrCode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px; /* Add padding for spacing */
+  border: 1px solid #ccc; /* Optional: Add a border for clarity */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+/* Button Container */
+.slideButtonContainer {
+  margin-top: 10px;
+  cursor: pointer;
+  width: 120px; /* Fixed width for consistency */
+}
+
+/* Button Styling */
+.slideButton {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background-color: #ccc; /* Default inactive color */
+  border-radius: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Active Button Styling */
+.slideButtonContainer.active .slideButton {
+  background-color: #4caf50; /* Active color (green) */
+}
+
+/* Button Text Styling */
+.slideButtonText {
+  color: rgb(108, 108, 108);; /* Default text color for inactive buttons */
+  font-size: 14px;
+  pointer-events: none; /* Prevent text from blocking clicks */
+  padding: 0 10px; /* Add padding to the left and right */
+}
+
+/* Active Button Text Styling */
+.slideButtonContainer.active .slideButtonText {
+  color: white; /* Text color for active buttons */
+}
+
+/* Hover State for Buttons */
+.slideButtonContainer:not(.active):hover .slideButton {
+  background-color: #4caf50; /* Green background on hover */
+  color: white; 
+}
+
+.slideButtonContainer:not(.active):hover .slideButtonText {
+  color: white; /* White text on hover */
+}
+
+/* Long Button Styles */
+.fullWidthButtonContainer {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.fullWidthButtonContainer .slideButton {
+  width: 100%; /* Full width for the new button */
+  height: 128px; /* Slightly taller for better visibility */
+  background-color: #eee; /* Passive color */
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: rgb(108, 108, 108); /* Inactive font color */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fullWidthButtonContainer .slideButton.active {
+  background-color: #4caf50; /* Active color */
+  color: white; /* Active font color */
+}
+
+.fullWidthButtonContainer .slideButton:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Ensure text color changes on hover */
+.fullWidthButtonContainer .slideButton:hover .slideButtonText {
+  color: white; /* Text color on hover */
+}
+
+.fullWidthButtonContainer .slideButton.active .slideButtonText {
+  color: white; /* Ensure text is white when active */
+}
+
+.buttonLinkWrapper {
+  display: flex;
+  align-items: center; /* Aligns button and link box */
+  gap: 10px; /* Space between button and link */
+}
+
+.linkBox {
+  height: 100%; /* Match button height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f3f3; /* Example background */
+  padding: 0px;
+  border-radius: 8px;
+}
+
+
+/* New Donation and Bitcoin Buttons */
+.donationButtonContainer,
+.bitcoinButtonContainer {
+  margin-top: 10px;
+}
+
+.secondaryButton {
+  background-color: #e5e4e4    ; /* Green background */
+  color: rgb(108, 108, 108);
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+  color: white;
+}
+
+.bitcoinButton {
+  background-color: #e5e4e4; /* Bitcoin orange */
+  color: rgb(108, 108, 108);
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bitcoinButton:hover {
+  background-color: #45a049; /* Slightly darker orange on hover */
+  color: white;
+}
+
+//----
+
 
 @media only screen and (max-width: 1087px) {
   .downloadsExtra {
@@ -268,6 +571,8 @@
           display: inline-block;
           margin-right: 9px;
           background-image: url( '../assets/icons/github.svg');
+          //background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/github.svg');
+
           background-size: contain;
         }
 
@@ -277,6 +582,8 @@
           display: inline-block;
           margin-right: 9px;
           background-image: url( '../assets/icons/github_light.svg');
+          //background-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/github_light.svg');
+
           background-size: contain;
         }
 

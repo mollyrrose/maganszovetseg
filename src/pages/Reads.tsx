@@ -39,22 +39,25 @@ import PageCaption from '../components/PageCaption/PageCaption';
 import ReadsSidebar from '../components/HomeSidebar/ReadsSidebar';
 import ReedSelect from '../components/FeedSelect/ReedSelect';
 import ReadsHeader from '../components/HomeHeader/ReadsHeader';
-import { A, useParams } from '@solidjs/router';
+import { A, useNavigate, useParams } from '@solidjs/router';
 import { APP_ID } from '../App';
 import ButtonGhost from '../components/Buttons/ButtonGhost';
 import ArticlePreviewSkeleton from '../components/Skeleton/ArticlePreviewSkeleton';
 import { Transition } from 'solid-transition-group';
 import { ToggleButton } from '@kobalte/core/toggle-button';
-import { isDev } from '../utils';
+import { isDev, isPhone } from '../utils';
+import ArticlePreviewPhone from '../components/ArticlePreview/ArticlePreviewPhone';
+import ArticlePreviewPhoneSkeleton from '../components/Skeleton/ArticlePreviewPhoneSkeleton';
 
 
-const Home: Component = () => {
+const Reads: Component = () => {
 
   const context = useReadsContext();
   const account = useAccountContext();
   const intl = useIntl();
   const app = useAppContext();
   const params = useParams();
+  const navigate = useNavigate();
 
   const isPageLoading = () => context?.isFetching;
 
@@ -170,7 +173,9 @@ const Home: Component = () => {
       <Wormhole
         to="search_section"
       >
-        <Search />
+        <Show when={!isPhone()}>
+          <Search />
+        </Show>
       </Wormhole>
 
       <PageCaption title={intl.formatMessage(reads.pageTitle)}>
@@ -208,9 +213,11 @@ const Home: Component = () => {
         </Show>
       </PageCaption>
 
-      <StickySidebar>
-        <ReadsSidebar />
-      </StickySidebar>
+      <Show when={!isPhone()}>
+        <StickySidebar>
+          <ReadsSidebar />
+        </StickySidebar>
+      </Show>
 
       <div class={styles.readsFeed}>
         <Transition name="slide-fade">
@@ -219,23 +226,44 @@ const Home: Component = () => {
             fallback={
               <div>
                 <For each={new Array(5)}>
-                  {() => <ArticlePreviewSkeleton />}
+                  {() => isPhone() ?
+                    <ArticlePreviewPhoneSkeleton /> :
+                    <ArticlePreviewSkeleton />}
                 </For>
               </div>
             }
           >
             <div class={styles.feed}>
-              <For each={context?.notes} >
-                {(note) => (
-                  <div class="animated">
-                    <ArticlePreview
-                      article={note}
-                      height={context?.articleHeights[note.naddr]}
-                      onRender={onArticleRendered}
-                    />
-                  </div>
-                )}
-              </For>
+              <Show
+                when={!isPhone()}
+                fallback={
+                  <For each={context?.notes} >
+                    {(note) => (
+                      <div class="animated">
+                        <ArticlePreviewPhone
+                          article={note}
+                          height={context?.articleHeights[note.naddr]}
+                          onRender={onArticleRendered}
+                          hideFooter={true}
+                        />
+                      </div>
+                    )}
+                  </For>
+                }
+              >
+                <For each={context?.notes} >
+                  {(note) => (
+                    <div class="animated">
+                      <ArticlePreview
+                        article={note}
+                        height={context?.articleHeights[note.naddr]}
+                        onRender={onArticleRendered}
+                        onClick={navigate}
+                      />
+                    </div>
+                  )}
+                </For>
+              </Show>
             </div>
           </Show>
         </Transition>
@@ -260,4 +288,4 @@ const Home: Component = () => {
   )
 }
 
-export default Home;
+export default Reads;

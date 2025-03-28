@@ -15,6 +15,7 @@ import SaveFeedDialog from '../components/SaveFeedDialog/SaveFeedDialog';
 import { setAdvSearchState } from './AdvancedSearch';
 import AdvancedSearchCommadTextField from '../components/AdvancedSearch/AdvancedSearchCommadTextField';
 import { useAccountContext } from '../contexts/AccountContext';
+import { isPhone } from '../utils';
 
 
 const AdvancedSearchResults: Component = () => {
@@ -67,7 +68,7 @@ const AdvancedSearchResults: Component = () => {
       return false;
     }
 
-    navigate(`/asearch/${encodeURIComponent(queryString())}`);
+    navigate(`/search/${encodeURIComponent(queryString())}`);
   }
 
   return (
@@ -88,7 +89,7 @@ const AdvancedSearchResults: Component = () => {
             />
 
             <ButtonLink
-              onClick={() => navigate('/asearch', { state: { query: queryString() } })}
+              onClick={() => navigate('/search', { state: { query: queryString() } })}
             >
               Vissza az összetett kereséshez
             </ButtonLink>
@@ -107,7 +108,7 @@ const AdvancedSearchResults: Component = () => {
         <Switch>
           <Match when={[Kind.LongForm, Kind.LongFormShell].includes(kind())}>
             <For each={search?.reads} >
-              {article => <ArticlePreview article={article} />}
+              {article => <ArticlePreview article={article} onClick={navigate} />}
             </For>
           </Match>
           <Match when={[Kind.Text].includes(kind())}>

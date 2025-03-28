@@ -1,5 +1,7 @@
 import { Component, createMemo, createSignal, Show } from 'solid-js';
 import defaultAvatar from '../../assets/icons/default_avatar.svg';
+//const defaultAvatar = "https://cdnwin.maganszovetseg.net/src/assets/icons/default_avatar.svg";
+
 import { useMediaContext } from '../../contexts/MediaContext';
 import { hookForDev } from '../../lib/devTools';
 import { getMediaUrl } from '../../lib/media';
@@ -13,7 +15,7 @@ import { LegendCustomizationConfig } from '../../lib/premium';
 
 const Avatar: Component<{
   src?: string | undefined,
-  size?: "nano" | "micro" | "xxs" | "xss" | "xs" | "vvs" | "vs2" | "vs" | "sm" | "md" | "ml" | "mll" | "lg" | "xl" | "xxl",
+  size?: "nano" | "micro" | "xxs" | "xss" | "xs" | "vvs" | "vs2" | "vs" | "sm" | "md" | "ml" | "mll" | "lg" | "xl" | "xxl" | "xxxl",
   user?: PrimalUser,
   highlightBorder?: boolean,
   id?: string,
@@ -46,6 +48,7 @@ const Avatar: Component<{
     lg: styles.largeAvatar,
     xl: styles.extraLargeAvatar,
     xxl: styles.xxlAvatar,
+    xxxl: styles.xxxlAvatar,
   };
 
   const missingClass = {
@@ -64,6 +67,7 @@ const Avatar: Component<{
     lg: styles.largeMissing,
     xl: styles.extraLargeMissing,
     xxl: styles.xxlMissing,
+    xxxl: styles.xxxlMissing,
   };
 
   const imgError = (event: any) => {
@@ -214,6 +218,7 @@ const Avatar: Component<{
               onError={imgError}
               mediaThumb={imageThumb()}
               ignoreRatio={true}
+              authorPk={props.user?.pubkey}
             />
           </Show>
         </div>

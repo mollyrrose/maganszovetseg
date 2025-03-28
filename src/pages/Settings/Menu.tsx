@@ -58,18 +58,22 @@ const Menu: Component = () => {
             {intl.formatMessage(t.moderation.title)}
             <div class={styles.chevron}></div>
           </A>
+          <A href="/settings/nwc">
+            {intl.formatMessage(t.nwcSettings.title)}
+            <div class={styles.chevron}></div>
+          </A>
           <A href="/settings/notifications">
             {intl.formatMessage(t.notifications.title)}
             <div class={styles.chevron}></div>
           </A>
         </Show>
-
+        {/*
         <A href="/settings/network">
           {intl.formatMessage(t.network.title)}
           <div class={styles.chevron}></div>
         </A>
-        
-        {/*
+
+
         <Show when={account?.hasPublicKey()}>
           <A href="/settings/zaps">
             {intl.formatMessage(t.zaps)}
@@ -88,12 +92,16 @@ const Menu: Component = () => {
       </div>
 
         <div class={styles.webVersion}>
-          <ButtonSecondary onClick={() => {
-            account?.actions.logout();
-            navigate('/home');
+        <ButtonSecondary onClick={() => {
+          account?.actions.logout();
+          navigate('/home');
+          setTimeout(() => {
+          window.location.reload();
+          }, 100); // Small delay to ensure the logout action completes
           }}>
-            {intl.formatMessage(tActions.logout)}
+          {intl.formatMessage(tActions.logout)}
           </ButtonSecondary>
+
         </div>
 
       </Show>

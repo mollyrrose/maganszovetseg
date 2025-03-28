@@ -12,7 +12,7 @@ import styles from './NotificationItem.module.scss';
 import userFollow from '../../assets/icons/notifications/user_followed.svg';
 import userUnFollow from '../../assets/icons/notifications/user_unfollowed.svg';
 
-//import postZapped from '../../assets/icons/notifications/post_zapped.svg';
+//import postZapped from '../../assets/icons/notifications/post_zapped.svg'; //BTC lightning out
 import postLiked from '../../assets/icons/notifications/post_liked.svg';
 import postReposted from '../../assets/icons/notifications/post_reposted.svg';
 import postReplied from '../../assets/icons/notifications/post_replied.svg';

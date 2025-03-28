@@ -6,6 +6,10 @@
   padding: 12px;
   // width: var(--center-col-w);
 
+  @media only screen and (max-width: 720px) {
+    padding: 0;
+  }
+
   .info {
     display: flex;
     justify-content: space-between;
@@ -31,6 +35,10 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+
+          @media only screen and (max-width: 720px) {
+            max-width: 140px;
+          }
         }
 
         .nip05 {
@@ -40,10 +48,14 @@
           line-height: 14px;
           span {
             display: inline-block;
-            max-width: 362px;
+            max-width: 308px;
             overflow: hidden;
             text-overflow: ellipsis;
             word-wrap: normal;
+
+            @media only screen and (max-width: 720px) {
+              max-width: 140px;
+            }
           }
         }
       }

@@ -517,7 +517,88 @@ form {
         overflow: hidden;
       }
     }
+
+
+    .followornot {
+      display: flex;
+      flex-direction: column;
+      max-width: 370px;
+
+      .name {
+        color: var(--text-primary);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .followbutton {
+        color: #4CAF50; /* Warm green */
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .description {
+        color: #646764; /* Warm green */
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+
   }
+
+
+  .stepFourContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Step Four Title - Large & Bold */
+  .stepFourTitle {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+  }
+  
+  /* Regular text */
+  .stepFourText {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  
+  /* Bold text */
+  .stepFourBold {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .privateKeyWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
 
   .action {
     display: flex;
@@ -528,6 +609,18 @@ form {
     }
   }
 }
+
+.followSpacing {
+  height: 20px; /* Creates space between the follow list and the buttons */
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px; /* Ensures more separation */
+}
+
 
 .suggestions {
   height: calc(100vh - 320px);

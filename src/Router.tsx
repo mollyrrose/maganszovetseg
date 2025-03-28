@@ -36,16 +36,20 @@ const Profile = lazy(() => import('./pages/Profile'));
 const Mutelist = lazy(() => import('./pages/Mutelist'));
 const CreateAccount = lazy(() => import('./pages/CreateAccount'));
 const Premium = lazy(() => import('./pages/Premium/Premium'));
+const Legends = lazy(() => import('./pages/Premium/Legends'));
+const Premiums = lazy(() => import('./pages/Premium/Premiums'));
 
 const NotifSettings = lazy(() => import('./pages/Settings/Notifications'));
 const Account = lazy(() => import('./pages/Settings/Account'));
 const Appearance = lazy(() => import('./pages/Settings/Appearance'));
 const HomeFeeds = lazy(() => import('./pages/Settings/HomeFeeds'));
 const ReadsFeeds = lazy(() => import('./pages/Settings/ReadsFeeds'));
+const DevTools = lazy(() => import('./pages/Settings/DevTools'));
 const ZapSettings = lazy(() => import('./pages/Settings/Zaps'));
 const Muted = lazy(() => import('./pages/Settings/Muted'));
 const Network = lazy(() => import('./pages/Settings/Network'));
 const Moderation = lazy(() => import('./pages/Settings/Moderation'));
+const NostrWalletConnect = lazy(() => import('./pages/Settings/NostrWalletConnect'));
 const Menu = lazy(() => import('./pages/Settings/Menu'));
 // const Landing = lazy(() => import('./pages/Landing'));
 const AppDownloadQr = lazy(() => import('./pages/appDownloadQr'));
@@ -53,11 +57,13 @@ const AppDownloadQr = lazy(() => import('./pages/appDownloadQr'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Support = lazy(() => import('./pages/Support'));
+const Csae = lazy(() => import('./pages/Csae'));
 
 const Feeds = lazy(() => import('./pages/FeedsTest'));
 const Feed = lazy(() => import('./pages/FeedQueryTest'));
 const AdvancedSearch = lazy(() => import('./pages/AdvancedSearch'));
 const AdvancedSearchResults = lazy(() => import('./pages/AdvancedSearchResults'));
+const ReadsEditor = lazy(() => import('./pages/ReadsEditor'));
 
 const primalWindow = window as PrimalWindow;
 
@@ -116,14 +122,17 @@ const AppRouter: Component = () => {
       <Router>
         <Route path="/app-download-qr" component={AppDownloadQr} />
         <Route path="/terms" component={Terms} />
+        <Route path="/csae-policy" component={Csae} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/support" component={Support} />
         <Route path="/" component={Layout} >
           <Route path="/" component={() => <Navigate href="/home" />} />
           <Route path="/home" component={Home} />
+          <Route path="/reads/edit" component={ReadsEditor} />
           <Route path="/reads/:topic?" component={Reads} />
           <Route path="/thread/:id" component={Thread} />
           <Route path="/e/:id" component={Thread} />
+          <Route path="/a/:id" component={Thread} />
           <Route path="/explore">
             <Route path="/" component={Explore} />
             <Route path="/feed/:id" component={ExploreFeeds} />
@@ -144,13 +153,15 @@ const AppRouter: Component = () => {
             <Route path="/muted" component={Muted} />
             <Route path="/network" component={Network} />
             <Route path="/filters" component={Moderation} />
+            <Route path="/nwc" component={NostrWalletConnect} />
+            <Route path="/devtools" component={DevTools} />
           </Route>
           <Route path="/bookmarks" component={Bookmarks} />
           <Route path="/settings/profile" component={EditProfile} />
           <Route path="/profile/:npub?" component={Profile} />
           <Route path="/p/:npub?" component={Profile} />
           <Route path="/help" component={Help} />
-          <Route path="/search/:query" component={Search} />
+          {/* <Route path="/search/:query" component={Search} /> */}
           {/* <Route path="/rest" component={Explore} /> */}
           <Route path="/mutelist/:npub" component={Mutelist} />
           <Route path="/new" component={CreateAccount} />
@@ -158,11 +169,13 @@ const AppRouter: Component = () => {
             <Route path="/" component={Feeds} />
             <Route path="/:query" component={Feed} />
           </Route>
-          <Route path="/asearch">
+          <Route path="/search">
             <Route path="/" component={AdvancedSearch} />
             <Route path="/:query" component={AdvancedSearchResults} />
           </Route>
           <Route path="/premium/:step?" component={Premium} />
+          <Route path="/premiums" component={Premiums} />
+          <Route path="/legends" component={Legends} />
           <Route path="/:vanityName">
             <Route path="/" component={Profile} preload={getKnownProfiles} />
             <Route path="/:identifier" component={Thread} preload={getKnownProfiles} />

@@ -20,10 +20,13 @@
   cursor: pointer; // Mutató ikon
 
 
-  &:hover {
-    background-color: #76f776; // Sötétebb zöld hover esetén
-    font-color: #000000; // fehér hover esetén
+  &:hover { 
+    background-color: #76f7c6; // Sötétebb zöld hover esetén
+    color: #000000; // fehér hover esetén
   }
+
+
+
 }
 
 .primary {
@@ -190,24 +193,38 @@
   }
 }
 
+
 .flipInactive {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--text-primary);
+  border: 0px solid var(--text-secondary);
   border-radius: 99999px;
   margin: 0px;
-  padding-inline: 18px;
-  padding-block: 10px;
-  font-size: 16px;
-  line-height: 16px;
-  font-weight: 600;
-  background: var(--text-primary);
-  color: var(--background-site);
+  padding-inline: 12px;
+  padding-block: 8px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  background: #d3d3d3; /* ✅ Light Gray */
+  color: var(--text-primary); /* Keeps text readable */
   width: fit-content;
+  cursor: pointer;
+
+  &:hover {
+    background: #c0c0c0; /* Slightly darker gray on hover */
+  }
 
   &:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(211, 211, 211, 0.5); /* Light Gray Focus */
+  }
+
+  &.light {
+    background-color: var(--subtile-devider);
+  }
+
+  &.dark {
+    background: var(--background-site);
   }
 }
 
@@ -218,24 +235,29 @@
   width: fit-content;
   height: fit-content;
   border-radius: 99999px;
-  border: 1px solid var(--text-secondary);
+  border: 0px solid var(--text-primary);
   margin: 0px;
-  padding-inline: 18px;
-  padding-block: 10px;
-  font-size: 16px;
-  line-height: 20px;
+  padding-inline: 12px;
+  padding-block: 8px;
+  font-size: 12px;
+  line-height: 18px;
   font-weight: 700;
-  background: var(--background-site);
-  color: var(--text-primary);
-  width: fit-content;
+  background: #90eeca; /* ✅ Warm Light Green */
+  color: black; /* Ensures readability */
+  cursor: pointer;
 
-  &.dark {
-    background: var(--background-site);
+  &:hover {
+    background: #7ecbbc; /* Slightly darker green on hover */
   }
 
   &:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(144, 238, 233, 0.5); /* Light Green Focus */
   }
+
+  &.dark {
+    background: #7ecbb5; /* Dark mode friendly */
+  }
+
   &.light {
     background-color: var(--subtile-devider);
   }

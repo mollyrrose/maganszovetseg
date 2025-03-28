@@ -17,11 +17,14 @@ import { useMediaContext } from '../../contexts/MediaContext';
 import { createStore } from 'solid-js/store';
 import { A, useNavigate } from '@solidjs/router';
 import ParsedNote from '../ParsedNote/ParsedNote';
-import { humanizeTime, isDev } from '../../utils';
+import { humanizeTime, isDev, isPhone } from '../../utils';
+import { nip19 } from 'nostr-tools';
+import NoteImageSmall from '../NoteImage/NoteImageSmall';
 
 const NoteGallery: Component<{
   note: PrimalNote,
   id?: string,
+  imgWidth?: number,
 }> = (props) => {
   const intl = useIntl();
   const media = useMediaContext();
@@ -119,6 +122,14 @@ const NoteGallery: Component<{
 
   const isMissingThumbnal = (image: any) => !isDev() || image.noVideoThumbnail;
 
+  const noteLinkId = () => {
+    try {
+      return `/e/${props.note.noteIdShort}`;
+    } catch(e) {
+      return '/404';
+    }
+  };
+
   return (
     <div
       id={`galleryimage_${props.note.id}`}
@@ -170,7 +181,7 @@ const NoteGallery: Component<{
                         </div>
                         <A
                           class={styles.noteLink}
-                          href={`/e/${props.note.noteId}`}
+                          href={noteLinkId()}
                         >
                           Go to note
                         </A>
@@ -190,14 +201,14 @@ const NoteGallery: Component<{
                     <div class={styles.galleryIcon}></div>
                   </Show>
 
-                  <NoteImage
+                  <NoteImageSmall
                     class={`galleryimage image_${props.note.post.noteId} cell_${1}`}
                     src={image.url}
                     media={image.image}
                     mediaThumb={image.imageThumb}
                     altSrc={image.imageThumb}
                     isDev={isDev()}
-                    width={210}
+                    width={isPhone() ? (props.imgWidth || 0) : 210}
                     shortHeight={true}
                     plainBorder={true}
                     caption={
@@ -207,12 +218,13 @@ const NoteGallery: Component<{
                         </div>
                         <A
                           class={styles.noteLink}
-                          href={`/e/${props.note.noteId}`}
+                          href={noteLinkId()}
                         >
                           Go to note
                         </A>
                       </div>
                     }
+                    authorPk={props.note.pubkey}
                   />
                 </div>
               </Match>

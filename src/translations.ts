@@ -19,7 +19,7 @@ export const account = {
 
   prominentNostriches: {
     id: 'actions.prominentNostriches',
-    defaultMessage: 'Kiemelt Noszter felhasználók',
+    defaultMessage: 'Kiemelt MaganSzovetseg felhasználók',
     description: 'Prominent Nostriches label',
   },
   follow: {
@@ -31,6 +31,11 @@ export const account = {
     id: 'actions.unfollow',
     defaultMessage: 'követés leállítása',
     description: 'Unfollow button label',
+  },
+  followThem: {
+    id: 'account.followThem',
+    defaultMessage: 'Kövesd őket!',
+    description: 'Follow these recommended users',
   },
   followAll: {
     id: 'actions.followAll',
@@ -62,6 +67,9 @@ export const account = {
     defaultMessage: 'Új vagy a MagánSzövetség.Net-en? Hozd létre a fiókodat most, és csatlakozz ehhez a varázslatos helyhez! Gyors és egyszerű!',
     description: 'Label inviting users to join Nostr',
   },
+
+
+
   create: {
     title: {
       id: 'settings.account.title',
@@ -81,11 +89,36 @@ export const account = {
       },
       step_three: {
         id: 'settings.account.descriptions.step_three',
-        defaultMessage: 'Találtunk néhány fiókot a nemzetközi hálózatba, amelyeket követésre javaslunk. Kattins a :',
+        defaultMessage: 'Követésre ajánlott fiókok. (Ha nem látsz itt ajánlott fiókot, akkor most épp nem ajánlunk fiókot.) Kattints a Következő gombra. ',
         description: 'Description on step three',
       },
+      step_four: {
+        id: 'settings.account.descriptions.step_four',
+        defaultMessage: 'Mentsd el titkosított hosszú jelszavad (privát kulcsod)!',
+        description: 'Step four description in account creation',
+      },
+    },
+
+    privateKey: {
+      label: {
+        id: 'settings.account.privateKey.label',
+        defaultMessage: 'Hosszú jelszavam (privát kulcsom)',
+        description: 'Label for private key display',
+      },
+      confirmation: {
+        id: 'settings.account.privateKey.confirmation',
+        defaultMessage: 'Elmentettem a privát kulcsomat.',
+        description: 'Confirmation for saving private key',
+      },
+      saveMessage: {
+        id: 'settings.account.privateKey.saveMessage',
+        defaultMessage: 'Ezt mi generáltuk Neked. Ezzel tudsz majd bejelentkezni. Ezt mi nem mentjük el, így nem férhetünk hozzá anyagaidhoz, viszont, így vissza sem tudjuk állítani. Mentsd jó helyre, mert ha elvész, nem tudsz belépni, mert nem tudunk új jelszót adni. Ekkor a fiókod mindörökre úgy marad ahogy hagytad. Másold ki, mentsd el a saját eszközödön (nem az interneten)!',
+        description: 'Instruction to save the encrypted password',
+      },
     }
+
   },
+  
 };
 
 export const login = {
@@ -101,7 +134,7 @@ export const login = {
   },
   invalidNsec: {
     id: 'login.invalidNsec',
-    defaultMessage: 'Adj meg egy érvényes Noszter privát kulcsot!',
+    defaultMessage: 'Adj meg egy érvényes privát kulcsot!',
     description: 'Label informing the user of an invalid nsec key',
   },
 };
@@ -109,8 +142,13 @@ export const login = {
 export const pin = {
   title: {
     id: 'pin.title',
-    defaultMessage: 'PIN létrehozása',
+    defaultMessage: 'PIN létrehozása (egyszerűbb bejelentkezés)',
     description: 'Create Pin modal title',
+  },
+  title2: {
+    id: 'pin.title2',
+    defaultMessage: '(egyszerűbb bejelentkezés hosszú jelszó helyett PIN kód segítségével)',
+    description: 'Create Pin modal title 2',
   },
   description: {
     id: 'pin.description',
@@ -144,7 +182,15 @@ export const pin = {
   },
 };
 
+
+
 export const actions = {
+
+    downloadKey: {
+      id: 'actions.downloadKey',
+      defaultMessage: 'Letöltöm a Titkosított Hosszú Jelszavamat és Minden Adatomat ( .TXT )',
+      description: 'Download private key button label',
+    },
   resetRelays: {
     id: 'actions.resetRelays',
     defaultMessage: 'Adattovábbítók szerkesztése',
@@ -247,7 +293,7 @@ export const actions = {
   },
   noteCopyNostrLink: {
     id: 'actions.noteCopyNostrLink',
-    defaultMessage: 'Noszter link másolása',
+    defaultMessage: 'Link másolása',
     description: 'Label for the copy Nostr note link context menu item',
   },
   noteCopyPrimalLink: {
@@ -332,7 +378,7 @@ export const actions = {
   },
   confirmRemoveRelay: {
     id: 'actions.confirmRemoveRelay',
-    defaultMessage: '<b>{url}</b> eltávolítása a relélistádról? Ez megszakítja a kapcsolatot a relével.',
+    defaultMessage: '<b>{url}</b> eltávolítása a relé-listádról? Ez megszakítja a kapcsolatot a relével.',
     description: 'Label for remove relay confirmation',
   },
   restoreCachingService: {
@@ -390,7 +436,7 @@ export const actions = {
   noteContext: {
     reactions: {
       id: 'actions.noteContext.reactions',
-      defaultMessage: 'Reakciók',
+      defaultMessage: 'Reakció',
       description: 'Label for note reactions from context menu',
     },
     zap: {
@@ -500,7 +546,7 @@ export const downloads = {
   },
   callToActionIOSDescription: {
     id: 'downloads.ctaAndroidDescription',
-    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
+    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a noszter háló felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
     description: 'Description for the iOS downloads\' page call-to-action',
   },
   callToActionAndroidTitle: {
@@ -510,7 +556,7 @@ export const downloads = {
   },
   callToActionAndroidDescription: {
     id: 'downloads.ctaAndroidDescription',
-    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a Noszter felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
+    defaultMessage: 'Az app gyors és egyszerű használatot biztosít, lehetőséget ad a noszter háló felfedezésére, valamint egyéni folyamának létrehozására és kezelésére.',
     description: 'Description for the Android downloads\' page call-to-action',
   },
   callToActionQRTitle: {
@@ -539,10 +585,40 @@ export const downloads = {
       defaultMessage: 'Forráskód',
       description: 'Daownload sidebar links title',
     },
+    title2: {
+      id: 'downloads.sidebarTitle',
+      defaultMessage: 'Felajánlás',
+      description: 'Daownload sidebar links title',
+    },
+    title3: {
+      id: 'downloads.sidebarTitle',
+      defaultMessage: 'Tájékoztatók',
+      description: 'Daownload sidebar links title',
+    },
+    title4: {
+      id: 'downloads.sidebarTitle',
+      defaultMessage: 'Oszd Meg!',
+      description: 'Daownload sidebar links title',
+    },
     webApp: {
       id: 'downloads.webAppLink',
       defaultMessage: 'MagánSzövetség.Net Web App',
       description: 'Label for the link to the web app',
+    },
+    IntroDoc: {
+      id: 'downloads.IntroDocLink',
+      defaultMessage: 'Oldal Bemutatkozó Tájékoztató',
+      description: 'Label for the link to the terms',
+    },
+    PrivacyDoc: {
+      id: 'downloads.PrivacyDocLink',
+      defaultMessage: 'Adatvédelmi Tájékoztató',
+      description: 'Label for the link to the privacy',
+    },
+    TermsDoc: {
+      id: 'downloads.TermsDocLink',
+      defaultMessage: 'Felhasználói Feltételek',
+      description: 'Label for the link to the terms',
     },
     iosApp: {
       id: 'downloads.iosAppLink',
@@ -615,17 +691,17 @@ export const explore = {
   statDisplay: {
     users: {
       id: 'explore.stats.users',
-      defaultMessage:'Felhasználók',
+      defaultMessage:'Felhasználó',
       description: 'Label for number of users stats',
     },
     pubkeys: {
       id: 'explore.stats.pubkeys',
-      defaultMessage: 'Nyilvános kulcsok',
+      defaultMessage: 'Nyilvános kulcs',
       description: 'Label for number of pubkeys stats',
     },
     zaps: {
       id: 'explore.stats.zaps',
-      defaultMessage: 'Felajánlások',
+      defaultMessage: 'Felajánlás',
       description: 'Label for number of zaps stats',
     },
     btcZapped: {
@@ -635,17 +711,17 @@ export const explore = {
     },
     pubnotes: {
       id: 'explore.stats.pubnotes',
-      defaultMessage: 'Nyilvános bejegyzések',
+      defaultMessage: 'Nyilvános bejegyzés',
       description: 'Label for number of public notes stats',
     },
     reposts: {
       id: 'explore.stats.reposts',
-      defaultMessage: 'Újraposztolások',
+      defaultMessage: 'Újraposztolás',
       description: 'Label for number of repost stats',
     },
     reactions: {
       id: 'explore.stats.reactions',
-      defaultMessage: 'Reakciók',
+      defaultMessage: 'Reakció',
       description: 'Label for number of reactions stats',
     },
     any: {
@@ -905,7 +981,7 @@ export const notificationsSidebar = {
   },
   followers: {
     id: 'notificationsSidebar.followers',
-    defaultMessage: 'Követők',
+    defaultMessage: 'Követő',
     description: 'Sidebar follower stats caption on the notification page',
   },
   gainedFollowers: {
@@ -1119,8 +1195,13 @@ export const placeholders = {
   },
   guestUserGreeting: {
     id: 'placeholders.guestUserGreeting',
-    defaultMessage: 'Üdv a MagánSzövetségben!',
+    defaultMessage: 'Üdv itthon a MagánSzövetségben!',
     description: 'Header placeholder for guest user',
+  },
+  guestUserGreetingSub: {
+    id: 'placeholders.guestUserGreetingSub',
+    defaultMessage: 'Szabadság, Pozitivitás, Béke, Élet!',
+    description: 'Sub-Header placeholder for guest user',
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
@@ -1134,7 +1215,7 @@ export const placeholders = {
   },
   welcomeMessage: {
     id: 'placeholders.welcomeMessage',
-    defaultMessage: 'Üdvözlünk! Kattints a Kezdés-re!',
+    defaultMessage: 'Bejelentkezés, vagy Regisztráció',
     description: 'Default welcome message',
   },
   findUser: {
@@ -1218,7 +1299,7 @@ export const profile = {
     },
     followers: {
       id: 'profile.stats.followers',
-      defaultMessage: 'Követők',
+      defaultMessage: 'Követő',
       description: 'Label for followers profile stat',
     },
     zaps: {
@@ -1269,7 +1350,7 @@ export const profile = {
   },
   noNotes: {
     id: 'profile.noNotes',
-    defaultMessage: '{name} nem posztolt még bejegyzést',
+    defaultMessage: '{name} nem posztolt még',
     description: 'Label indicating that the profile has no notes',
   },
   noArticles: {
@@ -1357,7 +1438,7 @@ export const settingsBTC = {
 export const search = {
   followers: {
     id: 'search.followers',
-    defaultMessage: 'Követők',
+    defaultMessage: 'Követő',
     description: 'Followers label for user search results',
   },
   invalid: {
@@ -1413,27 +1494,27 @@ export const settings = {
     },
     description: {
       id: 'settings.account.description',
-      defaultMessage: 'Növelheted a fiókod biztonságát egy Noszter böngészőbővítmény, például {link} telepítésével. Ha a Noszter privát kulcsodat egy böngészőbővítményben tárolod, biztonságosan be tudsz jelentkezni bármely Noszter webalkalmazásba, beleértve a MagánSzövetség.Net-et is.',
+      defaultMessage: 'Mindenképp mentsd le az általunk adott hosszú jelszavadat (privát kulcsodat) mert csakis ezzel tudsz bejelentkezni a MaganSzovetseg.Net weboldalra. Ha elveszted, a fiókod úgy örzi meg örök időkig a rendszer ahogy hagytad; új fiókot kell létrehoznod.',
       description: 'Warning about account security',
     },
     pubkey: {
       id: 'settings.account.pubkey',
-      defaultMessage: 'Általunk generált hosszú felhasználóneved (Nyilvános kulcsod)',
+      defaultMessage: 'Hosszú felhasználóneved (Nyilvános Kulcsod)',
       description: 'Your public key section caption',
     },
     pubkeyDesc: {
       id: 'settings.account.pubkeyDesc',
-      defaultMessage: 'Bárki megtalálhat a Noszteren a nyilvános kulcsodon keresztül. Nyugodtan oszd meg bárhol.',
+      defaultMessage: 'Bárki megtalálhat a nemzetözi hálóban nyilvános kulcsodon keresztül. Nyugodtan oszd meg bárhol.',
       description: 'Label describing the public key',
     },
     privkey: {
       id: 'settings.account.privkey',
-      defaultMessage: 'Általun generált hosszú jelszavad (Privát kulcsod)',
+      defaultMessage: 'Hosszú jelszavad (Privát Kulcsod)',
       description: 'Your private key section caption',
     },
     privkeyDesc: {
       id: 'settings.account.privkeyDesc',
-      defaultMessage: 'Ez a kulcs teljes ellenőrzést biztosít a Noszter fiókod felett. Ne oszd meg senkivel. Csak akkor másold, ha biztonságosan tárolod, vagy ha egy másik Noszter alkalmazásba szeretnél bejelentkezni.',
+      defaultMessage: 'Ez a kulcs teljes ellenőrzést biztosít a fiókod felett. Ne oszd meg senkivel! Ezt mii se ismerjük, így visszaállítani se tudjuk.',
       description: 'Label describing the private key',
     },
   },
@@ -1594,7 +1675,7 @@ export const settings = {
     },
     relays: {
       id: 'settings.network.relays',
-      defaultMessage: 'Noszter Rendszer-Kapcsolati Adattovábbítók',
+      defaultMessage: 'Rendszer-Kapcsolati Adattovábbítók',
       description: 'Title of the relays section of the network settings sub-page',
     },
     myRelays: {
@@ -1614,7 +1695,7 @@ export const settings = {
     },
     customRelay: {
       id: 'settings.network.customRelay',
-      defaultMessage: 'Csatlakozás egy általam megadott globális kommunikációs csomóponthoz (Noszter reléhez):',
+      defaultMessage: 'Csatlakozás egy általam megadott globális kommunikációs csomóponthoz (reléhez):',
       description: 'Title of the custom relays section of the network settings sub-page',
     },
     cachingService: {
@@ -1820,7 +1901,7 @@ export const settings = {
       },
       placeholder : {
         id: 'pages.settings.profile.about.placeholder',
-        defaultMessage: 'Mondj valamit magadról... Mit szeretsz tenni? Mivel foglalkozol? Hol laksz? Miszámodra fontos a életben? Milyen értékrend szerint élsz? stb.',
+        defaultMessage: 'Mondj valamit magadról... Mit szeretsz tenni? Mivel foglalkozol? Mi az ami számodra fontos a életben? Milyen értékrend szerint élsz? stb.',
         description: 'Placeholder for about input on edit profile page',
       },
     },
@@ -1839,12 +1920,12 @@ export const settings = {
     nip05: {
       label: {
         id: 'pages.settings.profile.nip05.label',
-        defaultMessage: 'Ellenőrzött Noszter cím (NIP-05) (Opcionális)',
+        defaultMessage: 'Ellenőrzött MaganSzovetseg cím (NIP-05) (Opcionális)',
         description: 'Label for nip-05 input on edit profile page',
       },
       placeholder : {
         id: 'pages.settings.profile.nip05.placeholder',
-        defaultMessage: 'Add meg az ellenőrzött Noszter azonosítódat',
+        defaultMessage: 'Add meg az ellenőrzött azonosítódat',
         description: 'Placeholder for nip-05 input on edit profile page',
       },
     },
@@ -1940,11 +2021,13 @@ export const scopeDescriptors: Record<string, ScopeDescriptor> = {
     },
     description: {
       id: 'explore.scopes.global.description',
-      defaultMessage: 'Az összes Noszter fiók',
+      defaultMessage: 'Az összes fiók',
       description: 'Description of the global scope description',
     },
   },
 };
+
+
 
 export const timeframeDescriptors: Record<string, MessageDescriptor> = {
   latest: {
@@ -2043,12 +2126,12 @@ export const toast = {
   },
   noExtension: {
     id: 'toast.noExtension',
-    defaultMessage: 'A Noszter bővítmény szükséges események küldéséhez',
+    defaultMessage: 'A bővítmény szükséges események küldéséhez',
     description: 'Toast message indicating no extension was found',
   },
   noteNostrLinkCoppied: {
     id: 'toast.noteNostrLinkCoppied',
-    defaultMessage: 'Bejegyzés Noszter linkje másolva',
+    defaultMessage: 'Bejegyzés linkje másolva',
     description: 'Confirmation message that the note\'s link has been copied',
   },
   notePrimalLinkCoppied: {
@@ -2216,7 +2299,7 @@ export const forgotPin = {
   },
   description: {
     id: 'forgotPin.description',
-    defaultMessage: 'Még mindig böngészheted a Nosztert a MagánSzövetség.Net-en keresztül, de nem tudsz műveleteket végrehajtani (bejegyzések, kedvelések stb.), amíg újra be nem jelentkezel a privát kulcsoddal. Biztos, hogy folytatni szeretnéd?',
+    defaultMessage: 'Még mindig böngészheted a MagánSzövetség.Net nemzetközi hálóját, de nem tudsz műveleteket végrehajtani (bejegyzések, kedvelések stb.), amíg újra be nem jelentkezel a privát kulcsoddal. Biztos, hogy folytatni szeretnéd?',
     description: 'Explanation of what happens when pin is erased',
   },
   confirm: {
@@ -2239,7 +2322,7 @@ export const followWarning = {
   },
   description: {
     id: 'followWarning.description',
-    defaultMessage: 'Ha folytatod, akkor végül csak egy Noszter fiókot fogsz követni. Biztos vagy benne, hogy folytatni szeretnéd?',
+    defaultMessage: 'Ha folytatod, akkor végül csak egy fiókot fogsz követni. Biztos vagy benne, hogy folytatni szeretnéd?',
     description: 'Explanation of what happens when follow error occurs',
   },
   confirm: {
@@ -2281,7 +2364,7 @@ export const bookmarks = {
     },
     description: {
       id: 'bookmarks.confirm.description',
-      defaultMessage: 'Az első nyilvános könyvjelződet készülsz menteni. Ezeket más Noszter felhasználók is láthatják. Szeretnéd folytatni?',
+      defaultMessage: 'Az első nyilvános könyvjelződet készülsz menteni. Ezeket más felhasználók is láthatják. Szeretnéd folytatni?',
       description: 'Explanation of what happens when bookmark error occurs',
     },
     confirm: {
@@ -2513,7 +2596,7 @@ export const premium = {
     },
     leaveStarsDescription: {
       id: 'pages.premium.labes.leaveStarsDescription',
-      defaultMessage: 'Az App Store értékelések segítenek a Noszter alkalmazások láthatóságának növelésében ebben a korai szakaszban.',
+      defaultMessage: 'Az App Store értékelések segítenek a noszter alkalmazások láthatóságának növelésében ebben a korai szakaszban.',
       description: 'Support page 5 star review description',
     },
     extendSubscription: {

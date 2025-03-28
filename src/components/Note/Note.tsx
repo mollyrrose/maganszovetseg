@@ -1,12 +1,12 @@
-import { A } from '@solidjs/router';
+// import { A } from '@solidjs/router';
 import { batch, Component, createEffect, Match, onMount, Show, Switch } from 'solid-js';
-import { PrimalNote, TopZap, ZapOption } from '../../types/primal';
+import { PrimalNote, PrimalUser, TopZap, ZapOption } from '../../types/primal';
 import ParsedNote from '../ParsedNote/ParsedNote';
 import NoteFooter from './NoteFooter/NoteFooter';
 
 import styles from './Note.module.scss';
 import { useThreadContext } from '../../contexts/ThreadContext';
-import { useIntl } from '@cookbook/solid-intl';
+//import { useIntl } from '@cookbook/solid-intl';
 import { hookForDev } from '../../lib/devTools';
 import Avatar from '../Avatar/Avatar';
 import NoteAuthorInfo from './NoteAuthorInfo';
@@ -18,10 +18,13 @@ import { CustomZapInfo, useAppContext } from '../../contexts/AppContext';
 import NoteContextTrigger from './NoteContextTrigger';
 import { date, veryLongDate } from '../../lib/dates';
 import { useAccountContext } from '../../contexts/AccountContext';
-import { uuidv4 } from '../../utils';
+import { isPhone, uuidv4 } from '../../utils';
 import NoteTopZaps from './NoteTopZaps';
 import NoteTopZapsCompact from './NoteTopZapsCompact';
-import { addrRegex, addrRegexG, imageRegex, imageRegexEnd, imageRegexG, linebreakRegex, noteRegex, noteRegexLocal, profileRegexG, urlRegex, urlRegexG } from '../../constants';
+import { addrRegexG, imageRegexG, Kind, linebreakRegex, noteRegex, urlRegexG } from '../../constants';
+import { nip19 } from 'nostr-tools';
+import AppRouter from '../../Router';
+import { TranslatorProvider } from '../../contexts/TranslatorContext';
 
 export type NoteReactionsState = {
   likes: number,
@@ -45,34 +48,45 @@ export type NoteReactionsState = {
   quoteCount: number,
 };
 
-const Note: Component<{
+export type NoteProps = {
   note: PrimalNote,
   id?: string,
   parent?: boolean,
   shorten?: boolean,
-  noteType?: 'feed' | 'primary' | 'notification' | 'reaction' | 'thread'
-  onClick?: () => void,
+  noteType?: 'feed' | 'primary' | 'notification' | 'reaction' | 'thread' | 'suggestion',
+  onClick?: (note?: PrimalNote) => void,
   quoteCount?: number,
   size?: 'xwide' | 'wide' | 'normal' | 'short',
-}> = (props) => {
+  defaultParentAuthor?: PrimalUser,
+}
+
+export const renderNote = (props: NoteProps) => (
+  <div>
+    <TranslatorProvider>
+      <Note {...props} />
+    </TranslatorProvider>
+  </div> as HTMLDivElement
+  ).innerHTML;
+
+const Note: Component<NoteProps> = (props) => {
 
   const threadContext = useThreadContext();
   const app = useAppContext();
   const account = useAccountContext();
-  const intl = useIntl();
+  //const intl = useIntl();
 
   createEffect(() => {
     if (props.quoteCount) {
       updateReactionsState('quoteCount', () => props.quoteCount || 0);
     }
-  })
+  });
 
   const noteType = () => props.noteType || 'feed';
 
   const repost = () => props.note.repost;
 
   const navToThread = (note: PrimalNote) => {
-    props.onClick && props.onClick();
+    props.onClick && props.onClick(note);
     threadContext?.actions.setPrimaryNote(note);
   };
 
@@ -300,7 +314,7 @@ const Note: Component<{
   return (
     <Switch>
       <Match when={noteType() === 'notification'}>
-        <A
+        <a
           id={props.id}
           class={styles.noteNotificationLink}
           href={`/e/${props.note?.post.noteId}`}
@@ -328,7 +342,7 @@ const Note: Component<{
               </div>
             </div>
           </div>
-        </A>
+        </a>
       </Match>
 
       <Match when={noteType() === 'primary'}>
@@ -356,7 +370,7 @@ const Note: Component<{
             <div class={`${styles.message} ${bigMessageFont() ? styles.bigFont : ''}`}>
               <ParsedNote
                 note={props.note}
-                width={Math.min(640, window.innerWidth)}
+                width={Math.min(598, window.innerWidth)}
                 margins={42}
               />
             </div>
@@ -371,18 +385,67 @@ const Note: Component<{
             </div>
 
             <div
-              class={styles.time}
+              class={styles.timePrimary}
               title={date(props.note.post?.created_at).date.toLocaleString()}
             >
               <span>
-                {veryLongDate(props.note.post?.created_at)}
+                {veryLongDate(props.note.post?.created_at).replace(' at ', ' · ')}
               </span>
-              <button
-                class={styles.reactSummary}
-                onClick={() => openReactionModal()}
+
+              <Show
+                when={isPhone()}
+                fallback={
+                  <button
+                    class={styles.reactSummary}
+                    onClick={() => openReactionModal()}
+                  >
+                    <span class={styles.number}>{reactionSum()}</span> Reactions
+                  </button>
+                }
               >
-                <span class={styles.number}>{reactionSum()}</span> reakció
-              </button>
+                <div class={styles.reactionSpread}>
+                  <Show when={reactionsState.replies > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('replies')}
+                    >
+                      <span class={styles.number}>{reactionsState.replies}</span> Replies
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.zapCount > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('zaps')}
+                    >
+                      <span class={styles.number}>{reactionsState.zapCount}</span> Zaps
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.likes > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('likes')}
+                    >
+                      <span class={styles.number}>{reactionsState.likes}</span> Likes
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.reposts > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('reposts')}
+                    >
+                      <span class={styles.number}>{reactionsState.reposts}</span> Reposts
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.quoteCount > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('quotes')}
+                    >
+                      <span class={styles.number}>{reactionsState.quoteCount}</span> Quotes
+                    </button>
+                  </Show>
+                </div>
+              </Show>
             </div>
 
             <div class={styles.footer}>
@@ -394,17 +457,18 @@ const Note: Component<{
                 size="wide"
                 large={true}
                 onZapAnim={addTopZap}
+                noteType="primary"
               />
             </div>
           </div>
         </div>
       </Match>
 
-      {/* <Match when={noteType() === 'feed'}>
-        <A
+      <Match when={isPhone() && noteType() === 'feed'}>
+        <a
           id={props.id}
           class={`${styles.note} ${props.parent ? styles.parent : ''}`}
-          href={`/e/${props.note?.post.noteId}`}
+          href={!props.onClick ? noteLinkId() : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -416,9 +480,9 @@ const Note: Component<{
             </Show>
           </div>
           <div class={styles.userHeader}>
-            <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
+            {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
               <Avatar user={props.note.user} size="xs" />
-            </A>
+            {/* </A> */}
 
             <NoteAuthorInfo
               author={props.note.user}
@@ -433,14 +497,14 @@ const Note: Component<{
             </div>
           </div>
 
-          <NoteReplyToHeader note={props.note} />
+          <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
           <div class={`${styles.message} ${bigMessageFont() ? styles.bigFont : ''}`}>
             <ParsedNote
               note={props.note}
               shorten={props.shorten}
-              width={Math.min(640, window.innerWidth - 72)}
-              margins={20}
+              width={window.innerWidth}
+              margins={45}
             />
           </div>
 
@@ -459,14 +523,14 @@ const Note: Component<{
             onZapAnim={addTopZapFeed}
             size={size()}
           />
-        </A>
-      </Match> */}
+        </a>
+      </Match>
 
       <Match when={noteType() === 'thread' || noteType() === 'feed'}>
-        <A
+        <a
           id={props.id}
           class={`${styles.noteThread} ${props.parent ? styles.parent : ''}`}
-          href={`/e/${props.note?.post.noteId}`}
+          href={!props.onClick ? noteLinkId() : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -479,9 +543,9 @@ const Note: Component<{
           </div>
           <div class={styles.content}>
             <div class={styles.leftSide}>
-              <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
+              {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
                 <Avatar user={props.note.user} size="vs" />
-              </A>
+              {/* </A> */}
               <Show
                 when={props.parent}
               >
@@ -502,14 +566,14 @@ const Note: Component<{
                 />
               </div>
 
-              <NoteReplyToHeader note={props.note} />
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
               <div class={styles.message}>
                 <ParsedNote
                   note={props.note}
                   shorten={props.shorten}
-                  width={Math.min(566, window.innerWidth - 72)}
-                  margins={16}
+                  width={Math.min(508, window.innerWidth - 72)}
+                  margins={58}
                   footerSize="short"
                 />
               </div>
@@ -526,21 +590,21 @@ const Note: Component<{
                   note={props.note}
                   state={reactionsState}
                   updateState={updateReactionsState}
-                  //customZapInfo={customZapInfo()}
+                  //customZapInfo={customZapInfo()} //BTC lightning out
                   //onZapAnim={addTopZapFeed}
                   size="short"
                 />
               </div>
             </div>
           </div>
-        </A>
+        </a>
       </Match>
 
       <Match when={noteType() === 'reaction'}>
-        <A
+        <a
           id={props.id}
           class={`${styles.note} ${styles.reactionNote}`}
-          href={`/e/${props.note?.post.noteId}`}
+          href={!props.onClick ? noteLinkId() : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -548,9 +612,9 @@ const Note: Component<{
         >
           <div class={styles.content}>
             <div class={styles.leftSide}>
-              <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
+              <div>
                 <Avatar user={props.note.user} size="vs" />
-              </A>
+              </div>
               <Show
                 when={props.parent}
               >
@@ -564,7 +628,7 @@ const Note: Component<{
                 time={props.note.post.created_at}
               />
 
-              <NoteReplyToHeader note={props.note} />
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
               <div class={styles.message}>
                 <ParsedNote
@@ -578,7 +642,57 @@ const Note: Component<{
               </div>
             </div>
           </div>
-        </A>
+        </a>
+      </Match>
+
+
+      <Match when={noteType() === 'suggestion'}>
+        <a
+          id={props.id}
+          class={`${styles.noteSuggestion}`}
+          href={!props.onClick ? noteLinkId() : ''}
+          onClick={() => navToThread(props.note)}
+          data-event={props.note.post.id}
+          data-event-bech32={props.note.post.noteId}
+          draggable={false}
+        >
+          <div class={styles.header}>
+            <Show when={repost()}>
+              <NoteRepostHeader note={props.note} />
+            </Show>
+          </div>
+          <div class={styles.content}>
+            <div class={styles.leftSide}>
+              {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
+                <Avatar user={props.note.user} size="vs" />
+              {/* </A> */}
+              <Show
+                when={props.parent}
+              >
+                <div class={styles.ancestorLine}></div>
+              </Show>
+            </div>
+
+            <div class={styles.rightSide}>
+              <NoteAuthorInfo
+                author={props.note.user}
+                time={props.note.post.created_at}
+              />
+
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
+
+              <div class={styles.message}>
+                <ParsedNote
+                  note={props.note}
+                  shorten={props.shorten}
+                  width={Math.min(508, window.innerWidth - 72)}
+                  margins={58}
+                  footerSize="short"
+                />
+              </div>
+            </div>
+          </div>
+        </a>
       </Match>
     </Switch>
   );

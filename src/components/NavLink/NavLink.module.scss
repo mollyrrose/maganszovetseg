@@ -46,14 +46,33 @@
     }
   }
 
+  //$cdn-url: "https://cdnwin.maganszovetseg.net";
+
+  &.phoneNavLink {
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    justify-content: center;
+  }
+
   .homeIcon {
-    @include iconNav(url(../../assets/icons/nav/home.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/home.svg), var(--text-secondary));
+
+    //$longIcon: url("https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg");
+    //@include iconNav($longIcon, var(--text-secondary));
+
+    //@include iconNav(unquote("url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg)"), var(--text-secondary));
+    
+    @include iconNav(url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg'), var(--text-secondary));
+    //@include iconNav(url(#{$cdn-url}/assets/icons/nav/long.svg), var(--text-secondary));
   }
   .readsIcon {
     @include iconNav(url(../../assets/icons/nav/long.svg), var(--text-secondary));
+    //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long.svg), var(--text-secondary));
   }
   .exploreIcon {
     @include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-secondary));
+    //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-secondary));
   }
   .messagesIcon {
     @include iconNav(url(../../assets/icons/nav/messages.svg), var(--text-secondary));
@@ -84,12 +103,21 @@
 
     .homeIcon {
       @include iconNav(url(../../assets/icons/nav/home_selected.svg), var(--text-primary));
+
+      //$longIcon: url("https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg");
+      //@include iconNav($longIcon, var(--text-secondary));
+
+      //@include iconNav(unquote("url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg)"), var(--text-secondary));
+      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg), var(--text-primary));
+      //@include iconNav(url(#{$cdn-url}/assets/icons/nav/long_selected.svg), var(--text-secondary));
     }
     .readsIcon {
       @include iconNav(url(../../assets/icons/nav/long_selected.svg), var(--text-primary));
+      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long_selected.svg), var(--text-primary));
     }
     .exploreIcon {
       @include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-primary));
+      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-secondary));
     }
     .messagesIcon {
       @include iconNav(url(../../assets/icons/nav/messages_selected.svg), var(--text-primary));
@@ -187,6 +215,34 @@
     a {
       .label {
         display: none;
+      }
+    }
+
+    &.subMenu {
+      a {
+        >div {
+          background-color: var(--text-secondary);
+          border-radius: 8px;
+        }
+
+        .label {
+          display: flex;
+          color: var(--text-secondary);
+          background: none;
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 20px;
+        }
+
+        &:focus {
+          >div {
+            background-color: var(--text-primary);
+          }
+
+          .label {
+            background: var(--text-primary);
+          }
+        }
       }
     }
   }

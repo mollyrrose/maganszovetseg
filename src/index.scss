@@ -85,7 +85,7 @@
   --success-color-2: #2CA85E;
   --success-color-3: #0E8A40;
 
-  --premium-orange: #148b2a;
+  --premium-orange: #148b2a;				//egyéni oldal-színek
 
   --media-stats-image: #027934;
   --media-stats-video: #0090F8;
@@ -172,11 +172,20 @@ body {
 }
 
 a {
-  color: var(--accent-links)
+  color: var(--accent-links);
+  text-decoration: none;
 }
 
 .linkish {
   color: var(--accent-links);
+}
+
+.linkish_editor {
+  color: var(--accent-links) !important;
+}
+
+.temp_editor {
+  color: var(--brand-text) !important;
 }
 
 .redBorder {
@@ -225,7 +234,20 @@ body::after{
     url(./assets/icons/purple_ostrich.svg)
     url(./assets/icons/video.svg)
     url(./assets/icons/gallery.svg)
-    url(./assets/icons/lightning_white.svg);
+    url(./assets/icons/lightning_white.svg)
+    url(./assets/icons/feed_reply.svg)
+    url(./assets/icons/feed_reply_fill.svg)
+    url(./assets/icons/feed_repost.svg)
+    url(./assets/icons/feed_repost_fill.svg)
+    url(./assets/icons/feed_zap.svg)
+    url(./assets/icons/feed_zap_fill.svg)
+    url(./assets/icons/feed_like.svg)
+    url(./assets/icons/feed_like_fill.svg)
+    url(./assets/icons/attach_media.svg)
+    url(./assets/icons/emoji.svg)
+    url(./assets/icons/latest.svg)
+    url(./assets/icons/heart.svg)
+    url(./assets/icons/weather.svg);
 }
 
 .reply_icon {
@@ -261,7 +283,7 @@ body::after{
   mask: url(./assets/icons/feed_like_fill.svg) no-repeat 0 / 100%;
 }
 .attach_icon {
-  -webkit-mask: url(./assets/icons/attach_media2.png) no-repeat 0 / 100%;
+  -webkit-mask: url(./assets/icons/attach_media2.png) no-repeat 0 / 100%; //saját icon
   mask: url(./assets/icons/attach_media2.png) no-repeat 0 / 100%;
 }
 .emoji_icon {
@@ -280,7 +302,6 @@ body::after{
   -webkit-mask: url(./assets/icons/weather.svg) no-repeat 0 / 100%;
   mask: url(./assets/icons/weather.svg) no-repeat 0 / 100%;
 }
-
 .bordered {
   border:solid 1px var(--subtile-devider);
   border-radius: 8px;

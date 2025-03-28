@@ -1,7 +1,7 @@
-import { Component, createEffect, createMemo, For, onCleanup, onMount, Show } from 'solid-js';
+import { Component, createEffect, createMemo, For, onCleanup, Show } from 'solid-js';
 import Note from '../components/Note/Note';
 import styles from './NoteThread.module.scss';
-import { useNavigate, useParams } from '@solidjs/router';
+import { useNavigate } from '@solidjs/router';
 import { PrimalArticle, PrimalNote, PrimalUser, SendNoteResult } from '../types/primal';
 import PeopleList from '../components/PeopleList/PeopleList';
 import ReplyToNote from '../components/ReplyToNote/ReplyToNote';
@@ -10,23 +10,22 @@ import { nip19 } from '../lib/nTools';
 import { useThreadContext } from '../contexts/ThreadContext';
 import Wormhole from '../components/Wormhole/Wormhole';
 import { useAccountContext } from '../contexts/AccountContext';
-import { generateNote, sortByRecency } from '../stores/note';
+import { sortByRecency } from '../stores/note';
 import { useIntl } from '@cookbook/solid-intl';
 import Search from '../components/Search/Search';
 import { placeholders as tPlaceholders, thread as t } from '../translations';
 import { userName } from '../stores/profile';
 import PageTitle from '../components/PageTitle/PageTitle';
 import NavHeader from '../components/NavHeader/NavHeader';
-import Loader from '../components/Loader/Loader';
-import { isIOS } from '../components/BannerIOS/BannerIOS';
-import { unwrap } from 'solid-js/store';
 import PrimaryNoteSkeleton from '../components/Skeleton/PrimaryNoteSkeleton';
 import ReplyToNoteSkeleton from '../components/Skeleton/ReplyToNoteSkeleton';
 import ThreadNoteSkeleton from '../components/Skeleton/ThreadNoteSkeleton';
 import { Transition } from 'solid-transition-group';
 import { APP_ID } from '../App';
-import { subsTo } from '../sockets';
 import { fetchNotes } from '../handleNotes';
+import { isIOS, isPhone } from '../utils';
+import { logWarning } from '../lib/logger';
+import { noteIdToHex } from '../lib/keys';
 
 
 const NoteThread: Component<{ noteId: string }> = (props) => {
@@ -38,26 +37,22 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
 
   let initialPostId = '';
 
-  const postId = () => {
-    const { noteId } = props;
-
-    if (noteId.startsWith('note')) {
-      return noteId;
-    }
-
-    if (noteId.startsWith('nevent')) {
-      // @ts-ignore
-      return nip19.noteEncode(nip19.decode(noteId).data.id);
-    }
-
-    return nip19.noteEncode(noteId);
-  };
+  const postId = () => noteIdToHex(props.noteId);
 
   const threadContext = useThreadContext();
 
+
+  const noteLinkId = (note: PrimalNote) => {
+    try {
+      return `/e/${note.noteIdShort}`;
+    } catch(e) {
+      return '/404';
+    }
+  };
+
   const primaryNote = createMemo(() => {
 
-    let note = threadContext?.notes.find(n => n.post.noteId === postId());
+    let note = threadContext?.notes.find(n => n.id === postId());
 
     // Return the note if found
     if (note) {
@@ -65,10 +60,10 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
     }
 
     // Since there is no note see if this is a repost
-    note = threadContext?.notes.find(n => n.repost?.note.noteId === postId());
+    note = threadContext?.notes.find(n => n.repost?.note.id === postId());
 
     // If reposted note found redirect to it's thread
-    note && navigate(`/e/${note?.post.noteId}`)
+    note && navigate(noteLinkId(note))
 
     return note;
   });
@@ -135,11 +130,8 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
     if (!pn) return;
 
     setTimeout(() => {
-      const threadHeader = 84;
-      const iOSBanner = 54;
-
       const rect = pn.getBoundingClientRect();
-      const wh = window.innerHeight - threadHeader;
+      const wh = window.innerHeight;
 
       const block = rect.height < wh && parentNotes().length > 0 ?
         'end' : 'start';
@@ -147,8 +139,7 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
       pn.scrollIntoView({ block });
 
       if (block === 'start') {
-        const moreScroll = threadHeader + (isIOS() ? iOSBanner : 0);
-        window.scrollBy({ top: -moreScroll });
+        window.scrollBy({ top: -84 });
       }
     }, 100);
   });
@@ -176,9 +167,7 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
 
     const subId = `posted_note_${APP_ID}`;
 
-
     const notes = await fetchNotes(account.publicKey, [result.note.id], subId);
-
 
     // const note = generateNote(result.note, account?.activeUser, modifiedMeta);
 
@@ -203,21 +192,23 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
   return (
     <div>
       <PageTitle title={pageTitle()} />
+      <Show when={!isPhone()}>
+        <Wormhole
+          to="search_section"
+        >
+          <Search />
+        </Wormhole>
 
-      <Wormhole
-        to="search_section"
-      >
-        <Search />
-      </Wormhole>
-
-      <Wormhole to='right_sidebar'>
-        <PeopleList
-          note={primaryNote()}
-          people={people()}
-          label={intl.formatMessage(t.sidebar)}
-          mentionLabel={intl.formatMessage(t.sidebarMentions)}
-        />
-      </Wormhole>
+        <Wormhole to='right_sidebar'>
+          <PeopleList
+            note={primaryNote()}
+            people={people()}
+            label={intl.formatMessage(t.sidebar)}
+            mentionLabel={intl.formatMessage(t.sidebarMentions)}
+            sortBy="legend"
+          />
+        </Wormhole>
+      </Show>
 
       <NavHeader title="Beszélgetés" />
 
@@ -262,7 +253,7 @@ const NoteThread: Component<{ noteId: string }> = (props) => {
                     </p>
                   </div>
               }>
-                <div id="primary_note" class="animated">
+                <div id="primary_note" class={`${styles.primaryNote} animated`}>
                   <Note
                     note={primaryNote() as PrimalNote}
                     noteType="primary"

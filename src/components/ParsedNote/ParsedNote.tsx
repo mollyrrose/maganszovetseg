@@ -1,4 +1,4 @@
-import { A } from '@solidjs/router';
+// import { A } from '@solidjs/router';
 import { decodeIdentifier, hexToNpub } from '../../lib/keys';
 import {
   getLinkPreview,
@@ -14,24 +14,30 @@ import {
   isMp4Video,
   isNoteMention,
   isOggVideo,
+  isRumble,
   isSoundCloud,
   isSpotify,
   isTagMention,
+  isTidal,
   isTwitch,
+  isTwitchPlayer,
   isUnitifedLnAddress,
   isUrl,
   isUserMention,
   isWavelake,
   isWebmVideo,
   isYouTube,
+  linkPreviews,
 } from '../../lib/notes';
-import { truncateNpub, userName } from '../../stores/profile';
+import { convertToUser, truncateNpub, userName } from '../../stores/profile';
 import EmbeddedNote from '../EmbeddedNote/EmbeddedNote';
 import {
-  Component, createSignal, For, JSXElement, onMount, Show,
+  Component, createSignal, For, JSXElement, Match, onMount, Show, Switch,
 } from 'solid-js';
 import {
   NostrEventContent,
+  NostrImageContent,
+  NostrUserContent,
   NostrUserZaps,
   PrimalArticle,
   PrimalNote,
@@ -48,7 +54,7 @@ import { hookForDev } from '../../lib/devTools';
 import { getMediaUrl as getMediaUrlDefault } from "../../lib/media";
 import NoteImage from '../NoteImage/NoteImage';
 import { createStore } from 'solid-js/store';
-import { hashtagCharsRegex, Kind, linebreakRegex, lnUnifiedRegex, shortMentionInWords, shortNoteChars, shortNoteWords, specialCharsRegex, urlExtractRegex } from '../../constants';
+import { addrRegex, hashtagCharsRegex, Kind, linebreakRegex, lnUnifiedRegex, noteRegex, profileRegex, shortMentionInWords, shortNoteChars, shortNoteWords, specialCharsRegex, urlExtractRegex } from '../../constants';
 import { useIntl } from '@cookbook/solid-intl';
 import { actions } from '../../translations';
 
@@ -64,6 +70,8 @@ import { useAccountContext } from '../../contexts/AccountContext';
 import { subsTo } from '../../sockets';
 import ProfileNoteZap from '../ProfileNoteZap/ProfileNoteZap';
 import { parseBolt11 } from '../../utils';
+import SimpleArticlePreview from '../ArticlePreview/SimpleArticlePreview';
+import NostrImage from '../NostrImage/NostrImage';
 
 const groupGridLimit = 7;
 
@@ -180,7 +188,7 @@ const ParsedNote: Component<{
     return `note_${props.note.noteId}`;
   }
 
-  const noteWidth = () => props.width || 514;
+  const noteWidth = () => props.width || 508;
 
   let thisNote: HTMLDivElement | undefined;
 
@@ -298,147 +306,6 @@ const ParsedNote: Component<{
       return;
     }
 
-    if (isUrl(token)) {
-      const index = token.indexOf('http');
-
-      if (index > 0) {
-        const prefix = token.slice(0, index);
-
-        const matched = (token.match(urlExtractRegex) || [])[0];
-
-        if (matched) {
-          const suffix = token.substring(matched.length + index, token.length);
-
-          parseToken(prefix);
-          parseToken(matched);
-          parseToken(suffix);
-          return;
-        } else {
-          parseToken(prefix);
-          parseToken(token.slice(index));
-          return;
-        }
-      }
-
-      if (!props.ignoreMedia) {
-        if (isImage(token)) {
-          removeLinebreaks('image');
-          isAfterEmbed = true;
-          lastSignificantContent = 'image';
-          updateContent(content, 'image', token);
-          return;
-        }
-
-        if (isMp4Video(token)) {
-          removeLinebreaks('video');
-          isAfterEmbed = true;
-          lastSignificantContent = 'video';
-          updateContent(content, 'video', token, { videoType: 'video/mp4'});
-          return;
-        }
-
-        if (isOggVideo(token)) {
-          removeLinebreaks('video');
-          isAfterEmbed = true;
-          lastSignificantContent = 'video';
-          updateContent(content, 'video', token, { videoType: 'video/ogg'});
-          return;
-        }
-
-        if (isWebmVideo(token)) {
-          removeLinebreaks('video');
-          isAfterEmbed = true;
-          lastSignificantContent = 'video';
-          updateContent(content, 'video', token, { videoType: 'video/webm'});
-          return;
-        }
-
-        if (isYouTube(token)) {
-          removeLinebreaks('youtube');
-          isAfterEmbed = true;
-          lastSignificantContent = 'youtube';
-          updateContent(content, 'youtube', token);
-          return;
-        }
-
-        if (isSpotify(token)) {
-          removeLinebreaks('spotify');
-          isAfterEmbed = true;
-          lastSignificantContent = 'spotify';
-          updateContent(content, 'spotify', token);
-          return;
-        }
-
-        if (isTwitch(token)) {
-          removeLinebreaks('twitch');
-          isAfterEmbed = true;
-          lastSignificantContent = 'twitch';
-          updateContent(content, 'twitch', token);
-          return;
-        }
-
-        if (isMixCloud(token)) {
-          removeLinebreaks('mixcloud');
-          isAfterEmbed = true;
-          lastSignificantContent = 'mixcloud';
-          updateContent(content, 'mixcloud', token);
-          return;
-        }
-
-        if (isSoundCloud(token)) {
-          removeLinebreaks('soundcloud');
-          isAfterEmbed = true;
-          lastSignificantContent = 'soundcloud';
-          updateContent(content, 'soundcloud', token);
-          return;
-        }
-
-        if (isAppleMusic(token)) {
-          removeLinebreaks('applemusic');
-          isAfterEmbed = true;
-          lastSignificantContent = 'applemusic';
-          updateContent(content, 'applemusic', token);
-          return;
-        }
-
-        if (isWavelake(token)) {
-          removeLinebreaks('wavelake');
-          isAfterEmbed = true;
-          lastSignificantContent = 'wavelake';
-          updateContent(content, 'wavelake', token);
-          return;
-        }
-      }
-
-      if (props.noLinks === 'text') {
-        lastSignificantContent = 'text';
-        updateContent(content, 'text', token);
-        return;
-      }
-
-      const preview = getLinkPreview(token);
-
-      const hasMinimalPreviewData = !props.noPreviews &&
-        preview &&
-        preview.url &&
-        ((!!preview.description && preview.description.length > 0) ||
-          !preview.images?.some((x:any) => x === '') ||
-          !!preview.title
-        );
-
-      if (hasMinimalPreviewData) {
-        removeLinebreaks('link');
-        updateContent(content, 'link', token, { preview });
-      } else {
-        updateContent(content, 'link', token);
-      }
-
-      lastSignificantContent = 'link';
-      isAfterEmbed = false;
-      totalLinks++;
-      return;
-    }
-
     if (isNoteMention(token)) {
       removeLinebreaks('notemention');
       lastSignificantContent = 'notemention';
@@ -502,6 +369,177 @@ const ParsedNote: Component<{
       updateContent(content, 'lnbc', token);
       return;
     }
+
+    if (isUrl(token)) {
+          const index = token.indexOf('http');
+
+          if (index > 0) {
+            const prefix = token.slice(0, index);
+
+            const matched = (token.match(urlExtractRegex) || [])[0];
+
+            if (matched) {
+              const suffix = token.substring(matched.length + index, token.length);
+
+              parseToken(prefix);
+              parseToken(matched);
+              parseToken(suffix);
+              return;
+            } else {
+              parseToken(prefix);
+              parseToken(token.slice(index));
+              return;
+            }
+          }
+
+          // if (primalUserRegex.test(token)) {
+          //   lastSignificantContent = 'usermention';
+          //   updateContent(content, 'usermention', token);
+          //   return;
+          // }
+
+          if (!props.ignoreMedia) {
+            if (isImage(token)) {
+              removeLinebreaks('image');
+              isAfterEmbed = true;
+              lastSignificantContent = 'image';
+              updateContent(content, 'image', token);
+              return;
+            }
+
+            if (isMp4Video(token)) {
+              removeLinebreaks('video');
+              isAfterEmbed = true;
+              lastSignificantContent = 'video';
+              updateContent(content, 'video', token, { videoType: 'video/mp4'});
+              return;
+            }
+
+            if (isOggVideo(token)) {
+              removeLinebreaks('video');
+              isAfterEmbed = true;
+              lastSignificantContent = 'video';
+              updateContent(content, 'video', token, { videoType: 'video/ogg'});
+              return;
+            }
+
+            if (isWebmVideo(token)) {
+              removeLinebreaks('video');
+              isAfterEmbed = true;
+              lastSignificantContent = 'video';
+              updateContent(content, 'video', token, { videoType: 'video/webm'});
+              return;
+            }
+
+            if (isYouTube(token)) {
+              removeLinebreaks('youtube');
+              isAfterEmbed = true;
+              lastSignificantContent = 'youtube';
+              updateContent(content, 'youtube', token);
+              return;
+            }
+
+            if (isSpotify(token)) {
+              removeLinebreaks('spotify');
+              isAfterEmbed = true;
+              lastSignificantContent = 'spotify';
+              updateContent(content, 'spotify', token);
+              return;
+            }
+
+            if (isTwitchPlayer(token)) {
+              removeLinebreaks('twitchPlayer');
+              isAfterEmbed = true;
+              lastSignificantContent = 'twitchPlayer';
+              updateContent(content, 'twitchPlayer', token);
+              return;
+            }
+
+            if (isTwitch(token)) {
+              removeLinebreaks('twitch');
+              isAfterEmbed = true;
+              lastSignificantContent = 'twitch';
+              updateContent(content, 'twitch', token);
+              return;
+            }
+
+            if (isMixCloud(token)) {
+              removeLinebreaks('mixcloud');
+              isAfterEmbed = true;
+              lastSignificantContent = 'mixcloud';
+              updateContent(content, 'mixcloud', token);
+              return;
+            }
+
+            if (isSoundCloud(token)) {
+              removeLinebreaks('soundcloud');
+              isAfterEmbed = true;
+              lastSignificantContent = 'soundcloud';
+              updateContent(content, 'soundcloud', token);
+              return;
+            }
+
+            if (isAppleMusic(token)) {
+              removeLinebreaks('applemusic');
+              isAfterEmbed = true;
+              lastSignificantContent = 'applemusic';
+              updateContent(content, 'applemusic', token);
+              return;
+            }
+
+            if (isWavelake(token)) {
+              removeLinebreaks('wavelake');
+              isAfterEmbed = true;
+              lastSignificantContent = 'wavelake';
+              updateContent(content, 'wavelake', token);
+              return;
+            }
+
+            if (isRumble(token)) {
+              removeLinebreaks('rumble');
+              isAfterEmbed = true;
+              lastSignificantContent = 'rumble';
+              updateContent(content, 'rumble', token);
+              return;
+            }
+
+            // if (isTidal(token)) {
+            //   removeLinebreaks('tidal');
+            //   isAfterEmbed = true;
+            //   lastSignificantContent = 'tidal';
+            //   updateContent(content, 'tidal', token);
+            //   return;
+            // }
+          }
+
+          if (props.noLinks === 'text') {
+            lastSignificantContent = 'text';
+            updateContent(content, 'text', token);
+            return;
+          }
+
+          const preview = getLinkPreview(token);
+
+          const hasMinimalPreviewData = !props.noPreviews &&
+            preview &&
+            preview.url &&
+            ((!!preview.description && preview.description.length > 0) ||
+              !preview.images?.some((x:any) => x === '') ||
+              !!preview.title
+            );
+
+          if (hasMinimalPreviewData) {
+            removeLinebreaks('link');
+            updateContent(content, 'link', token, { preview });
+          } else {
+            updateContent(content, 'link', token);
+          }
+
+          lastSignificantContent = 'link';
+          isAfterEmbed = false;
+          totalLinks++;
+          return;
+        }
 
     lastSignificantContent = 'text';
     updateContent(content, 'text', token);
@@ -607,6 +645,7 @@ const ParsedNote: Component<{
         imageGroup={`${imageGroup}`}
         shortHeight={props.shorten}
         onError={imageError}
+        authorPk={props.note.pubkey}
       />
     }
 
@@ -874,6 +913,77 @@ const ParsedNote: Component<{
     </For>
   };
 
+  const renderTwitchPlayer = (item: NoteContent, index?: number) => {
+    // Remove bottom margin if media is the last thing in the note
+    const lastClass = index === content.length-1 ?
+      'noBottomMargin' : '';
+
+    return <For each={item.tokens}>
+      {(token) => {
+        if (isNoteTooLong()) return;
+
+        setWordsDisplayed(w => w + shortMentionInWords);
+
+        return <iframe
+          src={token}
+          frameborder="0"
+          // @ts-ignore
+          allowfullscreen="true"
+          scrolling="no"
+          height="378"
+          width="620">
+        </iframe>;
+      }}
+    </For>
+  };
+
+  const renderTidal = (item: NoteContent, index?: number) => {
+    // Remove bottom margin if media is the last thing in the note
+    const lastClass = index === content.length-1 ?
+      'noBottomMargin' : '';
+
+    return <For each={item.tokens}>
+      {(token) => {
+        if (isNoteTooLong()) return;
+
+        setWordsDisplayed(w => w + shortMentionInWords);
+
+        return <iframe
+          src={token}
+          width="508"
+          height="520"
+          allow="encrypted-media"
+          sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+          title="TIDAL Embed Player"
+        />;
+      }}
+    </For>
+  };
+
+  const renderRumble = (item: NoteContent, index?: number) => {
+    // Remove bottom margin if media is the last thing in the note
+    const lastClass = index === content.length-1 ?
+      'noBottomMargin' : '';
+
+    return <For each={item.tokens}>
+      {(token) => {
+        if (isNoteTooLong()) return;
+
+        setWordsDisplayed(w => w + shortMentionInWords);
+
+        return <iframe
+          class={`embeddedContent ${lastClass}`}
+          style="width: 100%; height: 300px;"
+          src={token}
+          allowfullscreen
+          // @ts-ignore
+          scrolling="no"
+          allow="encrypted-media;"
+        ></iframe>;
+      }}
+    </For>
+  };
+
   const renderWavelake = (item: NoteContent, index?: number) => {
     // Remove bottom margin if media is the last thing in the note
     const lastClass = index === content.length-1 ?
@@ -906,7 +1016,7 @@ const ParsedNote: Component<{
       {(token) => {
         if (isNoteTooLong()) return;
 
-        if (item.meta && item.meta.preview && totalLinks < 2) {
+        if (item.meta && item.meta.preview && (props.shorten ? totalLinks < 2 : true)) {
           setWordsDisplayed(w => w + shortMentionInWords);
           return (
             <LinkPreview
@@ -919,7 +1029,7 @@ const ParsedNote: Component<{
 
         setWordsDisplayed(w => w + 1);
         return (
-          <span data-url={token}>
+          <span class={styles.bareLink} data-url={token}>
             <a link href={token} target="_blank" >{token}</a>
           </span>
         );
@@ -929,7 +1039,7 @@ const ParsedNote: Component<{
 
   const [unknownEvents, setUnknownEvents] = createStore<Record<string, NostrEventContent>>({});
 
-  const unknownMention = (nid: string) => {
+  const unknownMention = (nid: string, token: string) => {
     setWordsDisplayed(w => w + 1);
 
     const decoded = decodeIdentifier(nid);
@@ -947,7 +1057,7 @@ const ParsedNote: Component<{
 
       const unsub = subsTo(subId, {
         onEvent: (_, content) => {
-          if (content.id === data.id) {
+          if (content.id === data.id && content.kind === Kind.Image) {
             setUnknownEvents((evs) => ({ ...evs, [nid]: { ...content } }))
           }
         },
@@ -956,24 +1066,36 @@ const ParsedNote: Component<{
         }
       })
 
-      getEvents(account?.publicKey, [nid], subId);
-
+      getEvents(account?.publicKey, [data.id], subId, true);
 
       return (
-        <Show
-          when={alt()}
-          fallback={
+        <Switch fallback={
+          <Show
+            when={alt()}
+            fallback={
+              <div class={styles.unknownEvent}>
+                <div class={`${styles.icon} ${styles.bang}`}></div>
+                <div class={styles.label}>Esemény nem található</div>
+              </div>
+            }
+          >
             <div class={styles.unknownEvent}>
-              <div class={`${styles.icon} ${styles.bang}`}></div>
-              <div class={styles.label}>Esemény nem található</div>
+              <div class={`${styles.icon} ${styles.file}`}></div>
+              <div class={styles.label}>{alt()}</div>
             </div>
-          }
-        >
-          <div class={styles.unknownEvent}>
-            <div class={`${styles.icon} ${styles.file}`}></div>
-            <div class={styles.label}>{alt()}</div>
-          </div>
-        </Show>
+          </Show>
+        }>
+          <Match when={unknownEvents[nid]?.kind === Kind.Image}>
+            <NostrImage
+              event={unknownEvents[nid] as NostrImageContent}
+            />
+          </Match>
+          <Match when={unknownEvents[nid]?.kind === Kind.LiveEvent && token.startsWith('https://')}>
+            <LinkPreview
+              preview={getLinkPreview(token)}
+            />
+          </Match>
+        </Switch>
       );
     }
 
@@ -995,20 +1117,28 @@ const ParsedNote: Component<{
       getParametrizedEvent(data.pubkey, data.identifier, data.kind, subId);
 
       return (
-        <Show
-          when={alt()}
-          fallback={
+        <Switch fallback={
+          <Show
+            when={alt()}
+            fallback={
+              <div class={styles.unknownEvent}>
+                <div class={`${styles.icon} ${styles.bang}`}></div>
+                <div class={styles.label}>Esemény nem található</div>
+              </div>
+            }
+          >
             <div class={styles.unknownEvent}>
-              <div class={`${styles.icon} ${styles.bang}`}></div>
-              <div class={styles.label}>Esemény nem található</div>
+              <div class={`${styles.icon} ${styles.file}`}></div>
+              <div class={styles.label}>{alt()}</div>
             </div>
-          }
-        >
-          <div class={styles.unknownEvent}>
-            <div class={`${styles.icon} ${styles.file}`}></div>
-            <div class={styles.label}>{alt()}</div>
-          </div>
-        </Show>
+          </Show>
+        }>
+          <Match when={unknownEvents[nid]?.kind === Kind.LiveEvent && token.startsWith('https://')}>
+            <LinkPreview
+              preview={getLinkPreview(token)}
+            />
+          </Match>
+        </Switch>
       )
     }
 
@@ -1026,13 +1156,16 @@ const ParsedNote: Component<{
       {(token) => {
         if (isNoteTooLong()) return;
 
-        let [_, id] = token.split(':');
-
-        if (!id) {
-          return <>{token}</>;
-        }
-
+        let nostr = '';
+        let id = token;
+        let prefix = '';
         let end = '';
+
+        const idStart = token.search(addrRegex);
+
+        if (idStart > 0) {
+          id = token.slice(idStart);
+        }
 
         let match = specialCharsRegex.exec(id);
 
@@ -1046,7 +1179,7 @@ const ParsedNote: Component<{
         const decoded = decodeIdentifier(id);
 
         if (decoded.type !== 'naddr') {
-          return unknownMention(id);
+          return unknownMention(id, token);
         }
 
         const data = decoded.data as nip19.AddressPointer;
@@ -1061,26 +1194,30 @@ const ParsedNote: Component<{
           const mentionedArticles = rn.mentionedArticles;
 
           if (!mentionedArticles || (props.embedLevel || 0) > 1) {
-            return unknownMention(reEncoded);
+            return unknownMention(reEncoded, token);
           }
 
           const mention = mentionedArticles[reEncoded];
 
           if (!mention) {
-            return unknownMention(id);
+            return unknownMention(id, token);
           }
 
           return renderLongFormMention(mention, index);
         }
 
-        return unknownMention(id);
+        return unknownMention(id, token);
       }}
     </For>
   }
 
   const renderLongFormMention = (mention: PrimalArticle | undefined, index?: number) => {
 
-    if(!mention) return <></>;
+    if(!mention || props.veryShort) return <></>;
+
+    if (props.noLinks === 'links') {
+      return <SimpleArticlePreview article={mention} noLink={true} />
+    }
 
     return (
       <div class={styles.articlePreview}>
@@ -1088,24 +1225,32 @@ const ParsedNote: Component<{
           article={mention}
           hideFooter={true}
           hideContext={true}
-          boredered={(props.embedLevel || 0) > 0}
+          bordered={(props.embedLevel || 0) > 0}
+          noLinks={props.noLinks}
         />
       </div>);
   };
 
   const renderNoteMention = (item: NoteContent, index?: number) => {
 
+    if (props.veryShort) return <></>;
+
     return <For each={item.tokens}>
       {(token) => {
         if (isNoteTooLong()) return;
 
-        let [_, id] = token.split(':');
+        let id = token;
+        let end = '';
 
-        if (!id) {
-          return unknownMention(id);
+        const idStart = token.search(noteRegex);
+
+        if (idStart > 0) {
+          id = token.slice(idStart);
         }
 
-        let end = '';
+        if (!id || id.length === 0) {
+          return unknownMention(id, token);
+        }
 
         let match = specialCharsRegex.exec(id);
 
@@ -1115,7 +1260,7 @@ const ParsedNote: Component<{
           id = id.slice(0, i);
         }
 
-        let link = unknownMention(id);
+        let link = unknownMention(id, token);
 
         try {
           const eventId = nip19.decode(id).data as string | nip19.EventPointer;
@@ -1149,6 +1294,11 @@ const ParsedNote: Component<{
             ...(props.note.mentionedUsers || {}),
           }
 
+          const mentionedZaps = {
+            ...(rn.mentionedZaps || {}),
+            ...(props.note.mentionedZaps || {}),
+          }
+
           if (kind === undefined) {
             let f: any = mentionedNotes && mentionedNotes[hex];
             if (!f) {
@@ -1172,7 +1322,7 @@ const ParsedNote: Component<{
             if (!props.noLinks) {
               const ment = mentionedNotes && mentionedNotes[hex];
 
-              link = unknownMention(id);
+              link = unknownMention(id, token);
 
               if (ment) {
                 setWordsDisplayed(w => w + shortMentionInWords);
@@ -1204,15 +1354,15 @@ const ParsedNote: Component<{
             if (!props.noLinks) {
               const reEncoded = nip19.naddrEncode({
                 // @ts-ignore
-                kind: eventId.kind,
+                kind,
                 // @ts-ignore
-                pubkey: eventId.pubkey,
+                pubkey: eventId.pubkey || '',
                 // @ts-ignore
                 identifier: eventId.identifier || '',
               });
               const ment = mentionedArticles && mentionedArticles[reEncoded];
 
-              link = unknownMention(id);
+              link = unknownMention(id, token);
 
               if (ment) {
                 setWordsDisplayed(w => w + shortMentionInWords);
@@ -1232,71 +1382,101 @@ const ParsedNote: Component<{
           }
 
           if (kind === Kind.Zap) {
-            const zapContent = app?.events[Kind.Zap].find(e => e.id === hex) as NostrUserZaps | undefined;
+            let zapObject = mentionedZaps[hex] as PrimalZap;
 
-            if (zapContent) {
-              const zapEvent = JSON.parse((zapContent.tags.find(t => t[0] === 'description') || [])[1] || '{}');
-              const bolt11 = (zapContent.tags.find(t => t[0] === 'bolt11') || [])[1];
+            if (zapObject) {
 
-              let zappedId = '';
-              let zappedKind: number = 0;
+              let zapSubject;
 
-              const zapTagA = zapEvent.tags.find((t: string[]) => t[0] === 'a');
-              const zapTagE = zapEvent.tags.find((t: string[]) => t[0] === 'e');
-
-              let zapSubject: PrimalArticle | PrimalUser | PrimalNote = mentionedUsers[zapEvent.tags.find((t: string[]) => t[0] === 'p')[1]];
-
-              if (zapTagA) {
-                const [kind, pubkey, identifier] = zapTagA[1].split(':');
-
-                zappedId = nip19.naddrEncode({ kind, pubkey, identifier });
-
-                const article = mentionedArticles[zappedId];
-
-                if (article) {
-                  zappedKind = Kind.LongForm;
-                  zapSubject = article;
-                } else {
-                  zappedKind = Kind.Metadata;
-                }
+              if (zapObject.zappedKind === Kind.LongForm) {
+                zapSubject = mentionedArticles[zapObject.zappedId!];
               }
-              else if (zapTagE) {
-                zappedId = zapTagE[1];
-
-                const article = mentionedArticles[zappedId];
-                const note = mentionedNotes[zappedId];
-
-                if (article) {
-                  zappedKind = Kind.LongForm;
-                  zapSubject = article;
-                } else if (note) {
-                  zappedKind = Kind.Text;
-                  zapSubject = note;
-                } else {
-                  zappedKind = Kind.Metadata;
-                }
+              if (zapObject.zappedKind === Kind.Text) {
+                zapSubject = mentionedNotes[zapObject.zappedId!];
+              }
+              if (zapObject.zappedKind === Kind.Metadata) {
+                zapSubject = mentionedUsers[zapObject.zappedId!];
               }
 
-              const zap: PrimalZap = {
-                id: zapContent.id || '',
-                message: zapEvent.content || '',
-                amount: parseBolt11(bolt11) || 0,
-                sender: mentionedUsers[zapEvent.pubkey],
-                reciver: mentionedUsers[zapEvent.tags.find((t: string[]) => t[0] === 'p')[1]],
-                created_at: zapContent.created_at,
-                zappedId,
-                zappedKind,
-              };
+              link = <ProfileNoteZap zap={zapObject} subject={zapSubject} />
+            } else {
+              let zapContent = app?.events[Kind.Zap].find(e => e.id === hex) as NostrUserZaps | undefined;
 
-              link = <ProfileNoteZap zap={zap} subject={zapSubject} />
+              if (zapContent) {
+                const zapEvent = JSON.parse((zapContent.tags.find(t => t[0] === 'description') || [])[1] || '{}');
+                const bolt11 = (zapContent.tags.find(t => t[0] === 'bolt11') || [])[1];
+
+                let zappedId = '';
+                let zappedKind: number = 0;
+
+                const zapTagA = zapEvent.tags.find((t: string[]) => t[0] === 'a');
+                const zapTagE = zapEvent.tags.find((t: string[]) => t[0] === 'e');
+
+                let zapSubject: PrimalArticle | PrimalUser | PrimalNote = mentionedUsers[zapEvent.tags.find((t: string[]) => t[0] === 'p')[1]];
+
+                if (zapTagA) {
+                  const [kind, pubkey, identifier] = zapTagA[1].split(':');
+
+                  zappedId = nip19.naddrEncode({ kind, pubkey, identifier });
+
+                  const article = mentionedArticles[zappedId];
+
+                  if (article) {
+                    zappedKind = Kind.LongForm;
+                    zapSubject = article;
+                  } else {
+                    zappedKind = Kind.Metadata;
+                  }
+                }
+                else if (zapTagE) {
+                  zappedId = zapTagE[1];
+
+                  const article = mentionedArticles[zappedId];
+                  const note = mentionedNotes[zappedId];
+
+                  if (article) {
+                    zappedKind = Kind.LongForm;
+                    zapSubject = article;
+                  } else if (note) {
+                    zappedKind = Kind.Text;
+                    zapSubject = note;
+                  } else {
+                    zappedKind = Kind.Metadata;
+                  }
+                }
+
+                const user = (pk: string) => {
+                  if (mentionedUsers[pk]) return mentionedUsers[pk];
+
+                  const usr = (app?.events[Kind.Metadata] || []).find(m => m.pubkey === pk) as NostrUserContent;
+
+                  if (usr) return convertToUser(usr, usr.pubkey)
+                }
+
+                const zap: PrimalZap = {
+                  id: zapContent.id || '',
+                  message: zapEvent.content || '',
+                  amount: parseBolt11(bolt11) || 0,
+                  sender: user(zapEvent.pubkey),
+                  reciver: user(zapEvent.tags.find((t: string[]) => t[0] === 'p')[1]),
+                  created_at: zapContent.created_at,
+                  zappedId,
+                  zappedKind,
+                };
+
+
+                link = <ProfileNoteZap zap={zap} subject={zapSubject} />
+              }
+
             }
+
 
           }
 
         } catch (e) {
           logError('ERROR rendering note mention', e);
           setWordsDisplayed(w => w + 1);
-          link = unknownMention(id);
+          link = unknownMention(id, token);
         }
 
         return link;
@@ -1311,19 +1491,20 @@ const ParsedNote: Component<{
 
         setWordsDisplayed(w => w + 1);
 
-        let [nostr, id] = token.split(':');
+        let nostr = '';
+        let id = token;
+        let prefix = '';
+        let end = '';
 
-        if (!id) {
+        const idStart = token.search(profileRegex);
+
+        if (idStart > 0) {
+          id = token.slice(idStart);
+        }
+
+        if (!id || id.length === 0) {
           return <>{token}</>;
         }
-
-        let prefix = '';
-
-        if (nostr !== 'nostr') {
-          prefix = nostr.split('nostr')[0] || '';
-        }
-
-        let end = '';
 
         let match = specialCharsRegex.exec(id);
 
@@ -1350,6 +1531,14 @@ const ParsedNote: Component<{
 
           let user = mentionedUsers && mentionedUsers[hex];
 
+          if (!user) {
+            const metaD = app?.events[Kind.Metadata].find(md => md.pubkey === hex) as NostrUserContent | undefined;
+
+            if (metaD) {
+              user = convertToUser(metaD, metaD?.pubkey);
+            }
+          }
+
           const label = user ? userName(user) : truncateNpub(npub);
 
           let link = <span>{prefix}@{label}{end}</span>;
@@ -1360,7 +1549,7 @@ const ParsedNote: Component<{
 
           if (!props.noLinks) {
             link = !user ?
-              <>{prefix}<A href={path}>@{label}</A>{end}</> :
+              <>{prefix}<a href={path}>@{label}</a>{end}</> :
               <>{prefix}{MentionedUserLink({ user })}{end}</>;
           }
           return link;
@@ -1423,8 +1612,17 @@ const ParsedNote: Component<{
           mentionedNotes[tag[1]]
         ) {
           const hex = tag[1];
-          const noteId = `nostr:${nip19.noteEncode(hex)}`;
-          const path = `/e/${nip19.noteEncode(hex)}`;
+          const mention = mentionedNotes[hex];
+
+          const eventPointer: nip19.EventPointer = {
+            id: mention.id,
+            author: mention.pubkey,
+            kind: mention.msg.kind,
+            relays: mention.msg.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [...acc, t[1]] : acc, []).slice(0,3),
+          };
+
+          const noteId = `nostr:${nip19.neventEncode(eventPointer)}`;
+          const path = `/e/${mention.noteId}`;
 
           let embeded = <span>{noteId}{end}</span>;
 
@@ -1435,7 +1633,7 @@ const ParsedNote: Component<{
           if (!props.noLinks) {
             const ment = mentionedNotes[hex];
 
-            embeded = <><A href={path}>{noteId}</A>{end}</>;
+            embeded = <><a href={path}>{noteId}</a>{end}</>;
 
             if (ment) {
               setWordsDisplayed(w => w + shortMentionInWords - 1);
@@ -1464,7 +1662,7 @@ const ParsedNote: Component<{
           const [kind, pubkey, identifier] = tag[1].split(':');
           const naddr = nip19.naddrEncode({ kind: parseInt(kind), pubkey, identifier });
           const noteId = `nostr:${naddr}`;
-          let path = `/e/${naddr}`;
+          let path = `/a/${naddr}`;
 
           const vanityName = app?.verifiedUsers[pubkey];
 
@@ -1481,7 +1679,7 @@ const ParsedNote: Component<{
           if (!props.noLinks) {
             const ment = mentionedArticles[naddr];
 
-            embeded = <><A href={path}>{noteId}</A>{end}</>;
+            embeded = <><a href={path}>{noteId}</a>{end}</>;
 
             if (ment) {
               setWordsDisplayed(w => w + shortMentionInWords - 1);
@@ -1511,7 +1709,7 @@ const ParsedNote: Component<{
 
           if (!props.noLinks) {
             link = user ?
-              <><A href={path}>@{label}</A>{end}</> :
+              <><a href={path}>@{label}</a>{end}</> :
               <>{MentionedUserLink({ user })}{end}</>;
           }
           return <span> {link}</span>;
@@ -1538,9 +1736,15 @@ const ParsedNote: Component<{
           term = term.slice(0, i);
         }
 
-        const embeded = props.noLinks === 'text' ?
-          <span>#{term}</span> :
-          <A href={`/search/%23${term}`}>#{term}</A>;
+        let embeded = <></>;
+
+        if (props.noLinks === 'text') {
+          embeded = <span>#{term}</span>;
+        } else if (props.noLinks === 'links') {
+          embeded = <span class="linkish">#{term}</span>;
+        } else {
+          embeded = <a href={`/search/%23${term}`}>#{term}</a>;
+        }
 
         return <span class="whole"> {embeded}{end}</span>;
       }}
@@ -1592,10 +1796,13 @@ const ParsedNote: Component<{
       youtube: renderYouTube,
       spotify: renderSpotify,
       twitch: renderTwitch,
+      twitchPlayer: renderTwitchPlayer,
       mixcloud: renderMixCloud,
       soundcloud: renderSoundCloud,
       applemusic: renderAppleMusic,
       wavelake: renderWavelake,
+      rumble: renderRumble,
+      tidal: renderTidal,
       link: renderLinks,
       notemention: renderNoteMention,
       usermention: renderUserMention,

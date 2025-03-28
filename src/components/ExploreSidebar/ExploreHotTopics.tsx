@@ -46,7 +46,7 @@ const ExploreHotTopics: Component<{ id?: string }> = (props) => {
   return (
     <div id={props.id} class={styles.topicsHolder}>
       <div class={styles.hotTopicsCaption}>
-        Trendi témák
+        Népszerű témák
       </div>
       <div class={styles.exploreHotTopics}>
         <For each={topics()}>

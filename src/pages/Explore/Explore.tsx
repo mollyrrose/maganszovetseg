@@ -14,7 +14,7 @@ import { useExploreContext } from '../../contexts/ExploreContext';
 import { A, useLocation } from '@solidjs/router';
 import FeedMarketPlace from '../../components/FeedMarketplace/FeedMarketPlace';
 import ExplorePeople from './ExplorePeople';
-//import ExploreZaps from './ExploreZaps';
+//import ExploreZaps from './ExploreZaps'; //BTC lightning out
 import ExploreMedia from './ExploreMedia';
 import ExploreTopics from './ExploreTopics';
 import NostrStats from '../../components/NostrStats/NostrStats';

@@ -1,6 +1,6 @@
 import { batch, Component, createEffect, Show } from 'solid-js';
-//import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal';
-import { MenuItem, PrimalArticle, PrimalNote } from '../../../types/primal';
+//import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal'; //BTC lightning out
+import { MenuItem, PrimalArticle, PrimalNote, ZapOption } from '../../../types/primal';
 import { sendArticleRepost } from '../../../lib/notes';
 
 import styles from './NoteFooter.module.scss';
@@ -9,7 +9,7 @@ import { useToastContext } from '../../Toaster/Toaster';
 import { useIntl } from '@cookbook/solid-intl';
 
 import { truncateNumber } from '../../../lib/notifications';
-import { canUserReceiveZaps, zapArticle, zapNote } from '../../../lib/zap';
+import { canUserReceiveZaps, lastZapError, zapArticle } from '../../../lib/zap';
 import { useSettingsContext } from '../../../contexts/SettingsContext';
 
 import zapMD from '../../../assets/lottie/zap_md_2.json';
@@ -24,6 +24,7 @@ import { NoteReactionsState } from '../Note';
 import { SetStoreFunction } from 'solid-js/store';
 import BookmarkNote from '../../BookmarkNote/BookmarkNote';
 import BookmarkArticle from '../../BookmarkNote/BookmarkArticle';
+import { readSecFromStorage } from '../../../lib/localStore';
 
 export const lottieDuration = () => zapMD.op * 1_000 / zapMD.fr;
 
@@ -107,6 +108,14 @@ const ArticleFooter: Component<{
       return;
     }
 
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     props.updateState('isRepostMenuVisible', () => false);
 
     const { success } = await sendArticleRepost(props.note, account.proxyThroughPrimal, account.activeRelays, account.relaySettings);
@@ -143,6 +152,14 @@ const ArticleFooter: Component<{
       return;
     }
 
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     const success = await account.actions.addLike(props.note);
 
     if (success) {
@@ -153,17 +170,6 @@ const ArticleFooter: Component<{
     }
   };
 
-
-
-
-
-
-
-
-
-
-
-
   const startZap = (e: MouseEvent | TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -172,6 +178,14 @@ const ArticleFooter: Component<{
       account?.actions.showGetStarted();
       props.updateState('isZapping', () => false);
       return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
     }
 
     if (!account.proxyThroughPrimal && account.relays.length === 0) {
@@ -204,6 +218,14 @@ const ArticleFooter: Component<{
     if (!account?.hasPublicKey()) {
       account?.actions.showGetStarted();
       return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
     }
 
     if ((!account.proxyThroughPrimal && account.relays.length === 0) || !canUserReceiveZaps(props.note.user)) {
@@ -286,7 +308,14 @@ const ArticleFooter: Component<{
     props.onZapAnim && props.onZapAnim({ amount, message, emoji })
 
     setTimeout(async () => {
-      const success = await zapArticle(props.note, account.publicKey, amount, message, account.activeRelays);
+      const success = await zapArticle(
+        props.note,
+        account.publicKey,
+        amount,
+        message,
+        account.activeRelays,
+        account.activeNWC,
+      );
 
       props.updateState('isZapping', () => false);
 
@@ -298,6 +327,12 @@ const ArticleFooter: Component<{
         });
 
         return;
+      } else {
+        app?.actions.openConfirmModal({
+          title: "Failed to zap",
+          description: lastZapError,
+          confirmLabel: "ok",
+        })
       }
 
       props.customZapInfo.onFail({
@@ -308,27 +343,6 @@ const ArticleFooter: Component<{
     }, lottieDuration());
 
   }
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const buttonTypeClasses: Record<string, string> = {
     zap: styles.zapType,

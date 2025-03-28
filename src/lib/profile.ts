@@ -17,6 +17,14 @@ export const getUserProfiles = (pubkeys: string[], subid: string) => {
   ]));
 }
 
+export const getUsersRelayInfo = (pubkeys: string[], subid: string) => {
+  sendMessage(JSON.stringify([
+    "REQ",
+    subid,
+    {cache: ["get_user_relays_2", { pubkeys }]},
+  ]));
+}
+
 export const getUserProfileInfo = (pubkey: string | undefined, user_pubkey: string | undefined, subid: string) => {
   if (!pubkey) {
     return;
@@ -221,7 +229,7 @@ export const getLikes = (pubkey: string | undefined, relays: Relay[], callback: 
 export const fetchKnownProfiles: (vanityName: string) => Promise<VanityProfiles> = async (vanityName: string) => {
   try {
     const name = vanityName.toLowerCase();
-    const origin = 'https://dev.primal.net';
+    const origin = window.location.origin.startsWith('http://localhost') ? 'https://dev.primal.net' : window.location.origin;
 
     const content = await fetch(`${origin}/.well-known/nostr.json?name=${name}`);
 

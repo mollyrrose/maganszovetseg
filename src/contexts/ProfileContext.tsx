@@ -67,6 +67,7 @@ let midTime = 0;
 let endTime = 0
 
 export type ProfileContextStore = {
+  //isLoading: boolean,
   profileKey: string | undefined,
   userProfile: PrimalUser | undefined,
   userStats: UserStats,
@@ -184,6 +185,7 @@ export const ProfileProvider = (props: { children: ContextChildren }) => {
   let commonFollowers: PrimalUser[] = [];
 
   const initialData = {
+    //isLoading: false,
     profileKey: undefined,
     userProfile: undefined,
     userStats: { ...emptyStats },
@@ -722,7 +724,7 @@ export const ProfileProvider = (props: { children: ContextChildren }) => {
     if ([Kind.Text, Kind.Repost, Kind.LongForm].includes(content.kind)) {
       const message = content as NostrNoteContent;
 
-      if (store.lastNote?.post?.noteId !== nip19.noteEncode(message.id)) {
+      if (store.lastNote?.id !== message.id) {
         updateStore(scope, 'messages', (msgs) => [ ...msgs, message ]);
       }
 

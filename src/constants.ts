@@ -1,6 +1,9 @@
 import { ContentModeration, FeedPage, LnbcInvoice, } from "./types/primal";
-import logoFire from './assets/icons/logo_fire.png';
-import logoIce from './assets/icons/logo_fire.png';
+//import logoFire from './assets/icons/logo_fire.png';
+//import logoIce from './assets/icons/logo_fire.png'; // Corrected file name
+const logoFire = "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png";
+const logoIce = "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png";
+
 
 export const second = 1000;
 export const minute = 60 * second;
@@ -98,6 +101,7 @@ export enum Kind  {
   EventDeletion = 5,
   Repost = 6,
   Reaction = 7,
+  Image = 20,
   ChannelCreation = 40,
   ChannelMetadata = 41,
   ChannelMessage = 42,
@@ -112,11 +116,13 @@ export enum Kind  {
   MuteList = 10_000,
   RelayList = 10_002,
   Bookmarks = 10_003,
+  Blossom = 10_063,
   TierList = 17_000,
 
   CategorizedPeople = 30_000,
   LongForm = 30_023,
   Settings = 30_078,
+  LiveEvent = 30_311,
   DVM = 31_990,
   Tier = 37_001,
 
@@ -162,8 +168,12 @@ export enum Kind  {
   BroadcastStatus=10_000_167,
   LegendCustomization=10_000_168,
   MembershipCohortInfo = 10_000_169,
+  LegendLeaderboard=10_000_170,
+  PremiumLeaderboard=10_000_171,
 
   WALLET_OPERATION = 10_000_300,
+  WALLET_NWC_ACTIVE = 10_000_802,
+  WALLET_NWC_CONNECTION = 10_000_803,
   ExchangeRate = 10_000_305,
 
   OrderHistory = 10_000_605,
@@ -272,14 +282,18 @@ export const usernameRegex = /^[a-zA-Z0-9\-\_]+$/;
 // export const magnetRegex = /(magnet:[\S]+)/i;
 // export const tweetUrlRegex = /https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(?:es)?\/(\d+)/;
 // export const tidalRegex = /tidal\.com\/(?:browse\/)?(\w+)\/([a-z0-9-]+)/i;
+export const tidalEmbedRegex = /embed\.tidal\.com\/.+/i;
 export const spotifyRegex = /open\.spotify\.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/;
-export const twitchRegex = /twitch.tv\/([a-z0-9_]+$)/i;
+export const twitchRegex = /twitch\.tv\/([a-z0-9_]+$)/i;
+export const twitchPlayerRegex = /player\.twitch\.tv\/([a-z0-9_]+$)/i;
 export const mixCloudRegex = /mixcloud\.com\/(?!live)([a-zA-Z0-9]+)\/([a-zA-Z0-9-]+)/;
 export const soundCloudRegex = /soundcloud\.com\/(?!live)([a-zA-Z0-9]+)\/([a-zA-Z0-9-]+)/;
 export const appleMusicRegex = /music\.apple\.com\/([a-z]{2}\/)?(?:album|playlist)\/[\w\d-]+\/([.a-zA-Z0-9-]+)(?:\?i=\d+)?/i;
 export const nostrNestsRegex = /nostrnests\.com\/[a-zA-Z0-9]+/i;
 export const wavlakeRegex = /https?:\/\/(?:player\.|www\.)?wavlake\.com\/(?!top|new|artists|account|activity|login|preferences|feed|profile)(?:(?:track|album)\/[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}|[a-z-]+)/i;
+export const rumbleRegex = /(?:https?:\/\/)?(?:www\.)?rumble\.com\/embed\/([a-zA-Z0-9-]+)/i;
 export const youtubeRegex = /(?:https?:\/\/)?(?:www|m\.)?(?:youtu\.be\/|youtube\.com\/(?:live\/|shorts\/|embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
+export const megaRegex = /https:\/\/mega\.nz\/file\/([a-zA-Z0-9_-]+)#([a-zA-Z0-9_-]+)/;
 export const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9\u00F0-\u02AF@:%._\+~#=]{1,256}\.[a-zA-Z0-9\u00F0-\u02AF()]{1,8}\b([-a-zA-Z0-9\u00F0-\u02AF()@:%_\+.~#?&//=]*)/i;
 export const urlRegexG = /https?:\/\/(www\.)?[-a-zA-Z0-9\u00F0-\u02AF@:%._\+~#=]{1,256}\.[a-zA-Z0-9\u00F0-\u02AF()]{1,8}\b([-a-zA-Z0-9\u00F0-\u02AF()@:%_\+.~#?&//=]*)/ig;
 export const urlExtractRegex = /https?:\/\/\S+\.[^()]+(?:\([^)]*\))*/;
@@ -291,12 +305,12 @@ export const lnUnifiedRegex = /bitcoin:[a-zA-Z0-9]*(\?.*)lightning=([a-zA-Z0-9]*
 export const hashtagRegex = /(?:\s|^)#[^\s!@#$%^&*(),.?":{}|<>]+/i;
 export const linebreakRegex = /(\r\n|\r|\n)/ig;
 export const tagMentionRegex = /\#\[([0-9]*)\]/;
-export const noteRegex = /nostr:((note|nevent)1\w+)\b/g;
-export const noteRegexLocal = /nostr:((note|nevent)1\w+)\b/;
-export const profileRegex = /nostr:((npub|nprofile)1\w+)\b/;
-export const profileRegexG = /nostr:((npub|nprofile)1\w+)\b/g;
-export const addrRegex = /nostr:((naddr)1\w+)\b/;
-export const addrRegexG = /nostr:((naddr)1\w+)\b/g;
+export const noteRegex = /((note|nevent)1\w+)\b/g;
+export const noteRegexLocal = /((note|nevent)1\w+)\b/;
+export const profileRegex = /((npub|nprofile)1\w+)\b/;
+export const profileRegexG = /((nostr:)?(npub|nprofile)1\w+)\b/g;
+export const addrRegex = /((naddr)1\w+)\b/;
+export const addrRegexG = /((naddr)1\w+)\b/g;
 export const editMentionRegex = /(?:\s|^)@\`(.*?)\`/ig;
 export const imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:png|jpg|jpeg|webp|gif|format=png)/;
 export const imageRegexG = /(http(s?):)([/|.|\w|\s|-])*\.(?:png|jpg|jpeg|webp|gif|format=png)/g;
@@ -307,13 +321,17 @@ export const videoRegexG = /(http(s?):)([/|.|\w|\s|-])*\.(?:mp4|mov|ogg|webm)/g;
 export const imageOrVideoRegexG = /(http(s?):)([/|.|\w|\s|-])*\.(?:png|jpg|jpeg|webp|gif|mp4|mov|ogg|webm|format=png)/g;
 export const imageOrVideoRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:png|jpg|jpeg|webp|gif|mp4|mov|ogg|webm|format=png)/;
 
-export const eventRegexLocal = /(?:\s|^)nostr:((note|nevent|naddr)1\w+)\b/;
-export const eventRegexG = /(?:\s|^)nostr:((note|nevent|naddr)1\w+)\b/g;
+export const eventRegexLocal = /(?:\s|^)(nostr:)?((note|nevent|naddr)1\w+)\b/;
+export const eventRegexG = /(?:\s|^)(nostr:)?((note|nevent|naddr)1\w+)\b/g;
+export const eventRegexNostrless = /((note|nevent|naddr)1\w+)\b/;
+export const mentionRegexNostrless = /((note|nevent|naddr|nprofile|npub)1\w+)\b/;
 
 export const mdImageRegex = /(https?:\/\/.*\.(?:png|jpg))|\!\[(.*?)\]\((https?:\/\/.*\.(?:png|jpg))\)/i;
 
 export const specialCharsRegex = /[^A-Za-z0-9]/;
 export const hashtagCharsRegex = /[^A-Za-z0-9\-\_]/;
+
+  export const eventAddresRegex = /[0-9]+:[A-Za-z0-9]+:[A-Za-z0-9]+/;
 
 // How long, in words, should a short note be
 export const shortNoteWords = 200;
@@ -404,8 +422,8 @@ export const profileContactListPage = 50;
 export const pinEncodePrefix = 'prpec';
 export const pinEncodeIVSeparator = '?iv=';
 
-export const suggestedUsersToFollow = [
-  "npub1wt9pcrmk4zf9dzc4hse9tcpklx7kh7upygxcgddqkrt5qa6zz3qq4trv5c", //Seal
+export const suggestedUsersToFollow = [ // IN HEX FORMAT
+  "72ca1c0f76a892568b15bc3255e036f9bd6bfb81220d8435a0b0d74077421440", //Seal
   "82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2", //jack
   //"3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d", //fiatjaf
   //"e88a691e98d9987c964521dff60025f60700378a4879180dcbbb4a5027850411", //nvk

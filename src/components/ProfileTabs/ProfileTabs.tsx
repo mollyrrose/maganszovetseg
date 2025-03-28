@@ -1,28 +1,27 @@
 import { useIntl } from "@cookbook/solid-intl";
 import { Tabs } from "@kobalte/core/tabs";
-import { A, useLocation } from "@solidjs/router";
-import PhotoSwipeLightbox from "photoswipe/lightbox";
+import { A, useLocation, useNavigate } from "@solidjs/router";
 import { Component, createEffect, createSignal, For, Match, on, onCleanup, onMount, Show, Switch } from "solid-js";
-import { createStore, unwrap } from "solid-js/store";
-import { imageOrVideoRegex, imageOrVideoRegexG, imageRegex, imageRegexG, Kind, profileContactListPage } from "../../constants";
+import { createStore } from "solid-js/store";
+import { imageOrVideoRegex, Kind, profileContactListPage } from "../../constants";
 import { useAccountContext } from "../../contexts/AccountContext";
 import { useMediaContext } from "../../contexts/MediaContext";
 import { useProfileContext } from "../../contexts/ProfileContext";
-import { date } from "../../lib/dates";
+//import { date } from "../../lib/dates";
 import { hookForDev } from "../../lib/devTools";
 import { humanizeNumber } from "../../lib/stats";
-import { store } from "../../services/StoreService";
+//import { store } from "../../services/StoreService";
 import { userName } from "../../stores/profile";
 import { profile as t, actions as tActions } from "../../translations";
 import { PrimalNote, PrimalUser, PrimalZap } from "../../types/primal";
 import ArticlePreview from "../ArticlePreview/ArticlePreview";
-import Avatar from "../Avatar/Avatar";
+//import Avatar from "../Avatar/Avatar";
 import ButtonCopy from "../Buttons/ButtonCopy";
 import Loader from "../Loader/Loader";
 import Note from "../Note/Note";
-import NoteImage from "../NoteImage/NoteImage";
+//import NoteImage from "../NoteImage/NoteImage";
 import Paginator from "../Paginator/Paginator";
-import ProfileContact from "../ProfileContact/ProfileContact";
+//import ProfileContact from "../ProfileContact/ProfileContact";
 
 import styles from  "./ProfileTabs.module.scss";
 import NoteGallery from "../Note/NoteGallery";
@@ -33,6 +32,7 @@ import { TransitionGroup } from "solid-transition-group";
 import ZapSkeleton from "../Skeleton/ZapSkeleton";
 import ProfileGalleryImageSkeleton from "../Skeleton/ProfileGalleryImageSkeleton";
 import { scrollWindowTo } from "../../lib/scroll";
+import { nip19 } from "nostr-tools";
 
 
 const ProfileTabs: Component<{
@@ -46,6 +46,7 @@ const ProfileTabs: Component<{
   const account = useAccountContext();
   const media = useMediaContext();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const hash = () => {
     return (location.hash.length > 1) ? location.hash.substring(1) : 'notes';
@@ -268,14 +269,6 @@ const ProfileTabs: Component<{
     window.removeEventListener('scroll', onScroll);
   });
 
-
-
-
-
-
-
-
-
   function humanizeNumber(value) {
     if (value >= 10000) {
       // Scale the number to show two significant digits before 'e'
@@ -293,75 +286,81 @@ const ProfileTabs: Component<{
       return value.toLocaleString('en-US').replace(/,/g, ' ');
     }
   }
-  
-  
 
-
-  
   return (
       <Tabs value={hash()} onChange={onChangeValue} defaultValue={hash()}>
-<Show when={profile && profile.fetchedUserStats}>
-  <Tabs.List class={styles.profileTabs}>
-    <Tabs.Trigger class={styles.profileTab} value="notes">
-      <div class={styles.stat}>
-        <div class={styles.statNumber}>
-          {humanizeNumber(profile?.userStats?.note_count || 0)}
-        </div>
-        <div class={styles.statName}>
-          {intl.formatMessage(t.stats.notes)}
-        </div>
-      </div>
-    </Tabs.Trigger>
+        <Show when={profile && profile.fetchedUserStats}>
+          <Tabs.List class={styles.profileTabs}>
+            <Tabs.Trigger class={styles.profileTab} value="notes">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.note_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.notes)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
-    <Tabs.Trigger class={styles.profileTab} value="replies">
-      <div class={styles.stat}>
-        <div class={styles.statNumber}>
-          {humanizeNumber(profile?.userStats?.reply_count || 0)}
-        </div>
-        <div class={styles.statName}>
-          {intl.formatMessage(t.stats.replies)}
-        </div>
-      </div>
-    </Tabs.Trigger>
+            <Tabs.Trigger class={styles.profileTab} value="replies">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.reply_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.replies)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
-    <Tabs.Trigger class={styles.profileTab} value="reads">
-      <div class={styles.stat}>
-        <div class={styles.statNumber}>
-          {humanizeNumber(profile?.userStats?.long_form_note_count || 0)}
-        </div>
-        <div class={styles.statName}>
-          {intl.formatMessage(t.stats.articles)}
-        </div>
-      </div>
-    </Tabs.Trigger>
+            <Tabs.Trigger class={styles.profileTab} value="reads">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.long_form_note_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.articles)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
-    <Tabs.Trigger class={styles.profileTab} value="media">
-      <div class={styles.stat}>
-        <div class={styles.statNumber}>
-          {humanizeNumber(profile?.userStats.media_count || 0)}
-        </div>
-        <div class={styles.statName}>
-          {intl.formatMessage(t.stats.gallery)}
-        </div>
-      </div>
-    </Tabs.Trigger>
+            <Tabs.Trigger class={styles.profileTab} value="media">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats.media_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.gallery)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
-    <Tabs.Trigger class={styles.profileTab} value="relays">
-      <div class={styles.stat}>
-        <div class={styles.statNumber}>
-          {humanizeNumber(profile?.userStats?.relay_count || 0)}
-        </div>
-        <div class={styles.statName}>
-          {intl.formatMessage(t.stats.relays)}
-        </div>
-      </div>
-    </Tabs.Trigger>
+            <Tabs.Trigger class={styles.profileTab} value="zaps">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.total_zap_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.zaps)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
-    <Tabs.Indicator class={styles.profileTabIndicator} />
-  </Tabs.List>
-</Show>
+            <Tabs.Trigger class={styles.profileTab} value="relays">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.relay_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.relays)}
+                </div>
+              </div>
+            </Tabs.Trigger>
 
 
+            <Tabs.Indicator class={styles.profileTabIndicator} />
+          </Tabs.List>
+        </Show>
 
         <Tabs.Content class={styles.tabContent} value="reads">
           <div class={styles.profileNotes}>
@@ -418,7 +417,7 @@ const ProfileTabs: Component<{
                     <div>
                       <For each={profile?.articles}>
                         {article => (
-                          <div class="animated"><ArticlePreview article={article} /></div>
+                          <div class="animated"><ArticlePreview article={article} onClick={navigate} /></div>
                         )}
                       </For>
                       <Paginator
@@ -637,7 +636,7 @@ const ProfileTabs: Component<{
                               <NoteGallery note={note} />
                             </Match>
                             <Match when={!hasImages(note)}>
-                              <A href={`/e/${note.noteId}`} class={styles.missingImage}>
+                              <A href={noteLinkId(note)} class={styles.missingImage}>
                                 <NoteGallery note={note} />
                               </A>
                             </Match>

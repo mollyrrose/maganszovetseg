@@ -14,9 +14,9 @@ import { callCommand } from '@milkdown/utils';
 import { history, undoCommand, redoCommand } from '@milkdown/plugin-history';
 import  styles from './PrimalMarkdown.module.scss';
 import ButtonGhost from '../Buttons/ButtonGhost';
-import { hexToNpub, npubToHex } from '../../lib/keys';
+import { hexToNpub, noteIdToHex, npubToHex } from '../../lib/keys';
 import { useAccountContext } from '../../contexts/AccountContext';
-import { eventRegexLocal, Kind, mdImageRegex, profileRegexG } from '../../constants';
+import { eventRegexG, eventRegexLocal, eventRegexNostrless, Kind, mdImageRegex, profileRegex, profileRegexG, specialCharsRegex } from '../../constants';
 import { NostrRelaySignedEvent, PrimalArticle } from '../../types/primal';
 import { userName } from '../../stores/profile';
 import { A, useNavigate } from '@solidjs/router';
@@ -29,9 +29,11 @@ import ArticlePreview from '../ArticlePreview/ArticlePreview';
 import ArticleHighlightActionMenu from '../ArticleHighlight/ArticleHighlightActionMenu';
 import { useToastContext } from '../Toaster/Toaster';
 import MarkdownSlice from './MarkdownSlice';
-import { convertHtmlEntityToAngleBrackets } from '../../utils';
+import { convertHtmlEntityToAngleBrackets, isIOS } from '../../utils';
 import { useMediaContext } from '../../contexts/MediaContext';
 import { useAppContext } from '../../contexts/AppContext';
+import { isAndroid } from '@kobalte/utils';
+import { logError } from '../../lib/logger';
 
 export type Coord = {
   x: number;
@@ -213,6 +215,7 @@ const PrimalMarkdown: Component<{
   };
 
   const showNewHighlightMenu = (text: string) => {
+    if (isIOS() || isAndroid()) return;
     const coord = getSelectionCoords(true);
 
     const r = viewer?.getBoundingClientRect();
@@ -334,7 +337,26 @@ const PrimalMarkdown: Component<{
 
       const prepped = orig.replace(profileRegexG, (r: string) => {
 
-        const [_, npub] = r.split(':');
+        let npub = r;
+        let end = '';
+
+        const idStart = r.search(profileRegex);
+
+        if (idStart > 0) {
+          npub = r.slice(idStart);
+        }
+
+        if (!npub || npub.length === 0) {
+          return r;
+        }
+
+        let match = specialCharsRegex.exec(npub);
+
+        if (match) {
+          const i = match.index;
+          end = npub.slice(i);
+          npub = npub.slice(0, i);
+        }
 
         const id = npubToHex(npub);
 
@@ -342,7 +364,7 @@ const PrimalMarkdown: Component<{
 
         const name = user ? userName(user) : r;
 
-        return `[@${name}](${r} "${npub}")`;
+        return `[@${name}](${npub})`;
       })
 
       return <MarkdownSlice
@@ -354,17 +376,37 @@ const PrimalMarkdown: Component<{
     }
 
     if (token.type === 'event') {
-      let [_, noteId] = token.value.split(':');
+      let noteId = token.value;
+      let end = '';
+
+      const idStart = token.value.search(eventRegexNostrless);
+
+      if (idStart > 0) {
+        noteId = token.value.slice(idStart);
+      }
+
+      if (!noteId || noteId.length === 0) {
+        return <>{token.value}</>;
+      }
+
+      let match = specialCharsRegex.exec(noteId);
+
+      if (match) {
+        const i = match.index;
+        end = noteId.slice(i);
+        noteId = noteId.slice(0, i);
+      }
+
 
       if (noteId.startsWith('nevent')) {
-        const data = nip19.decode(noteId).data;
-        const note = (props.article?.mentionedNotes || {})[data.id];
+        const hex = noteIdToHex(noteId);
+        const note = (props.article?.mentionedNotes || {})[hex];
 
         const kind = note.post.kind || note.msg.kind;
 
-        if (kind === Kind.Text) {
-          noteId = nip19.noteEncode(data.id);
-        }
+        // if (kind === Kind.Text) {
+        //   noteId = nip19.noteEncode(hex);
+        // }
 
         if (kind === Kind.LongForm) {
           noteId = nip19.naddrEncode({
@@ -380,23 +422,23 @@ const PrimalMarkdown: Component<{
       }
 
       if (noteId.startsWith('note')) {
-        const id = nip19.decode(noteId).data;
+        const id = noteIdToHex(noteId);
         const note = (props.article?.mentionedNotes || {})[id];
 
         return (
-          <Show
-            when={note}
-            fallback={<A href={`/e/${noteId}`}>nostr:{noteId}</A>}
-          >
-            <div class={styles.embeddedNote}>
-              <EmbeddedNote
-                class={styles.embeddedNote}
-                note={note}
-                mentionedUsers={note.mentionedUsers}
-              />
-            </div>
-          </Show>
-        );
+            <Show
+              when={note}
+              fallback={<A href={`/e/${noteId}`}>nostr:{noteId}</A>}
+            >
+              <div class={styles.embeddedNote}>
+                <EmbeddedNote
+                  class={styles.embeddedNote}
+                  note={note}
+                  mentionedUsers={note.mentionedUsers}
+                />
+              </div>
+            </Show>
+          );
       }
 
       if (noteId.startsWith('naddr')) {
@@ -413,6 +455,7 @@ const PrimalMarkdown: Component<{
               article={mention}
               bordered={true}
               hideFooter={true}
+              onClick={navigate}
             />
           </div>
         );
@@ -444,7 +487,7 @@ const PrimalMarkdown: Component<{
           src={src}
           media={mediaImage}
           mediaThumb={mediaThumb}
-          width={640}
+          width={isIOS() || isAndroid() ? window.innerWidth : 640}
         />
       );
     }
@@ -468,15 +511,22 @@ const PrimalMarkdown: Component<{
   });
 
   const onMouseClick= (e: MouseEvent) => {
-    e.preventDefault();
     const el = e.target as HTMLElement;
 
     if (el.tagName === 'A') {
       const href = el.getAttribute('href') || '';
       const highlight = el.getAttribute('data-highlight') || '';
 
-      if (href.startsWith('nostr:')) {
-        const [__, id] = href?.split(':');
+      if (
+        href.includes('npub') ||
+        href.includes('note') ||
+        href.includes('nevent') ||
+        href.includes('naddr') ||
+        href.includes('nprofile')
+      ) {
+        e.preventDefault();
+        const index = href.search(/(npub|note|nevent|naddr|nprofile)/);
+        const id = href.slice(index);
 
         if (
           !id.startsWith('npub') &&
@@ -486,52 +536,63 @@ const PrimalMarkdown: Component<{
           !id.startsWith('nprofile')
         ) return false;
 
-        const decode = nip19.decode(id);
+        try {
+          const decode = nip19.decode(id);
 
-        switch (decode.type) {
-          case 'npub':
-            navigate(app?.actions.profileLink(id) || '');
-            break;
-          case 'note':
-            navigate(`/e/${id}`);
-            break;
-          case 'nprofile':
-            const npub = hexToNpub(decode.data.pubkey);
-            navigate(app?.actions.profileLink(npub) || '');
-            break;
-          case 'nevent':
-            if ([Kind.Text].includes(decode.data.kind)) {
-              const nId = nip19.noteEncode(decode.data.id);
-              navigate(`/e/${nId}`);
-            }
+          switch (decode.type) {
+            case 'npub':
+              navigate(app?.actions.profileLink(id) || '');
+              break;
+            case 'note':
+              const eventPointer: nip19.EventPointer = {
+                id: decode.data,
+              };
+              navigate(`/e/${nip19.neventEncode(eventPointer)}`);
+              break;
+            case 'nprofile':
+              const npub = hexToNpub(decode.data.pubkey);
+              navigate(app?.actions.profileLink(npub) || '');
+              break;
+            case 'nevent':
+              if ([Kind.Text].includes(decode.data.kind || -1)) {
+                navigate(`/e/${id}`);
+              }
 
-            if ([Kind.LongForm].includes(decode.data.kind)) {
-              // TODO HANDLE THIS CASE
-            }
+              if ([Kind.LongForm].includes(decode.data.kind || -1)) {
+                navigate(`/e/${id}`);
+              }
 
-            if ([Kind.Metadata].includes(decode.data.kind)) {
-              const nId = hexToNpub(decode.data.id);
-              navigate(app?.actions.profileLink(nId) || '');
-            }
-            break;
-          case 'naddr':
-            if ([Kind.Text, Kind.LongForm].includes(decode.data.kind)) {
-              navigate(`/e/${id}`);
-            }
-            break;
-          default:
-            break;
+              if ([Kind.Metadata].includes(decode.data.kind || -1)) {
+                const nId = hexToNpub(decode.data.id);
+                navigate(app?.actions.profileLink(nId) || '');
+              }
+              break;
+            case 'naddr':
+              if ([Kind.Text, Kind.LongForm].includes(decode.data.kind)) {
+                navigate(`/a/${id}`);
+              }
+              break;
+            default:
+              break;
+          }
         }
+        catch (e){
+          logError('Error resolving event path: ', e);
+        }
+
+
 
         return false;
       }
 
-      if (highlight) {
+      if (highlight && !(isIOS() || isAndroid())) {
+        e.preventDefault();
         showHighlightMenu(highlight);
         el.setAttribute('data-highlight-selected', 'true');
 
         return false;
       }
+
 
       return true;
     }
@@ -572,7 +633,7 @@ const PrimalMarkdown: Component<{
               props.onHighlightCreated && props.onHighlightCreated(hl, replaceId);
             }}
             onRemove={(id: string) => {
-              toast?.sendSuccess('Highlight removed');
+              toast?.sendSuccess('Kiemelés eltávolítva');
               hideHighlightMenu(id);
               props.onHighlightRemoved && props.onHighlightRemoved(id);
             }}
@@ -582,9 +643,9 @@ const PrimalMarkdown: Component<{
             }}
             onCopy={(id: string) => {
               if (!id) {
-                toast?.sendSuccess('Text copied');
+                toast?.sendSuccess('Szöveg másolva');
               } else {
-                toast?.sendSuccess('Highlight copied');
+                toast?.sendSuccess('Kiemelés másolva');
               }
 
               hideHighlightMenu(id);

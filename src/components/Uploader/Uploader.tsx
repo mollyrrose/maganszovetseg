@@ -34,15 +34,16 @@ type UploadState = {
 }
 
 const Uploader: Component<{
+  uploadId?: string,
   publicKey?: string,
   nip05?: string,
   openSockets?: boolean,
   hideLabel?: boolean,
   file: File | undefined,
-  onFail?: (reason: string) => void,
-  onRefuse?: (reason: string) => void,
-  onCancel?: () => void,
-  onSuccsess?: (url: string) => void,
+  onFail?: (reason: string, uploadId?: string) => void,
+  onRefuse?: (reason: string, uploadId?: string) => void,
+  onCancel?: (uploadId?: string) => void,
+  onSuccsess?: (url: string, uploadId?: string) => void,
 }> = (props) => {
   const account = useAccountContext();
 
@@ -184,7 +185,7 @@ const Uploader: Component<{
 
   const failUpload = () => {
     resetUpload(true);
-    props.onFail && props.onFail('');
+    props.onFail && props.onFail('', props.uploadId);
   };
 
   const onUploadCompleted = async (soc: WebSocket, file: File) => {
@@ -218,7 +219,7 @@ const Uploader: Component<{
 
 
           setTimeout(() => {
-            props.onSuccsess && props.onSuccsess(up.content);
+            props.onSuccsess && props.onSuccsess(up.content, props.uploadId);
             resetUpload(true);
           }, 500)
           return;
@@ -321,11 +322,15 @@ const Uploader: Component<{
   };
 
   const uploadFile = (file: File) => {
+    //console.log("📂 File selected for upload:", file.name, "Size:", file.size);
     if (file.size >= MB * uploadState.uploadLimit) {
-      props.onRefuse && props.onRefuse(`file_too_big_${uploadState.uploadLimit}`);
+      console.error("🚨 File too large!", file.name, file.size);
+      props.onRefuse && props.onRefuse(`file_too_big_${uploadState.uploadLimit}`, props.uploadId);
       resetUpload(true);
       return;
     }
+
+    //console.log("✅ File is within size limits.");
 
     let chunkSize = MB;
     let fileSize: FileSize = 'huge';
@@ -343,6 +348,8 @@ const Uploader: Component<{
       fileSize = 'large';
     }
 
+    //console.log("📊 Chunk Size Determined:", chunkSize, "File Size Type:", fileSize);
+
     let sum = 0;
 
     let chunkMap: number[] = [];
@@ -353,6 +360,9 @@ const Uploader: Component<{
       chunkMap.push(sum);
       sum += chunkSize;
     }
+
+    //console.log("🔄 Chunk Map Created:", chunkMap);
+
 
     setUploadState(() => ({
       isUploading: true,
@@ -365,6 +375,8 @@ const Uploader: Component<{
       chunkIndex: 0,
       fileSize,
     }))
+
+    //console.log("🚀 Upload State Set, Starting Upload...");
 
     subIdComplete = `up_comp_${uploadState.id}`;
 
@@ -400,7 +412,7 @@ const Uploader: Component<{
           <ButtonGhost
             onClick={() => {
               resetUpload();
-              props.onCancel && props.onCancel();
+              props.onCancel && props.onCancel(props.uploadId);
             }}
             disabled={uploadState.progress > 100}
           >

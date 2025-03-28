@@ -2,7 +2,7 @@ import { nip19 } from "./lib/nTools";
 import { Kind } from "./constants";
 import { getEvents, getMegaFeed, getUserArticleFeed, getUserFeed } from "./lib/feed";
 import { decodeIdentifier, hexToNpub } from "./lib/keys";
-import { getParametrizedEvents, setLinkPreviews } from "./lib/notes";
+import { getParametrizedEvents, parseLinkPreviews, setLinkPreviews } from "./lib/notes";
 import { getUserProfileInfo } from "./lib/profile";
 import { subsTo } from "./sockets";
 import { convertToArticles, convertToNotes } from "./stores/note";
@@ -11,7 +11,7 @@ import { parseBolt11 } from "./utils";
 
 export const fetchNotes = (pubkey: string | undefined, noteIds: string[], subId: string) => {
   return new Promise<PrimalNote[]>((resolve, reject) => {
-    if (!pubkey) reject('Missing pubkey');
+    // if (!pubkey) reject('Missing pubkey');
 
     let page: FeedPage = {
       users: {},
@@ -54,7 +54,7 @@ export const fetchNotes = (pubkey: string | undefined, noteIds: string[], subId:
       if ([Kind.Text, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.post?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -92,24 +92,7 @@ export const fetchNotes = (pubkey: string | undefined, noteIds: string[], subId:
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -237,7 +220,7 @@ export const fetchArticles = (noteIds: string[], subId: string) => {
       if ([Kind.LongForm, Kind.LongFormShell, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -275,24 +258,7 @@ export const fetchArticles = (noteIds: string[], subId: string) => {
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -421,7 +387,7 @@ export const fetchArticleThread = (pubkey: string | undefined, noteIds: string, 
       if ([Kind.LongForm, Kind.LongFormShell, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -459,24 +425,7 @@ export const fetchArticleThread = (pubkey: string | undefined, noteIds: string, 
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -592,7 +541,7 @@ export const fetchUserArticles = (userPubkey: string | undefined, pubkey: string
       if ([Kind.LongForm, Kind.LongFormShell, Kind.LongFormShell, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -630,24 +579,7 @@ export const fetchUserArticles = (userPubkey: string | undefined, pubkey: string
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -827,7 +759,7 @@ export const fetchUserGallery = (userPubkey: string | undefined, pubkey: string 
       if ([Kind.Text, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -865,24 +797,7 @@ export const fetchUserGallery = (userPubkey: string | undefined, pubkey: string 
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -1009,7 +924,7 @@ export const fetchNoteFeedBySpec = (pubkey: string | undefined, spec: string, su
       if ([Kind.Text, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.post?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.post?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -1019,7 +934,7 @@ export const fetchNoteFeedBySpec = (pubkey: string | undefined, spec: string, su
       // if ([Kind.LongForm, Kind.LongFormShell, Kind.Repost].includes(content.kind)) {
       //   const message = content as NostrNoteContent;
 
-      //   if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+      //   if (lastNote?.id !== message.id) {
       //     page.messages.push({...message});
       //   }
 
@@ -1057,24 +972,7 @@ export const fetchNoteFeedBySpec = (pubkey: string | undefined, spec: string, su
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 
@@ -1189,7 +1087,7 @@ export const fetchReadsFeedBySpec = (pubkey: string | undefined, spec: string, s
       // if ([Kind.Text, Kind.Repost].includes(content.kind)) {
       //   const message = content as NostrNoteContent;
 
-      //   if (lastNote?.post?.noteId !== nip19.noteEncode(message.id)) {
+      //   if (lastNote?.id !== message.id) {
       //     page.messages.push({...message});
       //   }
 
@@ -1199,7 +1097,7 @@ export const fetchReadsFeedBySpec = (pubkey: string | undefined, spec: string, s
       if ([Kind.LongForm, Kind.LongFormShell, Kind.Repost].includes(content.kind)) {
         const message = content as NostrNoteContent;
 
-        if (lastNote?.noteId !== nip19.noteEncode(message.id)) {
+        if (lastNote?.id !== message.id) {
           page.messages.push({...message});
         }
 
@@ -1237,24 +1135,7 @@ export const fetchReadsFeedBySpec = (pubkey: string | undefined, spec: string, s
       }
 
       if (content.kind === Kind.LinkMetadata) {
-        const metadata = JSON.parse(content.content);
-
-        const data = metadata.resources[0];
-        if (!data) {
-          return;
-        }
-
-        const preview = {
-          url: data.url,
-          title: data.md_title,
-          description: data.md_description,
-          mediaType: data.mimetype,
-          contentType: data.mimetype,
-          images: [data.md_image],
-          favicons: [data.icon_url],
-        };
-
-        setLinkPreviews(() => ({ [data.url]: preview }));
+        parseLinkPreviews(JSON.parse(content.content));
         return;
       }
 

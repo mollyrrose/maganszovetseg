@@ -34,6 +34,8 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import { useAppContext } from '../contexts/AppContext';
 import FeedNoteSkeleton from '../components/Skeleton/FeedNoteSkeleton';
 import { Transition } from 'solid-transition-group';
+import { isPhone } from '../utils';
+import PageCaption from '../components/PageCaption/PageCaption';
 
 
 const Home: Component = () => {
@@ -127,11 +129,18 @@ const Home: Component = () => {
   return (
     <div class={styles.homeContent}>
       <PageTitle title={intl.formatMessage(branding)} />
-      <Wormhole
-        to="search_section"
-      >
-        <Search />
-      </Wormhole>
+
+      <Show when={!isPhone()}>
+        <Wormhole
+          to="search_section"
+        >
+          <Search />
+        </Wormhole>
+
+        <StickySidebar>
+          <HomeSidebar />
+        </StickySidebar>
+      </Show>
 
       <div class={styles.normalCentralHeader}>
         <HomeHeader
@@ -142,13 +151,12 @@ const Home: Component = () => {
         />
       </div>
 
-      <div class={styles.phoneCentralHeader}>
-        <HomeHeaderPhone />
-      </div>
+      <Show when={isPhone()}>
+        <PageCaption>
+          <HomeHeaderPhone />
+        </PageCaption>
+      </Show>
 
-      <StickySidebar>
-        <HomeSidebar />
-      </StickySidebar>
 
       <div class={styles.homeFeed}>
         <Transition name="slide-fade">
@@ -162,7 +170,7 @@ const Home: Component = () => {
               </div>
             }
           >
-            <div class={styles.feed}>
+            <div class={isPhone() ? styles.readsFeed : ''}>
               <For each={context?.notes} >
                 {note => (
                   <div class="animated">

@@ -3,13 +3,13 @@ import { Router, useLocation } from "@solidjs/router";
 import { nip19 } from "../../../lib/nTools";
 import { Component, createEffect, createSignal, For, Match, onCleanup, onMount, Show, Switch } from "solid-js";
 import { createStore, reconcile, unwrap } from "solid-js/store";
-import { noteRegex, profileRegex, Kind, editMentionRegex, emojiSearchLimit, profileRegexG, linebreakRegex, addrRegex, addrRegexG } from "../../../constants";
+import { noteRegex, profileRegex, Kind, editMentionRegex, emojiSearchLimit, profileRegexG, linebreakRegex, addrRegex, addrRegexG, eventRegexG } from "../../../constants";
 import { useAccountContext } from "../../../contexts/AccountContext";
 import { useSearchContext } from "../../../contexts/SearchContext";
 import { TranslatorProvider } from "../../../contexts/TranslatorContext";
 import { getEvents } from "../../../lib/feed";
 import { parseNote1, sanitize, sendNote, replaceLinkPreviews, importEvents, getParametrizedEvent } from "../../../lib/notes";
-import { getUserProfiles } from "../../../lib/profile";
+import { getUserProfiles, getUsersRelayInfo } from "../../../lib/profile";
 import { subsTo } from "../../../sockets";
 import { convertToArticles, convertToNotes, referencesToTags } from "../../../stores/note";
 import { convertToUser, nip05Verification, truncateNpub, userName } from "../../../stores/profile";
@@ -40,7 +40,7 @@ import { useProfileContext } from "../../../contexts/ProfileContext";
 import ButtonGhost from "../../Buttons/ButtonGhost";
 import EmojiPickPopover from "../../EmojiPickModal/EmojiPickPopover";
 import ConfirmAlternativeModal from "../../ConfirmModal/ConfirmAlternativeModal";
-import { readNoteDraft, readNoteDraftUserRefs, saveNoteDraft, saveNoteDraftUserRefs } from "../../../lib/localStore";
+import { readNoteDraft, readNoteDraftUserRefs, readSecFromStorage, saveNoteDraft, saveNoteDraftUserRefs } from "../../../lib/localStore";
 import Uploader from "../../Uploader/Uploader";
 import { logError } from "../../../lib/logger";
 import Lnbc from "../../Lnbc/Lnbc";
@@ -187,7 +187,7 @@ const EditBox: Component<{
 
 
   const renderMessage = () => {
-    const text = DOMPurify.sanitize(parsedMessage());
+    const text = DOMPurify.sanitize(parsedMessage(), {ADD_TAGS: ['iframe']});
 
     if (!noteHasInvoice(text)) {
       return (
@@ -703,6 +703,14 @@ const EditBox: Component<{
       return;
     }
 
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     if (!account.proxyThroughPrimal && account.relays.length === 0) {
       toast?.sendWarning(
         intl.formatMessage(tToast.noRelaysConnected),
@@ -716,6 +724,41 @@ const EditBox: Component<{
       return;
     }
 
+    let userRelays = await (new Promise<Record<string, string[]>>(resolve => {
+      const uids = Object.values(userRefs).map(u => u.pubkey);
+      const subId = `users_relays_${APP_ID}`;
+
+      let relays: Record<string, string[]> = {};
+
+      const unsub = subsTo(subId, {
+        onEose: () => {
+          unsub();
+          resolve({ ...relays });
+        },
+        onEvent: (_, content) => {
+          if (content.kind !== Kind.UserRelays) return;
+
+          const pk = content.pubkey || 'UNKNOWN';
+
+          let rels: string[] = [];
+
+          for (let i = 0; i < (content.tags || []).length; i++) {
+            if (rels.length > 1) break;
+
+            const rel = content.tags[i];
+            if (rel[0] !== 'r' || rels.includes(rel[1])) continue;
+
+            rels.push(rel[1]);
+          }
+
+          relays[pk] = [...rels];
+        },
+        onNotice: () => resolve({}),
+      })
+
+      getUsersRelayInfo(uids, subId);
+    }));
+
     const messageToSend = value.replace(editMentionRegex, (url) => {
 
       const [anythingBefore, mention] = url.split('@');
@@ -723,15 +766,71 @@ const EditBox: Component<{
       const [_, name] = mention.split('\`');
       const user = userRefs[name];
 
+      let pInfo: nip19.ProfilePointer = { pubkey: user.pubkey };
+      const relays = userRelays[user.pubkey] || [];
+
+      if (relays.length > 0) {
+        pInfo.relays = [...relays];
+      }
+
+      const nprofile = nip19.nprofileEncode(pInfo);
+
       // @ts-ignore
-      return `${anythingBefore} nostr:${user.npub}`;
+      return `${anythingBefore} nostr:${nprofile} `;
     });
 
     if (account) {
       let tags = referencesToTags(messageToSend, relayHints);
       const rep = props.replyToNote;
 
-      if (rep) {
+      // @ts-ignore
+      if (rep && rep.naddr) {
+        let rootTag = rep.msg.tags.find(t => t[0] === 'a' && t[3] === 'root');
+
+        const rHints = (rep.relayHints && rep.relayHints[rep.id]) ?
+          rep.relayHints[rep.id] :
+          '';
+
+          // @ts-ignore
+          const decoded = nip19.decode(rep.naddr);
+
+          const data = decoded.data as nip19.AddressPointer;
+
+          const coord = `${data.kind}:${data.pubkey}:${data.identifier}`;
+
+        // If the note has a root tag, that meens it is not a root note itself
+        // So we need to copy the `root` tag and add a `reply` tag
+        if (rootTag) {
+          const tagWithHint = rootTag.map((v, i) => i === 2 ?
+            rHints :
+            v,
+          );
+          tags.push([...tagWithHint]);
+          tags.push(['a', coord, rHints, 'reply']);
+        }
+        // Otherwise, add the note as the root tag for this reply
+        else {
+          tags.push([
+            'a',
+            coord,
+            rHints,
+            'root',
+          ]);
+        }
+
+        // Copy all `p` tags from the note we are repling to
+        const repPeople = rep.msg.tags.filter(t => t[0] === 'p');
+
+        tags = [...tags, ...(unwrap(repPeople))];
+
+        // If the author of the note is missing, add them
+        if (!tags.find(t => t[0] === 'p' && t[1] === rep.pubkey)) {
+          tags.push(['p', rep.pubkey]);
+        }
+      }
+
+      // @ts-ignore
+      if (rep && !rep.naddr) {
         let rootTag = rep.msg.tags.find(t => t[0] === 'e' && t[3] === 'root');
 
         const rHints = (rep.relayHints && rep.relayHints[rep.id]) ?
@@ -768,6 +867,21 @@ const EditBox: Component<{
           tags.push(['p', rep.pubkey]);
         }
       }
+
+      const relayTags = account.relays.map(r => {
+        let t = ['r', r.url];
+
+        const settings = account.relaySettings[r.url];
+        if (settings && settings.read && !settings.write) {
+          t = [...t, 'read'];
+        }
+        if (settings && !settings.read && settings.write) {
+          t = [...t, 'write'];
+        }
+
+        return t;
+      });
+      tags = [...tags, ...relayTags];
 
       setIsPostingInProgress(true);
 
@@ -903,7 +1017,14 @@ const EditBox: Component<{
   const subUserRef = (userId: string) => {
 
     const parsed = parsedMessage().replace(profileRegex, (url) => {
-      const [_, id] = url.split(':');
+
+      let id = url;
+
+      const idStart = url.search(profileRegex);
+
+      if (idStart > 0) {
+        id = url.slice(idStart);
+      }
 
       if (!id) {
         return url;
@@ -1032,10 +1153,16 @@ const EditBox: Component<{
   };
 
   const subNaddrRef = (noteId: string) => {
+    const parsed = parsedMessage().replace(eventRegexG, (url) => {
 
+      let id = url;
 
-    const parsed = parsedMessage().replace(addrRegex, (url) => {
-      const [_, id] = url.split(':');
+      const idStart = url.search(addrRegex);
+
+      if (idStart > 0) {
+        id = url.slice(idStart);
+      }
+      // const [_, id] = url.split(':');
 
       if (!id || id !== noteId) {
         return url;
@@ -1190,10 +1317,10 @@ const EditBox: Component<{
           if (newNote) {
             setNoteRefs((refs) => ({
               ...refs,
-              [newNote.noteId]: newNote
+              [newNote.id]: newNote
             }));
 
-            subNoteRef(newNote.noteId);
+            subNoteRef(newNote.id);
           } else {
             subNoteRef(id);
           }
@@ -1212,15 +1339,35 @@ const EditBox: Component<{
 
   const subNoteRef = (noteId: string) => {
 
-    const parsed = parsedMessage().replace(noteRegex, (url) => {
-      const [_, id] = url.split(':');
+    const parsed = parsedMessage().replace(eventRegexG, (url) => {
+      // const [_, id] = url.split(':');
 
+      let id = url;
 
-      if (!id || id !== noteId) {
+      const idStart = url.search(noteRegex);
+
+      if (idStart > 0) {
+        id = url.slice(idStart);
+      }
+
+      if (!id) {
         return url;
       }
+
       try {
-        let note = noteRefs[id];
+        let hex = '';
+
+        const decode = nip19.decode(id);
+
+        if (decode.type === 'nevent') {
+          hex = decode.data.id;
+        } else if (decode.type === 'note') {
+          hex = decode.data;
+        }
+
+        if (hex !== noteId) return url;
+
+        let note = noteRefs[hex];
 
         if (!note) {
           note = highlightRefs[id];
@@ -1269,6 +1416,7 @@ const EditBox: Component<{
         )
       )
     );
+
 
     parseNaddr(content);
     parseNpubLinks(content);
@@ -1388,7 +1536,7 @@ const EditBox: Component<{
     // Get cursor position to determine insertion point
     let cursor = textArea.selectionStart;
 
-    // Get index of the token and inster user's handle
+    // Get index of the token and insert user's handle
     const index = msg.slice(0, cursor).lastIndexOf('@');
     const value = msg.slice(0, index) + `@\`${name}\`` + msg.slice(cursor);
 
@@ -1639,7 +1787,7 @@ const EditBox: Component<{
               hidden={true}
               accept="image/*,video/*,audio/*"
             />
-            <label for={`upload-${instanceId}`} class={`attach_icon ${styles.attachIcon}`}>"   "
+            <label for={`upload-${instanceId}`} class={`attach_icon ${styles.attachIcon}`}>
             </label>
           </div>
           <div class={styles.editorOption}>

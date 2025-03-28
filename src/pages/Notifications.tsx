@@ -26,7 +26,7 @@ import { Tabs } from "@kobalte/core/tabs";
 import styles from './Notifications.module.scss';
 import PageCaption from '../components/PageCaption/PageCaption';
 import PageTitle from '../components/PageTitle/PageTitle';
-import { timeNow } from '../utils';
+import { isPhone, timeNow } from '../utils';
 import { logError } from '../lib/logger';
 
 
@@ -1076,11 +1076,19 @@ const Notifications: Component = () => {
         intl.formatMessage(t.title)}
       />
 
-      <Wormhole
-        to="search_section"
-      >
-        <Search />
-      </Wormhole>
+      <Show when={!isPhone()}>
+        <Wormhole
+          to="search_section"
+        >
+          <Search />
+        </Wormhole>
+        <StickySidebar>
+          <NotificationsSidebar
+            notifications={sortedNotifications}
+            getUsers={getUsers}
+          />
+        </StickySidebar>
+      </Show>
 
       <PageCaption title={intl.formatMessage(t.title)} />
 
@@ -1100,13 +1108,6 @@ const Notifications: Component = () => {
         </div>
       </Show>
 
-      <StickySidebar>
-        <NotificationsSidebar
-          notifications={sortedNotifications}
-          getUsers={getUsers}
-        />
-      </StickySidebar>
-
       <Tabs
         value={notificationGroup()}
         onChange={(group: string) => {
@@ -1118,11 +1119,11 @@ const Notifications: Component = () => {
           <Tabs.Trigger class={styles.notificationTab} value="all">
             {intl.formatMessage(t.all)}
           </Tabs.Trigger>
-{/*
+	{/*
           <Tabs.Trigger class={styles.notificationTab} value="zaps">
             {intl.formatMessage(t.zaps)}
           </Tabs.Trigger>
-*/}
+	*/}
           <Tabs.Trigger class={styles.notificationTab} value="replies">
             {intl.formatMessage(t.replies)}
           </Tabs.Trigger>
@@ -1195,9 +1196,7 @@ const Notifications: Component = () => {
           </Show>
         </Tabs.Content>
 
-
-        <For each={['zaps', 'replies', 'mentions', 'reposts']}> 
-
+        <For each={['zaps', 'replies', 'mentions', 'reposts']}>
           {group =>
             <Tabs.Content class={styles.notificationTabContent} value={group}>
               <Show

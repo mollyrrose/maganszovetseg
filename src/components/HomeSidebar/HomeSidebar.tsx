@@ -40,6 +40,7 @@ const sidebarOptions = [
   {
     label: '',
     value: '',
+    id: 'separator_trending',
     disabled: true,
     separator: true,
   },
@@ -76,11 +77,12 @@ const HomeSidebar: Component< { id?: string } > = (props) => {
   const home = useHomeContext();
 
   onMount(() => {
+    const def = sidebarOptions.find(o => o.id === 'trending_4h') || sidebarOptions[0];
     if (account?.isKeyLookupDone && home?.sidebarNotes.length === 0) {
-      let stored = readHomeSidebarSelection(account.publicKey) || { ...sidebarOptions[0] };
+      let stored = readHomeSidebarSelection(account.publicKey) || { ...def };
 
       if (!stored.id) {
-        stored = { ...sidebarOptions[0] };
+        stored = { ...def };
       }
 
       home?.actions.updateSidebarQuery(stored);

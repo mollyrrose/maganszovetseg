@@ -24,8 +24,8 @@
 
   --brand-gradient: linear-gradient(141deg, #EF404A 6.36%, #5B12A4 97.61%);
 
-  --success-bright: #66E205;
-  --success-dim: #487E1F;
+  --success-bright: #05e277;
+  --success-dim: #1f7e48;
   --warning-bright: #FA3C3C;
   --warning-bright-shadow: #e2050588;
   --warning-dim: #480101;
@@ -33,7 +33,7 @@
   --active-reply: #cccccc;
   --active-zap: #ffa02f;
   --active-liked: #f800c1;
-  --active-reposted: #66e205;
+  --active-reposted: #05e273;
   --active-bookmarked: #0C7DD8;
   --background-modal: #00000070;
 
@@ -44,7 +44,7 @@
   --profile-indicator-border: var(--background-site);
 
   --check-image: url('./assets/icons/check.svg');
-  --logo: url('./assets/icons/logo_fire.png');
+  --logo: url('./assets/icons/logo_fire.png');					//saját logo
   --logo-big: url('./assets/icons/logo_fire_big_night.png');
   --icon-follows: url('./assets/icons/follows.svg');
   --icon-tribe: url('./assets/icons/tribe.svg');
@@ -68,6 +68,36 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_dark.png');
+
+/*
+  --check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+  --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+  --logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_night.png');
+  --icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+  --icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+  --icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+  --icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+  --icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+  --icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+  --icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+  --icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+  --icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+  --icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+  --icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+  --icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+  --icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+  --icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+  --icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+  --icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+  --reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_dark.png');
+*/
+
+
 
   select {
     background-color: var(--background-site);
@@ -101,8 +131,8 @@
 
   --brand-gradient: linear-gradient(128deg, #14B9FF 0%, #690DFF 100%);
 
-  --success-bright: #66E205;
-  --success-dim: #487E1F;
+  --success-bright: #05e261;
+  --success-dim: #1f7e63;
   --warning-bright: #FA3C3C;
   --warning-bright-shadow: #e2050588;
   --warning-dim: #480101;
@@ -110,7 +140,7 @@
   --active-reply: #cccccc;
   --active-zap: #ffa02f;
   --active-liked: #f800c1;
-  --active-reposted: #66e205;
+  --active-reposted: #05e25a;
   --active-bookmarked: #0C7DD8;
   --background-modal: #00000070;
 
@@ -146,6 +176,34 @@
 
   --reads-placeholder-image: url('./assets/images/reads_image_dark.png');
 
+/*
+  --check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+  --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+  --logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+  --icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+  --icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+  --icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+  --icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+  --icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+  --icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+  --icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+  --icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+  --icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+  --icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+  --icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+  --icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+  --icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+  --icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+  --icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+  --icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+  --reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_dark.png');
+*/
+
   select {
     background-color: var(--background-site);
   }
@@ -175,9 +233,9 @@
   --accent-links: #0f7c23;
   --accent-dm: #0b912a;
 
-  --brand-gradient: linear-gradient(141deg, #40ef66 6.36%, #5B12A4 97.61%);
+  --brand-gradient: linear-gradient(141deg, #40efd2 6.36%, #5B12A4 97.61%);
 
-  --success-bright: #52CE0A;
+  --success-bright: #0ace8d;
   --success-dim: #569724;
   --warning-bright: #FA3C3C;
   --warning-bright-shadow: #C4000088;
@@ -221,6 +279,33 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_light.png');
+/*
+--check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+--logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+--logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+--icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+--icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+--icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+--icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+--icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+--icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+--icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+--icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+--icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+--icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+--icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+--icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+--icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+--icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+--icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+--icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+--reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_light.png');
+*/
 
   select {
     background-color: var(--background-site);
@@ -254,16 +339,16 @@
 
   --brand-gradient: linear-gradient(128deg, #14B9FF 0%, #690DFF 100%);
 
-  --success-bright: #52CE0A;
-  --success-dim: #569724;
+  --success-bright: #0ace97;
+  --success-dim: #249773;
   --warning-bright: #FA3C3C;
   --warning-bright-shadow: #C4000088;
   --warning-dim: #FAC3C3;
 
   --active-reply: #444444;
   --active-zap: #ffa02f;
-  --active-liked: #049326;
-  --active-reposted: #52CE0A;
+  --active-liked: #049380;
+  --active-reposted: #0ace93;
   --active-bookmarked: #0C7DD8;
   --background-modal: #f5f5f570;
 
@@ -298,6 +383,33 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_light.png');
+/*
+--check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+--logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+--logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+--icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+--icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+--icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+--icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+--icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+--icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+--icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+--icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+--icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+--icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+--icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+--icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+--icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+--icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+--icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+--icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+--reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_light.png');
+*/
 
   select {
     background-color: var(--background-site);

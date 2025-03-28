@@ -49,7 +49,7 @@ const ConfirmModal: Component<{
               {props.confirmLabel || intl.formatMessage(t.confirm)}
             </ButtonPrimary>
           </Show>
-*/}
+	*/}
           
 
           <Show when={props.onAbort}>

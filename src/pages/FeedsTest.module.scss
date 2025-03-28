@@ -86,6 +86,13 @@
   align-items: center;
   gap: 12px;
 
+  @media only screen and (max-width: 720px) {
+    width: calc(100dvw - 32px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
   .caption {
     display: flex;
     justify-content: flex-start;
@@ -174,7 +181,7 @@
 }
 
 .leftFloat {
-  width: 442px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -188,6 +195,8 @@
   background-color: var(--text-tertiary-2);
   -webkit-mask: url(../assets/icons/search.svg) 0 / 100% no-repeat;
   mask: url(../assets/icons/search.svg) 0 / 100% no-repeat;
+  //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+  //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
 }
 
 .excludeIcon {
@@ -324,6 +333,14 @@
     .filterValue {
       width: 332px;
     }
+
+    @media only screen and (max-width: 720px) {
+      padding-inline: 24px;
+      width: calc(100dvw - 32px);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
   }
 
   .filterActions {
@@ -342,6 +359,9 @@
       button {
         width: 210px;
       }
+    }
+    @media only screen and (max-width: 720px) {
+      width: calc(100dvw - 24px);
     }
   }
 }

@@ -1,48 +1,113 @@
-import styles from "./VerificationCheck.module.scss";
+import styles from  "./VerificationCheck.module.scss";
 
-import { Component, createSignal, onMount } from "solid-js";
+import { Component, createEffect, createSignal, JSXElement, Match, onMount, Show, Switch } from "solid-js";
 import { PrimalUser } from "../../types/primal";
 import { isAccountVerified } from "../../lib/profile";
+import { hookForDev } from "../../lib/devTools";
+import { userName } from "../../stores/profile";
+import { LegendCustomizationConfig } from "../../lib/premium";
 import { useAppContext } from "../../contexts/AppContext";
+
 
 const VerificationCheck: Component<{
   user: PrimalUser | undefined,
   large?: boolean,
-  fallback?: JSX.Element,
+  fallback?: JSXElement,
   id?: string,
-  legendConfig?: any, // Adjust this type if needed
+  legendConfig?: LegendCustomizationConfig,
   mock?: boolean,
 }> = (props) => {
   const app = useAppContext();
 
   const [isVerified, setIsVerified] = createSignal(false);
 
-  // Check if the user is verified and return if they are or not
+  const isVerifiedByPrimal = () => {
+    const nip05 = props.user?.nip05;
+
+    return isVerified() && nip05 && nip05.endsWith && nip05.endsWith('primal.net');
+  }
+
   const checkVerification = () => {
     const nip05 = props.user?.nip05;
 
     if (!nip05) {
-      setIsVerified(false); // User is not verified
+      setIsVerified(false);
       return;
     }
 
-    // Check the verification status using the isAccountVerified function
     isAccountVerified(nip05).then(profile => {
       if (profile) {
-        setIsVerified(profile.pubkey === props.user?.pubkey); // Set verified status based on pubkey
-      } else {
-        setIsVerified(false); // No verification found
+        setIsVerified(() => profile.pubkey === props.user?.pubkey);
+        return;
       }
+
+      setIsVerified(() => false);
     });
   }
 
-  // Hook to check verification when the component is mounted
+  const legendConfig = () => {
+    const pubkey = props.user?.pubkey;
+
+    if (!pubkey) return undefined;
+
+    return props.legendConfig || app?.legendCustomization[pubkey];
+  }
+
+  const primalCheckKlass = () => {
+    let klass = styles.verifiedIconPrimal;
+    const lc = legendConfig();
+
+    if (lc?.custom_badge) {
+      const style = lc.style;
+
+      if (style !== '') {
+        klass += ` ${styles[`legend_${style}`]}`
+      }
+    }
+
+    return klass;
+  }
+
+  const isLegend = () => legendConfig() !== undefined;
+
   onMount(() => {
     checkVerification();
-  });
+  })
 
-  // Return null to render nothing for both verified and non-verified users
-  return null;
-};
+  return (
+    <Switch fallback={props.fallback}>
+      <Match when={isVerified() || isLegend()}>
+        <div
+          id={props.id}
+          data-user={props.user?.pubkey}
+          class={`${props.large ? styles.verificationIconL : styles.verificationIcon}`}
+        >
+          <Show
+            when={isVerifiedByPrimal() || isLegend()}
+            fallback={
+              <span class={styles.verifiedIcon} />
+            }
+          >
+            <div class={primalCheckKlass()}>
+              <div class={styles.checkIcon}></div>
+            </div>
+          </Show>
+        </div>
+      </Match>
+      <Match when={props.mock}>
+        <div
+          id={props.id}
+          data-user={props.user?.pubkey}
+          class={`${props.large ? styles.verificationIconL : styles.verificationIcon}`}
+        >
+          <div class={primalCheckKlass()}>
+            <div class={styles.checkIcon}></div>
+          </div>
+        </div>
+      </Match>
 
-export default VerificationCheck;
+    </Switch>
+  )
+}
+
+export default hookForDev(VerificationCheck);

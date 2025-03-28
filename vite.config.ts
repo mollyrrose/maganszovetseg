@@ -9,13 +9,18 @@ export default defineConfig({
     allowedHosts: ['maganszovetseg.net', 'demo.maganszovetseg.net'], // Allow both domains
   },
   server: {
-    port: 4174,
+    port: 4173, // demo on 4174
     allowedHosts: true,
   },
   build: {
     target: 'esnext',
     sourcemap: true,
+    rollupOptions: {
+      //external: ['@formatjs/fast-memoize'],
+    },
   },
+  //assetsInclude: ['**/*.svg'],
+  assetsInclude: ['**/*.svg', '**/*.png'],
   envPrefix: 'PRIMAL_',
   define: {
     'import.meta.env.PRIMAL_VERSION': JSON.stringify(packageJson.version),
@@ -25,3 +30,4 @@ export default defineConfig({
   },
 
 });
+

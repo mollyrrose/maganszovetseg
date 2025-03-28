@@ -1,4 +1,3 @@
-//{/* scr/pages/EditProfile.tsx */}
 import { Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
 import styles from './EditProfile.module.scss';
 import PageCaption from '../components/PageCaption/PageCaption';
@@ -9,8 +8,6 @@ import {
   toast as tToast,
   upload as tUpload,
 } from '../translations';
-
-
 import { useIntl } from '@cookbook/solid-intl';
 import Avatar from '../components/Avatar/Avatar';
 import { useProfileContext } from '../contexts/ProfileContext';
@@ -358,6 +355,17 @@ createEffect(() => {
     }
 
     const data = new FormData(e.target as HTMLFormElement);
+    console.log("📝 Form Data Before Submit:");
+
+    for (let [key, value] of data.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    const picture = avatarPreview() || '';
+    const banner = bannerPreview() || '';
+
+    console.log("📷 Avatar URL:", picture);
+    console.log("🎨 Banner URL:", banner);
 
     const name = data.get('name')?.toString() || '';
 
@@ -378,16 +386,22 @@ createEffect(() => {
         // Apply default values only if the key doesn't have an updated value
         switch (key) {
           case 'msn_country':
-            metadata['msn_country'] = "Hungary";
+            metadata['msn_country'] = "Magyarország";
             break;
           case 'msn_mapaddress':
-            metadata['msn_mapaddress'] = "Hungary";
+            metadata['msn_mapaddress'] = "";
             break;
+          case 'msn_ismapaddressvisible':
+            metadata['msn_ismapaddressvisible'] = "false";
+            break;          
           case 'msn_mapliveaddress':
-            metadata['msn_mapliveaddress'] = "Hungary";
+            metadata['msn_mapliveaddress'] = "";
             break;
+          case 'msn_ismapaddressvisible_tosecondlevel':
+            metadata['msn_ismapaddressvisible_tosecondlevel'] = "false";
+            break;   
           case 'msn_language':
-            metadata['msn_language'] = "Hungarian";
+            metadata['msn_language'] = "Magyar";
             break;
           case 'msn_clientregurl':
             metadata['msn_clientregurl'] = "MaganSzovetseg.Net";
@@ -407,6 +421,15 @@ createEffect(() => {
           case 'msn_email':
             metadata['msn_email'] = "";
             break;
+          case 'msn_isMediumSupported':
+            metadata['msn_isMediumSupported'] = "false";
+            break;
+          case 'msn_isOptimumSupported':
+            metadata['msn_isOptimumSupported'] = "false";
+            break;
+          case 'msn_WantsToHelp':
+            metadata['msn_WantsToHelp'] = "false";
+            break;
           default:
             // For other fields, you may want to leave them unchanged
             break;
@@ -419,12 +442,24 @@ createEffect(() => {
       }
     });
 
+
+    // ✅ Ensure picture & banner are included
+    metadata['picture'] = picture;
+    metadata['banner'] = banner;
+
+    console.log("🚀 Final Metadata Before Sending:", metadata);
+
+
     const oldProfile = profile?.userProfile || {};
+    console.log("🚀 Sending Profile Data to Nostr:", { ...oldProfile, ...metadata });
+
 
     // Send the metadata to Nostr
     const { success, note } = await sendProfile({ ...oldProfile, ...metadata }, account?.proxyThroughPrimal || false, account.activeRelays, account.relaySettings);
 
     if (success) {
+      console.log("✅ Profile successfully sent to Nostr!", metadata);
+
       note && triggerImportEvents([note], `import_profile_${APP_ID}`, () => {
         note && profile?.actions.updateProfile(note.pubkey);
         note && account.actions.updateAccountProfile(note.pubkey);
@@ -438,12 +473,7 @@ createEffect(() => {
       return false;
     }
 
-
-
-
-
-    
-  
+    console.error("❌ Profile update failed!");
     toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail))
 
     return false;
@@ -639,6 +669,24 @@ createEffect(() => {
       </div>
 
       <form onSubmit={onSubmit}>
+
+        
+      <div class={styles.formSubmit}>
+          <ButtonPrimary
+            type='submit'
+            disabled={!isNameValid()}
+          >
+            {intl.formatMessage(tActions.save)}
+          </ButtonPrimary>
+          <ButtonSecondary
+            type='button'
+            onClick={() => navigate(app?.actions.profileLink(account?.publicKey) || '')}
+          >
+            {intl.formatMessage(tActions.cancel)}
+          </ButtonSecondary>
+        </div>
+
+        <br />
 
         <div class={styles.inputLabel_bold}>
           <label for='name'>{intl.formatMessage(tSettings.profile.name.label)}</label>
