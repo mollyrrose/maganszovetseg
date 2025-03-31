@@ -16,10 +16,9 @@ export default defineConfig({
     target: 'esnext',
     sourcemap: true,
     rollupOptions: {
-      //external: ['@formatjs/fast-memoize'],
+      external: ['@formatjs/fast-memoize'],
     },
   },
-  //assetsInclude: ['**/*.svg'],
   assetsInclude: ['**/*.svg', '**/*.png'],
   envPrefix: 'PRIMAL_',
   define: {

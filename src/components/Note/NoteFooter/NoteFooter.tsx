@@ -36,6 +36,7 @@ const NoteFooter: Component<{
   large?: boolean,
   onZapAnim?: (zapOption: ZapOption) => void,
   noteType?: 'primary',
+  onCommentClick?: () => void,
 }> = (props) => {
 
   const account = useAccountContext();
@@ -145,7 +146,11 @@ const NoteFooter: Component<{
     }
   };
 
-  const doReply = () => {};
+  const doReply = (e?: MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
+  };
 
   const doLike = async (e: MouseEvent) => {
     e.preventDefault();
@@ -402,43 +407,73 @@ const NoteFooter: Component<{
       </Show>
 
       <NoteFooterActionButton
-        note={props.note}
-        onClick={doReply}
-        type="reply"
-        highlighted={props.state.replied}
-        label={props.state.replies === 0 ? '' : truncateNumber(props.state.replies, 2)}
-        title={props.state.replies.toLocaleString()}
-        large={props.large}
-        noteType={props.noteType}
-      />
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (props.onCommentClick) {
+      props.onCommentClick();
+    } else {
+      doReply(e);
+    }
+  }}
+  type="reply"
+  highlighted={props.state.replied}
+  label={props.state.replies === 0 ? '' : truncateNumber(props.state.replies, 2)}
+  title={props.state.replies.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
 
-      <NoteFooterActionButton
-        note={props.note}
-        onClick={(e: MouseEvent) => e.preventDefault()}
-        onMouseDown={startZap}
-        onMouseUp={commitZap}
-        onTouchStart={startZap}
-        onTouchEnd={commitZap}
-        type="zap"
-        highlighted={props.state.zapped || props.state.isZapping}
-        label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
-        hidden={props.state.hideZapIcon}
-        title={props.state.satsZapped.toLocaleString()}
-        large={props.large}
-        noteType={props.noteType}
-      />
+<NoteFooterActionButton
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }}
+  onMouseDown={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startZap(e);
+  }}
+  onMouseUp={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    commitZap(e);
+  }}
+  onTouchStart={(e: TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startZap(e);
+  }}
+  onTouchEnd={(e: TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    commitZap(e);
+  }}
+  type="zap"
+  highlighted={props.state.zapped || props.state.isZapping}
+  label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
+  hidden={props.state.hideZapIcon}
+  title={props.state.satsZapped.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
 
-      <NoteFooterActionButton
-        note={props.note}
-        onClick={doLike}
-        type="like"
-        highlighted={props.state.liked}
-        label={props.state.likes === 0 ? '' : truncateNumber(props.state.likes, 2)}
-        title={props.state.likes.toLocaleString()}
-        large={props.large}
-        noteType={props.noteType}
-      />
-
+<NoteFooterActionButton
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    doLike(e);
+  }}
+  type="like"
+  highlighted={props.state.liked}
+  label={props.state.likes === 0 ? '' : truncateNumber(props.state.likes, 2)}
+  title={props.state.likes.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
       <button
         id={`btn_repost_${props.note.post.id}`}
         class={`${styles.stat} ${props.state.reposted ? styles.highlighted : ''}`}

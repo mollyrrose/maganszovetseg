@@ -411,26 +411,29 @@ const ArticlePreviewPhone: Component<{
 
         <Show when={props.article.topZaps?.length > 0}>
           <div class={styles.zaps}>
+             {/* BTC Lightning out
             <NoteTopZapsTiny
               note={props.article}
               action={() => {}}
               topZaps={props.article.topZaps}
               topZapLimit={3}
               hideMessage={true}
-
             />
+            */}
           </div>
         </Show>
       </div>
 
       <Show when={!props.hideFooter}>
         <div class={styles.footer}>
+
+          
           <ArticleFooter
             note={props.article}
             state={reactionsState}
             updateState={updateReactionsState}
-            customZapInfo={customZapInfo()}
-            onZapAnim={addTopZapFeed}
+          //  customZapInfo={customZapInfo()} // BTC Lightning out
+          //  onZapAnim={addTopZapFeed}
           />
         </div>
       </Show>

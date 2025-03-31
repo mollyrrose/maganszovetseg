@@ -63,7 +63,7 @@
 
     //@include iconNav(unquote("url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg)"), var(--text-secondary));
     
-    @include iconNav(url('https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg'), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home.svg), var(--text-secondary));
     //@include iconNav(url(#{$cdn-url}/assets/icons/nav/long.svg), var(--text-secondary));
   }
   .readsIcon {
@@ -71,26 +71,37 @@
     //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long.svg), var(--text-secondary));
   }
   .exploreIcon {
-    @include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-secondary));
-    //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-secondary));
   }
   .messagesIcon {
-    @include iconNav(url(../../assets/icons/nav/messages.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/messages.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/messages.svg), var(--text-secondary));
   }
+  
   .notificationsIcon {
-    @include iconNav(url(../../assets/icons/nav/notifications.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/notifications.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/notifications.svg), var(--text-secondary));
   }
+  
   .downloadIcon {
-    @include iconNav(url(../../assets/icons/nav/downloads.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/downloads.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/downloads.svg), var(--text-secondary));
   }
+  
   .premiumIcon {
-    @include iconNav(url(../../assets/icons/nav/premium.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/premium.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/premium.svg), var(--text-secondary));
   }
+  
   .settingsIcon {
-    @include iconNav(url(../../assets/icons/nav/settings.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/settings.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/settings.svg), var(--text-secondary));
   }
+  
   .bookmarkIcon {
-    @include iconNav(url(../../assets/icons/nav/bookmarks.svg), var(--text-secondary));
+    //@include iconNav(url(../../assets/icons/nav/bookmarks.svg), var(--text-secondary));
+    @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/bookmarks.svg), var(--text-secondary));
   }
 
 
@@ -102,41 +113,56 @@
     }
 
     .homeIcon {
-      @include iconNav(url(../../assets/icons/nav/home_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/home_selected.svg), var(--text-primary));
 
       //$longIcon: url("https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg");
       //@include iconNav($longIcon, var(--text-secondary));
 
       //@include iconNav(unquote("url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg)"), var(--text-secondary));
-      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/home_selected.svg), var(--text-primary));
       //@include iconNav(url(#{$cdn-url}/assets/icons/nav/long_selected.svg), var(--text-secondary));
     }
     .readsIcon {
-      @include iconNav(url(../../assets/icons/nav/long_selected.svg), var(--text-primary));
-      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/long_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/long_selected.svg), var(--text-primary));
     }
+    
     .exploreIcon {
-      @include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-primary));
-      //@include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-secondary));
+      //@include iconNav(url(../../assets/icons/nav/explore.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/explore.svg), var(--text-primary));
     }
+    
     .messagesIcon {
-      @include iconNav(url(../../assets/icons/nav/messages_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/messages_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/messages_selected.svg), var(--text-primary));
     }
+    
     .notificationsIcon {
-      @include iconNav(url(../../assets/icons/nav/notifications_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/notifications_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/notifications_selected.svg), var(--text-primary));
     }
+    
     .downloadIcon {
-      @include iconNav(url(../../assets/icons/nav/downloads_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/downloads_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/downloads_selected.svg), var(--text-primary));
     }
+    
     .premiumIcon {
-      @include iconNav(url(../../assets/icons/nav/premium.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/premium.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/premium.svg), var(--text-primary));
     }
+    
     .settingsIcon {
-      @include iconNav(url(../../assets/icons/nav/settings_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/settings_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/settings_selected.svg), var(--text-primary));
     }
+    
     .bookmarkIcon {
-      @include iconNav(url(../../assets/icons/nav/bookmarks_selected.svg), var(--text-primary));
+      //@include iconNav(url(../../assets/icons/nav/bookmarks_selected.svg), var(--text-primary));
+      @include iconNav(url(https://cdnwin.maganszovetseg.net/src/assets/icons/nav/bookmarks_selected.svg), var(--text-primary));
     }
+    
+
   }
 
   a.active {

@@ -72,7 +72,8 @@ export const renderNote = (props: NoteProps) => (
 
 
 const Note: Component<NoteProps> = (props) => {
-  const noteLinkId = props.note?.id || '';
+  //const noteLinkId = props.note?.id || '';
+  const noteLinkId = props.note?.post.noteId || ''; // Use bech32 note ID
   const threadContext = useThreadContext();
   const app = useAppContext();
   const account = useAccountContext();
@@ -380,20 +381,25 @@ const Note: Component<NoteProps> = (props) => {
             </div>
 
             <div class={styles.topZaps}>
+
+              {/* BTC Lightning Out
               <NoteTopZaps
                 topZaps={reactionsState.topZaps}
                 zapCount={reactionsState.zapCount}
                 action={() => openReactionModal('zaps')}
                 // doZap={() => app?.actions.openCustomZapModal(customZapInfo())}
               />
+
+              */}
             </div>
 
             <div
-              class={styles.timePrimary}
-              title={date(props.note.post?.created_at).date.toLocaleString()}
+              class={styles.timePrimary} // MAGYAR IDŐ
+              //title={date(props.note.post?.created_at).date.toLocaleString()}
+              title={veryLongDate(props.note.post?.created_at)}
             >
               <span>
-                {veryLongDate(props.note.post?.created_at).replace(' at ', ' · ')}
+              {veryLongDate(props.note.post?.created_at)}
               </span>
 
               <Show
@@ -403,7 +409,7 @@ const Note: Component<NoteProps> = (props) => {
                     class={styles.reactSummary}
                     onClick={() => openReactionModal()}
                   >
-                    <span class={styles.number}>{reactionSum()}</span> Reactions
+                    <span class={styles.number}>{reactionSum()}</span> reakció
                   </button>
                 }
               >
@@ -472,7 +478,7 @@ const Note: Component<NoteProps> = (props) => {
         <a
           id={props.id}
           class={`${styles.note} ${props.parent ? styles.parent : ''}`}
-          href={!props.onClick ? noteLinkId : ''}
+          href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -485,8 +491,13 @@ const Note: Component<NoteProps> = (props) => {
           </div>
           <div class={styles.userHeader}>
             {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
-              <Avatar user={props.note.user} size="xs" />
+              {/*<Avatar user={props.note.user} size="xs" />*/}
             {/* </A> */}
+            <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
+
 
             <NoteAuthorInfo
               author={props.note.user}
@@ -536,7 +547,7 @@ const Note: Component<NoteProps> = (props) => {
         <a
           id={props.id}
           class={`${styles.noteThread} ${props.parent ? styles.parent : ''}`}
-          href={!props.onClick ? noteLinkId : ''}
+          href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -550,8 +561,15 @@ const Note: Component<NoteProps> = (props) => {
           <div class={styles.content}>
             <div class={styles.leftSide}>
               {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
-                <Avatar user={props.note.user} size="vs" />
+               {/*  <Avatar user={props.note.user} size="vs" />*/}
               {/* </A> */}
+
+
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
+
               <Show
                 when={props.parent}
               >
@@ -608,18 +626,22 @@ const Note: Component<NoteProps> = (props) => {
 
       <Match when={noteType() === 'reaction'}>
         <a
-          id={props.id}
-          class={`${styles.note} ${styles.reactionNote}`}
-          href={!props.onClick ? noteLinkId : ''}
-          onClick={() => navToThread(props.note)}
-          data-event={props.note.post.id}
-          data-event-bech32={props.note.post.noteId}
-          draggable={false}
+            id={props.id}
+            class={`${styles.note} ${styles.reactionNote}`}
+            href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
+            onClick={() => navToThread(props.note)}
+            data-event={props.note.post.id}
+            data-event-bech32={props.note.post.noteId}
+            draggable={false}
         >
           <div class={styles.content}>
             <div class={styles.leftSide}>
               <div>
-                <Avatar user={props.note.user} size="vs" />
+              {/*  <Avatar user={props.note.user} size="vs" />*/}
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
               </div>
               <Show
                 when={props.parent}
@@ -654,13 +676,13 @@ const Note: Component<NoteProps> = (props) => {
 
       <Match when={noteType() === 'suggestion'}>
         <a
-          id={props.id}
-          class={`${styles.noteSuggestion}`}
-          href={!props.onClick ? noteLinkId : ''}
-          onClick={() => navToThread(props.note)}
-          data-event={props.note.post.id}
-          data-event-bech32={props.note.post.noteId}
-          draggable={false}
+            id={props.id}
+            class={`${styles.noteSuggestion}`}
+            href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
+            onClick={() => navToThread(props.note)}
+            data-event={props.note.post.id}
+            data-event-bech32={props.note.post.noteId}
+            draggable={false}
         >
           <div class={styles.header}>
             <Show when={repost()}>
@@ -670,8 +692,14 @@ const Note: Component<NoteProps> = (props) => {
           <div class={styles.content}>
             <div class={styles.leftSide}>
               {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
-                <Avatar user={props.note.user} size="vs" />
+              {/*   <Avatar user={props.note.user} size="vs" />*/}
               {/* </A> */}
+
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
+
               <Show
                 when={props.parent}
               >

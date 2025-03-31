@@ -369,8 +369,10 @@ const ArticlePreview: Component<ArticleProps> = (props) => {
         <div class={styles.userInfo}>
           <Avatar user={props.article.user} size="micro"/>
           <div class={styles.userName}>{userName(props.article.user)}</div>
+{/*
           <VerificationCheck user={props.article.user} />
           <div class={styles.nip05}>{props.article.user?.nip05 || ''}</div>
+*/}
         </div>
         <div class={styles.time}>
           {shortDate(props.article.published)}
@@ -444,8 +446,8 @@ const ArticlePreview: Component<ArticleProps> = (props) => {
             note={props.article}
             state={reactionsState}
             updateState={updateReactionsState}
-            customZapInfo={customZapInfo()}
-            onZapAnim={addTopZapFeed}
+            //customZapInfo={customZapInfo()} //BTC Lightning out
+            //onZapAnim={addTopZapFeed}
           />
         </div>
       </Show>

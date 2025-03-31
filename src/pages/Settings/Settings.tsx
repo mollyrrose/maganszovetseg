@@ -50,7 +50,7 @@ Forintban kártyával
           <div class={styles2.inputLabel}>
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
             <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
-              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
+              <strong>Légy együttérző és nagylelkű! Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
           </div>
 

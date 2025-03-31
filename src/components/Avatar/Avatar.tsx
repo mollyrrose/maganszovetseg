@@ -224,9 +224,9 @@ const Avatar: Component<{
         </div>
       </Show>
       <Show when={props.user && props.showCheck}>
-        <div class={styles.iconBackground}>
+        {/*<div class={styles.iconBackground}>*/}
           <VerificationCheck user={props.user} />
-        </div>
+        {/*</div>*/}
       </Show>
     </div>
   )

@@ -1037,7 +1037,7 @@ const Longform: Component< { naddr: string } > = (props) => {
                     {store.article?.summary}
                   </div>
                 </div>
-
+ {/* BTC Lightning out
                 <NoteTopZaps
                   topZaps={reactionsState.topZaps}
                   zapCount={reactionsState.zapCount}
@@ -1045,7 +1045,7 @@ const Longform: Component< { naddr: string } > = (props) => {
                   action={() => openReactionModal('zaps')}
                   doZap={() => app?.actions.openCustomZapModal(customZapInfo())}
                 />
-
+*/}
                 <PrimalMarkdown
                   noteId={naddr() || ''}
                   content={store.article?.content || ''}

@@ -151,11 +151,16 @@ const AuthorSubscribe: Component<{
             <div class={styles.userBasicData}>
               <div class={styles.userName}>
                 {userName(props.author)}
-                <VerificationCheck user={props.author} />
+               
+               {/*} <VerificationCheck user={props.author} /> */}
+
               </div>
               <Show when={props.author?.nip05}>
                 <div class={styles.nip05}>
-                  {nip05Verification(props.author)}
+
+                  {/*{nip05Verification(props.author)}*/}
+
+
                 </div>
               </Show>
             </div>

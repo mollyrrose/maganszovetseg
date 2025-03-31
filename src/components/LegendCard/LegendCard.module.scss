@@ -150,7 +150,6 @@
       margin: 0;
       position: relative;
     }
-
   }
 
   @media only screen and (max-width: 720px) {
@@ -162,10 +161,10 @@
 }
 
 @keyframes slide-legend-up {
-    100% { left: 0; top: 0 }
+  100% { left: 0; top: 0 }
 }
 @keyframes slide-legend-down {
-    100% { left: 0; bottom: 0 }
+  100% { left: 0; bottom: 0 }
 }
 @keyframes zoom-spin {
   0% {
@@ -194,6 +193,7 @@
     width: 340px;
     height: 294px;
     margin-left: -5px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
 
     -webkit-animation: slide-legend-up 0.44s forwards;
     -webkit-animation-delay: 0.3s;
@@ -251,6 +251,7 @@
     clip-path: polygon(0 0, 100% 0, 0 100%);
     width: 198px;
     height: 187px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
 
     -webkit-animation: slide-legend-up 0.44s forwards;
     -webkit-animation-delay: 0.3s;
@@ -317,6 +318,7 @@
     clip-path: polygon(0 100%, 100% 100%, 0 0);
     width: 163px;
     height: 154px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
 
     &.sheetGray {
       background: #444;
@@ -382,7 +384,7 @@
 .shineSheet {
   position: absolute;
   left: -420px;
-  top:0;
+  top: 0;
   background-color: white;
   opacity: 0.1;
   transform: skew(45deg);
@@ -467,7 +469,6 @@
       overflow: hidden;
       white-space: nowrap;
     }
-
   }
 
   .nip05 {
@@ -476,7 +477,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
-    margin-top:4px;
+    margin-top: 4px;
 
     max-width: 80%;
     text-overflow: ellipsis;
@@ -502,7 +503,6 @@
     animation-delay: 0.4s;
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
-
   }
 
   .legendCohort {
@@ -527,7 +527,6 @@
     animation-delay: 0.5s;
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
-
   }
 
   .legendSince {
@@ -566,7 +565,7 @@
     font-size: 15px;
     font-weight: 400;
     line-height: 22px;
-    max-width:263px;
+    max-width: 263px;
 
     opacity: 0;
 
@@ -587,7 +586,6 @@
     animation-delay: 0.6s;
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
-
   }
 }
 
@@ -610,7 +608,7 @@
   gap: 7px;
 
   margin-bottom: -40px;
-  opacity: 0;;
+  opacity: 0;
 
   -webkit-animation: slide-legend-actions 0.44s forwards;
   -webkit-animation-delay: 0.66s;

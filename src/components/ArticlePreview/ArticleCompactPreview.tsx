@@ -422,6 +422,7 @@ const ArticleCompactPreview: Component<{
 
               <div class={styles.zaps}>
               <div class={styles.zapIcon}></div>
+              {/* BTC Lightning out
                 <NoteTopZapsTiny
                   note={props.article}
                   action={(zap: TopZap) => app && props.noLinks !== 'links' && navigate(app.actions.profileLink(zap.pubkey))}
@@ -429,6 +430,7 @@ const ArticleCompactPreview: Component<{
                   topZapLimit={3}
                   hideMessage={true}
                 />
+                */}
               </div>
             </div>
           </div>

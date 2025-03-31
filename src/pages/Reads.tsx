@@ -10,48 +10,34 @@ import {
   Show,
   Switch
 } from 'solid-js';
-import Note from '../components/Note/Note';
-import styles from './Home.module.scss';
-import HomeHeader from '../components/HomeHeader/HomeHeader';
-import Loader from '../components/Loader/Loader';
-import Paginator from '../components/Paginator/Paginator';
-import HomeSidebar from '../components/HomeSidebar/HomeSidebar';
-import Branding from '../components/Branding/Branding';
-import HomeHeaderPhone from '../components/HomeHeaderPhone/HomeHeaderPhone';
-import Wormhole from '../components/Wormhole/Wormhole';
-import { scrollWindowTo } from '../lib/scroll';
-import StickySidebar from '../components/StickySidebar/StickySidebar';
-import { useHomeContext } from '../contexts/HomeContext';
+import styles from './Home.module.scss'; // Adjust if Reads has its own styles
 import { useIntl } from '@cookbook/solid-intl';
-import { createStore } from 'solid-js/store';
-import { PrimalArticle, PrimalUser } from '../types/primal';
-import Avatar from '../components/Avatar/Avatar';
-import { userName } from '../stores/profile';
 import { useAccountContext } from '../contexts/AccountContext';
-import { reads, branding } from '../translations';
-import Search from '../components/Search/Search';
-import { setIsHome } from '../components/Layout/Layout';
-import PageTitle from '../components/PageTitle/PageTitle';
-import { useAppContext } from '../contexts/AppContext';
 import { useReadsContext } from '../contexts/ReadsContext';
-import ArticlePreview from '../components/ArticlePreview/ArticlePreview';
-import PageCaption from '../components/PageCaption/PageCaption';
-import ReadsSidebar from '../components/HomeSidebar/ReadsSidebar';
-import ReedSelect from '../components/FeedSelect/ReedSelect';
-import ReadsHeader from '../components/HomeHeader/ReadsHeader';
+import { useAppContext } from '../contexts/AppContext';
 import { A, useNavigate, useParams } from '@solidjs/router';
-import { APP_ID } from '../App';
-import ButtonGhost from '../components/Buttons/ButtonGhost';
-import ArticlePreviewSkeleton from '../components/Skeleton/ArticlePreviewSkeleton';
-import { Transition } from 'solid-transition-group';
-import { ToggleButton } from '@kobalte/core/toggle-button';
-import { isDev, isPhone } from '../utils';
+import { reads, branding } from '../translations';
+import PageTitle from '../components/PageTitle/PageTitle';
+import PageCaption from '../components/PageCaption/PageCaption';
+import Wormhole from '../components/Wormhole/Wormhole';
+import Search from '../components/Search/Search';
+import StickySidebar from '../components/StickySidebar/StickySidebar';
+import ReadsSidebar from '../components/HomeSidebar/ReadsSidebar';
+import ReadsHeader from '../components/HomeHeader/ReadsHeader';
+import ArticlePreview from '../components/ArticlePreview/ArticlePreview';
 import ArticlePreviewPhone from '../components/ArticlePreview/ArticlePreviewPhone';
+import ArticlePreviewSkeleton from '../components/Skeleton/ArticlePreviewSkeleton';
 import ArticlePreviewPhoneSkeleton from '../components/Skeleton/ArticlePreviewPhoneSkeleton';
-
+import Paginator from '../components/Paginator/Paginator';
+import { Transition } from 'solid-transition-group';
+import { scrollWindowTo } from '../lib/scroll';
+import { setIsHome } from '../components/Layout/Layout';
+import { APP_ID } from '../App';
+import { isPhone } from '../utils';
+import { PrimalArticle, PrimalUser } from '../types/primal';
+import { createStore } from 'solid-js/store';
 
 const Reads: Component = () => {
-
   const context = useReadsContext();
   const account = useAccountContext();
   const intl = useIntl();
@@ -70,8 +56,15 @@ const Reads: Component = () => {
   const newPostCount = () => newNotesCount() < 100 ? newNotesCount() : 100;
 
   onMount(() => {
-    // setIsHome(true);
     scrollWindowTo(context?.scrollTop);
+    if (!params.topic && !context?.selectedFeed) {
+      context?.actions.selectFeed({
+        spec: '{"kind":"reads"}',
+        name: 'Default Reads',
+        description: 'Default feed for reading articles',
+        enabled: true,
+      });
+    }
   });
 
   createEffect(() => {
@@ -99,7 +92,7 @@ const Reads: Component = () => {
   createEffect(() => {
     const count = context?.future.notes.length || 0;
     if (count === 0) {
-      return
+      return;
     }
 
     if (!hasNewPosts()) {
@@ -108,19 +101,17 @@ const Reads: Component = () => {
 
     if (newPostAuthors.length < 3) {
       const users = context?.future.notes.map(note => note.user) || [];
-
       const uniqueUsers = users.reduce<PrimalUser[]>((acc, user) => {
         const isDuplicate = acc.find(u => u && u.pubkey === user.pubkey);
-        return isDuplicate ?  acc : [ ...acc, user ];
+        return isDuplicate ? acc : [...acc, user];
       }, []).slice(0, 3);
-
       setNewPostAuthors(() => [...uniqueUsers]);
     }
 
     setNewNotesCount(count);
   });
 
-  onCleanup(()=> {
+  onCleanup(() => {
     clearInterval(checkNewNotesTimer);
     setIsHome(false);
   });
@@ -136,28 +127,22 @@ const Reads: Component = () => {
     setHasNewPosts(false);
     setNewNotesCount(0);
     setNewPostAuthors(() => []);
-  }
+  };
 
   createEffect(on(() => params.topic, (v, p) => {
     if (v && v.length > 0) {
       context?.actions.clearNotes();
       context?.actions.fetchNotes(`{\"kind\":\"reads\",\"topic\":\"${decodeURIComponent(params.topic)}\"}`);
       return;
-    } else {
-      if (p && p.length > 0) {
-        context?.actions.refetchSelectedFeed();
-      }
+    } else if (p && p.length > 0) {
+      context?.actions.refetchSelectedFeed();
     }
   }));
 
   createEffect(on(() => account?.isKeyLookupDone, (v, p) => {
-
     if (v && v !== p && account?.publicKey && !params.topic) {
-      const selected = context?.selectedFeed;;
-
-      // context?.actions.resetSelectedFeed();
+      const selected = context?.selectedFeed;
       if (selected) {
-        // context?.actions.clearNotes();
         context?.actions.selectFeed({ ...selected });
       }
     }
@@ -170,9 +155,7 @@ const Reads: Component = () => {
   return (
     <div class={styles.homeContent}>
       <PageTitle title={intl.formatMessage(branding)} />
-      <Wormhole
-        to="search_section"
-      >
+      <Wormhole to="search_section">
         <Show when={!isPhone()}>
           <Search />
         </Show>
@@ -193,20 +176,13 @@ const Reads: Component = () => {
           }
         >
           <div class={styles.readsTopicHeader}>
-            <div
-              class={styles.backToReads}
-            >
-              témakör:
-            </div>
+            <div class={styles.backToReads}>témakör:</div>
             <A
               class={styles.topicBubble}
               href={'/reads'}
               onClick={() => context?.actions.refetchSelectedFeed()}
             >
-              <div>
-                {decodeURIComponent(params.topic)}
-              </div>
-
+              <div>{decodeURIComponent(params.topic)}</div>
               <div class={styles.closeIcon}></div>
             </A>
           </div>
@@ -226,9 +202,7 @@ const Reads: Component = () => {
             fallback={
               <div>
                 <For each={new Array(5)}>
-                  {() => isPhone() ?
-                    <ArticlePreviewPhoneSkeleton /> :
-                    <ArticlePreviewSkeleton />}
+                  {() => (isPhone() ? <ArticlePreviewPhoneSkeleton /> : <ArticlePreviewSkeleton />)}
                 </For>
               </div>
             }
@@ -237,7 +211,7 @@ const Reads: Component = () => {
               <Show
                 when={!isPhone()}
                 fallback={
-                  <For each={context?.notes} >
+                  <For each={context?.notes}>
                     {(note) => (
                       <div class="animated">
                         <ArticlePreviewPhone
@@ -251,7 +225,7 @@ const Reads: Component = () => {
                   </For>
                 }
               >
-                <For each={context?.notes} >
+                <For each={context?.notes}>
                   {(note) => (
                     <div class="animated">
                       <ArticlePreview
@@ -269,23 +243,17 @@ const Reads: Component = () => {
         </Transition>
 
         <Switch>
-          <Match
-            when={!isPageLoading() && context?.notes && context?.notes.length === 0}
-          >
-            <div class={styles.noContent}>
-            </div>
+          <Match when={!isPageLoading() && context?.notes && context?.notes.length === 0}>
+            <div class={styles.noContent}></div>
           </Match>
-          <Match
-            when={isPageLoading()}
-          >
-            <div class={styles.noContent}>
-            </div>
+          <Match when={isPageLoading()}>
+            <div class={styles.noContent}></div>
           </Match>
         </Switch>
-        <Paginator loadNextPage={() => context?.actions.fetchNextPage(params.topic)}/>
+        <Paginator loadNextPage={() => context?.actions.fetchNextPage(params.topic)} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Reads;

@@ -244,7 +244,7 @@ const NoteReplyHeader: Component<{ note: PrimalNote, openCustomZap?: () => void,
                 class={styles.verification}
                 title={props.note.user?.nip05}
               >
-                {nip05Verification(props.note.user)}
+                  {/* {nip05Verification(props.note.user)} */}
               </span>
             </Show>
 

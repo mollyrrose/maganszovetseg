@@ -233,7 +233,8 @@ const EmbeddedNote: Component<EmbeddedNoteProps> = (props) => {
                 class={styles.verifiedBy}
                 title={props.note?.user.nip05}
               >
-                {nip05Verification(props.note?.user)}
+
+            {/* {nip05Verification(props.note.user)} */}
               </span>
             </Show>
           </span>

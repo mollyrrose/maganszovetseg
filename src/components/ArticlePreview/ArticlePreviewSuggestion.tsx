@@ -419,7 +419,7 @@ const ArticlePreviewSuggestion: Component<ArticleProps> = (props) => {
             note={props.article}
             state={reactionsState}
             updateState={updateReactionsState}
-            customZapInfo={customZapInfo()}
+            customZapInfo={customZapInfo()} //BTC Lightning out
             onZapAnim={addTopZapFeed}
           />
         </div>

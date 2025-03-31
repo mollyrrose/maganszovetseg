@@ -71,8 +71,8 @@
   z-index: var(--z-index-floater);
   .avatar {
     // border: solid 4px var(--background-site);
-    // border-radius: 50%;
-    // background-color: var(--background-site);
+    //border-radius: 0%;//50
+    //background-color: transparent;//var(--background-site);
     // >div {
       // opacity: 0;
       // animation: fadeIn var(--profile-animation-duration) ease-in forwards;
@@ -87,7 +87,7 @@
   height: 16px;
   display: inline-block;
   margin: 0px;
-  background-color: var(--text-tertiary-2);
+  background-color: transparent;//var(--text-tertiary-2);
   -webkit-mask: url(../assets/icons/key.svg) no-repeat 0 0 / 16px 16px;
   mask: url(../assets/icons/key.svg) no-repeat 0 0 / 16px 16px;
 }
@@ -97,7 +97,7 @@
   height: 16px;
   display: inline-block;
   margin: 0px 2px;
-  background-color: var(--text-tertiary-2);
+  background-color: transparent;//var(--text-tertiary-2);
   -webkit-mask: url(../assets/icons/copy.svg) no-repeat 0 0 / 16px 16px;
   mask: url(../assets/icons/copy.svg) no-repeat 0 0 / 16px 16px;
 }
@@ -107,7 +107,7 @@
   height: 16px;
   display: inline-block;
   margin: 0px 2px;
-  background-color: var(--success-color);
+  background-color: transparent;// var(--success-color);
   -webkit-mask: url(../assets/icons/check.svg) no-repeat 0 / 80%;
   mask: url(../assets/icons/check.svg) no-repeat 0 / 80%;
 }
@@ -645,7 +645,7 @@
     margin: 0;
     padding: 0;
     margin-left: 8px;
-    background: none;
+    background: transparent;//none
     border: none;
     font-weight: 400;
     font-size: 20px;

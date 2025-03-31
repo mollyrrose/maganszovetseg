@@ -1008,7 +1008,7 @@ createEffect(() => {
           placeholder="Fizikai címem (v. napközbeni tartózkodási helyem)."
         />
           <div class={styles.inputLabel}>
-          <label for="msn_mapaddress">Fizikai címem (napközbeni tartózkodási hely - pl. munkahely -, vagy lakcím), hogy a MagánSzövetség tagjai napközben a valós világban is elérhessenek. Profilodban nem látszik majd. A térképen - melyet fejlesztük - azok számára lesz látható akiket követsz (akik barátaid).
+          <label for="msn_mapaddress">Fizikai címem (napközbeni tartózkodási hely - pl. munkahely -, vagy lakcím), hogy a MagánSzövetség tagjai napközben a valós világban is elérhessenek. Profilodban nem látszik majd. A térképen - melyet fejlesztük - azok számára lesz látható akiket követsz (akik barátaid). Címedet egyelőre nem látja senki más csak e rendszer és majdan be tudod állítani, hogy ki számára legyen látható - addig titkos marad -. (Fejlesztés alatt e beállítás.)
           </label>
           <br />
         </div>
@@ -1016,7 +1016,7 @@ createEffect(() => {
 
 
         <div class={styles.inputLabel_bold}>
-  <label for="msn_email">Biztonságos E-mail címem</label>
+  <label for="msn_email">Biztonságos E-mail címem:</label>
 </div>
 <input
   name="msn_email"
@@ -1041,6 +1041,7 @@ createEffect(() => {
     Az email küldésnél a MagánSzövetség.Net-en belüli üzenetküldés sokkal bitonságosabb, mert direktben a másik felhasználóhoz érkezik és nem megy át internet szolgáltató szervereken (pl. Vodafone, Telekom); így nem megfigyelhető.
     Mindemellett Csak biztonságosnak számító email címet adj meg mely titkosítja az üzenetedet, pl. ProtonMail, Tutanota.
     Ne adj meg gmail, outlook, yahoo, freemail, citromail, indamail email címet, mert azt 'az egész világ' látja.
+    Email címed egyelőre csak a rendszer látja; levelet küldhetünk így Neked. Beállítható lesz majdan, hogy ki láthatja. (Fejlesztés alatt e beállítás.)
   </label>
 </div>
 

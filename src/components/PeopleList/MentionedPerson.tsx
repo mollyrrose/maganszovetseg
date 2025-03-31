@@ -36,7 +36,7 @@ const MentionedPerson: Component<{
                 class={styles.verifiedBy}
                 title={props.person?.nip05}
               >
-                {nip05Verification(props.person)}
+                  {/* {nip05Verification(props.person)} */}
               </span>
             </Show>
           </div>

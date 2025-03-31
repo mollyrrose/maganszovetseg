@@ -242,7 +242,7 @@ const NoteHeader: Component<{
               class={styles.verification}
               title={props.note.user?.nip05}
             >
-              {nip05Verification(props.note.user)}
+              {/* {nip05Verification(props.note.user)} */}
             </span>
           </Show>
         </div>

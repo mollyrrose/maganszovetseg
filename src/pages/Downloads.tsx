@@ -442,6 +442,7 @@ const handleSecondButtonClick = async () => {
             </div>
 
             <div class={styles.list}>
+
               {/* Donation Button */}
               <div class={styles.donationButtonContainer}>
                 <button
@@ -461,15 +462,17 @@ const handleSecondButtonClick = async () => {
                   Bitcoin cím másolása
                 </button>
               </div>
+
             </div>
 
             <div class={styles.inputLabel}>
+              
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
               <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
-              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
+              <strong>Légy együttérző és nagylelkű! Sicivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
-          </div>
-
+            
+            </div>
           
 
           </div>
