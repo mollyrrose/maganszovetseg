@@ -14,7 +14,7 @@ import styles from './ExploreSidebar.module.scss';
 import { useIntl } from '@cookbook/solid-intl';
 import { getTrendingUsers } from '../../lib/profile';
 import { hexToNpub } from '../../lib/keys';
-import { exploreSidebarCaption } from '../../translations';
+import { exploreSidebarCaption, exploreSidebarCaptionHU } from '../../translations';
 import { useAccountContext } from '../../contexts/AccountContext';
 import { hookForDev } from '../../lib/devTools';
 import { loadTrendingUsers, saveTrendingUsers } from '../../lib/localStore';
@@ -134,6 +134,37 @@ const ExploreSidebar: Component<{ id?: string }> = (props) => {
 
   return (
     <div id={props.id} class={styles.topUsersHolder}>
+
+      {/* Ide tesszük népszerű a magyar felhasználókat */}
+      {/* 
+      
+      exploreSidebarCaptionHU
+ 
+      <div class={styles.trendingUsersCaption}>
+        {intl.formatMessage(exploreSidebarCaption)}
+      </div>
+      <div class={styles.trendingUsers}>
+        <For each={trendingUsers}>
+          {
+            user => (
+              <A
+                href={app?.actions.profileLink(user.npub) || ''}
+                class={styles.user}
+                title={authorName(user)}
+              >
+                <Avatar user={user} size="vs" />
+                <div class={styles.name}>{authorName(user)}</div>
+              </A>
+            )
+          }
+        </For>
+      </div>
+
+    
+    
+      
+      */}
+
       <div class={styles.trendingUsersCaption}>
         {intl.formatMessage(exploreSidebarCaption)}
       </div>

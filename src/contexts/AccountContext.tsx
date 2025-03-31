@@ -212,7 +212,7 @@ export function AccountProvider(props: { children: JSXElement }) {
   const intl = useIntl();
 
   let relayAtempts: Record<string, number> = {};
-  const relayAtemptLimit = 10;
+  const relayAtemptLimit = 3; // ORIGINAL CODE: 10
   let relaysExplicitlyClosed: string[] = [];
 
   let relayReliability: Record<string, number> = {};

@@ -87,11 +87,6 @@ import { ProfilePointer } from 'nostr-tools/lib/types/nip19';
 
 const ProfileDesktop: Component = () => {
 
-
-
-
-
-
 /* //https://nostrcheck.me/converter/
   const feedUrls: Record<string, string> = {
     //'Egyesítsük Erőinket Mozgalom (EEM)': 'https://example.com/szkitatv',
@@ -103,36 +98,17 @@ const ProfileDesktop: Component = () => {
   };
 */
 
-
     // Feed nevének lekérése
-//    const feedName = () => props.dvm?.name || ''; //profileName van helyette
+    //const feedName = () => props.dvm?.name || ''; //profileName van helyette
 
     // Feed URL-ének lekérése
     //const feedUrl = () => feedUrls[feedName()] || null;
-
-
-
-
-
-
-
-
 
 // Ellenőrzés, hogy az aktuális public key benne van-e a feedUrls objektumban
 //const isKeyInFeedUrls = feedUrls.hasOwnProperty(currentUserPubKey);
 
 //true, false
-
-
-
-
-
-
-
 //const isProfileKeyInFeedUrls = feedUrls.hasOwnProperty(profile.profileKey);
-
-
-
 
 
 
@@ -1035,11 +1011,12 @@ const ProfileDesktop: Component = () => {
                         </Show>
 
                         <Show when={isVisibleLegend()}>
-                          <PremiumCohortInfo
-                            user={profile?.userProfile}
-                            cohortInfo={app?.memberCohortInfo[profile?.profileKey!]!}
-                            legendConfig={app?.legendCustomization[profile?.profileKey!]}
-                          />
+
+                        <PremiumCohortInfo
+                        userTier={app?.memberCohortInfo[profile?.profileKey!]?.tier}
+                        cohortInfo={app?.memberCohortInfo[profile?.profileKey!]!}
+                        legendConfig={app?.legendCustomization[profile?.profileKey!]}
+                        />
                         </Show>
                       </div>
 
@@ -1140,11 +1117,11 @@ const ProfileDesktop: Component = () => {
                         </Show>
 
                         <Show when={isVisibleLegend()}>
-                          <PremiumCohortInfo
-                            user={profile?.userProfile}
-                            cohortInfo={app?.memberCohortInfo[profile?.profileKey!]!}
-                            legendConfig={app?.legendCustomization[profile?.profileKey!]}
-                          />
+                        <PremiumCohortInfo
+                        userTier={app?.memberCohortInfo[profile?.profileKey!]?.tier}
+                        cohortInfo={app?.memberCohortInfo[profile?.profileKey!]!}
+                        legendConfig={app?.legendCustomization[profile?.profileKey!]}
+                        />
                         </Show>
                       </div>
 

@@ -426,7 +426,7 @@ const ArticlePreview: Component<ArticleProps> = (props) => {
           </Show>
         </div>
       </div>
-
+{/* BTC Lightning out
       <Show when={props.article.topZaps?.length > 0}>
         <div class={styles.zaps}>
           <NoteTopZapsCompact
@@ -437,7 +437,7 @@ const ArticlePreview: Component<ArticleProps> = (props) => {
           />
         </div>
       </Show>
-
+*/}
       <Show when={!props.hideFooter}>
         <div class={styles.footer}>
           <ArticleFooter

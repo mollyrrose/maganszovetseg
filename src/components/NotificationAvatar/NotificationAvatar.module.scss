@@ -68,19 +68,19 @@
 
 .largeAvatar {
   @include avatar;
-  width: 72px;
+  width: 72px;//72
   height: 72px;
 }
 
 .extraLargeAvatar {
   @include avatar;
-  width: 80px;
+  width: 80px;//80
   height: 80px;
 }
 
 .xxlAvatar {
   @include avatar;
-  width: 142px;
+  width: 142px; //142
   height: 142px;
 }
 

@@ -465,8 +465,8 @@ const handleSecondButtonClick = async () => {
 
             <div class={styles.inputLabel}>
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
-              <strong>Miért</strong> segít felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Szervezni fogjuk magánerőből a MagánSzövetség Mozgalmat ország szerte előadásokat tartva. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, békét és életet támogató eszméket! <br/><br/>
-              Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.
+              <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
+              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
           </div>
 
@@ -503,17 +503,17 @@ const handleSecondButtonClick = async () => {
             <div class={styles.qrCode}>
             <a href="https://mega.nz/file/JyYFiTqL#daaSm0WobM1zxDqNxBwzZdrKLsqsiTaDaDioM1bH-1U" target="_blank" rel="noopener noreferrer">
                 <img
-                  src="/icons/DownloadPdf_nh.png"
-                  //src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
+                  //src="/icons/DownloadPdf_nh.png"
+                  src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
                   width={100}
                   alt="Töltsd le a PDF-et!"
-                  
+                   /*
                   onMouseEnter={(e) => e.currentTarget.src = "/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "/icons/DownloadPdf_nh.png"}
-                  /*
+                 */
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-                  */
+                  
                 />
               </a>
               <div class={styles.qrCaption}>
@@ -532,17 +532,17 @@ const handleSecondButtonClick = async () => {
             <div class={styles.qrCode}>
             <a href="https://mega.nz/file/Ynxg2RxB#jPUlblTQcMveZrFnBG545brZZQlvSSjc6Sjgy2iBpmg" target="_blank" rel="noopener noreferrer">
                 <img
-                  src="/icons/DownloadPdf_nh.png"
-                  //src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
+                  //src="/icons/DownloadPdf_nh.png"
+                  src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
                   width={100}
                   alt="Töltsd le a PDF-et!"
-                  
+                  /*
                   onMouseEnter={(e) => e.currentTarget.src = "/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "/icons/DownloadPdf_nh.png"}
-                  /*
+                  */
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-                  */
+                  
                 />
               </a>
               <div class={styles.qrCaption}>
@@ -565,17 +565,17 @@ const handleSecondButtonClick = async () => {
             <div class={styles.qrCode}>
             <a href="https://mega.nz/file/InhFgToY#6aO_l2iajc86HcqoVuCFEfno37RMTR7N1Ud3k6J9aN8" target="_blank" rel="noopener noreferrer">
                 <img
-                  src="/icons/DownloadPdf_nh.png"
-                  //src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
+                  //src="/icons/DownloadPdf_nh.png"
+                  src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
                   width={100}
                   alt="Töltsd le a PDF-et!"
-                  
+                  /*
                   onMouseEnter={(e) => e.currentTarget.src = "/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "/icons/DownloadPdf_nh.png"}
-                  /*
+                  */
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-                  */
+                  
                 />
               </a>
               <div class={styles.qrCaption}>

@@ -49,8 +49,8 @@ Forintban kártyával
 </div>
           <div class={styles2.inputLabel}>
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
-              <strong>Miért</strong> segít felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Szervezni fogjuk magánerőből a MagánSzövetség Mozgalmat ország szerte előadásokat tartva. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, békét és életet támogató eszméket! <br/><br/>
-              Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.
+            <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
+              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
           </div>
 

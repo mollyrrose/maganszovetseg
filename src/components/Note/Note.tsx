@@ -1,4 +1,4 @@
-// import { A } from '@solidjs/router';
+import { A } from '@solidjs/router';
 import { batch, Component, createEffect, Match, onMount, Show, Switch } from 'solid-js';
 import { PrimalNote, PrimalUser, TopZap, ZapOption } from '../../types/primal';
 import ParsedNote from '../ParsedNote/ParsedNote';
@@ -25,6 +25,7 @@ import { addrRegexG, imageRegexG, Kind, linebreakRegex, noteRegex, urlRegexG } f
 import { nip19 } from 'nostr-tools';
 import AppRouter from '../../Router';
 import { TranslatorProvider } from '../../contexts/TranslatorContext';
+import { hexToNpub } from '../../lib/keys';
 
 export type NoteReactionsState = {
   likes: number,
@@ -68,8 +69,10 @@ export const renderNote = (props: NoteProps) => (
   </div> as HTMLDivElement
   ).innerHTML;
 
-const Note: Component<NoteProps> = (props) => {
 
+
+const Note: Component<NoteProps> = (props) => {
+  const noteLinkId = props.note?.id || '';
   const threadContext = useThreadContext();
   const app = useAppContext();
   const account = useAccountContext();
@@ -311,6 +314,7 @@ const Note: Component<NoteProps> = (props) => {
     return isShort && !isReply;
   }
 
+  
   return (
     <Switch>
       <Match when={noteType() === 'notification'}>
@@ -468,7 +472,7 @@ const Note: Component<NoteProps> = (props) => {
         <a
           id={props.id}
           class={`${styles.note} ${props.parent ? styles.parent : ''}`}
-          href={!props.onClick ? noteLinkId() : ''}
+          href={!props.onClick ? noteLinkId : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -507,14 +511,14 @@ const Note: Component<NoteProps> = (props) => {
               margins={45}
             />
           </div>
-
+{/* BTC Lightning out
           <NoteTopZapsCompact
             note={props.note}
             action={() => openReactionModal('zaps')}
             topZaps={reactionsState.topZapsFeed}
             topZapLimit={4}
           />
-
+*/}
           <NoteFooter
             note={props.note}
             state={reactionsState}
@@ -526,11 +530,13 @@ const Note: Component<NoteProps> = (props) => {
         </a>
       </Match>
 
+
+
       <Match when={noteType() === 'thread' || noteType() === 'feed'}>
         <a
           id={props.id}
           class={`${styles.noteThread} ${props.parent ? styles.parent : ''}`}
-          href={!props.onClick ? noteLinkId() : ''}
+          href={!props.onClick ? noteLinkId : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -577,14 +583,14 @@ const Note: Component<NoteProps> = (props) => {
                   footerSize="short"
                 />
               </div>
-
+{/* BTC Lightning out
               <NoteTopZapsCompact
                 note={props.note}
                 action={() => openReactionModal('zaps')}
                 topZaps={reactionsState.topZapsFeed}
                 topZapLimit={4}
               />
-
+*/}
               <div class={styles.footer}>
                 <NoteFooter
                   note={props.note}
@@ -604,7 +610,7 @@ const Note: Component<NoteProps> = (props) => {
         <a
           id={props.id}
           class={`${styles.note} ${styles.reactionNote}`}
-          href={!props.onClick ? noteLinkId() : ''}
+          href={!props.onClick ? noteLinkId : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -650,7 +656,7 @@ const Note: Component<NoteProps> = (props) => {
         <a
           id={props.id}
           class={`${styles.noteSuggestion}`}
-          href={!props.onClick ? noteLinkId() : ''}
+          href={!props.onClick ? noteLinkId : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}

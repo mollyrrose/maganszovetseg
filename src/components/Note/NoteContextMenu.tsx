@@ -220,6 +220,7 @@ const NoteContextMenu: Component<{
       },
       icon: 'heart',
     },
+    /* BTC Lightning out
     {
       label: intl.formatMessage(tActions.noteContext.zap),
       action: () => {
@@ -228,6 +229,7 @@ const NoteContextMenu: Component<{
       },
       icon: 'feed_zap',
     },
+    */
     {
       label: intl.formatMessage(tActions.noteContext.copyLink),
       action: copyNoteLink,

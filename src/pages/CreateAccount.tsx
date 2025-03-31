@@ -38,6 +38,7 @@ import Uploader from '../components/Uploader/Uploader';
 import { useSettingsContext } from '../contexts/SettingsContext';
 //import { createNIP05Record } from "../api/cloudflare";
 //import CryptoJS from 'crypto-js'; 
+import { MaganSzovetseg_Recommended_Relays } from './MaganSzovetseg_Recommended_Relays';
 
 import { bech32 } from 'bech32';
 
@@ -346,46 +347,8 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
     let relaySettings = account.defaultRelays.reduce<NostrRelays>((acc, r) => ({ ...acc, [r]: { write: true, read: true }}), {});
     console.log("🔗 Default relay settings:", relaySettings);
 
-    const recommendedRelays = [
-      //https://next.nostr.watch/relays
-
-      "wss://nostr.huszonegy.world", //21
-      "wss://relay.snort.social", // Snort relay
-      "wss://purplepag.es",
-      "wss://relay.nostr.brand",
-      "wss://nostrelites.org",
-      "wss://nos.lol",
-      "wss://nostr.oxtr.dev",
-      "wss://nostr-pub.wellorder.net",
-      "wss://relay.shawnyeager.com/private",
-      "wss://relay.nostraddress.com",
-      "wss://relay.verified-nostr.com",
-      "wss://sendit.nosflare.com",
-      "wss://cfrelay.royalgarter.workers.dev",
-      "wss://relay.czas.xyz",
-      "wss://nostrelay.mamory-art.xyz",
-      "wss://cfrelay.snowcait.workers.dev",
-      "wss://nostr-relay.wlvs.space",
-      "wss://aliens.contact.nostr/",
-      "wss://nostr.vision/",
-      "wss://Tesla.legacy.nostr/",
-      "wss://psychology.healing.nostr/",
-      "wss://systems.integration.nostr/",
-      "wss://global.healthinitiative.nostr/",
-      "wss://philosophical.debates.nostr/",
-      "wss://mentalpeace.nostr/",
-      "wss://global.consciousness.nostr/",
-      "wss://science.frontiers.nostr/",
-      "wss://nostr.buddhistnetwork.nostr/",
-      "wss://esoteric.knowledge.nostr/",
-      "wss://primal.b-cdn.net", // Primal's default relay
-      "wss://relay.damus.io",   // Damus relay
-      "wss://nostr-relay.wlvs.space", // 
-      //"wss://wallet.primal.net/v1", // BTC out
-    ];
-
     // MERGING THE RELAYS
-    recommendedRelays.forEach((relay) => {
+    MaganSzovetseg_Recommended_Relays.forEach((relay) => {
       relaySettings[relay] = { write: true, read: true };
     });
 
@@ -617,9 +580,12 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
 
   
     const relays = [
-      "wss://relay.damus.io", // Primary relay
-      "wss://nostr-relay.wlvs.space", // Fallback relay 1
-      "wss://primal.b-cdn.net", // Fallback relay 2
+      "wss://nos.lol",//208
+      "wss://relay.primal.net",//252 Primary relay
+      "wss://relay.damus.io", //391 
+      "wss://nostr.wine",//453
+      //"wss://relay.snort.social",//603
+      //"wss://nostr-pub.wellorder.net",//1642
     ];
   
     // Use the new `connectToRelay` function

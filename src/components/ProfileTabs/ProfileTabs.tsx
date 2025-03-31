@@ -269,19 +269,19 @@ const ProfileTabs: Component<{
     window.removeEventListener('scroll', onScroll);
   });
 
-  function humanizeNumber(value) {
+  function humanizeNumber(value: number) {
     if (value >= 10000) {
       // Scale the number to show two significant digits before 'e'
       const exponent = Math.floor(Math.log10(value)) - 1;
       const scaled = value / Math.pow(10, exponent);
       let formatted = scaled.toFixed(1).replace('.', ',');
-  
+    
       // Remove ",0" if rounding results in X,0e
       if (formatted.endsWith(',0')) {
         formatted = formatted.slice(0, -2); // Remove last two characters (",0")
       }
-  
-      return `${formatted}e`;
+    
+      return `${formatted}e${exponent}`;
     } else {
       return value.toLocaleString('en-US').replace(/,/g, ' ');
     }
@@ -291,6 +291,7 @@ const ProfileTabs: Component<{
       <Tabs value={hash()} onChange={onChangeValue} defaultValue={hash()}>
         <Show when={profile && profile.fetchedUserStats}>
           <Tabs.List class={styles.profileTabs}>
+
             <Tabs.Trigger class={styles.profileTab} value="notes">
               <div class={styles.stat}>
                 <div class={styles.statNumber}>
@@ -335,6 +336,7 @@ const ProfileTabs: Component<{
               </div>
             </Tabs.Trigger>
 
+            {/* //BTC Lightning out
             <Tabs.Trigger class={styles.profileTab} value="zaps">
               <div class={styles.stat}>
                 <div class={styles.statNumber}>
@@ -345,7 +347,9 @@ const ProfileTabs: Component<{
                 </div>
               </div>
             </Tabs.Trigger>
+            */}
 
+          {/* //Relay handling out
             <Tabs.Trigger class={styles.profileTab} value="relays">
               <div class={styles.stat}>
                 <div class={styles.statNumber}>
@@ -356,7 +360,7 @@ const ProfileTabs: Component<{
                 </div>
               </div>
             </Tabs.Trigger>
-
+          */}
 
             <Tabs.Indicator class={styles.profileTabIndicator} />
           </Tabs.List>
@@ -636,7 +640,7 @@ const ProfileTabs: Component<{
                               <NoteGallery note={note} />
                             </Match>
                             <Match when={!hasImages(note)}>
-                              <A href={noteLinkId(note)} class={styles.missingImage}>
+                                <A href={`/e/${note.id}`} class={styles.missingImage}>
                                 <NoteGallery note={note} />
                               </A>
                             </Match>
@@ -657,6 +661,9 @@ const ProfileTabs: Component<{
           </div>
         </Tabs.Content>
 
+
+        {/* //BTC Lightning out*/}
+{/* 
         <Tabs.Content class={styles.tabContent} value="zaps">
           <div class={styles.profileNotes}>
             <TransitionGroup name="slide-fade">
@@ -698,7 +705,7 @@ const ProfileTabs: Component<{
             </TransitionGroup>
           </div>
         </Tabs.Content>
-
+*/}
 
         <Tabs.Content class={styles.tabContent} value="relays">
           <div class={styles.profileRelays}>

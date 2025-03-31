@@ -193,7 +193,7 @@ const DirectMessageParsedContent: Component<{
           return;
         }
 
-
+/*
         if (isMega(token)) {
           removeLinebreaks('mega');
           isAfterEmbed = true;
@@ -201,7 +201,7 @@ const DirectMessageParsedContent: Component<{
           updateContent(content, 'mega', token);
           return;
         }
-
+*/
         
 
         if (isSpotify(token)) {
@@ -531,7 +531,7 @@ const DirectMessageParsedContent: Component<{
     </For>
   };
 
-
+/*
   const renderMega = (item: NoteContent, index?: number) => {
     const lastClass = index === content.length - 1 ? 'noBottomMargin' : '';
   
@@ -546,7 +546,7 @@ const DirectMessageParsedContent: Component<{
     </For>;
   };
   
-
+*/
 
 
 
@@ -1160,7 +1160,7 @@ const DirectMessageParsedContent: Component<{
       image: renderImage,
       video: renderVideo,
       youtube: renderYouTube,
-      mega: renderMega,
+      //mega: renderMega,
       spotify: renderSpotify,
       twitch: renderTwitch,
       mixcloud: renderMixCloud,

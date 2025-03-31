@@ -76,7 +76,7 @@ const Explore: Component = () => {
         break;
 
       case 'relays':
-        // Object.keys(profile.relays || {}).length === 0 && profile.actions.fetchRelayList(profile.profileKey);
+        //Object.keys(profile.relays || {}).length === 0 && profile.actions.fetchRelayList(profile.profileKey);
         break;
     }
   }
@@ -143,7 +143,7 @@ const Explore: Component = () => {
                 <Tabs.Indicator class={styles.exploreTabIndicator} />
               </div>
               <div class={styles.right}>
-                <A href={'/asearch'}>Összetett keresés</A>
+                <A href={'/search'}>Összetett keresés</A>
               </div>
             </Tabs.List>
 

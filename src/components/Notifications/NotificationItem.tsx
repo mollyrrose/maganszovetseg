@@ -175,9 +175,9 @@ const NotificationItem: Component<NotificationItemProps> = (props) => {
         <div class={styles.description}>
           <div class={styles.firstUser}>
             <span class={styles.firstUserName}>{firstUserName()}</span>
-            <Show when={firstUserVerification()}>
+            {/*<Show when={firstUserVerification()}>
               <span class={styles.verifiedIcon} />
-            </Show>
+            </Show>*/}
           </div>
           <div class={styles.restUsers}>{typeDescription()}</div>
         </div>

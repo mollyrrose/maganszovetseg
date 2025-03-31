@@ -471,7 +471,7 @@ export const actions = {
     },
     breadcast: {
       id: 'actions.noteContext.breadcast',
-      defaultMessage: 'Közzétételi jegyzet',
+      defaultMessage: 'Bejegyzés megosztása',
       description: 'Label for note broadcast from context menu',
     },
     muteAuthor: {
@@ -669,6 +669,11 @@ export const confirmDefaults = {
 export const exploreSidebarCaption = {
   id: 'explore.sidebar.caption',
   defaultMessage: 'Népszerű felhasználók',
+  description: 'Caption for the explore page sidebar showing a list of trending users',
+};
+export const exploreSidebarCaptionHU = {
+  id: 'explore.sidebar.caption',
+  defaultMessage: 'Népszerű magyar felhasználók',
   description: 'Caption for the explore page sidebar showing a list of trending users',
 };
 
@@ -1567,7 +1572,7 @@ export const settings = {
     },
     shortDescription: {
       id: 'settings.filters.shortDescription',
-      defaultMessage: 'Feliratkozás egy felhasználó némítási listájára:',
+      defaultMessage: 'Itt beállíthatod, hogy mely felhasználó tartalmait nem kívánod látni:',
       description: 'Short Description of the content filtering settings sub-page',
     },
     applyFiltering: {
@@ -1592,12 +1597,12 @@ export const settings = {
     },
     searchForFiltered: {
       id: 'settings.contentModeration.searchForFiltered',
-      defaultMessage: 'Keresd meg, hogy egy felhasználói fiók szerepel-e bármelyik szűrőlistán:',
+      defaultMessage: 'Keress rá, hogy egy felhasználói fiók szerepel-e bármelyik szűrőlistádon:',
       description: 'Description for search for filtered users',
     },
     allowListsDescription: {
       id: 'settings.contentModeration.allowListsDescription',
-      defaultMessage: 'Adj hozzá felhasználói fiókokat, amelyeket ki kell zárni a szűrésből:',
+      defaultMessage: 'Adj hozzá felhasználói fiókokat, amelyek tartalmait mindenképp látni szeretnéd, még ha az általuk közzétett tartalmad valamely szűrőd ki is szűri (ki szeretnél zárni a szűrésből). Ez azt jelenti, hogy ha egy általad beállított szűrő ki is szűrné őket vagy a tartalmaikat, ez a beállítás garantálja, hogy még akkor is láthatóak lesznek számodra. (Pl. ha kiszűröd a "naplemente" szót mert te nem kedveled azokat a posztokat vagy embereket akik a naplementéről írnak, azonban beilleszted ide egy ismerősöd nyilvános felhasználónevét / nyilvános kulcsát (npup-al kezdődik), akkor még akkor is látni fogod a posztját ha a naplementéről írt benne.):',
       description: 'Description for allow lists',
     },
     table: {
@@ -1623,12 +1628,12 @@ export const settings = {
       },
       trendingHelp: {
         id: 'settings.contentModeration.table.trendingHelp',
-        defaultMessage: 'A tartalom nem ajánlott a trendi és a legtöbb felajánlást kapott a folyamokban.',
+        defaultMessage: 'A felhasználó bejegyzéseit elrejted, nem kívánod látni az ajánlott népszerű bejegyzések folyamában sem.',
         description: 'Help description for trending filter',
       },
       contentHelp: {
         id: 'settings.contentModeration.table.contentHelp',
-        defaultMessage: 'A tartalom el lesz rejtve minden feedből, szálból és keresési eredményből',
+        defaultMessage: 'A felhasználó bejegyzéseit elrejted, nem kívánod látni a hírfolyamodban.',
         description: 'Help description for content filter',
       },
     },
@@ -1667,6 +1672,15 @@ export const settings = {
       description: 'Caption indicating that there are no muted users on someone else\'s list',
     },
   },
+
+  nwcSettings: {
+    title: {
+      id: 'settings.nwc.title',
+      defaultMessage: 'BTC Pénztárca beállítások',
+      description: 'Title of the muted accounts settings sub-page',
+    },
+  },
+
   network: {
     title: {
       id: 'settings.network.title',
@@ -2166,7 +2180,7 @@ export const toast = {
   },
   noteBroadcastSuccess: {
     id: 'toast.noteBroadcastSuccess',
-    defaultMessage: 'A bejegyzésed közvetítve lett a reléid felé',
+    defaultMessage: 'A bejegyzésed elmentésre került az általad automatikusan használt szerveren',
     description: 'Confirmation message that the note has been broadcasted',
   },
   noteBroadcastFail: {

@@ -93,13 +93,25 @@ export const connectRelays = async (
   }
 };
 
-export const getPreConfiguredRelays = () => {
-  const rels: string[] = import.meta.env.PRIMAL_PRIORITY_RELAYS?.split(',') || [];
+export const getPreConfiguredRelays = (): NostrRelays => {
+  const rels: string[] = import.meta.env.PRIMAL_PRIORITY_RELAYS?.split(',')
+    .filter((url: string) => url.trim().length > 0) || [
+    "wss://nostr.wine",
+    "wss://relay.damus.io",
+    //"wss://nostr-relay.wlvs.space",
+    "wss://relay.snort.social",
+    "wss://relay.primal.net",
+    "wss://nos.lol",
+    "wss://nostr-relay.amethyst.name",
+    "wss://nostr-pub.wellorder.net"
+  ];
 
   return rels.reduce(
-    (acc: NostrRelays, r: string) =>
-      ({ ...acc, [r]: { read: true, write: true } }),
-    {},
+    (acc: Record<string, { read: boolean; write: boolean }>, url: string) => ({
+      ...acc,
+      [url]: { read: true, write: true }
+    }),
+    {} as NostrRelays
   );
 };
 
