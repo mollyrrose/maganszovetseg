@@ -58,15 +58,12 @@ const Menu: Component = () => {
             {intl.formatMessage(t.moderation.title)}
             <div class={styles.chevron}></div>
           </A>
-<<<<<<< HEAD
-=======
           {/* //BTC Lightning out
           <A href="/settings/nwc">
             {intl.formatMessage(t.nwcSettings.title)}
             <div class={styles.chevron}></div>
           </A>
           */}
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           <A href="/settings/notifications">
             {intl.formatMessage(t.notifications.title)}
             <div class={styles.chevron}></div>

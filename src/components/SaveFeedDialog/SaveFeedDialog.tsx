@@ -72,8 +72,6 @@ const SaveFeedDialog: Component<{
       open={props.open}
       setOpen={toggleFeed}
       triggerClass={styles.addToFeed}
-
-      
       triggerContent={
         <Show
           when={isFeedAdded()}
@@ -90,7 +88,7 @@ const SaveFeedDialog: Component<{
 
       }
       title={<div class={styles.addToFeedDialogTitle}>
-        Ments el a <span>{props.feedType}</span> Folyamokat
+        Mentsd el a <span>{props.feedType}</span> Folyamokat
       </div>}
     >
       <div class={styles.addToFeedDialogContent}>

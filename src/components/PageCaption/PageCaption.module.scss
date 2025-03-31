@@ -53,6 +53,10 @@
     justify-content: flex-start;
     align-items: center;
     padding-left: 20px;
+
+    .title {
+      text-transform: capitalize;
+    }
   }
 
   .logo {
@@ -63,5 +67,12 @@
     margin-right: 0px;
     width: 36px;
     height: 36px;
+  }
+
+  .title {
+    width: auto;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 28px;
   }
 }

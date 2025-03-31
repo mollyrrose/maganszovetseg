@@ -36,7 +36,7 @@ const PremiumHighlights: Component<{
                 Prémium Felhasználói Előnyök
               </div>
               <ul class={styles.perkItems}>
-                <li>Ellenőrzött noszter cím</li>
+                <li>Ellenőrzött Nostr cím</li>
                 <li>Bitcoin Lightning cím</li>
                 <li>Prémium profil</li>
               </ul>
@@ -52,7 +52,7 @@ const PremiumHighlights: Component<{
               </div>
               <ul class={styles.perkItems}>
                 <li>Nagyméretű média-tartalomfeltöltés</li>
-                <li>Részletes globális keresés a noszter rendszerben</li>
+                <li>Részletes globális keresés a Nostr rendszerben</li>
                 <br></br>
                 <ButtonLink onClick={props.onMore}>És még jópár egyéb előny...
                 <br></br>KATTINS IDE a részletekért!</ButtonLink>

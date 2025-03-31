@@ -1,12 +1,12 @@
 import { useIntl } from "@cookbook/solid-intl";
 import { A, useParams } from "@solidjs/router";
-import { batch, Component, createEffect, For, Match, onMount, Show, Switch } from "solid-js";
+import { batch, Component, createEffect, createSignal, For, Match, on, onMount, Show, Switch } from "solid-js";
 import { createStore } from "solid-js/store";
 import { APP_ID } from "../App";
-import { Kind } from "../constants";
+import { Kind, eventAddresRegex } from "../constants";
 import { useAccountContext } from "../contexts/AccountContext";
 import { decodeIdentifier } from "../lib/keys";
-import { getHighlights, sendEvent, setLinkPreviews } from "../lib/notes";
+import { getHighlights, parseLinkPreviews, sendEvent, setLinkPreviews } from "../lib/notes";
 import { subsTo } from "../sockets";
 
 import styles from './Longform.module.scss';
@@ -19,7 +19,7 @@ import { shortDate } from "../lib/dates";
 
 import PrimalMarkdown from "../components/PrimalMarkdown/PrimalMarkdown";
 import NoteTopZaps from "../components/Note/NoteTopZaps";
-import { parseBolt11, uuidv4 } from "../utils";
+import { isPhone, parseBolt11, uuidv4 } from "../utils";
 import Note, { NoteReactionsState } from "../components/Note/Note";
 import { getAuthorSubscriptionTiers } from "../lib/feed";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
@@ -137,7 +137,11 @@ const Longform: Component< { naddr: string } > = (props) => {
   // @ts-ignore
   const [author, setAuthor] = createStore<PrimalUser>();
 
-  const naddr = () => props.naddr;
+  const [naddr, setNaddr] = createSignal<string>();
+
+  createEffect(() => {
+    setNaddr(() => props.naddr);
+  })
 
   let latestTopZap: string = '';
   let latestTopZapFeed: string = '';
@@ -193,11 +197,11 @@ const Longform: Component< { naddr: string } > = (props) => {
     pswpModule: () => import('photoswipe')
   });
 
-  onMount(() => {
+  createEffect(on(naddr, () => {
     clearArticle();
     fetchArticle();
     fetchHighlights();
-  });
+  }));
 
   createEffect(() => {
     if (store.article) {
@@ -274,7 +278,14 @@ const Longform: Component< { naddr: string } > = (props) => {
     const { success, note } = await sendEvent(subEvent, account.activeRelays, account.relaySettings, account?.proxyThroughPrimal || false);
 
     if (success && note) {
-      const isZapped = await zapSubscription(note, a, account.publicKey, account.activeRelays, exchangeRate);
+      const isZapped = await zapSubscription(
+        note,
+        a,
+        account.publicKey,
+        account.activeRelays,
+        exchangeRate,
+        account.activeNWC,
+      );
 
       if (!isZapped) {
         unsubscribe(note.id);
@@ -456,7 +467,7 @@ const Longform: Component< { naddr: string } > = (props) => {
 
     const { users, notes, reads } = await fetchReadThread(
       account?.publicKey,
-      naddr(),
+      naddr() || '',
       `thread_read_${naddr()}_${APP_ID}`,
     );
 
@@ -496,7 +507,7 @@ const Longform: Component< { naddr: string } > = (props) => {
     if ([Kind.LongForm, Kind.LongFormShell, Kind.Text, Kind.Repost].includes(content.kind)) {
       const message = content as NostrNoteContent;
 
-      if (store.lastReply?.noteId !== nip19.noteEncode(message.id)) {
+      if (store.lastReply?.id !== message.id) {
         updateStore('page', 'messages',
           (msgs) => [ ...msgs, { ...message }]
         );
@@ -550,24 +561,7 @@ const Longform: Component< { naddr: string } > = (props) => {
     }
 
     if (content.kind === Kind.LinkMetadata) {
-      const metadata = JSON.parse(content.content);
-
-      const data = metadata.resources[0];
-      if (!data) {
-        return;
-      }
-
-      const preview = {
-        url: data.url,
-        title: data.md_title,
-        description: data.md_description,
-        mediaType: data.mimetype,
-        contentType: data.mimetype,
-        images: [data.md_image],
-        favicons: [data.icon_url],
-      };
-
-      setLinkPreviews(() => ({ [data.url]: preview }));
+      parseLinkPreviews(JSON.parse(content.content));
       return;
     }
 
@@ -650,9 +644,12 @@ const Longform: Component< { naddr: string } > = (props) => {
     const articles = convertToArticles(page, page.topZaps);
 
     const article = articles.find(a => {
-      if (a.noteId === naddr()) return true;
+      const addr = naddr();
 
-      const decode1 = decodeIdentifier(naddr());
+      if (!addr) return false;
+      if (a.noteId === addr) return true;
+
+      const decode1 = decodeIdentifier(addr);
       const decode2 = decodeIdentifier(a.naddr);
 
       const a1 = `${decode1.data.kind}_${decode1.data.pubkey}_${decode1.data.identifier}`;
@@ -771,7 +768,7 @@ const Longform: Component< { naddr: string } > = (props) => {
         if ([Kind.LongForm, Kind.LongFormShell, Kind.Text, Kind.Repost].includes(content.kind)) {
           const message = content as NostrNoteContent;
 
-          if (store.lastReply?.noteId !== nip19.noteEncode(message.id)) {
+          if (store.lastReply?.id !== message.id) {
             updateStore('heighlightsPage', 'messages',
               (msgs) => [ ...msgs, { ...message }]
             );
@@ -825,24 +822,7 @@ const Longform: Component< { naddr: string } > = (props) => {
         }
 
         if (content.kind === Kind.LinkMetadata) {
-          const metadata = JSON.parse(content.content);
-
-          const data = metadata.resources[0];
-          if (!data) {
-            return;
-          }
-
-          const preview = {
-            url: data.url,
-            title: data.md_title,
-            description: data.md_description,
-            mediaType: data.mimetype,
-            contentType: data.mimetype,
-            images: [data.md_image],
-            favicons: [data.icon_url],
-          };
-
-          setLinkPreviews(() => ({ [data.url]: preview }));
+          parseLinkPreviews(JSON.parse(content.content));
           return;
         }
 
@@ -940,26 +920,32 @@ const Longform: Component< { naddr: string } > = (props) => {
     return store.users.filter(u => pubkeys.includes(u.pubkey));
   }
 
+  const isProperArticleOrigin = (origin: string | undefined) => {
+    // TODO DECODE EVENT ADDRESS TO GET TO THE CLIENT NAME
+    return origin && !eventAddresRegex.test(origin.trim());
+  }
 
   return (
     <>
-      <Wormhole
-        to="search_section"
-      >
-        <Search />
-      </Wormhole>
-      <Wormhole to='right_sidebar'>
-          <ArticleSidebar
-            user={store.article?.user}
-            article={store.article}
-          />
-          <ArticleHighlightComments
-            highlight={store.selectedHighlight}
-            comments={store.heightlightReplies}
-            author={store.users.find(u => u.pubkey === store.selectedHighlight.pubkey)}
-            getCoAuthors={selectedHighlightCoAuthors}
-          />
-      </Wormhole>
+      <Show when={!isPhone()}>
+        <Wormhole
+          to="search_section"
+        >
+          <Search />
+        </Wormhole>
+        <Wormhole to='right_sidebar'>
+            <ArticleSidebar
+              user={store.article?.user}
+              article={store.article}
+            />
+            <ArticleHighlightComments
+              highlight={store.selectedHighlight}
+              comments={store.heightlightReplies}
+              author={store.users.find(u => u.pubkey === store.selectedHighlight.pubkey)}
+              getCoAuthors={selectedHighlightCoAuthors}
+            />
+        </Wormhole>
+      </Show>
       <Transition name="slide-fade">
         <Show
           when={store.article}
@@ -1009,7 +995,7 @@ const Longform: Component< { naddr: string } > = (props) => {
                 <div class={styles.time}>
                   {shortDate(store.article?.published)}
                 </div>
-                <Show when={store.article?.client}>
+                <Show when={isProperArticleOrigin(store.article?.client)}>
                   <div class={styles.client}>
                     via {store.article?.client}
                   </div>
@@ -1040,6 +1026,8 @@ const Longform: Component< { naddr: string } > = (props) => {
                     media={articleMediaImage()}
                     mediaThumb={articleMediaThumb()}
                     width={640}
+                    authorPk={store.article?.pubkey}
+                    ignoreRatio={true}
                   />
                 </Show>
 
@@ -1049,7 +1037,7 @@ const Longform: Component< { naddr: string } > = (props) => {
                     {store.article?.summary}
                   </div>
                 </div>
-
+ {/* BTC Lightning out
                 <NoteTopZaps
                   topZaps={reactionsState.topZaps}
                   zapCount={reactionsState.zapCount}
@@ -1057,9 +1045,9 @@ const Longform: Component< { naddr: string } > = (props) => {
                   action={() => openReactionModal('zaps')}
                   doZap={() => app?.actions.openCustomZapModal(customZapInfo())}
                 />
-
+*/}
                 <PrimalMarkdown
-                  noteId={props.naddr}
+                  noteId={naddr() || ''}
                   content={store.article?.content || ''}
                   readonly={true}
                   article={store.article}
@@ -1162,7 +1150,7 @@ const Longform: Component< { naddr: string } > = (props) => {
 
             <div>
               <For each={store.replies}>
-                {reply => <Note note={reply} noteType='thread' shorten={true} size="xwide" />}
+                {reply => <Note note={reply} noteType='thread' shorten={true} size="xwide" defaultParentAuthor={store.article?.user} />}
               </For>
             </div>
           </div>

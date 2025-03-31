@@ -42,6 +42,9 @@ export type LocalStore = {
   dmLastRelation: UserRelation | undefined,
   premiumReminder: number,
   dvms: PrimalDVM[] | undefined,
+  usePrimalRelay: boolean | undefined,
+  nwc: string[][] | undefined,
+  nwcActive: string[] | undefined,
 };
 
 export type UploadTime = {
@@ -91,6 +94,9 @@ export const emptyStorage: LocalStore = {
   dmLastRelation: undefined,
   premiumReminder: 0,
   dvms: undefined,
+  usePrimalRelay: false,
+  nwc: [],
+  nwcActive: undefined,
 }
 
 export const storageName = (pubkey?: string) => {
@@ -175,6 +181,28 @@ export const saveRelaySettings = (pubkey: string | undefined, settings: NostrRel
   store.relaySettings = { ...settings };
 
   setStorage(pubkey, store);
+}
+
+export const savePrimalRelaySettings = (pubkey: string | undefined, usePrimalRelay: boolean) => {
+  if (!pubkey) {
+    return;
+  }
+
+  const store = getStorage(pubkey);
+
+  store.usePrimalRelay = usePrimalRelay;
+
+  setStorage(pubkey, store);
+}
+
+export const readPrimalRelaySettings = (pubkey: string | undefined) => {
+  if (!pubkey) {
+    return false;
+  }
+
+  const store = getStorage(pubkey);
+
+  return store.usePrimalRelay || false;
 }
 
 export const saveLikes = (pubkey: string | undefined, likes: string[]) => {
@@ -657,4 +685,44 @@ export const loadHotTopics = () => {
   const stored = JSON.parse(localStorage.getItem('hotTopics') || '[]');
 
   return stored as TopicStat[];
+};
+
+// NWC -----------------------------------------------------------
+
+export const loadNWC = (pubkey: string, name?: string) => {
+  const store = getStorage(pubkey);
+
+  if (!name) {
+    return store.nwc || [];
+  }
+
+  const res = (store.nwc || []).find(r => r[0] === name);
+
+  return res ? [res] : [];
+};
+
+export const saveNWC = (pubkey: string, nwcList: string[][]) => {
+  let store = getStorage(pubkey);
+
+  store.nwc = [...nwcList];
+
+  setStorage(pubkey, store);
+};
+
+export const loadNWCActive = (pubkey: string) => {
+  const store = getStorage(pubkey);
+
+  return store.nwcActive
+};
+
+export const saveNWCActive = (pubkey: string, name?: string, uri?: string) => {
+  let store = getStorage(pubkey);
+
+  if (!name || !uri) {
+    store.nwcActive = [];
+  } else {
+    store.nwcActive = [name, uri];
+  }
+
+  setStorage(pubkey, store);
 };

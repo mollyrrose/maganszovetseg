@@ -20,6 +20,7 @@ import ConfirmModal from '../../ConfirmModal/ConfirmModal';
 import { hexToNpub } from '../../../lib/keys';
 import { hookForDev } from '../../../lib/devTools';
 import { useAppContext } from '../../../contexts/AppContext';
+import { nip19 } from 'nostr-tools';
 
 const NoteHeader: Component<{
   note: PrimalNote,
@@ -65,8 +66,16 @@ const NoteHeader: Component<{
     toaster?.sendSuccess(intl.formatMessage(tToast.noteAuthorReported, { name: userName(props.note.user)}));
   };
 
+  const noteLinkId = () => {
+      try {
+        return `/e/${props.note.noteId}`;
+      } catch(e) {
+        return '/404';
+      }
+    };
+
   const copyNoteLink = () => {
-    navigator.clipboard.writeText(`${window.location.origin}/e/${props.note.post.noteId}`);
+    navigator.clipboard.writeText(`${window.location.origin}${noteLinkId()}`);
     setContext(false);
     toaster?.sendSuccess(intl.formatMessage(tToast.notePrimalLinkCoppied));
   };
@@ -233,7 +242,7 @@ const NoteHeader: Component<{
               class={styles.verification}
               title={props.note.user?.nip05}
             >
-              {nip05Verification(props.note.user)}
+              {/* {nip05Verification(props.note.user)} */}
             </span>
           </Show>
         </div>

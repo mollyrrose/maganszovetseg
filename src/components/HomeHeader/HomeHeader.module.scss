@@ -133,6 +133,11 @@
     justify-content: space-between;
     align-items: center;
     width: 608px;
+
+    @media only screen and (max-width: 720px) {
+      width: calc(100dvw - 92px);
+    }
+
   }
 
 
@@ -206,14 +211,33 @@
   font-size: 32px;
   line-height: 34px;
   color: var(--brand-text);
-  padding-block: 24px;
+  padding-block: 15px;
   padding-inline: 12px;
-  border-block: 1px solid var(--devider);
+  border-block: 0px;// solid var(--devider);
 
   button {
     width: fit-content;
     min-width: 117px;
     padding: 8px;
+  }
+}
+
+.welcomeMessageSub {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 34px;
+  color: rgb(177, 177, 177);
+  padding-block: 0px;
+  padding-inline: 12px;
+  border-block: 0px;// solid var(--devider);
+
+  button {
+    width: fit-content;
+    min-width: 117px;
+    padding: 0px;
   }
 }
 
@@ -324,13 +348,22 @@
   background-color: var(--background-modal);
   top: 0;
   height: var(--header-height);
-  z-index: 200;
+  //z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: var(--z-index-header);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+}
+
+.readsHeaderPhone {
+  position: relative;
+  background-color: var(--background-modal);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 720px) {

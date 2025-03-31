@@ -46,14 +46,12 @@ const ArticleFooterActionButton: Component<{
       <div class={`${buttonTypeClasses[props.type]} ${props.large ? styles.large : ''}`}>
         <div
           class={`${styles.icon} ${props.large ? styles.large : ''}`}
-          style={props.hidden ? 'visibility: hidden' : 'visibility: visible'}
+          style={props.hidden ? 'visibility: hidden': 'visibility: visible'}
         ></div>
         <div class={styles.statNumber}>{props.label || ''}</div>
       </div>
     </button>
-  );
-};
-
-
+  )
+}
 
 export default ArticleFooterActionButton;

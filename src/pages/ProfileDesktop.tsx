@@ -154,39 +154,75 @@ const ProfileDesktop: Component = () => {
   const [getHex, setHex] = createSignal<string>();
 
   const resolveHex = async (vanityName: string | undefined) => {
+    console.log('resolveHex params:', params);
+    
+    // Handle direct hex key case
+    if (vanityName && /^[0-9a-f]{64}$/.test(vanityName)) {
+      console.log('Processing raw hex key');
+      setHex(vanityName);
+      profile?.actions.setProfileKey(vanityName);
+      return;
+    }
+  
     if (vanityName) {
       const name = vanityName.toLowerCase();
       const vanityProfile = await fetchKnownProfiles(name);
-
       const hex = vanityProfile.names[name];
-
+      console.log('Vanity resolve:', { name, hex });
+      
       if (!hex) {
         navigate('/404');
         return;
       }
-
+      
       setHex(() => hex);
-
       profile?.profileKey !== hex && setProfile(hex);
       return;
     }
-
+  
     let hex = params.npub || account?.publicKey;
-
+    console.log('Initial hex:', hex);
+  
+    // Handle hex key from params
+    if (params.npub && /^[0-9a-f]{64}$/.test(params.npub)) {
+      console.log('Processing params hex key');
+      setHex(params.npub);
+      profile?.actions.setProfileKey(params.npub);
+      return;
+    }
+  
     if (params.npub?.startsWith('npub')) {
-      hex = nip19.decode(params.npub).data as string;
+      try {
+        hex = nip19.decode(params.npub).data as string;
+        console.log('Decoded npub:', hex);
+      } catch (e) {
+        console.error('npub decode failed:', e);
+        navigate('/404');
+        return;
+      }
+    } 
+    else if (params.npub?.startsWith('nprofile')) {
+      try {
+        hex = (nip19.decode(params.npub).data as ProfilePointer).pubkey as string;
+        console.log('Decoded nprofile:', hex);
+      } catch (e) {
+        console.error('nprofile decode failed:', e);
+        navigate('/404');
+        return;
+      }
     }
-
-    if (params.npub?.startsWith('nprofile')) {
-      hex = (nip19.decode(params.npub).data as ProfilePointer).pubkey! as string;
+  
+    console.log('Final hex:', hex);
+    
+    if (!hex) {
+      console.error('No valid hex key could be determined');
+      navigate('/404');
+      return;
     }
-
+  
     setHex(() => hex);
-
     profile?.profileKey !== hex && setProfile(hex);
-
-    return;
-  }
+  };
 
   createEffect(() => {
     resolveHex(params.vanityName)
@@ -1004,12 +1040,13 @@ const ProfileDesktop: Component = () => {
                         <div class={styles.text}>
                           {profileName()}
                         </div>
+                        {/*
                         <Show when={profile?.userProfile?.nip05 && verification()}>
                           <div class={styles.vc}>
                             <VerificationCheck user={profile?.userProfile} large={true} />
                           </div>
                         </Show>
-
+*/}
                         <Show when={isVisibleLegend()}>
 
                         <PremiumCohortInfo
@@ -1021,6 +1058,7 @@ const ProfileDesktop: Component = () => {
                       </div>
 
                       <div class={styles.nipLine}>
+{/* 
                         <Show when={profile?.userProfile?.nip05}>
                           <div class={`${styles.verificationInfo} animated`}>
                             <div class={styles.verified}>
@@ -1028,6 +1066,7 @@ const ProfileDesktop: Component = () => {
                             </div>
                           </div>
                         </Show>
+*/}
 
                         <Show when={isFollowingYou()}>
                           <div class={styles.followsBadge}>
@@ -1110,12 +1149,13 @@ const ProfileDesktop: Component = () => {
                         <div class={styles.text}>
                           {profileName()}
                         </div>
+                        {/*
                         <Show when={profile?.userProfile?.nip05 && verification()}>
                           <div class={styles.vc}>
                             <VerificationCheck user={profile?.userProfile} large={true} />
                           </div>
                         </Show>
-
+                        */}
                         <Show when={isVisibleLegend()}>
                         <PremiumCohortInfo
                         userTier={app?.memberCohortInfo[profile?.profileKey!]?.tier}
@@ -1146,9 +1186,11 @@ const ProfileDesktop: Component = () => {
                     </div>
                     <div class={`${styles.verificationInfo} animated`}>
                         <div class={styles.verified}>
+                          {/*
                           <Show when={profile?.userProfile?.nip05}>
                             <div class={styles.nip05}>{nip05Verification(profile?.userProfile)}</div>
                           </Show>
+                          */}
                           <Show when={isFollowingYou()}>
                             <div class={styles.followsBadge}>
                               {intl.formatMessage(t.followsYou)}

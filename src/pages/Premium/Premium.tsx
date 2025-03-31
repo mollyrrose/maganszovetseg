@@ -1,5 +1,5 @@
 import { useIntl } from '@cookbook/solid-intl';
-import { Component, createEffect, Match, on, onCleanup, onMount, Switch } from 'solid-js';
+import { Component, createEffect, Match, on, onCleanup, onMount, Show, Switch } from 'solid-js';
 import PageCaption from '../../components/PageCaption/PageCaption';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Wormhole from '../../components/Wormhole/Wormhole';
@@ -55,6 +55,9 @@ import { emptyPaging, PaginationInfo } from '../../megaFeeds';
 import { useToastContext } from '../../components/Toaster/Toaster';
 import { triggerImportEvents } from '../../lib/notes';
 import { useAppContext } from '../../contexts/AppContext';
+import { isPhone } from '../../utils';
+import PremiumManageModal from './PremiumManageModal';
+import PremiumLegendLeaderBoard from './PremiumLegendLeaderboard';
 
 export const satsInBTC = 100_000_000;
 
@@ -90,9 +93,11 @@ export type PremiumStore = {
   openPromoCode: boolean,
   openRename: boolean,
   openRenew: boolean,
+  openManage: boolean,
   openOrderHistory: boolean,
   openFeatures: 'features' | 'faq' | undefined,
   openLegend: boolean,
+  openDonation: [number, 'lightning' | 'onchain'] | undefined,
   subscriptions: Record<string, PrimalPremiumSubscription>,
   membershipStatus: PremiumStatus,
   recipientPubkey: string | undefined,
@@ -120,6 +125,8 @@ export type PremiumStatus = {
   cohort_2?: string,
   recurring?: boolean,
   renews_on?: number | null,
+  edited_shoutout?: string,
+  donated_btc?: string,
 };
 
 const availablePremiumOptions: PremiumOption[] = [
@@ -156,9 +163,11 @@ const Premium: Component = () => {
     openPromoCode: false,
     openRename: false,
     openRenew: false,
+    openManage: false,
     openLegend: false,
     openOrderHistory: false,
     openFeatures: undefined,
+    openDonation: undefined,
     subscriptions: {},
     membershipStatus: {},
     recipientPubkey: undefined,
@@ -411,6 +420,36 @@ const Premium: Component = () => {
     startListeningForLegendPurchase(membershipId, purchuseLegendSubId(membershipId), premiumSocket);
   }
 
+  const listenForLegendDonation = () => {
+    const membershipId = premiumData.legendSupscription.membershipId;
+    if (!premiumSocket || membershipId.length === 0) return;
+
+    purchuseMonitorUnsub = subTo(premiumSocket, purchuseLegendSubId(membershipId), (type, _, content) => {
+
+      if (type === 'EVENT') {
+        const cont: {
+          completed_at: number | null,
+        } = JSON.parse(content?.content || '{ "completed_at": null }');
+
+        if (!premiumSocket) return;
+
+        if (cont.completed_at !== null) {
+          stopListeningForLegendPurchase(purchuseLegendSubId(membershipId), premiumSocket);
+          purchuseMonitorUnsub();
+          setPremiumData('openDonation', () => undefined);
+          setPremiumData('openSuccess', () => true);
+          setPremiumData('successMessage', () => intl.formatMessage(t.subOptions.success.donation));
+        }
+      }
+
+      if (type === 'EOSE') {
+      }
+    });
+
+
+    startListeningForLegendPurchase(membershipId, purchuseLegendSubId(membershipId), premiumSocket);
+  }
+
   const getSubscriptionInfo = () => {
     return new Promise((resolve) => {
       premiumData.subOptions.forEach(option => {
@@ -451,7 +490,6 @@ const Premium: Component = () => {
     });
   };
 
-
   const getLegendInfo = () => {
     if (!premiumSocket) return;
 
@@ -485,6 +523,44 @@ const Premium: Component = () => {
 
     getLegendQRCode(premiumData.recipientPubkey, premiumData.name, premiumData.legendAmount, subId, premiumSocket)
   };
+
+
+  const getLegendDonationInfo = (donation: [number, 'lightning' | 'onchain']) => {
+    if (!premiumSocket) return;
+
+    const amount_usd = premiumData.exchangeRateUSD * donation[0] / 100_000_000;
+
+    const subId = `qr__donation_${APP_ID}`;
+    const unsub = subTo(premiumSocket, subId, (type, _, content) => {
+      if (type === 'EVENT') {
+        const cont: {
+          qr_code?: string,
+          membership_quote_id?: string,
+          amount_usd?: string,
+          amount_btc?: string,
+        } = JSON.parse(content?.content || '{}');
+
+        const usd = parseFloat(cont.amount_usd || '0');
+        const btc = parseFloat(cont.amount_btc || '0');
+
+        setPremiumData('legendSupscription', () => ({
+          lnUrl:  cont.qr_code || '',
+          membershipId: cont.membership_quote_id || '',
+          amounts: {
+            usd: isNaN(usd) ? 0 : usd,
+            sats: isNaN(btc) ? 0 : btc * 100_000_000,
+          },
+        }))
+      }
+
+      if (type === 'EOSE') {
+        unsub();
+      }
+    });
+
+    getLegendQRCode(premiumData.recipientPubkey, '', amount_usd, subId, premiumSocket, donation[1] === 'onchain')
+  };
+
 
   const checkPremiumStatus = () => {
     if (!premiumSocket || premiumSocket.readyState !== WebSocket.OPEN) return;
@@ -630,7 +706,15 @@ const Premium: Component = () => {
       }
     })
 
-    await setLegendCutumization(account.publicKey, config, subId, premiumSocket);
+    const configToSend: LegendCustomizationConfig = {
+      style: config.style,
+      custom_badge: config.custom_badge,
+      avatar_glow: config.avatar_glow,
+      in_leaderboard: config.in_leaderboard,
+      edited_shoutout: config.edited_shoutout || '',
+    };
+
+    await setLegendCutumization(account.publicKey, configToSend, subId, premiumSocket);
 
     app?.actions.setLegendCustomization(account.publicKey, config);
   }
@@ -657,6 +741,12 @@ const Premium: Component = () => {
       getLegendInfo();
     }
   })
+
+  createEffect(() => {
+      if (premiumData.openDonation) {
+        getLegendDonationInfo(premiumData.openDonation);
+      }
+    })
 
   createEffect(() => {
     if (premiumStep() === 'name') {
@@ -737,6 +827,9 @@ const Premium: Component = () => {
         await getSubscriptionInfo();
         setPremiumData('openRenew', () => true);
         break;
+        case 'managePremium':
+        setPremiumData('openManage', () => true);
+        break;
       case 'orderHistory':
         setPremiumData('openOrderHistory', () => true);
         break;
@@ -771,11 +864,13 @@ const Premium: Component = () => {
         intl.formatMessage(t.title.general)}
       />
 
-      <Wormhole
-        to="search_section"
-      >
-        <Search />
-      </Wormhole>
+      <Show when={!isPhone()}>
+        <Wormhole
+          to="search_section"
+        >
+          <Search />
+        </Wormhole>
+      </Show>
 
       <PageCaption>
         <Switch
@@ -783,6 +878,14 @@ const Premium: Component = () => {
             <div class={styles.centerPageTitle}>{intl.formatMessage(t.title.general)}</div>
           }
         >
+          <Match when={premiumStep() === 'legends'}>
+            <div class={styles.pageTitle}>{intl.formatMessage(t.title.legends)}</div>
+          </Match>
+
+          <Match when={premiumStep() === 'premiums'}>
+            <div class={styles.pageTitle}>{intl.formatMessage(t.title.premiums)}</div>
+          </Match>
+
           <Match when={premiumStep() === 'support'}>
             <div class={styles.centerPageTitle}>{intl.formatMessage(t.title.support)}</div>
           </Match>
@@ -821,29 +924,51 @@ const Premium: Component = () => {
         </Switch>
       </PageCaption>
 
-      <StickySidebar>
-        <Switch>
-          <Match when={premiumData.membershipStatus.tier === 'free'}>
-            <PremiumSidebarInactve
-              onOpenFAQ={() => setPremiumData('openFeatures', () => 'faq')}
-            />
-          </Match>
-          <Match when={['premium', 'premium-legend'].includes(premiumData.membershipStatus.tier || '')}>
-            <PremiumSidebarActive
-              data={premiumData}
-              onSidebarAction={handlePremiumAction}
-              onOpenFAQ={() => setPremiumData('openFeatures', () => 'faq')}
-            />
-          </Match>
-        </Switch>
-      </StickySidebar>
+      <Show when={!isPhone()}>
+        <StickySidebar>
+            <Switch>
+              <Match when={premiumStep() === 'legends'}>
+                <PremiumSidebarInactve
+                  altCaption="About Primal Legends"
+                  onOpenFAQ={() => setPremiumData('openFeatures', () => 'faq')}
+                />
+              </Match>
+              <Match when={premiumData.membershipStatus.tier === 'free'}>
+                <PremiumSidebarInactve
+                  onOpenFAQ={() => setPremiumData('openFeatures', () => 'faq')}
+                />
+              </Match>
+              <Match when={['premium', 'premium-legend'].includes(premiumData.membershipStatus.tier || '')}>
+                <PremiumSidebarActive
+                  data={premiumData}
+                  onSidebarAction={handlePremiumAction}
+                  onOpenFAQ={() => setPremiumData('openFeatures', () => 'faq')}
+                />
+              </Match>
+            </Switch>
+        </StickySidebar>
+      </Show>
 
 
-      <div class={styles.premiumContent}>
+      <div class={`${styles.premiumContent} ${['legends', 'premiums'].includes(premiumStep()) ? styles.noPadding : ''}`}>
         <div class={styles.premiumStepContent}>
           <Switch
             fallback={<Loader />}
           >
+            <Match when={premiumStep() === 'legends'}>
+              <PremiumLegendLeaderBoard
+                data={premiumData}
+                type="legend"
+              />
+            </Match>
+
+            <Match when={premiumStep() === 'premiums'}>
+                <PremiumLegendLeaderBoard
+                  data={premiumData}
+                  type="premium"
+                />
+              </Match>
+
             <Match when={premiumStep() === 'name'}>
               <div class={styles.nameStep}>
                 <div class={styles.title}>
@@ -917,7 +1042,6 @@ const Premium: Component = () => {
                   {intl.formatMessage(t.actions.next)}
                 </ButtonPremium>
               </div>
-
             </Match>
 
             <Match when={premiumStep() === 'confirm'}>
@@ -968,6 +1092,11 @@ const Premium: Component = () => {
                 >
                   {intl.formatMessage(t.actions.subscribe)}
                 </ButtonPremium>
+
+                <div class={styles.disclaimer}>
+                  By clicking “Subscribe” you acknowledge that<br/>
+                  you agree to our <a href="https://primal.net/terms" target="__blank">Terms of Service</a>
+                </div>
               </div>
             </Match>
 
@@ -1033,9 +1162,13 @@ const Premium: Component = () => {
             <Match when={['premium', 'premium-legend'].includes(premiumData.membershipStatus?.tier || '')}>
               <PremiumStatusOverview
                 data={premiumData}
+                setData={setPremiumData}
                 profile={account?.activeUser}
                 updateUserMetadata={updateUserMetadata}
-                onExtendPremium={() => handlePremiumAction('extendSubscription')}/>
+                onExtendPremium={() => handlePremiumAction('extendSubscription')}
+                onManagePremium={() => handlePremiumAction('managePremium')}
+                getExchangeRate={getExchangeRate}
+              />
             </Match>
 
             <Match when={
@@ -1072,7 +1205,7 @@ const Premium: Component = () => {
             open={premiumData.openLegend}
             setOpen={(v: boolean) => setPremiumData('openLegend', () => v)}
             onClose={() => {
-              if (!premiumData.openLegend) return;
+              const id = purchuseLegendSubId(premiumData.legendSupscription.membershipId);
               setPremiumData('openLegend', () => false);
               setPremiumData('legendSupscription', () => ({
                 lnUrl: '',
@@ -1083,13 +1216,42 @@ const Premium: Component = () => {
                 },
               }))
 
-              premiumSocket && stopListeningForLegendPurchase(purchuseSubId, premiumSocket);
+              premiumSocket && stopListeningForLegendPurchase(id, premiumSocket);
               purchuseMonitorUnsub();
             }}
             onOpen={() => {
               listenForLegendPayement();
             }}
             subscription={premiumData.legendSupscription}
+          />
+
+
+          <PremiumLegendModal
+            open={premiumData.openDonation !== undefined}
+            setOpen={(v: boolean) => {
+              if (v) return;
+              setPremiumData('openDonation', () => undefined);
+            }}
+            onClose={() => {
+              const id = purchuseLegendSubId(premiumData.legendSupscription.membershipId);
+              setPremiumData('openDonation', () => undefined);
+              setPremiumData('legendSupscription', () => ({
+                lnUrl: '',
+                membershipId: '',
+                amounts: {
+                  usd: 0,
+                  sats: 0,
+                },
+              }))
+
+              premiumSocket && stopListeningForLegendPurchase(id, premiumSocket);
+              purchuseMonitorUnsub();
+            }}
+            onOpen={() => {
+              listenForLegendDonation();
+            }}
+            subscription={premiumData.legendSupscription}
+            caption='Make a donation'
           />
 
           <PremiumSuccessModal
@@ -1145,6 +1307,14 @@ const Premium: Component = () => {
             setOpen={(v: boolean) => setPremiumData('openRenew', () => v)}
             data={premiumData}
             setData={setPremiumData}
+          />
+
+          <PremiumManageModal
+            open={premiumData.openManage}
+            setOpen={(v: boolean) => setPremiumData('openManage', () => v)}
+            data={premiumData}
+            setData={setPremiumData}
+            onSelect={handlePremiumAction}
           />
 
           <PremiumOrderHistoryModal

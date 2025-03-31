@@ -34,8 +34,8 @@ import {
   updateAvailableFeedsTop
 } from "../lib/availableFeeds";
 import { useAccountContext } from "./AccountContext";
-import { saveAnimated, saveHomeFeeds, saveReadsFeeds, saveTheme } from "../lib/localStore";
-import { getDefaultSettings, getHomeSettings, getReadsSettings, getSettings, sendSettings, setHomeSettings, setReadsSettings } from "../lib/settings";
+import { saveAnimated, saveHomeFeeds, saveNWC, saveNWCActive, saveReadsFeeds, saveTheme } from "../lib/localStore";
+import { getDefaultSettings, getHomeSettings, getNWCSettings, getReadsSettings, getSettings, sendSettings, setHomeSettings, setReadsSettings } from "../lib/settings";
 import { APP_ID } from "../App";
 import { useIntl } from "@cookbook/solid-intl";
 import { feedProfile, feedProfileDesription, settings as t } from "../translations";
@@ -180,7 +180,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
           !temp && saveSettings();
         }
         catch (e) {
-          logError('Hiba a beállítások válaszának elemzésekor: ', e);
+          logError('Error parsing settings response: ', e);
         }
       },
       onNotice: () => {
@@ -199,6 +199,13 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
   }
 
   const setTheme = (theme: PrimalTheme | null, temp?: boolean) => {
+    const forced = localStorage.getItem('forceTheme');
+
+    if (forced && ['sunrise', 'sunset', 'midnight', 'ice'].includes(forced)) {
+      updateStore('theme', () => forced);
+      return;
+    }
+
     if (!theme) {
       return;
     }
@@ -695,6 +702,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     const settingsSubId = `load_settings_${APP_ID}`;
     const settingsHomeSubId = `load_home_settings_${APP_ID}`;
     const settingsReadsSubId = `load_reads_settings_${APP_ID}`;
+    const settingsNWCSubId = `load_nwc_settings_${APP_ID}`;
 
     const unsubSettings = subsTo(settingsSubId, {
       onEvent: (_, content) => {
@@ -817,6 +825,28 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     });
 
     pubkey && getReadsSettings(settingsReadsSubId);
+
+    let nwcList: string[][] = [];
+    let activeNWC: string[] = [];
+
+    const unsubNWCSettings = subsTo(settingsNWCSubId, {
+      onEvent: (_, content) => {
+        const nwcSettings = JSON.parse(content?.content || '{}');
+
+        nwcList = nwcSettings.nwcList;
+        activeNWC = nwcSettings.nwcActive;
+      },
+      onEose: () => {
+        if (store.readsFeeds.length === 0) {
+          getDefaultReadsFeeds();
+        }
+        saveNWC(pubkey, nwcList)
+        activeNWC.length > 0 && saveNWCActive(pubkey, activeNWC[0], activeNWC[1]);
+        unsubNWCSettings();
+      }
+    });
+
+    pubkey && getNWCSettings(settingsNWCSubId);
   }
 
   const refreshMobileReleases = () => {
@@ -841,9 +871,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
 
 // A felhasználó böngészőnyelvének meghatározása
 //var userLang = navigator.language || navigator.userLanguage;
-
-//Alapértelmezett - minden magyar
-var userLang = "hu";
+var userLang = 'hu';
 
 // Nyelv alapú fordítás (ez egy alap példa, amit bővíthetsz egy API-val)
 function translateContent() {
@@ -883,7 +911,7 @@ const translateToHungarian = (text: string): string => {
       "Global trending notes in the past 1 hour": "Népszerű bejegyzések az elmúlt 1 órában",
       "Nostr Firehose": "Tűzfészek",
       "Latest global notes; be careful!": "Legfrissebb bejegyzések világszerte, légy óvatos!",
-      "Nostr Reads": "Cikkek a nagyvilágból**",
+      "Nostr Reads": "Cikkek a nagyvilágból",
       "Latest reads from your network": "Legfrissebbek cikkek a nemzetközi hálózatodból",
       "All reads": "Minden cikk",
       "Latest global reads": "Legfrissebb cikkek a világ minden részéről",
@@ -896,7 +924,7 @@ const translateToHungarian = (text: string): string => {
       "Food Reads": "Táplálkozás",
       "Food Topic Reads from Primal": "Táplálkozás témájú cikkek a MagánSzövetség.Net-ben",
       "Gaming Reads": "Játék – Gaming",
-      "Gaming Topic Reads from Primal": "Online Játék témájú cikkek a MagánSzövetség.Net-ben",
+      "Gaming Topic Reads from Primal": "Játék témájú cikkek a MagánSzövetség.Net-ben",
       "Human Rights Reads": "Emberi jogok",
       "Human Rights Reads from Primal": "Emberi jogi témájú cikkek a MagánSzövetség.Net-ben",
       "Music Reads": "Zene",
@@ -926,37 +954,6 @@ const translateToHungarian = (text: string): string => {
 
     const unsub = subsTo(subId, {
       onEvent: (_, content) => {
-<<<<<<< HEAD
-        const feeds = JSON.parse(content.content || '[]');
-
-        const translatedFeeds = feeds.map(feed => {
-
-          //console.log("Original Feed:", feed); // Ellenőrizzük, hogy milyen adatokat kapunk
-          //feeds.forEach(feed => {
-          //  console.log("Checking feed:", feed);
-          //  console.log("feed.name:", feed.name);
-          //  console.log("feed.description:", feed.description);
-          //});
-
-
-
-          if (feed.description === "Nostr Topic Reads from Primal") {
-            return {
-              ...feed,
-              name: "Kapcsolati háló témájú cikkek",
-              description: translateToHungarian(feed.description),
-            };
-          }
-          return {
-            ...feed,
-            name: translateToHungarian(feed.name),
-            description: translateToHungarian(feed.description),
-          };
-          
-        });
-
-        updateStore('readsFeeds', () => [...translatedFeeds]);
-=======
         // Parse and immediately convert to the right type
         const feeds = JSON.parse(content.content || '[]').map((f: any) => ({
           ...f,
@@ -973,7 +970,6 @@ const translateToHungarian = (text: string): string => {
         }));
     
         updateStore('readsFeeds', () => translatedFeeds);
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       },
       onEose: () => {
         unsub();
@@ -1012,6 +1008,13 @@ const translateToHungarian = (text: string): string => {
 // EFFECTS --------------------------------------
 
   onMount(() => {
+    const forced = localStorage.getItem('forceTheme');
+
+    if (forced && ['sunrise', 'sunset', 'midnight', 'ice'].includes(forced)) {
+      updateStore('theme', () => forced);
+      return;
+    }
+
     // Set global theme, this is done to avoid changing the theme
     // when waiting for pubkey (like when reloading a page).
     const storedTheme = localStorage.getItem('theme');

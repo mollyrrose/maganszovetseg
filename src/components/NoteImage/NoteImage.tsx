@@ -2,6 +2,7 @@ import { Component, createEffect, createSignal, JSX,  JSXElement,  onMount, Show
 import styles from "./NoteImage.module.scss";
 import { generatePrivateKey } from "../../lib/nTools";
 import { MediaVariant } from "../../types/primal";
+import { useAppContext } from "../../contexts/AppContext";
 
 const NoteImage: Component<{
   class?: string,
@@ -19,7 +20,9 @@ const NoteImage: Component<{
   caption?: JSXElement | string,
   ignoreRatio?: boolean,
   forceHeight?: number;
+  authorPk?: string,
 }> = (props) => {
+  const app = useAppContext();
   const imgId = generatePrivateKey();
 
   let imgVirtual: HTMLImageElement | undefined;
@@ -31,20 +34,62 @@ const NoteImage: Component<{
 
   const isCached = () => !props.isDev || props.media;
 
-  const onError = (event: any) => {
+  const onError = async (event: any) => {
     const image = event.target;
 
-    if (image.src === props.altSrc || !props.altSrc || image.src.endsWith(props.altSrc)) {
+    if (image.src === props.altSrc || image.src.endsWith(props.altSrc)) {
       // @ts-ignore
       props.onError && props.onError(event);
       return true;
     }
 
-    setSrc(() => props.altSrc || '');
+    // list of user's blossom servers from kind 10_063
+    const userBlossoms = app?.actions.getUserBlossomUrls(props.authorPk || '') || [];
 
-    image.onerror = "";
-    image.src = src();
-    return true;
+    // Image url from a Note
+    const originalSrc = image.src || '';
+
+    // extract the file hash
+    const fileHash = originalSrc.slice(originalSrc.lastIndexOf('/') + 1)
+
+    // Send HEAD requests to each blossom server to check if the resource is there
+    const reqs = userBlossoms.map(url =>
+      new Promise<string>((resolve, reject) => {
+        const separator = url.endsWith('/') ? '' : '/';
+        const resourceUrl = `${url}${separator}${fileHash}`;
+
+        fetch(resourceUrl, { method: 'HEAD' }).
+          then(response => {
+            // Check to see if there is an image there
+            if (response.status === 200) {
+              resolve(resourceUrl);
+            } else {
+              reject('')
+            }
+          }).
+          catch((e) => {
+            reject('');
+          });
+      })
+    );
+
+    try {
+      // Wait for at least one req to succeed
+      const blossomUrl = await Promise.any(reqs);
+
+      // If found, set image src to the blossom url
+      if (blossomUrl.length > 0) {
+        setSrc(() => blossomUrl);
+        image.onerror = "";
+        image.src = blossomUrl;
+        setIsImageLoaded(true);
+        return true;
+      }
+    } catch {
+      setSrc(() => props.altSrc || '');
+      setIsImageLoaded(true);
+      return true;
+    }
   };
 
   const ratio = () => {
@@ -68,7 +113,7 @@ const NoteImage: Component<{
 
     const img = props.media;
 
-    if (!img || ratio() <= 0.9) return '680px';
+    if (!img || ratio() <= 0.8) return '680px';
     if (!img || ratio() <= 1.2) return 'auto';
 
     // width of the note over the ratio of the preview image

@@ -122,6 +122,10 @@
     border-radius: 18px;
     margin: 0;
 
+    @media only screen and (max-width: 720px) {
+      width: calc(100dvw - 32px);
+    }
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -201,6 +205,9 @@
       background-color: var(--text-tertiary);
       -webkit-mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
       mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
+      //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+      //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+
     }
   }
 
@@ -212,6 +219,8 @@
     background-color: var(--text-tertiary-2);
     -webkit-mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
     mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
+    //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+    //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
   }
 
   .searchHolder {
@@ -262,6 +271,8 @@
     background-color: var(--text-primary);
     -webkit-mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
     mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
+    //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+    //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
   }
 
 }
@@ -429,10 +440,23 @@
     }
 
   }
+
+  @media only screen and (max-width: 720px) {
+    .dialogContent {
+      width: 100dvw;
+      padding-inline: 4px;
+    }
+  }
 }
+
 
 .selectBox {
   display: flex;
+
+  @media only screen and (max-width: 720px) {
+    width: calc(100dvw - 32px);
+  }
+
   .trigger {
     padding-block: 8px;
     padding-left: 16px;

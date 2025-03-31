@@ -1,5 +1,6 @@
 import { Kind } from "../constants";
-import { subTo } from "../sockets";
+import { LeaderboardSort } from "../pages/Premium/PremiumLegendLeaderboard";
+import { sendMessage, subTo } from "../sockets";
 import { signEvent } from "./nostrAPI";
 
 export type LegendCustomizationStyle = '' |
@@ -17,6 +18,9 @@ export type LegendCustomizationConfig = {
   style: LegendCustomizationStyle,
   custom_badge: boolean,
   avatar_glow: boolean,
+  in_leaderboard: boolean,
+  current_shoutout?: string,
+  edited_shoutout?: string,
 };
 
 export const sendPremiumNameCheck = (name: string, pubkey: string | undefined, subId: string, socket: WebSocket) => {
@@ -153,7 +157,7 @@ export const stopListeningForPremiumPurchase = (subId: string, socket: WebSocket
 };
 
 
-export const getLegendQRCode = async (pubkey: string | undefined, name: string, amount_usd: number, subId: string, socket: WebSocket) => {
+export const getLegendQRCode = async (pubkey: string | undefined, name: string, amount_usd: number, subId: string, socket: WebSocket, onchain = true) => {
   if (!pubkey) return;
 
   const event = {
@@ -165,6 +169,7 @@ export const getLegendQRCode = async (pubkey: string | undefined, name: string, 
       product_id: 'legend-premium',
       receiver_pubkey: pubkey,
       amount_usd: `${amount_usd}`,
+      onchain,
     }),
   };
 
@@ -833,4 +838,36 @@ export const fetchExchangeRate = (subId: string, socket: WebSocket, target_curre
   } else {
     throw('no_socket');
   }
+};
+
+export const fetchLeaderboard = (subId: string, type: 'legend' | 'premium',  order_by: LeaderboardSort, until = 0, limit = 20, offset = 0) => {
+
+  let payload = {
+    order_by,
+    limit,
+  }
+
+  const ep = type === 'premium' ?
+    "membership_premium_leaderboard" :
+    "membership_legends_leaderboard"
+
+  if (until > 0) {
+    // @ts-ignore
+    payload.until = until;
+  }
+
+  if (offset > 0) {
+    // @ts-ignore
+    payload.offset = offset;
+  }
+
+  const message = JSON.stringify([
+    "REQ",
+    subId,
+    {cache: [ep, {
+      ...payload
+    }]},
+  ]);
+
+  sendMessage(message);
 };

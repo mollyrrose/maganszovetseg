@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, JSXElement, Match, onMount, Resource, Switch } from 'solid-js';
+import { batch, Component, createEffect, createSignal, JSXElement, Match, onMount, Resource, Switch } from 'solid-js';
 import Branding from '../components/Branding/Branding';
 import Wormhole from '../components/Wormhole/Wormhole';
 import Search from '../components/Search/Search';
@@ -20,7 +20,7 @@ import ExternalLink from '../components/ExternalLink/ExternalLink';
 import PageCaption from '../components/PageCaption/PageCaption';
 import PageTitle from '../components/PageTitle/PageTitle';
 import { useSettingsContext } from '../contexts/SettingsContext';
-import { useNavigate, useParams } from '@solidjs/router';
+import { useLocation, useNavigate, useParams } from '@solidjs/router';
 import NotFound from './NotFound';
 import NoteThread from './NoteThread';
 import { nip19 } from '../lib/nTools';
@@ -42,6 +42,7 @@ const EventPage: Component = () => {
   const params = useParams();
   const app = useAppContext();
   const navigate = useNavigate();
+  const loc = useLocation();
 
   const [evId, setEvId] = createSignal<string>('');
 
@@ -71,8 +72,14 @@ const EventPage: Component = () => {
         }
 
         if (content.kind === Kind.Text) {
+          const eventPointer: nip19.EventPointer ={
+            id: content.id,
+            author: content.pubkey,
+            kind: content.kind,
+            relays: content.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [ ...acc, t[1]] : acc, []).slice(0,3),
+          }
           try {
-            setEvId(() => nip19.noteEncode(content.id));
+            setEvId(() => nip19.neventEncode(eventPointer));
           } catch (e) {
             logWarning('Failed to decode note id: ', content.id)
             setEvId(() => 'NONE');
@@ -100,12 +107,40 @@ const EventPage: Component = () => {
     render(params.id, params.identifier);
   })
 
+
   const render = async (id: string | undefined, identifier: string | undefined) => {
     // const { id, identifier } = params;
 
     if (!id && !identifier) {
       setComponent(() => 'not_found');
       return;
+    }
+
+    if (identifier) {
+      const name = params.vanityName.toLowerCase();
+
+      if (!name) {
+        setComponent(() => 'not_found');
+        return;
+      }
+
+      const vanityProfile = await fetchKnownProfiles(name);
+
+      const pubkey = vanityProfile.names[name];
+      const kind = Kind.LongForm;
+
+      try {
+        const naddr = nip19.naddrEncode({ pubkey, kind, identifier: decodeURI(identifier) });
+
+        setEvId(() => naddr);
+        setComponent(() => 'read');
+        return;
+      } catch (e) {
+        logError('Error encoding naddr: ', e);
+        setComponent(() => 'not_found');
+        return;
+      }
+
     }
 
     if (id) {
@@ -127,14 +162,18 @@ const EventPage: Component = () => {
           return;
         }
 
-        setEvId(() => id);
-        setComponent(() => 'read');
+        batch(() => {
+          setComponent(() => 'read');
+          setEvId(() => id);
+        });
         return;
       }
 
       if (id.startsWith('note')) {
-        setEvId(() => id);
-        setComponent(() => 'note');
+        batch(() => {
+          setComponent(() => 'note');
+          setEvId(() => id);
+        });
         return;
       }
 
@@ -154,33 +193,6 @@ const EventPage: Component = () => {
 
       resolveFromId(id);
       return;
-    }
-
-    if (identifier) {
-      const name = params.vanityName.toLowerCase();
-
-      if (!name) {
-        setComponent(() => 'not_found');
-        return;
-      }
-
-      const vanityProfile = await fetchKnownProfiles(name);
-
-      const pubkey = vanityProfile.names[name];
-      const kind = Kind.LongForm;
-
-      try {
-        const naddr = nip19.naddrEncode({ pubkey, kind, identifier });
-
-        setEvId(() => naddr);
-        setComponent(() => 'read');
-        return;
-      } catch (e) {
-        logError('Error encoding naddr: ', e);
-        setComponent(() => 'not_found');
-        return;
-      }
-
     }
 
   };

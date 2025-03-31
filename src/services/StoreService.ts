@@ -4,6 +4,7 @@ import { APP_ID } from "../App";
 import { emptyPage, Kind } from "../constants";
 import { convertToNotes, sortingPlan } from "../stores/note";
 import { FeedPage, NostrEventContent, NostrMentionContent, NostrNoteActionsContent, NostrNoteContent, NostrStatsContent, NostrUserContent, NoteActions, PrimalNote } from "../types/primal";
+import { selectRelayTags } from "../utils";
 
 type FeedStore = {
   lastNote?: PrimalNote,
@@ -43,7 +44,14 @@ export const updatePage = (subId: string, content: NostrEventContent) => {
 
   if ([Kind.Text, Kind.Repost].includes(content.kind)) {
     const message = content as NostrNoteContent;
-    const messageId = nip19.noteEncode(message.id);
+    const eventPointer: nip19.EventPointer ={
+      id: message.id,
+      author: message.pubkey,
+      kind: message.kind,
+      relays: selectRelayTags(message.tags),
+    }
+
+    const messageId = nip19.neventEncode(eventPointer);
 
     const isLastNote = message.kind === Kind.Text ?
       feed.lastNote?.post?.noteId === messageId :

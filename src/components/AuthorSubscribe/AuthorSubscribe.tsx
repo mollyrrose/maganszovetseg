@@ -36,6 +36,27 @@ const AuthorSubscribe: Component<{
   const navigate = useNavigate();
   const settings = useSettingsContext();
 
+  // const [isFetching, setIsFetching] = createSignal(false);
+  // const [author, setAuthor] = createSignal<PrimalUser>();
+
+  // const getAuthorData = async (pubkey: string) => {
+  //   if (!account?.publicKey || !pubkey) return;
+
+  //   const subId = `reads_fpi_${APP_ID}`;
+
+  //   setIsFetching(() => true);
+
+  //   const profile = await fetchUserProfile(account.publicKey, pubkey, subId);
+
+  //   setIsFetching(() => false);
+
+  //   setAuthor(() => ({ ...profile }));
+  // };
+
+  // createEffect(() => {
+  //   getAuthorData(props.pubkey);
+  // });
+
   const doSubscription = async (tier: Tier, cost: TierCost, exchangeRate?: Record<string, Record<string, number>>) => {
     const a = props.author;
 
@@ -52,14 +73,23 @@ const AuthorSubscribe: Component<{
         ['e', tier.id],
         ['amount', cost.amount, cost.unit, cost.cadence],
         ['event', JSON.stringify(tier.event)],
+        // Copy any zap splits
         ...(tier.event.tags?.filter(t => t[0] === 'zap') || []),
       ],
     }
 
+
     const { success, note } = await sendEvent(subEvent, account.activeRelays, account.relaySettings, account?.proxyThroughPrimal || false);
 
     if (success && note) {
-      const isZapped = await zapSubscription(note, a, account.publicKey, account.activeRelays, exchangeRate);
+      const isZapped = await zapSubscription(
+        note,
+        a,
+        account.publicKey,
+        account.activeRelays,
+        exchangeRate,
+        account.activeNWC,
+      );
 
       if (!isZapped) {
         unsubscribe(note.id);
@@ -84,6 +114,7 @@ const AuthorSubscribe: Component<{
     };
 
     await sendEvent(unsubEvent, account.activeRelays, account.relaySettings, account?.proxyThroughPrimal || false);
+
   }
 
   const openSubscribe = () => {
@@ -120,11 +151,16 @@ const AuthorSubscribe: Component<{
             <div class={styles.userBasicData}>
               <div class={styles.userName}>
                 {userName(props.author)}
-                <VerificationCheck user={props.author} />
+               
+               {/*} <VerificationCheck user={props.author} /> */}
+
               </div>
               <Show when={props.author?.nip05}>
                 <div class={styles.nip05}>
-                  {nip05Verification(props.author)}
+
+                  {/*{nip05Verification(props.author)}*/}
+
+
                 </div>
               </Show>
             </div>
@@ -135,7 +171,10 @@ const AuthorSubscribe: Component<{
               <Show when={props.author?.userStats?.followers_count}>
                 <div class={styles.userStats}>
                   <div class={styles.number}>
-                    {formatFollowers(props.author?.userStats?.followers_count || 0)}
+                    {humanizeNumber(props.author?.userStats?.followers_count || 0)}
+                  </div>
+                  <div class={styles.unit}>
+                    followers
                   </div>
                 </div>
               </Show>

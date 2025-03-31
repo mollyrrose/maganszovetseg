@@ -14,7 +14,7 @@ import { A } from '@solidjs/router';
 import { useAppContext } from '../../contexts/AppContext';
 import { decodeIdentifier, hexToNpub } from '../../lib/keys';
 import { isDev, msgHasCashu, msgHasInvoice } from '../../utils';
-import { hashtagCharsRegex, Kind, linebreakRegex, lnUnifiedRegex, specialCharsRegex, urlExtractRegex } from '../../constants';
+import { hashtagCharsRegex, Kind, linebreakRegex, lnUnifiedRegex, noteRegex, specialCharsRegex, urlExtractRegex } from '../../constants';
 import { createStore } from 'solid-js/store';
 import { NoteContent } from '../ParsedNote/ParsedNote';
 import { isInterpunction, isUrl, isImage, isMp4Video, isOggVideo, isWebmVideo, isYouTube, isSpotify, isTwitch, isMixCloud, isSoundCloud, isAppleMusic, isWavelake, getLinkPreview, isNoteMention, isUserMention, isAddrMention, isTagMention, isHashtag, isCustomEmoji, isUnitifedLnAddress, isLnbc } from '../../lib/notes';
@@ -35,6 +35,7 @@ const groupGridLimit = 7;
 const DirectMessageParsedContent: Component<{
   id?: string,
   content: string,
+  sender: string,
   ignoreMedia?: boolean,
   noLinks?: string,
   noPreviews?: boolean,
@@ -423,6 +424,7 @@ const DirectMessageParsedContent: Component<{
         mediaThumb={imageThumb}
         width={514}
         imageGroup={`${imageGroup}`}
+        authorPk={props.sender}
       />
     }
 
@@ -450,6 +452,7 @@ const DirectMessageParsedContent: Component<{
             imageGroup={`${imageGroup}`}
             plainBorder={true}
             forceHeight={500}
+            authorPk={props.sender}
           />
         }}
       </For>
@@ -736,7 +739,7 @@ const DirectMessageParsedContent: Component<{
         }
 
         const unknownMention = (nid: string) => {
-          return <A href={`/e/${nid}`}>{token}</A>
+          return <A href={`/a/${nid}`}>{token}</A>
         }
 
         const decoded = decodeIdentifier(id);
@@ -785,10 +788,15 @@ const DirectMessageParsedContent: Component<{
     return <For each={item.tokens}>
       {(token) => {
 
-        let [_, id] = token.split(':');
+        let id = token;
 
+        const idStart = token.search(noteRegex);
 
-        if (!id) {
+        if (idStart > 0) {
+          id = token.slice(idStart);
+        }
+
+        if (!id || id.length === 0) {
           return <>{token}</>;
         }
 
@@ -807,10 +815,10 @@ const DirectMessageParsedContent: Component<{
         try {
           const eventId = nip19.decode(id).data as string | nip19.EventPointer;
           let kind = typeof eventId === 'string' ? Kind.Text : eventId.kind;
-          const hex = typeof eventId === 'string' ? eventId : eventId.id;
-          const noteId = nip19.noteEncode(hex);
-
-          const path = `/e/${noteId}`;
+          let hex = typeof eventId === 'string' ? eventId : eventId.id;
+          let path = typeof eventId === 'string' ?
+            `/e/${nip19.neventEncode({ id: hex, kind })}` :
+            `/e/${id}`;
 
           if (props.noLinks === 'links') {
             return <span class='linkish'>{token}</span>;

@@ -1,13 +1,14 @@
 import { Component, Show } from 'solid-js';
-import { useAccountContext } from '../../contexts/AccountContext'; // ✅ Import account context
-import { useIntl } from '@cookbook/solid-intl'; // ✅ Import internationalization
+//import { useAccountContext } from '../../contexts/AccountContext'; // ✅ Import account context
+//import { useIntl } from '@cookbook/solid-intl'; // ✅ Import internationalization
 import primalWhite from '../../assets/icons/primal_white.svg';
 import openWhite from '../../assets/icons/open_white.svg';
 import styles from './BannerIOS.module.scss';
 import { hookForDev } from '../../lib/devTools';
 import { useSearchParams } from '@solidjs/router';
-import ButtonPrimary from '../Buttons/ButtonPrimary';
+//import ButtonPrimary from '../Buttons/ButtonPrimary';
 
+{/*
 import {
   actions as tActions,
   account as tAccount,
@@ -36,7 +37,7 @@ const BannerIOS: Component<{ id?: string }> = (props) => {
     </Show>
   );
 };
-
+*/}
 
 
 {/*
@@ -50,7 +51,7 @@ const BannerIOS: Component< { id?: string } > = (props) => {
   const linkToiOS = () => {
     const appstoreFail = 'https://apps.apple.com/us/app/primal/id1673134518';
     const appUrlScheme = `primal:/${window.location.pathname}`;
- 
+
     if (isIOS()) {
       // Try launching the app using URL schemes
       window.open(appUrlScheme, "_self");

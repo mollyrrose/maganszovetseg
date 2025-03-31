@@ -1,5 +1,5 @@
 import { useIntl } from '@cookbook/solid-intl';
-import { useLocation } from '@solidjs/router';
+import { useLocation, useNavigate } from '@solidjs/router';
 import { Component, For, Match, Show, Switch } from 'solid-js';
 import { useAccountContext } from '../../contexts/AccountContext';
 import { useNotificationsContext } from '../../contexts/NotificationsContext';
@@ -21,6 +21,7 @@ const NavMenu: Component< { id?: string } > = (props) => {
   const loc = useLocation();
   const media = useMediaContext();
   const app = useAppContext();
+  const navigate = useNavigate();
 
   const links = [
     {
@@ -82,7 +83,7 @@ const NavMenu: Component< { id?: string } > = (props) => {
 
   const noReadsConfirm: ConfirmInfo = {
     title: "Hamarosan jön!",
-    description: "A MagánSzövetség.Net még nem rendelkezik cikkírási képességekkel, de már építjük!",
+    description: "A MagánSzövetség.Net még nem rendelkezik cikkírási képességekkel, de már építjük! Hamarosan, a https://Demo.MaganSzovetseg.Net oldalon követheted nyomon a fejlesztéseket.",
     confirmLabel: "Igen, tovább a Highlighterre",
     abortLabel: "Ok",
     onConfirm: () => {
@@ -133,34 +134,30 @@ const NavMenu: Component< { id?: string } > = (props) => {
               </Show>
             }
           >
-            <Match when={loc.pathname.startsWith('/reads') || loc.pathname.startsWith('/e/naddr')}>
+            <Match when={loc.pathname.startsWith('/reads') || loc.pathname.startsWith('/e/naddr') || loc.pathname.startsWith('/a/naddr')}>
               <Show
                 when={isBigScreen()}
                 fallback={
-
-                  
                   <ButtonPrimary
                     id={props.id}
-                    onClick={() => app?.actions.openConfirmModal(noReadsConfirm)}
+                    onClick={() => {
+                      app?.actions.openConfirmModal(noReadsConfirm);
+                      // navigate('/reads/edit');
+                    }}
                   >
                     <div class={styles.postIcon}></div>
                   </ButtonPrimary>
-                  
-
-
                 }
               >
-
-
                 <ButtonPrimary
                   id={props.id}
-                  onClick={() => app?.actions.openConfirmModal(noReadsConfirm)}
+                  onClick={() => {
+                    app?.actions.openConfirmModal(noReadsConfirm);
+                    // navigate('/reads/edit');
+                  }}
                 >
                   {intl.formatMessage(tActions.newArticle)}
                 </ButtonPrimary>
-
-              
-
               </Show>
             </Match>
           </Switch>
@@ -172,13 +169,9 @@ const NavMenu: Component< { id?: string } > = (props) => {
           <div class={styles.message}>
             {intl.formatMessage(tPlaceholders.welcomeMessage)}
           </div>
-                          
           <ButtonPrimary onClick={account?.actions.showGetStarted}>
             {intl.formatMessage(tActions.getStarted)}
           </ButtonPrimary>
-
-
-
         </div>
       </Show>
     </div>

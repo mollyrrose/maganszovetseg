@@ -1,7 +1,8 @@
 import { format } from 'd3-format';
 import { subsTo } from './sockets';
 import { DirectMessage, NostrEventContent, PrimalArticle, PrimalNote, PrimalZap } from './types/primal';
-import { DMContact, PaginationInfo } from './megaFeeds';
+import { DMContact, LeaderboardInfo, PaginationInfo } from './megaFeeds';
+import { isAndroid } from '@kobalte/utils';
 
 let debounceTimer: number = 0;
 
@@ -11,6 +12,18 @@ export const debounce = (callback: TimerHandler, time: number) => {
   }
 
   debounceTimer = window.setTimeout(callback, time);
+}
+
+export const debounceFn = (callback: TimerHandler, time: number) => {
+  let debounceTimer: number = 0;
+
+  return () => {
+    if (debounceTimer) {
+      window.clearTimeout(debounceTimer);
+    }
+
+    debounceTimer = window.setTimeout(callback, time);
+  }
 }
 
 export const isVisibleInContainer = (element: Element, container: Element) => {
@@ -365,6 +378,33 @@ export const calculateDMContactsOffset = (contacts: DMContact[], paging: Paginat
   return offset;
 }
 
+export const calculateLeaderboardOffset = (leaders: LeaderboardInfo[], paging: PaginationInfo) => {
+  let offset = 0;
+
+  for (let i=leaders.length-1;i>=0;i--) {
+    const leader = leaders[i];
+
+    if (
+      paging.sortBy === 'donated_btc' &&
+      leader.donated_btc !== paging.since
+    ) break;
+
+    if (
+      paging.sortBy === 'last_donation' &&
+      leader.last_donation !== paging.since
+    ) break;
+
+    if (
+      paging.sortBy === 'premium_since' &&
+      leader.premium_since !== paging.since
+    ) break;
+
+    offset++;
+  }
+
+  return offset;
+}
+
 export const msgHasInvoice = (content: string) => {
   const r =/(\s+|\r\n|\r|\n|^)lnbc[a-zA-Z0-9]+/;
   const test = r.test(content);
@@ -380,5 +420,58 @@ export const msgHasCashu = (content: string) => {
 };
 
 
-
 export const now = () => Math.floor((new Date()).getTime() / 1000);
+
+export const isIOS = () => {
+  return /(iPad|iPhone|iPod)/.test(navigator.userAgent);
+};
+
+export const isPhone = () => {
+  return isIOS() || isAndroid() || window.innerWidth <= 720;
+}
+
+export const selectRelayTags = (tags: string[][], limit = 2, onlyWritable = true) =>
+  tags.reduce((acc, t) =>
+    t[0] === 'r' &&
+    (onlyWritable ? t[3] !== 'read' : true) &&
+    (t[1].startsWith('wss://') ||
+    t[1].startsWith('ws://')) ? [...acc, t[1]] : acc, []
+  ).slice(0, limit);
+
+
+
+// We use optimized technique to convert hex string to byte array
+const asciis = { _0: 48, _9: 57, A: 65, F: 70, a: 97, f: 102 } as const;
+function asciiToBase16(ch: number): number | undefined {
+  if (ch >= asciis._0 && ch <= asciis._9) return ch - asciis._0; // '2' => 50-48
+  if (ch >= asciis.A && ch <= asciis.F) return ch - (asciis.A - 10); // 'B' => 66-(65-10)
+  if (ch >= asciis.a && ch <= asciis.f) return ch - (asciis.a - 10); // 'b' => 98-(97-10)
+  return;
+}
+
+export function hexToBytes(hex: string): Uint8Array {
+  if (typeof hex !== 'string') throw new Error('hex string expected, got ' + typeof hex);
+  const hl = hex.length;
+  const al = hl / 2;
+  if (hl % 2) throw new Error('hex string expected, got unpadded hex of length ' + hl);
+  const array = new Uint8Array(al);
+  for (let ai = 0, hi = 0; ai < al; ai++, hi += 2) {
+    const n1 = asciiToBase16(hex.charCodeAt(hi));
+    const n2 = asciiToBase16(hex.charCodeAt(hi + 1));
+    if (n1 === undefined || n2 === undefined) {
+      const char = hex[hi] + hex[hi + 1];
+      throw new Error('hex string expected, got non-hex character "' + char + '" at index ' + hi);
+    }
+    array[ai] = n1 * 16 + n2; // multiply first octet, e.g. 'a3' => 10*16+3 => 160 + 3 => 163
+  }
+  return array;
+}
+
+export const previousWord = (input: HTMLInputElement) => {
+  const carret = input.selectionStart || 0;
+  if (carret === 0) return '';
+
+  const words = input.value.slice(0, carret).split(' ');
+
+  return words.length > 0 ? words[words.length - 1] : '';
+}

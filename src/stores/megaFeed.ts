@@ -2,8 +2,10 @@ import { nip19 } from "nostr-tools";
 import { Kind } from "../constants";
 import { hexToNpub } from "../lib/keys";
 import { sanitize } from "../lib/notes";
-import { MegaFeedPage, MegaRepostInfo, NostrEvent, NostrNoteContent, PrimalArticle, PrimalNote, PrimalUser, TopZap, UserStats } from "../types/primal";
+import { MegaFeedPage, MegaRepostInfo, NostrEvent, NostrNoteContent, PrimalArticle, PrimalNote, PrimalUser, PrimalZap, TopZap, UserStats } from "../types/primal";
 import { convertToUser } from "./profile";
+import { parseBolt11, selectRelayTags } from "../utils";
+import { logError } from "../lib/logger";
 
 
 export const noActions = (id: string) => ({
@@ -47,6 +49,17 @@ export const extractRepostInfo: MegaRepostInfo = (page, message) => {
   const userMeta = JSON.parse(user?.content || '{}');
   const stat = page?.noteStats[message.id];
 
+  const eventPointer: nip19.EventPointer ={
+    id: message.id,
+    author: message.pubkey,
+    kind: message.kind,
+    relays: selectRelayTags(message.tags),
+  }
+
+  const eventPointerShort: nip19.EventPointer ={
+      id: message.id,
+    }
+
   return {
     user: {
       id: user?.id || '',
@@ -81,7 +94,8 @@ export const extractRepostInfo: MegaRepostInfo = (page, message) => {
       score: stat?.score || 0,
       score24h: stat?.score24h || 0,
       satszapped: stat?.satszapped || 0,
-      noteId: nip19.noteEncode(message.id),
+      noteId: nip19.neventEncode(eventPointer),
+      noteIdShort: nip19.neventEncode(eventPointerShort),
       noteActions: (page.noteActions && page.noteActions[message.id]) || noActions(message.id),
       relayHints: page.relayHints,
     },
@@ -96,7 +110,7 @@ export const extractReplyTo = (tags: string[][]) => {
   for (let i=0; i<tags.length; i++) {
     const tag = tags[i];
 
-    if (tag[0] !== 'e') continue;
+    if (!['e', 'a'].includes(tag[0])) continue;
 
     if (tag[3] === 'mention') continue;
 
@@ -113,9 +127,13 @@ export const extractReplyTo = (tags: string[][]) => {
 
   if (!replyTo) {
     const eTags = tags.filter(t => t[0] === 'e' && t[3] !== 'mention');
+    const aTags = tags.filter(t => t[0] === 'a' && t[3] !== 'mention');
 
     if (eTags.length === 1) {
       replyTo = [...eTags[0]];
+    }
+    else if (eTags.length > 1){
+      replyTo = [...aTags[aTags.length - 1]];
     }
     else if (eTags.length > 1){
       replyTo = [...eTags[eTags.length - 1]];
@@ -132,10 +150,13 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
   const wordCounts = page.wordCount || {};
   const topZaps = page.topZaps[note.id] || [];
 
+  const pageUsers = Object.entries(page.users).reduce((acc, [k, u]) => ({ ...acc, [k]: { ...convertToUser(u, k) }}), {})
+
   let mentionedNotes: Record<string, PrimalNote> = {};
   let mentionedUsers: Record<string, PrimalUser> = {};
   let mentionedHighlights: Record<string, any> = {};
   let mentionedArticles: Record<string, PrimalArticle> = {};
+  let mentionedZaps: Record<string, PrimalZap> = {};
 
   for (let i = 0;i<mentionIds.length;i++) {
     let mentionId = mentionIds[i];
@@ -164,11 +185,33 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
 
     if ([Kind.Text].includes(mention.kind)) {
 
+      const eventPointer: nip19.EventPointer ={
+        id: mention.id,
+        author: mention.pubkey,
+        kind: mention.kind,
+        relays: mention.tags.reduce((acc, t, i) => (t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://'))) ? [ ...acc, t[1]] : acc, []).slice(0,3),
+      }
+
+      const eventPointerShort: nip19.EventPointer ={
+        id: mention.id,
+      }
+
+      let noteId = mention.id;
+      let noteIdShort = mention.id;
+
+      try {
+        noteId = nip19.neventEncode(eventPointer);
+        noteIdShort = nip19.neventEncode(eventPointerShort);
+      } catch (e) {
+        logError('ERROR encoding nevent: ', eventPointer)
+      }
+
       mentionedNotes[mentionId] = {
         // @ts-ignore TODO: Investigate this typing
         post: {
           ...mention,
-          noteId: nip19.noteEncode(mention.id),
+          noteId,
+          noteIdShort,
           likes: mentionStat?.likes || 0,
           mentions: mentionStat?.mentions || 0,
           reposts: mentionStat?.reposts || 0,
@@ -184,10 +227,11 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
         },
         content: mention.content,
         user: mentionedUsers[mention.pubkey],
-        mentionedUsers,
+        mentionedUsers: pageUsers,
         pubkey: mention.pubkey,
         id: mention.id,
-        noteId: nip19.noteEncode(mention.id),
+        noteId,
+        noteIdShort,
       };
     }
 
@@ -220,7 +264,7 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
         coordinate,
         msg: mention,
         mentionedNotes,
-        mentionedUsers,
+        mentionedUsers: pageUsers,
         wordCount,
         noteActions,
         likes: stat?.likes || 0,
@@ -268,6 +312,57 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
         event: { ...mention },
       }
     }
+
+    if ([Kind.Zap].includes(mention.kind)) {
+
+      const bolt11 = (mention.tags.find(t => t[0] === 'bolt11') || [])[1];
+      const zapEvent = JSON.parse((mention.tags.find(t => t[0] === 'description') || [])[1] || '{}');
+      const senderPubkey = zapEvent.pubkey as string;
+      const receiverPubkey = zapEvent.tags.find((t: string[]) => t[0] === 'p')[1] as string;
+
+      let zappedId = '';
+      let zappedKind: number = 0;
+
+      const zapTagA = zapEvent.tags.find((t: string[]) => t[0] === 'a');
+      const zapTagE = zapEvent.tags.find((t: string[]) => t[0] === 'e');
+      const zapTagP = zapEvent.tags.find((t: string[]) => t[0] === 'p');
+
+      if (zapTagA) {
+        const [kind, pubkey, identifier] = zapTagA[1].split(':');
+
+        zappedId = nip19.naddrEncode({ kind, pubkey, identifier });
+
+        const article = page.reads.find(a => a.id === zappedId);
+        zappedKind = article?.kind || 0;
+      }
+      else if (zapTagE) {
+        zappedId = zapTagE[1];
+
+        const article = page.reads.find(a => a.id === zappedId);
+        const note = page.notes.find(n => n.id === zappedId);
+
+        zappedKind = article?.kind || note?.kind || 0;
+      }
+      else if (zapTagP) {
+        zappedId = zapTagP[1];
+
+        zappedKind = Kind.Metadata;
+      }
+
+      const sender = page.users[senderPubkey] ? convertToUser(page.users[senderPubkey], senderPubkey) : senderPubkey;
+      const reciver = page.users[receiverPubkey] ? convertToUser(page.users[receiverPubkey], receiverPubkey) : receiverPubkey;
+
+      mentionedZaps[mentionId] = {
+        id: mention.id,
+        message: mention.content || '',
+        amount: parseBolt11(bolt11) || 0,
+        sender,
+        reciver,
+        created_at: mention.created_at,
+        zappedId,
+        zappedKind,
+      };
+    }
   }
 
   if (userMentionIds && userMentionIds.length > 0) {
@@ -292,6 +387,7 @@ export const extractMentions = (page: MegaFeedPage, note: NostrNoteContent) => {
     mentionedArticles,
     mentionedUsers,
     mentionedHighlights,
+    mentionedZaps,
   };
 }
 
@@ -388,7 +484,19 @@ export const convertToNotesMega = (page: MegaFeedPage) => {
       mentionedArticles,
       mentionedUsers,
       mentionedHighlights,
+      mentionedZaps,
     } = extractMentions(page, note);
+
+    const eventPointer: nip19.EventPointer = {
+      id: note.id,
+      author: note.pubkey,
+      kind: note.kind,
+      relays: tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [...acc, t[1]] : acc, []).slice(0, 2),
+    };
+
+    const eventPointerShort: nip19.EventPointer = {
+      id: note.id,
+    };
 
     const newNote: PrimalNote = {
       user: author,
@@ -408,7 +516,8 @@ export const convertToNotesMega = (page: MegaFeedPage) => {
         score: stat?.score || 0,
         score24h: stat?.score24h || 0,
         satszapped: stat?.satszapped || 0,
-        noteId: nip19.noteEncode(note.id),
+        noteId: nip19.neventEncode(eventPointer),
+        noteIdShort: nip19.neventEncode(eventPointerShort),
         noteActions: (page.noteActions && page.noteActions[note.id]) ?? noActions(note.id),
         relayHints: page.relayHints,
       },
@@ -418,10 +527,12 @@ export const convertToNotesMega = (page: MegaFeedPage) => {
       mentionedUsers,
       mentionedHighlights,
       mentionedArticles,
+      mentionedZaps,
       replyTo: replyTo && replyTo[1],
       tags: note.tags,
       id: note.id,
-      noteId: nip19.noteEncode(note.id),
+      noteId: nip19.neventEncode(eventPointer),
+      noteIdShort: nip19.neventEncode(eventPointerShort),
       pubkey: note.pubkey,
       topZaps,
       content: sanitize(note.content),
@@ -430,7 +541,6 @@ export const convertToNotesMega = (page: MegaFeedPage) => {
 
     notes.push(newNote);
   }
-
   return notes;
 };
 
@@ -470,6 +580,7 @@ export const convertToReadsMega = (page: MegaFeedPage) => {
       mentionedArticles,
       mentionedUsers,
       mentionedHighlights,
+      mentionedZaps,
     } = extractMentions(page, read);
 
     const published = read.tags.reduce<number>((acc, t) => {
@@ -501,6 +612,7 @@ export const convertToReadsMega = (page: MegaFeedPage) => {
       mentionedUsers,
       mentionedHighlights,
       mentionedArticles,
+      mentionedZaps,
       wordCount,
       noteActions: (page.noteActions && page.noteActions[read.id]) ?? noActions(read.id),
       likes: stat?.likes || 0,

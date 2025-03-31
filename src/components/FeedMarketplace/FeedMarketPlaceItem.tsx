@@ -136,21 +136,60 @@ const FeedMarketItem: Component<{
   const onSuccessZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('zapped', () => true);
+
+    // const pubkey = account?.publicKey;
+
+    // if (!pubkey) return;
+
+    // batch(() => {
+    //   updateReactionsState('zapCount', (z) => z + 1);
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => true);
+    // });
   };
 
   const onFailZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('satszapped', (sz) => sz - (zapOption.amount || 0));
     setState('zapped', () => props.actions?.zapped || false);
+
+    // batch(() => {
+    //   updateReactionsState('zappedAmount', () => -(zapOption.amount || 0));
+    //   updateReactionsState('satsZapped', (z) => z - (zapOption.amount || 0));
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => props.note.post.noteActions.zapped);
+    // });
+
+    // removeTopZap(zapOption);
+    // removeTopZapFeed(zapOption);
   };
 
   const onCancelZap = (zapOption: ZapOption) => {
     app?.actions.closeCustomZapModal();
     app?.actions.resetCustomZap();
+
     setState('satszapped', (sz) => sz - (zapOption.amount || 0));
     setState('zapped', () => props.actions?.zapped || false);
+
+    // batch(() => {
+    //   updateReactionsState('zappedAmount', () => -(zapOption.amount || 0));
+    //   updateReactionsState('satsZapped', (z) => z - (zapOption.amount || 0));
+    //   updateReactionsState('isZapping', () => false);
+    //   updateReactionsState('showZapAnim', () => false);
+    //   updateReactionsState('hideZapIcon', () => false);
+    //   updateReactionsState('zapped', () => props.note.post.noteActions.zapped);
+    // });
+
+    // removeTopZap(zapOption);
+    // removeTopZapFeed(zapOption);
   };
 
   const startZap = (e: MouseEvent | TouchEvent) => {
@@ -223,6 +262,14 @@ const FeedMarketItem: Component<{
     setState('satszapped', (sz) => sz + (amount || 0));
     setState('isZapping', () => true);
 
+    // batch(() => {
+    //   props.updateState && props.updateState('isZapping', () => true);
+    //   props.updateState && props.updateState('satsZapped', (z) => z + amount);
+    //   props.updateState && props.updateState('showZapAnim', () => true);
+    // });
+
+    // props.onZapAnim && props.onZapAnim({ amount, message, emoji })
+
     setTimeout(async () => {
       if (!props.dvm || !props.author) return;
       const success = await zapDVM(props.dvm, props.author, account.publicKey, amount, message, account.activeRelays);
@@ -235,6 +282,7 @@ const FeedMarketItem: Component<{
           amount,
           message,
         });
+
         return;
       }
 
@@ -244,7 +292,8 @@ const FeedMarketItem: Component<{
         message,
       });
     }, lottieDuration());
-  };
+
+  }
 
   return (
     <div
@@ -255,6 +304,9 @@ const FeedMarketItem: Component<{
       <div class={styles.left}>
         <div class={styles.avatar}>
           <Avatar size="vs2" src={props.dvm?.picture || props.dvm?.image || ''} />
+          {/* <Show when={props.metadata?.isPrimal && size() === 'list'}>
+            <div class={styles.smallPrimalLogo}></div>
+          </Show> */}
         </div>
         <div class={styles.paid}>
           <Show
@@ -268,26 +320,19 @@ const FeedMarketItem: Component<{
       
       <div class={styles.right}>
         <div class={styles.info}>
-          <div class={styles.title}>{feedName()}</div>
+        <div class={styles.title}>{props.dvm?.name || ''}</div>
           <div class={styles.about}>{props.dvm?.about || ''}
           <br></br>
           
-{/* BTC lightning out */}          
-{/* 
-<Show when={feedUrl()}>
-  <div class={styles.feedButton}>
-    <ButtonFeedSupport href={feedUrl()} target="_blank">Felajánlás</ButtonFeedSupport>
-  </div>
-</Show>
-*/}
-
-
-
-
-
-          </div>
-  
-
+		{/* BTC lightning out */}          
+		{/* 
+		<Show when={feedUrl()}>
+  			<div class={styles.feedButton}>
+    			<ButtonFeedSupport href={feedUrl()} target="_blank">Felajánlás</ButtonFeedSupport>
+  			</div>
+		</Show>
+		*/}
+	  </div>
         </div>
 
 

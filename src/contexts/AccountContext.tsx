@@ -32,7 +32,7 @@ import { sendContacts, sendLike, sendMuteList, triggerImportEvents } from "../li
 import { generatePrivateKey, Relay, getPublicKey as nostrGetPubkey, nip19, utils, relayInit } from "../lib/nTools";
 import { APP_ID } from "../App";
 import { getLikes, getFilterlists, getProfileContactList, getProfileMuteList, getUserProfiles, sendFilterlists, getAllowlist, sendAllowList, getRelays, sendRelays, extractRelayConfigFromTags, getBookmarks } from "../lib/profile";
-import { clearSec, getStorage, getStoredProfile, readBookmarks, readEmojiHistory, readPremiumReminder, readSecFromStorage, saveBookmarks, saveEmojiHistory, saveFollowing, saveLikes, saveMuted, saveMuteList, savePremiumReminder, saveRelaySettings, setStoredProfile, storeSec } from "../lib/localStore";
+import { clearSec, getStorage, getStoredProfile, readBookmarks, readEmojiHistory, readPremiumReminder, readPrimalRelaySettings, readSecFromStorage, saveBookmarks, saveEmojiHistory, saveFollowing, saveLikes, saveMuted, saveMuteList, savePremiumReminder, savePrimalRelaySettings, saveRelaySettings, setStoredProfile, storeSec } from "../lib/localStore";
 import { connectRelays, connectToRelay, getDefaultRelays, getPreConfiguredRelays } from "../lib/relays";
 import { getPublicKey } from "../lib/nostrAPI";
 import EnterPinModal from "../components/EnterPinModal/EnterPinModal";
@@ -94,6 +94,8 @@ export type AccountContextStore = {
   activeRelays: Relay[],
   followData: FollowData,
   premiumReminder: boolean,
+  activeNWC:string[],
+  nwcList: string[][],
   actions: {
     showNewNoteForm: () => void,
     hideNewNoteForm: () => void,
@@ -117,7 +119,7 @@ export type AccountContextStore = {
     updateFilterList: (pubkey: string | undefined, content?: boolean, trending?: boolean) => void,
     addToAllowlist: (pubkey: string | undefined, then?: () => void) => void,
     removeFromAllowlist: (pubkey: string | undefined) => void,
-    setSec: (sec: string | undefined) => void,
+    setSec: (sec: string | undefined, force?: boolean) => void,
     logout: () => void,
     showGetStarted: () => void,
     saveEmoji: (emoji: EmojiOption) => void,
@@ -146,6 +148,10 @@ export type AccountContextStore = {
       cb?: (remove: boolean, pubkey: string | undefined) => void,
     ) => Promise<void>,
     clearPremiumRemider: () => void,
+    setShowPin: (sec: string, cb?: () => void) => void,
+    setActiveNWC: (nwc: string[]) => void,
+    updateNWCList: (list: string[][]) => void,
+    insertIntoNWCList: (nwc: string[], index?: number) => void,
   },
 }
 
@@ -186,6 +192,8 @@ const initialData = {
   proxyThroughPrimal: false,
   proxySettingSet: false,
   premiumReminder: false,
+  activeNWC: [],
+  nwcList: [],
   followData: {
     tags: [],
     date: 0,
@@ -429,7 +437,7 @@ export function AccountProvider(props: { children: JSXElement }) {
     clearSec();
   };
 
-  const setSec = (sec: string | undefined) => {
+  const setSec = (sec: string | undefined, force?: boolean) => {
     if (!sec) {
       logout();
       return;
@@ -442,7 +450,7 @@ export function AccountProvider(props: { children: JSXElement }) {
 
       const pubkey = nostrGetPubkey(decoded.data);
 
-      if (pubkey !== store.publicKey) {
+      if (pubkey !== store.publicKey || force) {
         setPublicKey(pubkey);
       }
 
@@ -676,6 +684,10 @@ export function AccountProvider(props: { children: JSXElement }) {
       updateStore('isKeyLookupDone', () => true);
       return;
     }
+    else {
+      updateStore('sec', () => undefined);
+      storeSec(undefined);
+    }
 
     try {
       const key = await getPublicKey();
@@ -704,6 +716,10 @@ export function AccountProvider(props: { children: JSXElement }) {
       localStorage.removeItem('pubkey');
       logError('error fetching public key: ', e);
     }
+  }
+
+  const setShowPin = (sec: string) => {
+    updateStore('showPin', () => sec);
   }
 
   const setActiveUser = (user: PrimalUser) => {
@@ -761,25 +777,34 @@ export function AccountProvider(props: { children: JSXElement }) {
   };
 
   const removeRelay = (url: string) => {
+    const urlVariants = [url, url.endsWith('/') ? url.slice(0, -1) : `${url}/`];
+
     const relay: Relay = store.relays.find(r => {
-      return r.url === url || `${r.url}/` === url;
+      return urlVariants.includes(r.url);
     });
 
     // if relay is connected, close it and remove it from the list of open relays
     if (relay) {
       relay.close();
-      const filtered = store.relays.filter(r => r.url !== url);
+      const filtered = store.relays.filter(r => !urlVariants.includes(r.url));
       updateStore('relays', () => filtered);
+
+      const filteredActive = store.activeRelays.filter(r => !urlVariants.includes(r.url));
+      updateStore('activeRelays', () => filteredActive);
     }
 
-    // Add relay to the list of explicitly closed relays
-    relaysExplicitlyClosed.push(url);
+    for (let i = 0; i<urlVariants.length; i++) {
+      const u = urlVariants[i];
 
-    // Reset connection attempts
-    relayAtempts[url] = 0;
+      // Add relay to the list of explicitly closed relays
+      relaysExplicitlyClosed.push(u);
 
-    // Remove relay from the user's relay settings
-    updateStore('relaySettings', () => ({ [url]: undefined }));
+      // Reset connection attempts
+      relayAtempts[u] = 0;
+
+      // Remove relay from the user's relay settings
+      updateStore('relaySettings', () => ({ [u]: undefined }));
+    }
 
     saveRelaySettings(store.publicKey, store.relaySettings);
 
@@ -1083,6 +1108,14 @@ export function AccountProvider(props: { children: JSXElement }) {
       return;
     }
 
+    if (!store.sec || store.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        setShowPin(sec);
+        return;
+      }
+    }
+
     const unsub = subsTo(`before_mute_${APP_ID}`, {
       onEvent: (_, content) => {
         if (content &&
@@ -1096,14 +1129,15 @@ export function AccountProvider(props: { children: JSXElement }) {
       onEose: async () => {
         if (!store.muted.includes(pubkey)) {
           const date = Math.floor((new Date()).getTime() / 1000);
-          const muted = [...store.muted, pubkey];
+          const muted = [...unwrap(store.muted), pubkey];
 
-          const tags = [ ...store.mutedTags, ['p', pubkey]];
+          const tags = [ ...unwrap(store.mutedTags), ['p', pubkey]];
 
           const { success, note } = await sendMuteList(tags, date, store.mutedPrivate, store.proxyThroughPrimal, store.activeRelays, store.relaySettings);
 
           if (success) {
             updateStore('muted', () => muted);
+            updateStore('mutedTags', () => tags);
             updateStore('mutedSince', () => date);
             saveMuted(store.publicKey, muted, date);
             note && triggerImportEvents([note], `import_mutelists_event_add_${APP_ID}`);
@@ -1120,6 +1154,14 @@ export function AccountProvider(props: { children: JSXElement }) {
   const removeFromMuteList = (pubkey: string, then?: () => void) => {
     if (!store.publicKey || !store.muted || !store.muted.includes(pubkey)) {
       return;
+    }
+
+    if (!store.sec || store.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        setShowPin(sec);
+        return;
+      }
     }
 
     const unsub = subsTo(`before_unmute_${APP_ID}`, {
@@ -1143,6 +1185,7 @@ export function AccountProvider(props: { children: JSXElement }) {
 
           if (success) {
             updateStore('muted', () => muted);
+            updateStore('mutedTags', () => tags);
             updateStore('mutedSince', () => date);
             saveMuted(store.publicKey, muted, date);
             note && triggerImportEvents([note], `import_mute_list_remove_${APP_ID}`);
@@ -1590,6 +1633,10 @@ export function AccountProvider(props: { children: JSXElement }) {
 
     updateStore('relaySettings', () => ({ ...storage.relaySettings }));
 
+    let nwcActive = storage.nwcActive;
+
+    nwcActive && setActiveNWC(nwcActive);
+
     if (Object.keys(relaySettings).length > 0) {
       connectToRelays(relaySettings);
       return;
@@ -1598,7 +1645,7 @@ export function AccountProvider(props: { children: JSXElement }) {
     if (store.isKeyLookupDone && store.publicKey) {
       relaySettings = { ...getStorage(store.publicKey).relaySettings };
 
-    connectToRelays(relaySettings);
+      connectToRelays(relaySettings);
       return;
     }
   });
@@ -1616,6 +1663,7 @@ export function AccountProvider(props: { children: JSXElement }) {
       updateContactsList();
       updateRelays();
       updateStore('emojiHistory', () => readEmojiHistory(store.publicKey))
+      updateStore('connectToPrimaryRelays', () => readPrimalRelaySettings(store.publicKey))
     }
   });
 
@@ -1654,8 +1702,10 @@ export function AccountProvider(props: { children: JSXElement }) {
     }, 100)
   });
 
-  createEffect(() => {
+  createEffect(on(() => store.connectToPrimaryRelays, () => {
     const rels: string[] = import.meta.env.PRIMAL_PRIORITY_RELAYS?.split(',') || [];
+
+    savePrimalRelaySettings(store.publicKey, store.connectToPrimaryRelays);
 
     if (store.connectToPrimaryRelays) {
       const aru = store.suspendedRelays.map(r => r.url) as string[];
@@ -1672,17 +1722,24 @@ export function AccountProvider(props: { children: JSXElement }) {
     else {
       for (let i = 0; i < rels.length; i++) {
         const url = rels[i];
-        const relay = store.relays.find(r => r.url === url);
+        const urlVariants = [url, url.endsWith('/') ? url.slice(0, -1) : `${url}/`];
 
+        for (let i = 0; i < urlVariants.length;i++) {
+          const u = urlVariants[i]
+          const relay = store.relays.find(r => r.url === u);
 
-        if (relay) {
-          relay.close();
-          const filtered = store.relays.filter(r => r.url !== url);
-          updateStore('relays', () => filtered);
+          if (relay) {
+            relay.close();
+            const filtered = store.relays.filter(r => r.url !== u);
+            updateStore('relays', () => filtered);
+
+            const filteredActive = store.activeRelays.filter(r => r.url !== u);
+            updateStore('activeRelays', () => filtered);
+          }
         }
       }
     }
-  });
+  }));
 
 // EVENT HANDLERS ------------------------------
 
@@ -1773,6 +1830,22 @@ export function AccountProvider(props: { children: JSXElement }) {
     updateStore('followData', () => ({ ...followData }));
   }
 
+  const setActiveNWC = (nwc: string[]) => {
+    updateStore('activeNWC', () => [...nwc]);
+  }
+
+  const updateNWCList = (list: string[][]) => {
+    updateStore('nwcList', () => [...list]);
+  }
+
+  const insertIntoNWCList = (nwc: string[], index?: number) => {
+    if (index === undefined || index < 0) {
+      updateStore('nwcList', store.nwcList.length, () => [...nwc]);
+      return;
+    }
+    updateStore('nwcList', index, () => [...nwc]);
+  }
+
 // STORES ---------------------------------------
 
 const [store, updateStore] = createStore<AccountContextStore>({
@@ -1818,6 +1891,10 @@ const [store, updateStore] = createStore<AccountContextStore>({
     resolveContacts,
     replaceContactList,
     clearPremiumRemider,
+    setShowPin,
+    setActiveNWC,
+    updateNWCList,
+    insertIntoNWCList,
   },
 });
 

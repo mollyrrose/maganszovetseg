@@ -347,32 +347,8 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
     let relaySettings = account.defaultRelays.reduce<NostrRelays>((acc, r) => ({ ...acc, [r]: { write: true, read: true }}), {});
     console.log("🔗 Default relay settings:", relaySettings);
 
-<<<<<<< HEAD
-    const recommendedRelays = [
-      "wss://nostr-relay.wlvs.space", // Another example relay
-      "wss://aliens.contact.nostr/",
-      "wss://nostr.vision/",
-      "wss://Tesla.legacy.nostr/",
-      "wss://psychology.healing.nostr/",
-      "wss://systems.integration.nostr/",
-      "wss://global.healthinitiative.nostr/",
-      "wss://philosophical.debates.nostr/",
-      "wss://mentalpeace.nostr/",
-      "wss://global.consciousness.nostr/",
-      "wss://science.frontiers.nostr/",
-      "wss://nostr.buddhistnetwork.nostr/",
-      "wss://esoteric.knowledge.nostr/",
-      "wss://primal.b-cdn.net", // Primal's default relay
-      "wss://relay.damus.io",   // Damus relay
-      "wss://nostr-relay.wlvs.space", // 
-      //"wss://wallet.primal.net/v1", // BTC out
-    ];
-
-    recommendedRelays.forEach((relay) => {
-=======
     // MERGING THE RELAYS
     MaganSzovetseg_Recommended_Relays.forEach((relay) => {
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       relaySettings[relay] = { write: true, read: true };
     });
 
@@ -576,16 +552,17 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
         pubkey: "abf9805b9b554058587d7f938ee2b52c8c41f51c5d311842da02efbec52cc7d5", // Ügyfélszolgálat
         npub: "npub140ucqkum24q9skra07fcac449jxyragut5c3ssk6qthma3fvcl2svfvky2",
         name: "MagánSzövetség.Net Ügyfélszolgálat",
-        //picture: "/assets/images/default_avatar.png", // Default profile picture
-        picture: "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png",
+        picture: "/assets/images/default_avatar.png", // Default profile picture
+        //picture: "https://cdnwin.maganszovetseg.net/src/assets/images/default_avatar.png", // Default profile picture
+        //picture: "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png",
         about: "MagánSzövetség.Net Ügyfélszolgálat - Kérdésed van? Írj nekünk!",
       },
       {
         pubkey: "d774c995c768c89c0e21862a37a778010bff576b9649a8144acc3beea2801273", // Mozgalom
         npub: "npub16a6vn9w8dryfcr3psc4r0fmcqy9l74mtjey6s9z2esa7ag5qzfes2ml3w6",
         name: "MagánSzövetség Mozgalom - Szabadság, Béke, Élet!",
-        //picture: "/assets/images/default_avatar.png", // Default profile picture
-        picture: "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png",
+        picture: "/assets/images/default_avatar.png", // Default profile picture
+        //picture: "https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png",
         about: "MagánSzövetség Mozgalom - Közösségi szervezet a szabadságért és a békéért!",
       },
       {
@@ -594,9 +571,13 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
         name: "Szkíta TV",
         //picture: "/assets/images/default_avatar.png", // Default profile picture
         picture: "https://primal.b-cdn.net/media-cache?s=m&a=1&u=https%3A%2F%2Fm.primal.net%2FOatV.png",
-        about: "MagánSzövetség Mozgalom - Közösségi szervezet a szabadságért és a békéért!",
+        about: "Szent Korona Igazsága Tanácsadó és Jogvédő Egyesület TV-je",
       },
+
+
+
     ];
+
   
     const relays = [
       "wss://nos.lol",//208
@@ -799,7 +780,7 @@ ________________________________________________________________________________
 📜 FONTOS DOKUMENTUMOK
 Amiben mindannyian egyetértünk a MagánSzövetség.Net -en, és a regisztrációnkkor digitálisan aláírjuk hosszú jelszavunkkal:
 
-* Értékrend Minimum: https://mega.nz/file/JyYFiTqL#daaSm0WobM1zxDqNxBwzZdrKLsqsiTaDaDioM1bH-1U
+* Értékrend Minimum: https://maganszovetseg.net/assets/docs/I._%C3%89RT%C3%89KREND_MINIMUM.pdf
 * Felhasználói Feltételek: https://maganszovetseg.net/Terms
 * Adatvédelem és adatbiztonság: https://maganszovetseg.net/Privacy
 * Bővebb tájékoztató dokumentum az oldalról: https://mega.nz/file/pvgFHD7A#y3YLNJ54HPHrnMzocC2CJpitg2KUekQY8R5BmW2RHZM
@@ -1093,16 +1074,13 @@ Amiben mindannyian egyetértünk a MagánSzövetség.Net -en, és a regisztráci
           <div class="qrCode" style={{ flex: "0 1 auto", "text-align": "center" }}>
           <div class={styles.inputLabel} style={{ flex: "1", display: "flex", "align-items": "flex-start" }}>
 
-          <a href="https://mega.nz/file/JyYFiTqL#daaSm0WobM1zxDqNxBwzZdrKLsqsiTaDaDioM1bH-1U" target="_blank" rel="noopener noreferrer">
+            <a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
             <img
               class="downloadPdfImg"
-              //src="/icons/DownloadPdf_nh.png"
-              src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
-              width={100}
-              alt="Töltsd le a PDF-et!"
+               src="/icons/DownloadPdf_nh.png"
+               width={100}
+              alt="Download PDF"
               style={{ transition: "all 0.3s ease" }}
-              onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
-              onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
             />
             </a>
 

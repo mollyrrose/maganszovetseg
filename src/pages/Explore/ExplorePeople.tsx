@@ -79,17 +79,24 @@ const ExplorePeople: Component<{ open?: boolean }> = (props) => {
               </div>
 
               <div class={styles.userInfo}>
+               
                 <div class={styles.userData}>
                   <div class={styles.userBasicData}>
+                    
                     <div class={styles.userName}>
                       {userName(user)}
-                      <VerificationCheck user={user} />
+                      {/*<VerificationCheck user={user} />*/}
+                      
                     </div>
+                                     
+                   {/*
+    
                     <Show when={user.nip05}>
                       <div class={styles.nip05}>
                         {nip05Verification(user)}
                       </div>
                     </Show>
+                  */}
                   </div>
                   <div class={styles.userAdditionalData}>
                     <div class={`${styles.userAbout} ${!user.nip05 ? styles.extended : ''}`}>
@@ -97,6 +104,7 @@ const ExplorePeople: Component<{ open?: boolean }> = (props) => {
                     </div>
                   </div>
                 </div>
+                
 
                 <div class={styles.userStats}>
                   <Show when={user.userStats?.followers_count}>

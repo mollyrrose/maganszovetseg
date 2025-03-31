@@ -1,12 +1,12 @@
 import { A } from '@solidjs/router';
 import { batch, Component, createEffect, Match, onMount, Show, Switch } from 'solid-js';
-import { PrimalNote, TopZap, ZapOption } from '../../types/primal';
+import { PrimalNote, PrimalUser, TopZap, ZapOption } from '../../types/primal';
 import ParsedNote from '../ParsedNote/ParsedNote';
 import NoteFooter from './NoteFooter/NoteFooter';
 
 import styles from './Note.module.scss';
 import { useThreadContext } from '../../contexts/ThreadContext';
-import { useIntl } from '@cookbook/solid-intl';
+//import { useIntl } from '@cookbook/solid-intl';
 import { hookForDev } from '../../lib/devTools';
 import Avatar from '../Avatar/Avatar';
 import NoteAuthorInfo from './NoteAuthorInfo';
@@ -18,18 +18,14 @@ import { CustomZapInfo, useAppContext } from '../../contexts/AppContext';
 import NoteContextTrigger from './NoteContextTrigger';
 import { date, veryLongDate } from '../../lib/dates';
 import { useAccountContext } from '../../contexts/AccountContext';
-import { uuidv4 } from '../../utils';
+import { isPhone, uuidv4 } from '../../utils';
 import NoteTopZaps from './NoteTopZaps';
 import NoteTopZapsCompact from './NoteTopZapsCompact';
-<<<<<<< HEAD
-import { addrRegex, addrRegexG, imageRegex, imageRegexEnd, imageRegexG, linebreakRegex, noteRegex, noteRegexLocal, profileRegexG, urlRegex, urlRegexG } from '../../constants';
-=======
 import { addrRegexG, imageRegexG, Kind, linebreakRegex, noteRegex, urlRegexG } from '../../constants';
 import { nip19 } from 'nostr-tools';
 import AppRouter from '../../Router';
 import { TranslatorProvider } from '../../contexts/TranslatorContext';
 import { hexToNpub } from '../../lib/keys';
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
 export type NoteReactionsState = {
   likes: number,
@@ -53,18 +49,15 @@ export type NoteReactionsState = {
   quoteCount: number,
 };
 
-const Note: Component<{
+export type NoteProps = {
   note: PrimalNote,
   id?: string,
   parent?: boolean,
   shorten?: boolean,
-  noteType?: 'feed' | 'primary' | 'notification' | 'reaction' | 'thread'
-  onClick?: () => void,
+  noteType?: 'feed' | 'primary' | 'notification' | 'reaction' | 'thread' | 'suggestion',
+  onClick?: (note?: PrimalNote) => void,
   quoteCount?: number,
   size?: 'xwide' | 'wide' | 'normal' | 'short',
-<<<<<<< HEAD
-}> = (props) => {
-=======
   defaultParentAuthor?: PrimalUser,
 }
 
@@ -76,28 +69,28 @@ export const renderNote = (props: NoteProps) => (
   </div> as HTMLDivElement
   ).innerHTML;
 
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
 
 const Note: Component<NoteProps> = (props) => {
-  const noteLinkId = props.note?.id || '';
+  //const noteLinkId = props.note?.id || '';
+  const noteLinkId = props.note?.post.noteId || ''; // Use bech32 note ID
   const threadContext = useThreadContext();
   const app = useAppContext();
   const account = useAccountContext();
-  const intl = useIntl();
+  //const intl = useIntl();
 
   createEffect(() => {
     if (props.quoteCount) {
       updateReactionsState('quoteCount', () => props.quoteCount || 0);
     }
-  })
+  });
 
   const noteType = () => props.noteType || 'feed';
 
   const repost = () => props.note.repost;
 
   const navToThread = (note: PrimalNote) => {
-    props.onClick && props.onClick();
+    props.onClick && props.onClick(note);
     threadContext?.actions.setPrimaryNote(note);
   };
 
@@ -326,7 +319,7 @@ const Note: Component<NoteProps> = (props) => {
   return (
     <Switch>
       <Match when={noteType() === 'notification'}>
-        <A
+        <a
           id={props.id}
           class={styles.noteNotificationLink}
           href={`/e/${props.note?.post.noteId}`}
@@ -354,7 +347,7 @@ const Note: Component<NoteProps> = (props) => {
               </div>
             </div>
           </div>
-        </A>
+        </a>
       </Match>
 
       <Match when={noteType() === 'primary'}>
@@ -382,33 +375,87 @@ const Note: Component<NoteProps> = (props) => {
             <div class={`${styles.message} ${bigMessageFont() ? styles.bigFont : ''}`}>
               <ParsedNote
                 note={props.note}
-                width={Math.min(640, window.innerWidth)}
+                width={Math.min(598, window.innerWidth)}
                 margins={42}
               />
             </div>
 
             <div class={styles.topZaps}>
+
+              {/* BTC Lightning Out
               <NoteTopZaps
                 topZaps={reactionsState.topZaps}
                 zapCount={reactionsState.zapCount}
                 action={() => openReactionModal('zaps')}
                 // doZap={() => app?.actions.openCustomZapModal(customZapInfo())}
               />
+
+              */}
             </div>
 
             <div
-              class={styles.time}
-              title={date(props.note.post?.created_at).date.toLocaleString()}
+              class={styles.timePrimary} // MAGYAR IDŐ
+              //title={date(props.note.post?.created_at).date.toLocaleString()}
+              title={veryLongDate(props.note.post?.created_at)}
             >
               <span>
-                {veryLongDate(props.note.post?.created_at)}
+              {veryLongDate(props.note.post?.created_at)}
               </span>
-              <button
-                class={styles.reactSummary}
-                onClick={() => openReactionModal()}
+
+              <Show
+                when={isPhone()}
+                fallback={
+                  <button
+                    class={styles.reactSummary}
+                    onClick={() => openReactionModal()}
+                  >
+                    <span class={styles.number}>{reactionSum()}</span> reakció
+                  </button>
+                }
               >
-                <span class={styles.number}>{reactionSum()}</span> reakció
-              </button>
+                <div class={styles.reactionSpread}>
+                  <Show when={reactionsState.replies > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('replies')}
+                    >
+                      <span class={styles.number}>{reactionsState.replies}</span> Replies
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.zapCount > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('zaps')}
+                    >
+                      <span class={styles.number}>{reactionsState.zapCount}</span> Zaps
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.likes > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('likes')}
+                    >
+                      <span class={styles.number}>{reactionsState.likes}</span> Likes
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.reposts > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('reposts')}
+                    >
+                      <span class={styles.number}>{reactionsState.reposts}</span> Reposts
+                    </button>
+                  </Show>
+                  <Show when={reactionsState.quoteCount > 0}>
+                    <button
+                      class={styles.reactSummaryPhone}
+                      onClick={() => openReactionModal('quotes')}
+                    >
+                      <span class={styles.number}>{reactionsState.quoteCount}</span> Quotes
+                    </button>
+                  </Show>
+                </div>
+              </Show>
             </div>
 
             <div class={styles.footer}>
@@ -420,21 +467,18 @@ const Note: Component<NoteProps> = (props) => {
                 size="wide"
                 large={true}
                 onZapAnim={addTopZap}
+                noteType="primary"
               />
             </div>
           </div>
         </div>
       </Match>
 
-      {/* <Match when={noteType() === 'feed'}>
-        <A
+      <Match when={isPhone() && noteType() === 'feed'}>
+        <a
           id={props.id}
           class={`${styles.note} ${props.parent ? styles.parent : ''}`}
-<<<<<<< HEAD
-          href={`/e/${props.note?.post.noteId}`}
-=======
-          href={!props.onClick ? noteLinkId : ''}
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
+          href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -446,9 +490,14 @@ const Note: Component<NoteProps> = (props) => {
             </Show>
           </div>
           <div class={styles.userHeader}>
-            <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
-              <Avatar user={props.note.user} size="xs" />
-            </A>
+            {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
+              {/*<Avatar user={props.note.user} size="xs" />*/}
+            {/* </A> */}
+            <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
+
 
             <NoteAuthorInfo
               author={props.note.user}
@@ -463,14 +512,14 @@ const Note: Component<NoteProps> = (props) => {
             </div>
           </div>
 
-          <NoteReplyToHeader note={props.note} />
+          <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
           <div class={`${styles.message} ${bigMessageFont() ? styles.bigFont : ''}`}>
             <ParsedNote
               note={props.note}
               shorten={props.shorten}
-              width={Math.min(640, window.innerWidth - 72)}
-              margins={20}
+              width={window.innerWidth}
+              margins={45}
             />
           </div>
 {/* BTC Lightning out
@@ -489,20 +538,16 @@ const Note: Component<NoteProps> = (props) => {
             onZapAnim={addTopZapFeed}
             size={size()}
           />
-        </A>
-      </Match> */}
+        </a>
+      </Match>
 
 
 
       <Match when={noteType() === 'thread' || noteType() === 'feed'}>
-        <A
+        <a
           id={props.id}
           class={`${styles.noteThread} ${props.parent ? styles.parent : ''}`}
-<<<<<<< HEAD
-          href={`/e/${props.note?.post.noteId}`}
-=======
-          href={!props.onClick ? noteLinkId : ''}
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
+          href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -515,9 +560,16 @@ const Note: Component<NoteProps> = (props) => {
           </div>
           <div class={styles.content}>
             <div class={styles.leftSide}>
-              <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
-                <Avatar user={props.note.user} size="vs" />
+              {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
+               {/*  <Avatar user={props.note.user} size="vs" />*/}
+              {/* </A> */}
+
+
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
               </A>
+
+
               <Show
                 when={props.parent}
               >
@@ -538,14 +590,14 @@ const Note: Component<NoteProps> = (props) => {
                 />
               </div>
 
-              <NoteReplyToHeader note={props.note} />
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
               <div class={styles.message}>
                 <ParsedNote
                   note={props.note}
                   shorten={props.shorten}
-                  width={Math.min(566, window.innerWidth - 72)}
-                  margins={16}
+                  width={Math.min(508, window.innerWidth - 72)}
+                  margins={58}
                   footerSize="short"
                 />
               </div>
@@ -569,28 +621,28 @@ const Note: Component<NoteProps> = (props) => {
               </div>
             </div>
           </div>
-        </A>
+        </a>
       </Match>
 
       <Match when={noteType() === 'reaction'}>
-        <A
-          id={props.id}
-          class={`${styles.note} ${styles.reactionNote}`}
-<<<<<<< HEAD
-          href={`/e/${props.note?.post.noteId}`}
-=======
-          href={!props.onClick ? noteLinkId : ''}
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
-          onClick={() => navToThread(props.note)}
-          data-event={props.note.post.id}
-          data-event-bech32={props.note.post.noteId}
-          draggable={false}
+        <a
+            id={props.id}
+            class={`${styles.note} ${styles.reactionNote}`}
+            href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
+            onClick={() => navToThread(props.note)}
+            data-event={props.note.post.id}
+            data-event-bech32={props.note.post.noteId}
+            draggable={false}
         >
           <div class={styles.content}>
             <div class={styles.leftSide}>
-              <A href={app?.actions.profileLink(props.note.user.npub) || ''}>
-                <Avatar user={props.note.user} size="vs" />
+              <div>
+              {/*  <Avatar user={props.note.user} size="vs" />*/}
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
               </A>
+
+              </div>
               <Show
                 when={props.parent}
               >
@@ -604,7 +656,7 @@ const Note: Component<NoteProps> = (props) => {
                 time={props.note.post.created_at}
               />
 
-              <NoteReplyToHeader note={props.note} />
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
 
               <div class={styles.message}>
                 <ParsedNote
@@ -618,22 +670,19 @@ const Note: Component<NoteProps> = (props) => {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-        </A>
-=======
         </a>
       </Match>
 
 
       <Match when={noteType() === 'suggestion'}>
         <a
-          id={props.id}
-          class={`${styles.noteSuggestion}`}
-          href={!props.onClick ? noteLinkId : ''}
-          onClick={() => navToThread(props.note)}
-          data-event={props.note.post.id}
-          data-event-bech32={props.note.post.noteId}
-          draggable={false}
+            id={props.id}
+            class={`${styles.noteSuggestion}`}
+            href={!props.onClick ? `/e/${props.note.post.noteId}` : ''}
+            onClick={() => navToThread(props.note)}
+            data-event={props.note.post.id}
+            data-event-bech32={props.note.post.noteId}
+            draggable={false}
         >
           <div class={styles.header}>
             <Show when={repost()}>
@@ -643,8 +692,14 @@ const Note: Component<NoteProps> = (props) => {
           <div class={styles.content}>
             <div class={styles.leftSide}>
               {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
-                <Avatar user={props.note.user} size="vs" />
+              {/*   <Avatar user={props.note.user} size="vs" />*/}
               {/* </A> */}
+
+              <A href={app?.actions.profileLink(props.note.user.pubkey) || ''}>
+              <Avatar user={props.note.user} size="vs" />
+              </A>
+
+
               <Show
                 when={props.parent}
               >
@@ -672,7 +727,6 @@ const Note: Component<NoteProps> = (props) => {
             </div>
           </div>
         </a>
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       </Match>
     </Switch>
   );

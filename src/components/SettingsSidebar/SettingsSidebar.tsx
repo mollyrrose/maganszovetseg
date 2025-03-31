@@ -24,8 +24,6 @@ const SettingsSidebar: Component<{ id?: string }> = (props) => {
   };
 
   return (
-
-
     <div id={props.id}>
 
       {/* //Ne szerkesszék a reléket
@@ -50,8 +48,6 @@ const SettingsSidebar: Component<{ id?: string }> = (props) => {
           </div>
         )}
       </For>
-
-
       <For each={disconnectedRelays()}>
         {relayUrl => (
           <div class={styles.relayEntry}>

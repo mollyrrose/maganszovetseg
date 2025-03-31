@@ -140,6 +140,15 @@ const Explore: Component = () => {
                     Témák
                   </div>
                 </Tabs.Trigger>
+
+                <Tabs.Trigger class={styles.exploreTab} value="map">
+                  <div class={styles.tabLabel}>
+                    Térkép
+                  </div>
+                </Tabs.Trigger>
+
+
+
                 <Tabs.Indicator class={styles.exploreTabIndicator} />
               </div>
               <div class={styles.right}>
@@ -162,6 +171,26 @@ const Explore: Component = () => {
             <Tabs.Content class={styles.tabContent} value="topics">
               <ExploreTopics />
             </Tabs.Content>
+
+            <Tabs.Content class={styles.tabContent} value="map">
+                <div class={styles.mapPlaceholder}>
+                  A térkép fejlesztés alatt áll.
+                  <br/><br/>
+                  A <a href="https://demo.maganszovetseg.net" target="_blank">https://demo.maganszovetseg.net</a> oldalon lehet hamarosan megtekinteni a fejlesztés alatt álló funkciókat.
+                  <br/><br/>
+                  A következőképp fog működni. A felhasználó beállíthatja a profiljában a címét és hogy első barátai (akiket követ és akik őt követik) vagy második szintű barátai (barátainak a barátai) számára is láthatóvá lehető-e. Az ő címe is azok számára lesz csak elérhető, megtekinthető.
+                  <br/><br/>
+                  Hasonlóképp, beállítható lesz az aktuális pozíciója, valamint hogy az hányad szintű barátai számára lehet épp látható. Ez csak aközben elérhető, miközben a térképet nézi; ugyanakkor, őt is látják a beállított szintű kapcsolatai kik épp a térképet nézik. A kölcsönösség elve érvényesül minden esetben. 
+                  <br/><br/>
+                  Elkészült már, hogy a felhasználó a saját címét és aktuális pozícióját láthassa a térképen; most van soron a más felhasználók megjelenítése és a láthatósági beállítások kialaktása.
+                  </div>
+                </Tabs.Content>
+            {/*}
+            <Tabs.Content class={styles.tabContent} value="map">
+              <ExploreMap />
+            </Tabs.Content>
+            */}
+
           </Tabs>
         </div>
       </>

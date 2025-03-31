@@ -1,5 +1,5 @@
-import { A } from '@solidjs/router';
-import { batch, Component, createEffect, createSignal, For, JSXElement, onMount, Show } from 'solid-js';
+// import { A } from '@solidjs/router';
+import { batch, Component, createEffect, createSignal, For, Show } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { Portal } from 'solid-js/web';
 import { wordsPerMinute } from '../../constants';
@@ -30,16 +30,25 @@ import { nip19 } from 'nostr-tools';
 
 const isDev = localStorage.getItem('devMode') === 'true';
 
-const ArticlePreview: Component<{
+export type ArticleProps = {
   id?: string,
   article: PrimalArticle,
   height?: number,
-  onRender?: (article: PrimalArticle, el: HTMLAnchorElement | undefined) => void,
+  onRender?: (article: PrimalArticle, el: HTMLDivElement | undefined) => void,
   hideFooter?: boolean,
   hideContext?: boolean,
-  boredered?: boolean,
-}> = (props) => {
+  bordered?: boolean,
+  noLinks?: boolean,
+  onClick?: (url: string) => void,
+};
 
+export const renderArticlePreview = (props: ArticleProps) => (
+  <div>
+    <ArticlePreview {...props} />
+  </div> as HTMLDivElement
+  ).innerHTML;
+
+const ArticlePreview: Component<ArticleProps> = (props) => {
   const app = useAppContext();
   const account = useAccountContext();
   const thread = useThreadContext();
@@ -220,7 +229,7 @@ const ArticlePreview: Component<{
     );
   }
 
-  let articlePreview: HTMLAnchorElement | undefined;
+  let articlePreview: HTMLDivElement | undefined;
 
   const [missingCacheImage, setMissingChacheImage] = createSignal(false);
 
@@ -330,7 +339,7 @@ const ArticlePreview: Component<{
   const articleUrl = () => {
     const vanityName = app?.verifiedUsers[props.article.pubkey];
 
-    if (!vanityName) return `/e/${props.article.naddr}`;
+    if (!vanityName) return `/a/${props.article.naddr}`;
 
     const decoded = nip19.decode(props.article.naddr);
 
@@ -339,11 +348,12 @@ const ArticlePreview: Component<{
     return `/${vanityName}/${data.identifier}`;
   }
 
+
   return (
-    <A
+    <div
       ref={articlePreview}
-      class={`${styles.article} ${props.boredered ? styles.bordered : ''}`}
-      href={articleUrl()}
+      class={`${styles.article} ${props.bordered ? styles.bordered : ''}`}
+      onClick={() => props.onClick(articleUrl())}
       style={props.height ? `height: ${props.height}px` : ''}
     >
       <Show when={!props.hideContext}>
@@ -359,8 +369,10 @@ const ArticlePreview: Component<{
         <div class={styles.userInfo}>
           <Avatar user={props.article.user} size="micro"/>
           <div class={styles.userName}>{userName(props.article.user)}</div>
+{/*
           <VerificationCheck user={props.article.user} />
           <div class={styles.nip05}>{props.article.user?.nip05 || ''}</div>
+*/}
         </div>
         <div class={styles.time}>
           {shortDate(props.article.published)}
@@ -383,9 +395,9 @@ const ArticlePreview: Component<{
             </div>
             <For each={props.article.tags?.slice(0, 3)}>
               {tag => (
-                <A href={`/reads/${tag}`} class={styles.tag}>
+                <a href={`/reads/${tag}`} class={styles.tag}>
                   {tag}
-                </A>
+                </a>
               )}
             </For>
             <Show when={props.article.tags?.length && props.article.tags.length > 3}>
@@ -434,13 +446,13 @@ const ArticlePreview: Component<{
             note={props.article}
             state={reactionsState}
             updateState={updateReactionsState}
-            customZapInfo={customZapInfo()}
-            onZapAnim={addTopZapFeed}
+            //customZapInfo={customZapInfo()} //BTC Lightning out
+            //onZapAnim={addTopZapFeed}
           />
         </div>
       </Show>
 
-    </A>
+    </div>
   );
 }
 

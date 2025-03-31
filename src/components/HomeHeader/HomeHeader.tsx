@@ -93,14 +93,24 @@ const HomeHeader: Component< {
         when={account?.hasPublicKey()}
         fallback={
           <Show when={account?.isKeyLookupDone}>
+            
             <div class={styles.welcomeMessage}>
               <div>
                 {intl.formatMessage(t.guestUserGreeting)}
+                <br/>
               </div>
-              <ButtonPrimary onClick={account?.actions.showGetStarted}>
-                {intl.formatMessage(tActions.getStarted)}
-              </ButtonPrimary>
             </div>
+
+            <div class={styles.welcomeMessageSub}>
+                {intl.formatMessage(t.guestUserGreetingSub)}
+
+                <ButtonPrimary onClick={account?.actions.showGetStarted}>
+                {intl.formatMessage(tActions.getStarted)}
+                </ButtonPrimary>
+            </div>
+
+
+
           </Show>
         }
       >

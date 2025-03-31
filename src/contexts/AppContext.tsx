@@ -7,7 +7,7 @@ import {
   onMount,
   useContext
 } from "solid-js";
-import { MediaEvent, MediaVariant, NostrEOSE, NostrEvent, NostrEventContent, NostrEvents, PrimalArticle, PrimalDVM, PrimalNote, PrimalUser, ZapOption } from "../types/primal";
+import { MediaEvent, MediaVariant, NostrBlossom, NostrEOSE, NostrEvent, NostrEventContent, NostrEvents, PrimalArticle, PrimalDVM, PrimalNote, PrimalUser, ZapOption } from "../types/primal";
 import { CashuMint } from "@cashu/cashu-ts";
 import { Tier, TierCost } from "../components/SubscribeToAuthorModal/SubscribeToAuthorModal";
 import { connect, disconnect, isConnected, isNotConnected, readData, refreshSocketListeners, removeSocketListeners, socket } from "../sockets";
@@ -63,6 +63,9 @@ export type CohortInfo = {
   cohort_2: string,
   tier: string,
   expires_on: number,
+  edited_shoutout?: string,
+  legend_since?: number,
+  premium_since?: number,
 };
 
 export type AppContextStore = {
@@ -109,6 +112,7 @@ export type AppContextStore = {
     removeConnectedRelay: (relay: Relay) => void,
     profileLink: (pubkey: string | undefined) => string,
     setLegendCustomization: (pubkey: string, config: LegendCustomizationConfig) => void,
+    getUserBlossomUrls: (pubkey: string) => string[],
   },
 }
 
@@ -293,7 +297,7 @@ export const AppProvider = (props: { children: JSXElement }) => {
     if (verifiedUser) return `/${verifiedUser}`;
 
     try {
-      const npub = nip19.npubEncode(pk);
+      const npub = nip19.nprofileEncode({ pubkey: pk });
       return `/p/${npub}`;
     } catch (e) {
       return `/p/${pk}`;
@@ -303,6 +307,16 @@ export const AppProvider = (props: { children: JSXElement }) => {
 
   const setLegendCustomization = (pubkey: string, config: LegendCustomizationConfig) => {
     updateStore('legendCustomization', () => ({ [pubkey]: { ...config }}));
+  }
+
+  const getUserBlossomUrls = (pubkey: string) => {
+    const blossom = (store.events[Kind.Blossom] || []).find(b => b.pubkey === pubkey) as NostrBlossom | undefined;
+
+    if (!blossom || !blossom.tags) return [];
+
+    return blossom.tags.reduce<string[]>((acc, t) => {
+      return t[0] === 'server' ? [ ...acc, t[1]] : acc;
+    }, []);
   }
 
 
@@ -328,6 +342,12 @@ const handleVerifiedUsersEvent = (content: NostrEventContent, subId?: string) =>
   }
 
   const events = store.events[content.kind] || [];
+
+  if (content.kind === Kind.Mentions) {
+    const wrappedEvent = JSON.parse(content.content) as NostrEventContent;
+
+    content = { ...wrappedEvent };
+  }
 
   if (events.length === 0) {
     updateStore(
@@ -461,6 +481,7 @@ const onSocketClose = (closeEvent: CloseEvent) => {
       removeConnectedRelay,
       profileLink,
       setLegendCustomization,
+      getUserBlossomUrls,
     }
   });
 

@@ -11,15 +11,16 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import PageCaption from '../components/PageCaption/PageCaption';
 import StickySidebar from '../components/StickySidebar/StickySidebar';
 
-/*
+
 import gitHubLight from '../assets/icons/github_light.svg';
 import gitHubDark from '../assets/icons/github.svg';
 import copyNoteLink from '../assets/icons/bookmark_empty.svg';
-*/
+
+/*
 const gitHubLight = 'https://cdnwin.maganszovetseg.net/src/assets/icons/github_light.svg';
 const gitHubDark = 'https://cdnwin.maganszovetseg.net/src/assets/icons/github.svg';
 const copyNoteLink = 'https://cdnwin.maganszovetseg.net/src/assets/icons/bookmark_empty.svg';
-
+*/
 import { downloads as t } from '../translations';
 import styles from './Downloads.module.scss';
 import { PrimalUser } from '../types/primal';
@@ -441,6 +442,7 @@ const handleSecondButtonClick = async () => {
             </div>
 
             <div class={styles.list}>
+
               {/* Donation Button */}
               <div class={styles.donationButtonContainer}>
                 <button
@@ -460,20 +462,19 @@ const handleSecondButtonClick = async () => {
                   Bitcoin cím másolása
                 </button>
               </div>
+
             </div>
-<<<<<<< HEAD
-=======
 
             <div class={styles.inputLabel}>
+              
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
               <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
-              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
+              <strong>Légy együttérző és nagylelkű! Sicivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
-          </div>
-
+            
+            </div>
           
 
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           </div>
         </div>
       </StickySidebar>
@@ -497,24 +498,14 @@ const handleSecondButtonClick = async () => {
             </p>
           </div>
 
+
+
           {/* Download Section */}
           <div class={styles.qrWrapper}>
             {/* Értékrend MINIMUM */}
             <div class={styles.qrCode}>
             <a href="https://mega.nz/file/JyYFiTqL#daaSm0WobM1zxDqNxBwzZdrKLsqsiTaDaDioM1bH-1U" target="_blank" rel="noopener noreferrer">
                 <img
-<<<<<<< HEAD
-                  // src="/icons/DownloadPdf_nh.png"
-                  src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
-                  width={100}
-                  alt="Töltsd le a PDF-et!"
-                  /*
-                  onMouseEnter={(e) => e.currentTarget.src = "/icons/DownloadPdf.png"}
-                  onMouseLeave={(e) => e.currentTarget.src = "/icons/DownloadPdf_nh.png"}
-                  */
-                  onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
-                  onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-=======
                   //src="/icons/DownloadPdf_nh.png"
                   src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
                   width={100}
@@ -526,7 +517,6 @@ const handleSecondButtonClick = async () => {
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
                   
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
                 />
               </a>
               <div class={styles.qrCaption}>
@@ -545,11 +535,7 @@ const handleSecondButtonClick = async () => {
             <div class={styles.qrCode}>
             <a href="https://mega.nz/file/Ynxg2RxB#jPUlblTQcMveZrFnBG545brZZQlvSSjc6Sjgy2iBpmg" target="_blank" rel="noopener noreferrer">
                 <img
-<<<<<<< HEAD
-                 // src="/icons/DownloadPdf_nh.png"
-=======
                   //src="/icons/DownloadPdf_nh.png"
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
                   src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
                   width={100}
                   alt="Töltsd le a PDF-et!"
@@ -559,11 +545,7 @@ const handleSecondButtonClick = async () => {
                   */
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-<<<<<<< HEAD
-
-=======
                   
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
                 />
               </a>
               <div class={styles.qrCaption}>
@@ -596,11 +578,7 @@ const handleSecondButtonClick = async () => {
                   */
                   onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
                   onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
-<<<<<<< HEAD
-
-=======
                   
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
                 />
               </a>
               <div class={styles.qrCaption}>

@@ -1,5 +1,6 @@
 import { Component } from 'solid-js';
 import styles from './Settings.module.scss';
+import styles2 from '../Downloads.module.scss';
 
 import Wormhole from '../../components/Wormhole/Wormhole';
 import { useIntl } from '@cookbook/solid-intl';
@@ -35,7 +36,7 @@ const Settings: Component<any> = (props) => {
       class={styles.secondaryButton}
       onClick={() => window.open('https://www.donably.com/maganszovetseg', '_blank')}
     >
-      Forintban kártyával
+Forintban kártyával
     </button>
 
     <button
@@ -46,22 +47,19 @@ const Settings: Component<any> = (props) => {
     </button>
   </div>
 </div>
-<<<<<<< HEAD
-
-=======
           <div class={styles2.inputLabel}>
             <p style={{ "font-size": "100%", "line-height": "1.4", "text-align": "justify" }}>
             <strong>Miért segít</strong> felajánlásod? Mert a MagánSzövetség.Net-et hobbiból, a közös jó iránti elkötelezettségünkből tartjuk fenn, saját zsebből finanszírozva a szerver havidíját és az oldal fejlesztésének programozói költségét. Terjesztjük a pozitivitás Értékrend Minimumát, a szabadságot, cenzúramentességet, pozitivitást, békét és az életet támogató eszméket!<br/><br/>
-              <strong>Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
+              <strong>Légy együttérző és nagylelkű! Segíts egy picivel! Csináljuk együtt! Sok kicsi sokra megy.</strong>
             </p>
           </div>
->>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
 
 
        </div>
 
       </StickySidebar>
+
 
 
       {props.children}

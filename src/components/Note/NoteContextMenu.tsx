@@ -4,7 +4,7 @@ import { MenuItem, NostrRelaySignedEvent } from '../../types/primal';
 import styles from './Note.module.scss';
 import { useIntl } from '@cookbook/solid-intl';
 import { authorName, userName } from '../../stores/profile';
-import { note as t, actions as tActions, toast as tToast } from '../../translations';
+import { note as t, actions as tActions, toast as tToast, toast } from '../../translations';
 import { hookForDev } from '../../lib/devTools';
 import PrimalMenu from '../PrimalMenu/PrimalMenu';
 import { useAccountContext } from '../../contexts/AccountContext';
@@ -15,6 +15,7 @@ import { broadcastEvent } from '../../lib/notes';
 import { NoteContextMenuInfo, useAppContext } from '../../contexts/AppContext';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { nip19 } from 'nostr-tools';
+import { readSecFromStorage } from '../../lib/localStore';
 
 const NoteContextMenu: Component<{
   data: NoteContextMenuInfo,
@@ -74,15 +75,38 @@ const NoteContextMenu: Component<{
   };
 
   const doReportUser = () => {
+
+    if (!account?.hasPublicKey()) {
+      account?.actions.showGetStarted();
+      return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     reportUser(note()?.user.pubkey, `report_user_${APP_ID}`, note()?.user);
     props.onClose();
     toaster?.sendSuccess(intl.formatMessage(tToast.noteAuthorReported, { name: userName(note()?.user)}));
   };
 
+
+  const noteLinkId = () => {
+    try {
+      return `e/${note().noteId}`;
+    } catch(e) {
+      return '404';
+    }
+  };
+
   const copyNoteLink = () => {
     if (!props.data) return;
 
-    let link = `e/${note().noteId}`;
+    let link = noteLinkId();
 
     if (note().noteId.startsWith('naddr')) {
       const vanityName = app?.verifiedUsers[note().pubkey];
@@ -131,6 +155,26 @@ const NoteContextMenu: Component<{
 
   const broadcastNote = async () => {
     if (!account || !props.data) {
+      return;
+    }
+
+    if (!account?.hasPublicKey()) {
+      account?.actions.showGetStarted();
+      return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+        const sec = readSecFromStorage();
+        if (sec) {
+          account.actions.setShowPin(sec);
+          return;
+        }
+      }
+
+    if (!account.proxyThroughPrimal && account.relays.length === 0) {
+      toaster?.sendWarning(
+        intl.formatMessage(toast.noRelaysConnected),
+      );
       return;
     }
 

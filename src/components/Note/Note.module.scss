@@ -27,6 +27,11 @@
   &.reactionNote {
     background: none;
     border-bottom: 1px solid var(--subtile-devider);
+
+    .content {
+      display: flex;
+      gap: 8px;
+    }
   }
 
   .userHeader {
@@ -197,6 +202,7 @@
     .rightSide {
       display: flex;
       flex-direction: column;
+      width: calc(100% - 42px);
 
       .message {
         color: var(--text-primary);
@@ -257,6 +263,134 @@
   }
 }
 
+.noteSuggestion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  margin: 0px;
+
+  text-decoration: none;
+  color: unset;
+  background-color: var(--background-header-input);
+  border: 1px solid var(--background-input);
+  border-radius: 8px;
+
+  -webkit-user-select: text;
+  -moz-select: text;
+  -ms-select: text;
+  user-select: text;
+
+  width: 100%;
+
+  &:hover {
+    border: 1px solid var(--subtile-devider);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .repostedBy {
+      padding-bottom: 8px;
+      display: flex;
+      >span {
+        >a {
+          margin-inline: 5px;
+          color: var(--text-tertiary);
+          text-decoration: none;
+        }
+        color: var(--text-tertiary);
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: 400;
+        >span {
+          text-transform: lowercase;
+        }
+      }
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+
+    .leftSide {
+      width: 42px;
+      margin-right: 8px;
+
+      .ancestorLine {
+        border-left: 1px solid var(--devider);
+        height: calc(100% - 12px);
+        margin-left: 21px;
+      }
+    }
+
+    .rightSide {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 42px);
+
+      .message {
+        color: var(--text-primary);
+        word-break: break-word;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-top: 4px;
+        margin-bottom: 12px;
+        width: 100%;
+        overflow: hidden;
+
+        &.bigFont {
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 32px;
+        }
+      }
+
+      .replyingTo {
+        display: flex;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-top: 6px;
+        max-width: 518px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        .label {
+          color: var(--text-primary);
+        }
+        a {
+          max-width: 440px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        .author {
+          display: inline-block;
+          color: var(--accent-links);
+          text-decoration: none;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .upRightFloater {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+  }
+}
 .authorInfo {
   display: flex;
   justify-content: flex-start;
@@ -265,6 +399,10 @@
   justify-content: flex-start;
   width: 524px;
   position: relative;
+
+  @media only screen and (max-width: 720px) {
+    width: calc(100% - 70px);
+  }
   .userName {
     flex-shrink: 1;
     text-overflow: ellipsis;
@@ -292,6 +430,8 @@
     font-weight: 400;
     line-height: 18px;
     color: var(--text-tertiary);
+    padding-block: 0 !important;
+    margin-bottom: 0 !important;
 
     .ellipsisIcon {
       width: 11px;
@@ -319,6 +459,10 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 18px;
+
+    @media only screen and (max-width: 720px) {
+      max-width: 120px;
+    }
   }
 }
 
@@ -456,7 +600,7 @@
 
     }
 
-    .time {
+    .time, .timePrimary {
       padding-block: 20px;
       padding-inline: 20px;
       border-bottom: 1px solid var(--devider);
@@ -465,6 +609,15 @@
       font-size: 16px;
       font-weight: 400;
       line-height: 16px;
+
+      .reactionSpread {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        width: 100%;
+        margin-top: 4px;
+      }
 
       .reactSummary {
         &::before {
@@ -496,6 +649,41 @@
           color: var(--text-primary);
         }
       }
+
+      .reactSummaryPhone {
+        background: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        width: fit-content;
+        outline: none;
+        border: none;
+
+        color: var(--text-tertiary);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+
+        .number {
+          color: var(--text-primary);
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 16px;
+        }
+
+        &:hover {
+          color: var(--text-primary);
+        }
+      }
+    }
+
+    .timePrimary {
+      @media only screen and (max-width: 720px) {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
     }
 
     .topZaps {
@@ -948,20 +1136,16 @@
 }
 
 @media only screen and (max-width: 720px) {
-  .note {
+  .noteThread {
     width: 100dvw;
     overflow: hidden;
 
     .content {
       .rightSide {
-        width: calc(100dvw - 42px - 24px);
+        width: calc(100dvw - 80px);
         overflow: hidden;
       }
     }
-  }
-
-  .authorInfo{
-    width: 100%;
   }
 
   .notePrimary {
@@ -1125,6 +1309,11 @@
   background-color: var(--devider);
   animation: skeleton-fade 2500ms linear infinite;
 
+  @media only screen and (max-width: 720px) {
+    width: calc((100dvw - 16px) / 3);
+    height: calc((100dvw - 16px) / 3);
+  }
+
   .videoIcon {
     display: inline-block;
     position: absolute;
@@ -1169,6 +1358,11 @@
   height: 148px;
   overflow: hidden;
   position: relative;
+
+  @media only screen and (max-width: 720px) {
+    width: calc((100dvw - 16px) / 3);
+    height: calc((100dvw - 16px) / 3);
+  }
 }
 
 .missingThumb {

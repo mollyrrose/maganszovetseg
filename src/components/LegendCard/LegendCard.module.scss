@@ -1,0 +1,757 @@
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+@keyframes overlayHide {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes contentHide {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.excludeIcon {
+  width: 16px;
+  height: 16px;
+
+  background-color: var(--text-tertiary-2);
+  -webkit-mask: url(../../assets/icons/close.svg) 0 / 100% no-repeat;
+  mask: url(../../assets/icons/close.svg) 0 / 100% no-repeat;
+}
+
+.chevronIcon {
+  width: 16px;
+  height: 16px;
+
+  background-color: var(--text-tertiary-2);
+  -webkit-mask: url(../../assets/icons/caret.svg) 0 / 100% no-repeat;
+  mask: url(../../assets/icons/caret.svg) 0 / 100% no-repeat;
+}
+
+.checkIcon {
+  width: 16px;
+  height: 16px;
+
+  background-color: var(--text-tertiary-2);
+  -webkit-mask: url(../../assets/icons/check.svg) 0 / 100% no-repeat;
+  mask: url(../../assets/icons/check.svg) 0 / 100% no-repeat;
+}
+
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-overlay);
+  background-color: #000000;
+  opacity: 0.7;
+
+  animation: overlayHide 100ms ease 50ms forwards;
+
+  &[data-expanded] {
+    animation: overlayShow 100ms ease;
+  }
+}
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dialogContent {
+    position: relative;
+    /* padding: 20px 24px; */
+    background-color: #222222;
+    border-radius: var(--border-radius-big);
+    overflow: hidden;
+
+    animation: contentHide 150ms ease-in forwards;
+
+    &[data-expanded] {
+      animation: contentShow 150ms ease-out;
+    }
+
+    .dialogHeader {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      margin-top: 20px;
+      margin-inline: 24px;
+
+      .dialogCloseButton {
+        height: 16px;
+        width: 16px;
+        color: #aaaaaa;
+        background: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+
+        .excludeIcon {
+          -webkit-transition: background-color 200ms linear;
+          -ms-transition: background-color 200ms linear;
+          transition: background-color 200ms linear;
+        }
+
+        &:hover {
+          .excludeIcon {
+            background-color: #aaaaaa;
+            -webkit-transition: background-color 200ms linear;
+            -ms-transition: background-color 200ms linear;
+            transition: background-color 200ms linear;
+          }
+        }
+      }
+
+      .dialogTitle {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 20px;
+        margin: 0;
+      }
+    }
+
+    .dialogDescription {
+      color: #aaaaaa;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      margin: 0;
+      position: relative;
+    }
+  }
+
+  @media only screen and (max-width: 720px) {
+    .dialogContent {
+      width: min(100dvw, 335px);
+      padding-inline: 4px;
+    }
+  }
+}
+
+@keyframes slide-legend-up {
+  100% { left: 0; top: 0 }
+}
+@keyframes slide-legend-down {
+  100% { left: 0; bottom: 0 }
+}
+@keyframes zoom-spin {
+  0% {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1, 1);
+  }
+}
+
+.legendBackground {
+  position: absolute;
+  width: 335px;
+  height: 600px;
+  left: 0;
+  top: 0;
+  /* background-color: antiquewhite; */
+
+  .bigSheet {
+    position: absolute;
+    top: -340px;
+    left: 340px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    width: 340px;
+    height: 294px;
+    margin-left: -5px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
+
+    -webkit-animation: slide-legend-up 0.44s forwards;
+    -webkit-animation-delay: 0.3s;
+    animation: slide-legend-up 0.44s forwards;
+    animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+
+    &.sheetGray {
+      background: #444;
+    }
+
+    &.sheetGold {
+      background-image: linear-gradient(180deg, #FFB700 0%, #CB721E 100%);
+    }
+
+    &.sheetAqua {
+      background-image: linear-gradient(180deg, #6BCCFF 0%, #2580FF 100%);
+    }
+
+    &.sheetSilver {
+      background-image: linear-gradient(180deg, #CCC 0%, #777 100%);
+    }
+
+    &.sheetPurple {
+      background-image: linear-gradient(135deg, #C803EC 15.94%, #5613FF 85.31%);
+    }
+
+    &.sheetPurplehaze {
+      background-image: linear-gradient(135deg, #FB00C4 0%, #04F7FC 100%);
+    }
+
+    &.sheetTeal {
+      background-image: linear-gradient(135deg, #40FCFF 20%, #007D9F 75%);
+    }
+
+    &.sheetBrown {
+      background-image: linear-gradient(135deg, #BB9971 20%, #5C3B22 75%);
+    }
+
+    &.sheetBlue {
+      background-image: linear-gradient(135deg, #01E0FF 4.5%, #0190F8 35%, #2555EE 75%);
+    }
+
+    &.sheetSunfire {
+      background-image: linear-gradient(135deg, #FFA722 4.5%, #FA3C3C 35%, #F00492 75%);
+    }
+  }
+
+  .rightTopSheet {
+    top: -340px;
+    left: -340px;
+    position: absolute;
+    opacity: 0.25;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    width: 198px;
+    height: 187px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
+
+    -webkit-animation: slide-legend-up 0.44s forwards;
+    -webkit-animation-delay: 0.3s;
+    animation: slide-legend-up 0.44s forwards;
+    animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+
+    &.sheetGray {
+      background: #444;
+      opacity: 0.25;
+    }
+
+    &.sheetGold {
+      background-image: linear-gradient(180deg, #FFB700 0%, #CB721E 50%, #FFB700 100%);
+    }
+
+    &.sheetAqua {
+      background-image: linear-gradient(180deg, #6BCCFF 0%, #247FFF 50%, #6BCCFF 100%);
+      opacity: 0.25;
+    }
+
+    &.sheetSilver {
+      background-image: linear-gradient(180deg, #CCC 0%, #777 50%, #CCC 100%);
+      opacity: 0.25;
+    }
+
+    &.sheetPurple {
+      background-image: linear-gradient(135deg, #C803EC 15.94%, #5613FF 85.31%);
+      opacity: 0.25;
+    }
+
+    &.sheetPurplehaze {
+      background-image: linear-gradient(135deg, #FB00C4 0%, #04F7FC 100%);
+      opacity: 0.25;
+    }
+
+    &.sheetTeal {
+      background-image: linear-gradient(135deg, #40FCFF 20%, #007D9F 75%);
+      opacity: 0.25;
+    }
+
+    &.sheetBrown {
+      background-image: linear-gradient(135deg, #BB9971 20%, #5C3B22 75%);
+      opacity: 0.25;
+    }
+
+    &.sheetBlue {
+      background-image: linear-gradient(135deg, #01E0FF 4.5%, #0190F8 35%, #2555EE 75%);
+      opacity: 0.25;
+    }
+
+    &.sheetSunfire {
+      background-image: linear-gradient(135deg, #FFA722 4.5%, #FA3C3C 35%, #F00492 75%);
+      opacity: 0.25;
+    }
+  }
+
+  .rightBottomSheet {
+    position: absolute;
+    left: -168px;
+    bottom: -168px;
+    opacity: 0.25;
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+    width: 163px;
+    height: 154px;
+    background: transparent !important; /* Added to override all sheet backgrounds */
+
+    &.sheetGray {
+      background: #444;
+      opacity: 0.15;
+    }
+
+    &.sheetGold {
+      background-image: linear-gradient(180deg, #FFB700 0%, #CB721E 50%, #FFB700 100%);
+    }
+
+    &.sheetAqua {
+      background-image: linear-gradient(180deg, #6BCCFF 0, #247FFF 50%, #6BCCFF 100%);
+      opacity: 0.15;
+    }
+
+    &.sheetSilver {
+      background-image: linear-gradient(180deg, #CCC 0%, #777 50%, #CCC 100%);
+      opacity: 0.15;
+    }
+
+    &.sheetPurple {
+      background-image: linear-gradient(135deg, #C803EC 15.94%, #5613FF 85.31%);
+      opacity: 0.15;
+    }
+
+    &.sheetPurplehaze {
+      background-image: linear-gradient(135deg, #FB00C4 0%, #04F7FC 100%);
+      opacity: 0.15;
+    }
+
+    &.sheetTeal {
+      background-image: linear-gradient(135deg, #40FCFF 20%, #007D9F 75%);
+      opacity: 0.15;
+    }
+
+    &.sheetBrown {
+      background-image: linear-gradient(135deg, #BB9971 20%, #5C3B22 75%);
+      opacity: 0.15;
+    }
+
+    &.sheetBlue {
+      background-image: linear-gradient(135deg, #01E0FF 4.5%, #0190F8 35%, #2555EE 75%);
+      opacity: 0.15;
+    }
+
+    &.sheetSunfire {
+      background-image: linear-gradient(135deg, #FFA722 4.5%, #FA3C3C 35%, #F00492 75%);
+      opacity: 0.15;
+    }
+
+    -webkit-animation: slide-legend-down 0.44s forwards;
+    -webkit-animation-delay: 0.3s;
+    animation: slide-legend-down 0.44s forwards;
+    animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes shine {
+  100% { left: 700px; top: 0 }
+}
+.shineSheet {
+  position: absolute;
+  left: -420px;
+  top: 0;
+  background-color: white;
+  opacity: 0.1;
+  transform: skew(45deg);
+  width: 120px;
+  height: 620px;
+
+  -webkit-animation: shine 0.6s forwards;
+  -webkit-animation-delay: 0.9s;
+  animation: shine 0.6s forwards;
+  animation-delay: 0.9s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+
+.legendCardContent {
+  width: 335px;
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  transform: rotate(60deg) scale(0.6, 0.6);
+  opacity: 0;
+  margin-top: 20px;
+
+  -webkit-animation: zoom-spin 0.44s forwards;
+  -webkit-animation-delay: 0.3s;
+  animation: zoom-spin 0.44s forwards;
+  animation-delay: 0.3s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+}
+
+.legendCardInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+
+  .userNameAndCheck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 26px;
+
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 24px;
+
+    opacity: 0;
+
+    @keyframes slide-legend-name {
+      0% {
+        opacity: 0;
+        margin-top: 66px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: 26px;
+      }
+    }
+
+    -webkit-animation: slide-legend-name 0.44s forwards;
+    animation: slide-legend-name 0.44s forwards;
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+
+    .userName {
+      max-width: 80%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .nip05 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-top: 4px;
+
+    max-width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    opacity: 0;
+
+    @keyframes slide-legend-nip05 {
+      0% {
+        opacity: 0;
+        margin-top: 44px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: 4px;
+      }
+    }
+
+    -webkit-animation: slide-legend-nip05 0.44s forwards;
+    -webkit-animation-delay: 0.4s;
+    animation: slide-legend-nip05 0.44s forwards;
+    animation-delay: 0.4s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+
+  .legendCohort {
+    margin-top: 12px;
+
+    opacity: 0;
+
+    @keyframes slide-legend-cohort {
+      0% {
+        opacity: 0;
+        margin-top: 52px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: 12px;
+      }
+    }
+
+    -webkit-animation: slide-legend-cohort 0.44s forwards;
+    -webkit-animation-delay: 0.5s;
+    animation: slide-legend-cohort 0.44s forwards;
+    animation-delay: 0.5s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+
+  .legendSince {
+    margin-top: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+
+    opacity: 0;
+
+    @keyframes slide-legend-since {
+      0% {
+        opacity: 0;
+        margin-top: 90px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: 50px;
+      }
+    }
+
+    -webkit-animation: slide-legend-since 0.44s forwards;
+    -webkit-animation-delay: 0.5s;
+    animation: slide-legend-since 0.44s forwards;
+    animation-delay: 0.5s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+
+  .legendShoutout {
+    margin-top: 8px;
+    color: #aaaaaa;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22px;
+    max-width: 263px;
+
+    opacity: 0;
+
+    @keyframes slide-legend-shoutout {
+      0% {
+        opacity: 0;
+        margin-top: 48px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: 8px;
+      }
+    }
+
+    -webkit-animation: slide-legend-shoutout 0.44s forwards;
+    -webkit-animation-delay: 0.6s;
+    animation: slide-legend-shoutout 0.44s forwards;
+    animation-delay: 0.6s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes slide-legend-actions {
+  0% {
+    opacity: 0;
+    margin-bottom: -40px;
+  }
+  100% {
+    opacity: 1;
+    margin-bottom: 20px;
+  }
+}
+
+.legendActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: -40px;
+  opacity: 0;
+
+  -webkit-animation: slide-legend-actions 0.44s forwards;
+  -webkit-animation-delay: 0.66s;
+  animation: slide-legend-actions 0.44s forwards;
+  animation-delay: 0.66s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+
+  .legendSee {
+    color: #FFB701;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    background: none;
+    border: none;
+    outline: none;
+
+    width: fit-content;
+    margin: 0;
+    /* margin-top: 16px; */
+
+    &.sheetGray {
+      color: #F800C1;
+    }
+
+    &.sheetGold {
+      color: #FFB701;
+    }
+
+    &.sheetAqua {
+      color: #6BCCFF;
+    }
+
+    &.sheetSilver {
+      color: #CCC;
+    }
+
+    &.sheetPurple {
+      color: #C803EC;
+    }
+
+    &.sheetPurplehaze {
+      color: #E812C8;
+    }
+
+    &.sheetTeal {
+      color: #40FCFF;
+    }
+
+    &.sheetBrown {
+      color: #BB9971;
+    }
+
+    &.sheetBlue {
+      color: #2394EF;
+    }
+
+    &.sheetSunfire {
+      color: #CA077C;
+    }
+  }
+
+  .legendBecome {
+    border-radius: 99px;
+    background: #FFB701;
+    border: none;
+    outline: none;
+
+    width: 295px;
+    padding-block: 12px;
+    margin: 0;
+
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+
+    &.sheetGray {
+      background: none;
+      color: #F800C1;
+    }
+
+    &.sheetGold {
+      background: #FFB701;
+      color: black;
+    }
+
+    &.sheetAqua {
+      background: #6BCCFF;
+      color: black;
+    }
+
+    &.sheetSilver {
+      background: #CCC;
+      color: black;
+    }
+
+    &.sheetPurple {
+      background: #C803EC;
+      color: white;
+    }
+
+    &.sheetPurplehaze {
+      background: #E812C8;
+      color: white;
+    }
+
+    &.sheetTeal {
+      background: #40FCFF;
+      color: black;
+    }
+
+    &.sheetBrown {
+      background: #BB9971;
+      color: black;
+    }
+
+    &.sheetBlue {
+      background: #2394EF;
+      color: white;
+    }
+
+    &.sheetSunfire {
+      background: #CA077C;
+      color: white;
+    }
+  }
+
+  .legendSeePremium {
+    color: var(--accent);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    background: none;
+    border: none;
+    outline: none;
+
+    width: fit-content;
+    margin: 0;
+    position: absolute;
+    bottom: 24px;
+  }
+}

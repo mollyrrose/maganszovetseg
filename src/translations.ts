@@ -308,7 +308,7 @@ export const actions = {
   },
   noteReply: {
     id: 'actions.noteReply',
-    defaultMessage: 'Hozzászóltam {name} bejegyzéséhez',
+    defaultMessage: 'Hozzászólás {name} bejegyzéséhez',
     description: 'Reply to button label',
   },
   sendDirectMessage: {
@@ -879,15 +879,15 @@ export const note = {
   },
   reposted: {
     id: 'note.reposted',
-    defaultMessage: 'Újra megosztva',
+    defaultMessage: 'is megosztotta',
     description: 'Label indicating that the note is a repost',
   },
   repostedOthers: {
     id: 'note.repostedOthers',
     defaultMessage: `{number, plural,
       =0 {}
-      one { and # other}
-      other { and # others}}`,
+      one { és még # további felhasználó}
+      other { és # további felhasználó}}`,
     description: 'Label indicating that the note is reposted more than once',
   },
   reply: {
@@ -1200,8 +1200,13 @@ export const placeholders = {
   },
   guestUserGreeting: {
     id: 'placeholders.guestUserGreeting',
-    defaultMessage: 'Üdv itton a MagánSzövetségben! Szabadság, Pozitivitás, Béke, Élet!',
+    defaultMessage: 'Üdv itthon a MagánSzövetségben!',
     description: 'Header placeholder for guest user',
+  },
+  guestUserGreetingSub: {
+    id: 'placeholders.guestUserGreetingSub',
+    defaultMessage: 'Szabadság, Pozitivitás, Béke, Élet!',
+    description: 'Sub-Header placeholder for guest user',
   },
   noteCallToAction: {
     id: 'placeholders.callToAction.note',
@@ -1215,7 +1220,7 @@ export const placeholders = {
   },
   welcomeMessage: {
     id: 'placeholders.welcomeMessage',
-    defaultMessage: 'Üdv itthon a MagánSzövetségben!',
+    defaultMessage: 'Bejelentkezés, vagy Regisztráció',
     description: 'Default welcome message',
   },
   findUser: {

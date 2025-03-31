@@ -1,13 +1,14 @@
 import { Relay, relayInit } from "../lib/nTools";
 import { createStore } from "solid-js/store";
 import LinkPreview from "../components/LinkPreview/LinkPreview";
-import { addrRegex, appleMusicRegex, emojiRegex, hashtagRegex, interpunctionRegex, Kind, linebreakRegex, lnRegex, lnUnifiedRegex, mixCloudRegex, nostrNestsRegex, noteRegexLocal, profileRegex, soundCloudRegex, spotifyRegex, tagMentionRegex, twitchRegex, urlRegex, urlRegexG, wavlakeRegex, youtubeRegex } from "../constants";
+import { addrRegex, appleMusicRegex, emojiRegex, hashtagRegex, interpunctionRegex, Kind, linebreakRegex, lnRegex, lnUnifiedRegex, mixCloudRegex, nostrNestsRegex, noteRegexLocal, profileRegex, rumbleRegex, soundCloudRegex, spotifyRegex, tagMentionRegex, tidalEmbedRegex, twitchPlayerRegex, twitchRegex, urlRegex, urlRegexG, wavlakeRegex, youtubeRegex } from "../constants";
 import { sendMessage, subsTo } from "../sockets";
 import { EventCoordinate, MediaSize, NostrRelays, NostrRelaySignedEvent, PrimalArticle, PrimalDVM, PrimalNote, SendNoteResult } from "../types/primal";
 import { decodeIdentifier, npubToHex } from "./keys";
 import { logError, logInfo, logWarning } from "./logger";
 import { getMediaUrl as getMediaUrlDefault } from "./media";
 import { signEvent } from "./nostrAPI";
+import { ArticleEdit } from "../pages/ReadsEditor";
 
 const getLikesStorageKey = () => {
   const key = localStorage.getItem('pubkey') || 'anon';
@@ -51,6 +52,30 @@ export const addLinkPreviews = async (url: string) => {
   }
 };
 
+export const parseLinkPreviews = (previewKindContent: any) => {
+  if (previewKindContent.resources.length === 0) return;
+
+  for (let i = 0; i < previewKindContent.resources.length; i++) {
+    const data = previewKindContent.resources[i];
+
+    if (!data) {
+      continue;
+    }
+
+    const preview = {
+      url: data.url,
+      title: data.md_title,
+      description: data.md_description,
+      mediaType: data.mimetype,
+      contentType: data.mimetype,
+      images: [data.md_image],
+      favicons: [data.icon_url],
+    };
+
+    setLinkPreviews(() => ({ [data.url]: preview }));
+  }
+}
+
 export const isUrl = (url: string) => urlRegex.test(url);
 export const isHashtag = (url: string) => hashtagRegex.test(url);
 export const isLinebreak = (url: string) => linebreakRegex.test(url);
@@ -71,11 +96,14 @@ export const isWebmVideo = (url: string) => ['.webm'].some(x => url.includes(x))
 export const isYouTube = (url: string) => youtubeRegex.test(url);
 export const isSpotify = (url: string) => spotifyRegex.test(url);
 export const isTwitch = (url: string) => twitchRegex.test(url);
+export const isTwitchPlayer = (url: string) => twitchPlayerRegex.test(url);
 export const isMixCloud = (url: string) => mixCloudRegex.test(url);
 export const isSoundCloud = (url: string) => soundCloudRegex.test(url);
 export const isAppleMusic = (url: string) => appleMusicRegex.test(url);
 export const isNostrNests = (url: string) => nostrNestsRegex.test(url);
 export const isWavelake = (url: string) => wavlakeRegex.test(url);
+export const isRumble = (url: string) => rumbleRegex.test(url);
+export const isTidal = (url: string) => tidalEmbedRegex.test(url);
 
 export const urlify = (
   text: string,
@@ -406,6 +434,28 @@ export const sendNote = async (text: string, shouldProxy: boolean, relays: Relay
     kind: Kind.Text,
     tags,
     created_at: Math.floor((new Date()).getTime() / 1000),
+  };
+
+  return await sendEvent(event, relays, relaySettings, shouldProxy);
+}
+
+
+export const sendArticle = async (articleData: ArticleEdit, shouldProxy: boolean, relays: Relay[], tags: string[][], relaySettings?: NostrRelays) => {
+  const time = Math.floor((new Date()).getTime() / 1000);
+
+  const event = {
+    content: articleData.content,
+    kind: Kind.LongForm,
+    tags: [
+      ["title", articleData.title],
+      ["summary", articleData.summary],
+      ["image", articleData.image],
+      ["published_at", `${time}`],
+      ["d", articleData.title.toLowerCase().replace(" ", "-")],
+      ["t", articleData.tags.join(" ")],
+      ...tags,
+    ],
+    created_at: time,
   };
 
   return await sendEvent(event, relays, relaySettings, shouldProxy);

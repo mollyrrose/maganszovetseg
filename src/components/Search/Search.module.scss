@@ -9,6 +9,14 @@
   margin-left: 8px;
   margin-bottom: 0;
 
+  @media only screen and (max-width: 720px) {
+    width: calc(100dvw - 92px);
+  }
+
+  &.phoneSearch {
+    width: calc(100dvw - 92px);
+  }
+
 
   &:hover {
     input {
@@ -56,6 +64,8 @@
     background-color: var(--text-tertiary);
     -webkit-mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
     mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
+    //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+    //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
   }
 
   &.wide {
@@ -75,6 +85,8 @@
   background-color: var(--text-tertiary-2);
   -webkit-mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
   mask: url(../../assets/icons/search.svg) 0 0/18px 18px;
+  //-webkit-mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
+  //mask: url("https://cdnwin.maganszovetseg.net/src/assets/icons/search.svg") 0 0 / 18px 18px;
 }
 
 .searchHolder {
@@ -90,6 +102,14 @@
 
   &.wideHolder {
     width: 608px;
+  }
+
+  &.phoneSearch {
+    width: fit-content;
+  }
+
+  @media only screen and (max-width: 720px) {
+    width: calc(100dvw - 92px);
   }
 }
 

@@ -123,6 +123,7 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
 
     const unsub = subsTo(subId, {
       onEvent: (_, content) => {
+        const authors = JSON.parse(content.content || '[]') as string[];
 
       //https://nostrcheck.me/converter/ Public key to hexa
 
@@ -295,7 +296,6 @@ const ReadsSidebar: Component< { id?: string } > = (props) => {
           </Transition>
         </div>
 
-        
       </Show>
     </div>
   );

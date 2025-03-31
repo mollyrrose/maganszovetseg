@@ -8,32 +8,35 @@ import { useToastContext } from '../../Toaster/Toaster';
 import { useIntl } from '@cookbook/solid-intl';
 
 import { truncateNumber } from '../../../lib/notifications';
-import { canUserReceiveZaps, zapNote } from '../../../lib/zap';
+import { canUserReceiveZaps, lastZapError, zapNote } from '../../../lib/zap';
 import { useSettingsContext } from '../../../contexts/SettingsContext';
 
 import zapMD from '../../../assets/lottie/zap_md_2.json';
 import { toast as t } from '../../../translations';
 import PrimalMenu from '../../PrimalMenu/PrimalMenu';
 import { hookForDev } from '../../../lib/devTools';
-import { getScreenCordinates } from '../../../utils';
+import { getScreenCordinates, isPhone } from '../../../utils';
 import ZapAnimation from '../../ZapAnimation/ZapAnimation';
 import { CustomZapInfo, useAppContext } from '../../../contexts/AppContext';
 import NoteFooterActionButton from './NoteFooterActionButton';
 import { NoteReactionsState } from '../Note';
 import { SetStoreFunction } from 'solid-js/store';
 import BookmarkNote from '../../BookmarkNote/BookmarkNote';
+import { readSecFromStorage } from '../../../lib/localStore';
 
 export const lottieDuration = () => zapMD.op * 1_000 / zapMD.fr;
 
 const NoteFooter: Component<{
   note: PrimalNote,
-  size?: 'xwide' | 'wide' | 'normal' | 'compact' | 'short',
+  size?: 'xwide' | 'wide' | 'normal' | 'compact' | 'short' | 'very_short',
   id?: string,
   state: NoteReactionsState,
   updateState?: SetStoreFunction<NoteReactionsState>,
   customZapInfo?: CustomZapInfo,
   large?: boolean,
   onZapAnim?: (zapOption: ZapOption) => void,
+  noteType?: 'primary',
+  onCommentClick?: () => void,
 }> = (props) => {
 
   const account = useAccountContext();
@@ -107,6 +110,14 @@ const NoteFooter: Component<{
       return;
     }
 
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     if (!account.proxyThroughPrimal && account.relays.length === 0) {
       toast?.sendWarning(
         intl.formatMessage(t.noRelaysConnected),
@@ -135,7 +146,11 @@ const NoteFooter: Component<{
     }
   };
 
-  const doReply = () => {};
+  const doReply = (e?: MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
+  };
 
   const doLike = async (e: MouseEvent) => {
     e.preventDefault();
@@ -148,6 +163,14 @@ const NoteFooter: Component<{
     if (!account.hasPublicKey()) {
       account.actions.showGetStarted();
       return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
     }
 
     if (!account.proxyThroughPrimal && account.relays.length === 0) {
@@ -175,6 +198,14 @@ const NoteFooter: Component<{
       account?.actions.showGetStarted();
       props.updateState && props.updateState('isZapping', () => false);
       return;
+    }
+
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
     }
 
     if (!account.proxyThroughPrimal && account.relays.length === 0) {
@@ -209,6 +240,14 @@ const NoteFooter: Component<{
       return;
     }
 
+    if (!account.sec || account.sec.length === 0) {
+      const sec = readSecFromStorage();
+      if (sec) {
+        account.actions.setShowPin(sec);
+        return;
+      }
+    }
+
     if ((!account.proxyThroughPrimal && account.relays.length === 0) || !canUserReceiveZaps(props.note.user)) {
       return;
     }
@@ -239,7 +278,7 @@ const NoteFooter: Component<{
         newTop = -15;
       }
 
-      if (size() === 'short') {
+      if (size() === 'short' || size() === 'very_short') {
         newLeft = 21;
         newTop = -13;
       }
@@ -294,7 +333,14 @@ const NoteFooter: Component<{
     props.onZapAnim && props.onZapAnim({ amount, message, emoji })
 
     setTimeout(async () => {
-      const success = await zapNote(props.note, account.publicKey, amount, message, account.activeRelays);
+      const success = await zapNote(
+        props.note,
+        account.publicKey,
+        amount,
+        message,
+        account.activeRelays,
+        account.activeNWC,
+      );
 
       props.updateState && props.updateState('isZapping', () => false);
 
@@ -306,6 +352,14 @@ const NoteFooter: Component<{
         });
 
         return;
+      } else {
+        app?.actions.openConfirmModal({
+          title: "Failed to zap",
+          description: lastZapError || "",
+          confirmLabel: "ok",
+          onConfirm: app.actions.closeConfirmModal,
+          // onAbort: app.actions.closeConfirmModal,
+        })
       }
 
       props.customZapInfo && props.customZapInfo.onFail({
@@ -343,7 +397,6 @@ const NoteFooter: Component<{
       ref={footerDiv}
       onClick={(e) => e.preventDefault() }
     >
-
       <Show when={props.state.showZapAnim}>
         <ZapAnimation
           id={`note-med-zap-${props.note.post.id}`}
@@ -354,40 +407,73 @@ const NoteFooter: Component<{
       </Show>
 
       <NoteFooterActionButton
-        note={props.note}
-        onClick={doReply}
-        type="reply"
-        highlighted={props.state.replied}
-        label={props.state.replies === 0 ? '' : truncateNumber(props.state.replies, 2)}
-        title={props.state.replies.toLocaleString()}
-        large={props.large}
-      />
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (props.onCommentClick) {
+      props.onCommentClick();
+    } else {
+      doReply(e);
+    }
+  }}
+  type="reply"
+  highlighted={props.state.replied}
+  label={props.state.replies === 0 ? '' : truncateNumber(props.state.replies, 2)}
+  title={props.state.replies.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
 
-      <NoteFooterActionButton
-        note={props.note}
-        onClick={(e: MouseEvent) => e.preventDefault()}
-        onMouseDown={startZap}
-        onMouseUp={commitZap}
-        onTouchStart={startZap}
-        onTouchEnd={commitZap}
-        type="zap"
-        highlighted={props.state.zapped || props.state.isZapping}
-        label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
-        hidden={props.state.hideZapIcon}
-        title={props.state.satsZapped.toLocaleString()}
-        large={props.large}
-      />
+<NoteFooterActionButton
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }}
+  onMouseDown={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startZap(e);
+  }}
+  onMouseUp={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    commitZap(e);
+  }}
+  onTouchStart={(e: TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startZap(e);
+  }}
+  onTouchEnd={(e: TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    commitZap(e);
+  }}
+  type="zap"
+  highlighted={props.state.zapped || props.state.isZapping}
+  label={props.state.satsZapped === 0 ? '' : truncateNumber(props.state.satsZapped, 2)}
+  hidden={props.state.hideZapIcon}
+  title={props.state.satsZapped.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
 
-      <NoteFooterActionButton
-        note={props.note}
-        onClick={doLike}
-        type="like"
-        highlighted={props.state.liked}
-        label={props.state.likes === 0 ? '' : truncateNumber(props.state.likes, 2)}
-        title={props.state.likes.toLocaleString()}
-        large={props.large}
-      />
-
+<NoteFooterActionButton
+  note={props.note}
+  onClick={(e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    doLike(e);
+  }}
+  type="like"
+  highlighted={props.state.liked}
+  label={props.state.likes === 0 ? '' : truncateNumber(props.state.likes, 2)}
+  title={props.state.likes.toLocaleString()}
+  large={props.large}
+  noteType={props.noteType}
+/>
       <button
         id={`btn_repost_${props.note.post.id}`}
         class={`${styles.stat} ${props.state.reposted ? styles.highlighted : ''}`}
@@ -402,9 +488,11 @@ const NoteFooter: Component<{
             class={`${styles.icon} ${props.large ? styles.large : ''}`}
             style={'visibility: visible'}
           ></div>
-          <div class={styles.statNumber}>
-            {props.state.reposts === 0 ? '' : truncateNumber(props.state.reposts, 2)}
-          </div>
+          <Show when={!isPhone() || props.noteType !== 'primary'}>
+            <div class={styles.statNumber}>
+              {props.state.reposts === 0 ? '' : truncateNumber(props.state.reposts, 2)}
+            </div>
+          </Show>
           <PrimalMenu
             id={`repost_menu_${props.note.post.id}`}
             items={repostMenuItems}

@@ -1,6 +1,6 @@
 import { propTraps } from "@solid-primitives/props";
 import { nip19 } from "../lib/nTools";
-import { Kind } from "../constants";
+import { Kind, mentionRegexNostrless, noteRegex } from "../constants";
 import { hexToNpub } from "../lib/keys";
 import { logError } from "../lib/logger";
 import { sanitize } from "../lib/notes";
@@ -12,6 +12,13 @@ export const getRepostInfo: RepostInfo = (page, message) => {
   const user = page?.users[message.pubkey];
   const userMeta = JSON.parse(user?.content || '{}');
   const stat = page?.postStats[message.id];
+
+  const eventPointer: nip19.EventPointer = {
+    id: message.id,
+    author: message.pubkey,
+    kind: message.kind,
+    relays: message.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [...acc, t[1]] : acc, []).slice(0,3),
+  };
 
   return {
     user: {
@@ -47,7 +54,7 @@ export const getRepostInfo: RepostInfo = (page, message) => {
       score: stat?.score || 0,
       score24h: stat?.score24h || 0,
       satszapped: stat?.satszapped || 0,
-      noteId: nip19.noteEncode(message.id),
+      noteId: nip19.neventEncode(eventPointer),
       noteActions: (page.noteActions && page.noteActions[message.id]) || noActions(message.id),
       relayHints: page.relayHints,
     },
@@ -249,6 +256,13 @@ export const generateNote = (
     }
   }
 
+  const eventPointer: nip19.EventPointer = {
+    id: msg.id,
+    author: msg.pubkey,
+    kind: msg.kind,
+    relays: msg.tags.reduce((acc, t, i) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [...acc, t[1]] : acc, []).slice(0,3),
+  };
+
   return {
     user: { ...author },
     post: {
@@ -267,7 +281,7 @@ export const generateNote = (
       score: 0,
       score24h: 0,
       satszapped: 0,
-      noteId: nip19.noteEncode(msg.id),
+      noteId: nip19.neventEncode(eventPointer),
       noteActions: noActions(msg.id),
       relayHints: meta.relayHints,
     },
@@ -279,7 +293,7 @@ export const generateNote = (
     replyTo: replyTo && replyTo[1],
     tags: msg.tags,
     id: msg.id,
-    noteId: nip19.noteEncode(msg.id),
+    noteId: nip19.neventEncode(eventPointer),
     pubkey: msg.pubkey,
     topZaps: [],
     content: sanitize(msg.content),
@@ -398,11 +412,24 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
             zapped: false,
           };
 
+          const eventPointer: nip19.EventPointer ={
+            id: m.id,
+            author: m.pubkey,
+            kind: m.kind,
+            relays: m.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [ ...acc, t[1]] : acc, []).slice(0,3),
+          }
+
+          const eventPointerShort: nip19.EventPointer ={
+            id: m.id,
+          }
+
+          const noteId = nip19.neventEncode(eventPointer);
+          const noteIdShort = nip19.neventEncode(eventPointerShort);
+
           mentionedNotes[id] = {
             // @ts-ignore TODO: Investigate this typing
             post: {
               ...m,
-              noteId: nip19.noteEncode(m.id),
               likes: mentionStat?.likes || 0,
               mentions: mentionStat?.mentions || 0,
               reposts: mentionStat?.reposts || 0,
@@ -411,6 +438,8 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
               score: mentionStat?.score || 0,
               score24h: mentionStat?.score24h || 0,
               satszapped: mentionStat?.satszapped || 0,
+              noteId,
+              noteIdShort,
               noteActions,
             },
             msg: {
@@ -421,7 +450,8 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
             mentionedUsers,
             pubkey: m.pubkey,
             id: m.id,
-            noteId: nip19.noteEncode(m.id),
+            noteId,
+            noteIdShort,
           };
         }
 
@@ -520,6 +550,21 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
       }
     }
 
+
+    const eventPointer: nip19.EventPointer ={
+      id: msg.id,
+      author: msg.pubkey,
+      kind: msg.kind,
+      relays: msg.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [ ...acc, t[1]] : acc, []).slice(0,3),
+    }
+
+    const eventPointerShort: nip19.EventPointer ={
+      id: msg.id,
+    }
+
+    const noteId = nip19.neventEncode(eventPointer);
+    const noteIdShort = nip19.neventEncode(eventPointerShort);
+
     return {
       user: {
         id: user?.id || '',
@@ -554,7 +599,8 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
         score: stat?.score || 0,
         score24h: stat?.score24h || 0,
         satszapped: stat?.satszapped || 0,
-        noteId: nip19.noteEncode(msg.id),
+        noteId,
+        noteIdShort,
         noteActions: (page.noteActions && page.noteActions[msg.id]) ?? noActions(msg.id),
         relayHints: page.relayHints,
       },
@@ -567,7 +613,8 @@ export const convertToNotes: ConvertToNotes = (page, topZaps) => {
       replyTo: replyTo && replyTo[1],
       tags: msg.tags,
       id: msg.id,
-      noteId: nip19.noteEncode(msg.id),
+      noteId,
+      noteIdShort,
       pubkey: msg.pubkey,
       topZaps: [ ...tz ],
       content: sanitize(msg.content),
@@ -649,11 +696,26 @@ export const convertToArticles: ConvertToArticles = (page, topZaps) => {
             zapped: false,
           };
 
+          const eventPointer: nip19.EventPointer ={
+            id: m.id,
+            author: m.pubkey,
+            kind: m.kind,
+            relays: m.tags.reduce((acc, t) => t[0] === 'r' && (t[1].startsWith('wss://' ) || t[1].startsWith('ws://')) ? [ ...acc, t[1]] : acc, []).slice(0,3),
+          }
+
+          const eventPointerShort: nip19.EventPointer ={
+            id: m.id,
+          }
+
+          const noteId = nip19.neventEncode(eventPointer);
+          const noteIdShort = nip19.neventEncode(eventPointerShort);
+
           mentionedNotes[id] = {
             // @ts-ignore TODO: Investigate this typing
             post: {
               ...m,
-              noteId: nip19.noteEncode(m.id),
+              noteId,
+              noteIdShort,
               likes: mentionStat?.likes || 0,
               mentions: mentionStat?.mentions || 0,
               reposts: mentionStat?.reposts || 0,
@@ -668,7 +730,8 @@ export const convertToArticles: ConvertToArticles = (page, topZaps) => {
             mentionedUsers,
             pubkey: m.pubkey,
             id: m.id,
-            noteId: nip19.noteEncode(m.id),
+            noteId,
+            noteIdShort,
           };
         }
 
@@ -912,7 +975,7 @@ type NoteStore = {
 export const referencesToTags = (value: string, relayHints: Record<string, string>) => {
   const regexHashtag = /(?:\s|^)#[^\s!@#$%^&*(),.?":{}|<>]+/ig;
   const regexMention =
-    /\bnostr:((note|npub|nevent|nprofile|naddr)1\w+)\b|#\[(\d+)\]/g;
+    /\b(nostr:)?((note|npub|nevent|nprofile|naddr)1\w+)\b|#\[(\d+)\]/g;
 
   let refs: string[] = [];
   let tags: string[][] = [];
@@ -929,7 +992,14 @@ export const referencesToTags = (value: string, relayHints: Record<string, strin
   }
 
   refs.forEach((ref) => {
-    const decoded = nip19.decode(ref.split('nostr:')[1]);
+    let id = `${ref}`;
+
+    const idStart = ref.search(mentionRegexNostrless);
+
+    if (idStart > 0) {
+      id = ref.slice(idStart);
+    }
+    const decoded = nip19.decode(id);
 
     if (decoded.type === 'npub') {
       tags.push(['p', decoded.data, '', 'mention'])
