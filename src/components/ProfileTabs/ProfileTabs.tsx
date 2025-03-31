@@ -268,6 +268,7 @@ const ProfileTabs: Component<{
     window.removeEventListener('scroll', onScroll);
   });
 
+<<<<<<< HEAD
 
 
 
@@ -277,18 +278,21 @@ const ProfileTabs: Component<{
 
 
   function humanizeNumber(value) {
+=======
+  function humanizeNumber(value: number) {
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
     if (value >= 10000) {
       // Scale the number to show two significant digits before 'e'
       const exponent = Math.floor(Math.log10(value)) - 1;
       const scaled = value / Math.pow(10, exponent);
       let formatted = scaled.toFixed(1).replace('.', ',');
-  
+    
       // Remove ",0" if rounding results in X,0e
       if (formatted.endsWith(',0')) {
         formatted = formatted.slice(0, -2); // Remove last two characters (",0")
       }
-  
-      return `${formatted}e`;
+    
+      return `${formatted}e${exponent}`;
     } else {
       return value.toLocaleString('en-US').replace(/,/g, ' ');
     }
@@ -300,6 +304,7 @@ const ProfileTabs: Component<{
   
   return (
       <Tabs value={hash()} onChange={onChangeValue} defaultValue={hash()}>
+<<<<<<< HEAD
 <Show when={profile && profile.fetchedUserStats}>
   <Tabs.List class={styles.profileTabs}>
     <Tabs.Trigger class={styles.profileTab} value="notes">
@@ -312,6 +317,21 @@ const ProfileTabs: Component<{
         </div>
       </div>
     </Tabs.Trigger>
+=======
+        <Show when={profile && profile.fetchedUserStats}>
+          <Tabs.List class={styles.profileTabs}>
+
+            <Tabs.Trigger class={styles.profileTab} value="notes">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.note_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.notes)}
+                </div>
+              </div>
+            </Tabs.Trigger>
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
     <Tabs.Trigger class={styles.profileTab} value="replies">
       <div class={styles.stat}>
@@ -346,6 +366,7 @@ const ProfileTabs: Component<{
       </div>
     </Tabs.Trigger>
 
+<<<<<<< HEAD
     <Tabs.Trigger class={styles.profileTab} value="relays">
       <div class={styles.stat}>
         <div class={styles.statNumber}>
@@ -361,6 +382,33 @@ const ProfileTabs: Component<{
   </Tabs.List>
 </Show>
 
+=======
+            {/* //BTC Lightning out
+            <Tabs.Trigger class={styles.profileTab} value="zaps">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.total_zap_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.zaps)}
+                </div>
+              </div>
+            </Tabs.Trigger>
+            */}
+
+          {/* //Relay handling out
+            <Tabs.Trigger class={styles.profileTab} value="relays">
+              <div class={styles.stat}>
+                <div class={styles.statNumber}>
+                  {humanizeNumber(profile?.userStats?.relay_count || 0)}
+                </div>
+                <div class={styles.statName}>
+                  {intl.formatMessage(t.stats.relays)}
+                </div>
+              </div>
+            </Tabs.Trigger>
+          */}
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
 
         <Tabs.Content class={styles.tabContent} value="reads">
@@ -637,7 +685,11 @@ const ProfileTabs: Component<{
                               <NoteGallery note={note} />
                             </Match>
                             <Match when={!hasImages(note)}>
+<<<<<<< HEAD
                               <A href={`/e/${note.noteId}`} class={styles.missingImage}>
+=======
+                                <A href={`/e/${note.id}`} class={styles.missingImage}>
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
                                 <NoteGallery note={note} />
                               </A>
                             </Match>
@@ -658,6 +710,9 @@ const ProfileTabs: Component<{
           </div>
         </Tabs.Content>
 
+
+        {/* //BTC Lightning out*/}
+{/* 
         <Tabs.Content class={styles.tabContent} value="zaps">
           <div class={styles.profileNotes}>
             <TransitionGroup name="slide-fade">
@@ -699,7 +754,7 @@ const ProfileTabs: Component<{
             </TransitionGroup>
           </div>
         </Tabs.Content>
-
+*/}
 
         <Tabs.Content class={styles.tabContent} value="relays">
           <div class={styles.profileRelays}>

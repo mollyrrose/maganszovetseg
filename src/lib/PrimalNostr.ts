@@ -12,12 +12,22 @@ export const [currentPin, setCurrentPin] = createSignal('');
 export const [tempNsec, setTempNsec] = createSignal<string | undefined>();
 
 export const generateKeys = (forceNewKey?: boolean) => {
-  const sec = forceNewKey ?
+  // Get the raw secret
+  const rawSec = forceNewKey ?
     generatePrivateKey() :
     readSecFromStorage() || generatePrivateKey();
-  const pubkey = getPublicKey(sec);
 
-  return { sec, pubkey };
+  // Convert to Uint8Array for getPublicKey
+  const secArray = typeof rawSec === 'string' ? 
+    new TextEncoder().encode(rawSec) : 
+    rawSec;
+
+  const pubkey = getPublicKey(secArray);
+
+  return { 
+    sec: rawSec, // Return original format
+    pubkey 
+  };
 };
 
 export const encryptWithPin = async (pin: string, text: string) => {
@@ -80,72 +90,48 @@ export const decryptWithPin = async (pin: string, cipher: string) => {
 };
 
 export const PrimalNostr: (pk?: string) => NostrExtension = (pk?: string) => {
-  const getSec = async () => {
-    let sec: string = pk || readSecFromStorage() || tempNsec() || generateNsec();
+  const getSec = async (): Promise<Uint8Array | undefined> => {
+    let secString: string = pk || readSecFromStorage() || tempNsec() || generateNsec();
 
-    if (sec.startsWith(pinEncodePrefix)) {
-      sec = await decryptWithPin(currentPin(), sec);
+    if (secString.startsWith(pinEncodePrefix)) {
+      secString = await decryptWithPin(currentPin(), secString);
     }
 
-    const decoded = nip19.decode(sec);
+    const decoded = nip19.decode(secString);
 
     if (decoded.type !== 'nsec' || !decoded.data) {
       throw('invalid-nsec');
     }
 
-    sec = decoded.data;
-
-    return sec.length > 0 ? sec : undefined;
-  }
+    return decoded.data.length > 0 ? decoded.data : undefined;
+  };
 
   const gPk: () => Promise<string> = async () => {
     const sec = await getSec();
     if (!sec) throw('pubkey-no-nsec');
-
-    return await getPublicKey(sec);
+    return getPublicKey(sec);
   };
 
-  const gRl: () => Promise<NostrRelays> = () => new Promise<NostrRelays>((resolve) => {resolve({})});
+  const gRl: () => Promise<NostrRelays> = () => new Promise<NostrRelays>((resolve) => resolve({}));
 
-  const encrypt: (pubkey: string, message: string) => Promise<string> =
-    async (pubkey, message) => {
-      const sec = await getSec();
-      if (!sec) throw('encrypt-no-nsec');
+  const encrypt: (pubkey: string, message: string) => Promise<string> = async (pubkey, message) => {
+    const sec = await getSec();
+    if (!sec) throw('encrypt-no-nsec');
+    return nip04.encrypt(sec, pubkey, message);
+  };
 
-      return await nip04.encrypt(sec, pubkey, message);
-    };
-
-  const decrypt: (pubkey: string, message: string) => Promise<string> =
-    async (pubkey, message) => {
-      const sec = await getSec();
-      if (!sec) throw('decrypt-no-nsec');
-
-      return await nip04.decrypt(sec, pubkey, message);
-    };
+  const decrypt: (pubkey: string, message: string) => Promise<string> = async (pubkey, message) => {
+    const sec = await getSec();
+    if (!sec) throw('decrypt-no-nsec');
+    return nip04.decrypt(sec, pubkey, message);
+  };
 
   const signEvent = async (event: NostrRelayEvent) => {
     const sec = await getSec();
     if (!sec) throw('sign-no-nsec');
-
-    // const pubkey: string = await gPk();
-
     let evt = finalizeEvent({ ...event }, sec);
-
     const isVerified = verifyEvent(evt);
-
-    // let evt = { ...event, pubkey };
-
-    // // @ts-ignore
-    // evt.id = getEventHash(evt);
-    // // @ts-ignore
-    // evt.sig = getSignature(evt, sec);
-
-    // const isValid = validateEvent(evt);
-    // const isVerified = verifySignature(evt);
-
-    // if (!isValid) throw('event-not-valid');
     if (!isVerified) throw('event-sig-not-verified');
-
     return evt as NostrRelaySignedEvent;
   };
 

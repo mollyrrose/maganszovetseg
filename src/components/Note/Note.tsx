@@ -21,7 +21,15 @@ import { useAccountContext } from '../../contexts/AccountContext';
 import { uuidv4 } from '../../utils';
 import NoteTopZaps from './NoteTopZaps';
 import NoteTopZapsCompact from './NoteTopZapsCompact';
+<<<<<<< HEAD
 import { addrRegex, addrRegexG, imageRegex, imageRegexEnd, imageRegexG, linebreakRegex, noteRegex, noteRegexLocal, profileRegexG, urlRegex, urlRegexG } from '../../constants';
+=======
+import { addrRegexG, imageRegexG, Kind, linebreakRegex, noteRegex, urlRegexG } from '../../constants';
+import { nip19 } from 'nostr-tools';
+import AppRouter from '../../Router';
+import { TranslatorProvider } from '../../contexts/TranslatorContext';
+import { hexToNpub } from '../../lib/keys';
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
 export type NoteReactionsState = {
   likes: number,
@@ -54,8 +62,25 @@ const Note: Component<{
   onClick?: () => void,
   quoteCount?: number,
   size?: 'xwide' | 'wide' | 'normal' | 'short',
+<<<<<<< HEAD
 }> = (props) => {
+=======
+  defaultParentAuthor?: PrimalUser,
+}
 
+export const renderNote = (props: NoteProps) => (
+  <div>
+    <TranslatorProvider>
+      <Note {...props} />
+    </TranslatorProvider>
+  </div> as HTMLDivElement
+  ).innerHTML;
+
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
+
+
+const Note: Component<NoteProps> = (props) => {
+  const noteLinkId = props.note?.id || '';
   const threadContext = useThreadContext();
   const app = useAppContext();
   const account = useAccountContext();
@@ -297,6 +322,7 @@ const Note: Component<{
     return isShort && !isReply;
   }
 
+  
   return (
     <Switch>
       <Match when={noteType() === 'notification'}>
@@ -404,7 +430,11 @@ const Note: Component<{
         <A
           id={props.id}
           class={`${styles.note} ${props.parent ? styles.parent : ''}`}
+<<<<<<< HEAD
           href={`/e/${props.note?.post.noteId}`}
+=======
+          href={!props.onClick ? noteLinkId : ''}
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -443,14 +473,14 @@ const Note: Component<{
               margins={20}
             />
           </div>
-
+{/* BTC Lightning out
           <NoteTopZapsCompact
             note={props.note}
             action={() => openReactionModal('zaps')}
             topZaps={reactionsState.topZapsFeed}
             topZapLimit={4}
           />
-
+*/}
           <NoteFooter
             note={props.note}
             state={reactionsState}
@@ -462,11 +492,17 @@ const Note: Component<{
         </A>
       </Match> */}
 
+
+
       <Match when={noteType() === 'thread' || noteType() === 'feed'}>
         <A
           id={props.id}
           class={`${styles.noteThread} ${props.parent ? styles.parent : ''}`}
+<<<<<<< HEAD
           href={`/e/${props.note?.post.noteId}`}
+=======
+          href={!props.onClick ? noteLinkId : ''}
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -513,14 +549,14 @@ const Note: Component<{
                   footerSize="short"
                 />
               </div>
-
+{/* BTC Lightning out
               <NoteTopZapsCompact
                 note={props.note}
                 action={() => openReactionModal('zaps')}
                 topZaps={reactionsState.topZapsFeed}
                 topZapLimit={4}
               />
-
+*/}
               <div class={styles.footer}>
                 <NoteFooter
                   note={props.note}
@@ -540,7 +576,11 @@ const Note: Component<{
         <A
           id={props.id}
           class={`${styles.note} ${styles.reactionNote}`}
+<<<<<<< HEAD
           href={`/e/${props.note?.post.noteId}`}
+=======
+          href={!props.onClick ? noteLinkId : ''}
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           onClick={() => navToThread(props.note)}
           data-event={props.note.post.id}
           data-event-bech32={props.note.post.noteId}
@@ -578,7 +618,61 @@ const Note: Component<{
               </div>
             </div>
           </div>
+<<<<<<< HEAD
         </A>
+=======
+        </a>
+      </Match>
+
+
+      <Match when={noteType() === 'suggestion'}>
+        <a
+          id={props.id}
+          class={`${styles.noteSuggestion}`}
+          href={!props.onClick ? noteLinkId : ''}
+          onClick={() => navToThread(props.note)}
+          data-event={props.note.post.id}
+          data-event-bech32={props.note.post.noteId}
+          draggable={false}
+        >
+          <div class={styles.header}>
+            <Show when={repost()}>
+              <NoteRepostHeader note={props.note} />
+            </Show>
+          </div>
+          <div class={styles.content}>
+            <div class={styles.leftSide}>
+              {/* <A href={app?.actions.profileLink(props.note.user.npub) || ''}> */}
+                <Avatar user={props.note.user} size="vs" />
+              {/* </A> */}
+              <Show
+                when={props.parent}
+              >
+                <div class={styles.ancestorLine}></div>
+              </Show>
+            </div>
+
+            <div class={styles.rightSide}>
+              <NoteAuthorInfo
+                author={props.note.user}
+                time={props.note.post.created_at}
+              />
+
+              <NoteReplyToHeader note={props.note} defaultParentAuthor={props.defaultParentAuthor} />
+
+              <div class={styles.message}>
+                <ParsedNote
+                  note={props.note}
+                  shorten={props.shorten}
+                  width={Math.min(508, window.innerWidth - 72)}
+                  margins={58}
+                  footerSize="short"
+                />
+              </div>
+            </div>
+          </div>
+        </a>
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       </Match>
     </Switch>
   );

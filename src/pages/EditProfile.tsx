@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 //{/* scr/pages/EditProfile.tsx */}
 import { Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
+=======
+import { Component, createEffect, createSignal, onCleanup, onMount, Show, useContext } from 'solid-js';
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 import styles from './EditProfile.module.scss';
 import PageCaption from '../components/PageCaption/PageCaption';
 
@@ -15,7 +19,7 @@ import { useIntl } from '@cookbook/solid-intl';
 import Avatar from '../components/Avatar/Avatar';
 import { useProfileContext } from '../contexts/ProfileContext';
 import { useMediaContext } from '../contexts/MediaContext';
-import { useAccountContext } from '../contexts/AccountContext';
+import { AccountContext, useAccountContext } from '../contexts/AccountContext';
 import { sendProfile } from '../lib/profile';
 import { useToastContext } from '../components/Toaster/Toaster';
 import { usernameRegex } from '../constants';
@@ -30,7 +34,50 @@ import { APP_ID } from '../App';
 import { useSettingsContext } from '../contexts/SettingsContext';
 import { useAppContext } from '../contexts/AppContext';
 
+import { NostrRelays, NostrUserContent, PrimalUser } from '../types/primal';
 
+// Adding relays on page open
+import { sendRelays } from '../lib/profile';
+import { Kind } from '../constants';
+import { MaganSzovetseg_Recommended_Relays } from './MaganSzovetseg_Recommended_Relays';
+import { saveRelaySettings } from "../lib/localStore";
+
+
+const [isRelayTesting, setRelayTesting] = createSignal(false);
+const [relayStatus, setRelayStatus] = createSignal("");
+
+      // Define all MSN fields with explicit typing
+const msnFields = [
+        'msn_country',
+        'msn_mapaddress',
+        'msn_mapliveaddress',
+        'msn_language',
+        'msn_clientregurl',
+        'msn_myrss',
+        'msn_donationlink',
+        'msn_btc',
+        'msn_mobileappusername',
+        'msn_email',
+        'msn_isMediumSupported',
+        'msn_isOptimumSupported',
+        'msn_WantsToHelp',
+        'msn_ismapaddressvisible',
+        'msn_ismapaddressvisible_tosecondlevel'
+] as const;
+
+const getDefaultMSNValue = (field: string): string => {
+  const defaults: Record<string, string> = {
+    msn_country: "Magyarország",
+    msn_language: "Magyar",
+    msn_clientregurl: "MaganSzovetseg.Net",
+    msn_isMediumSupported: "false",
+    msn_isOptimumSupported: "false",
+    msn_WantsToHelp: "false",
+    msn_ismapaddressvisible: "false",
+    msn_ismapaddressvisible_tosecondlevel: "false"
+  };
+  return defaults[field] || '';
+};
 
 
 
@@ -138,34 +185,61 @@ const EditProfile: Component = () => {
 
 
   //check if fields exist at load-in, if not, creat it
-  const onExpandableTextareaInput: () => void = () => {
+  const onExpandableTextareaInput = (): void => {
+    // 1. First handle the textarea resizing logic
+    const elm = textArea as AutoSizedTextArea | undefined;
+    if (!elm) return;
+  
     const maxHeight = document.documentElement.clientHeight || window.innerHeight || 0;
-    const elm = textArea as AutoSizedTextArea;
     const minRows = parseInt(elm.getAttribute('data-min-rows') || '0');
   
-    !elm._baseScrollHeight && getScrollHeight(elm);
-  
-    if (elm.scrollHeight >= (maxHeight / 3)) {
-      return;
-    }
+    if (!elm._baseScrollHeight) getScrollHeight(elm);
+    if (elm.scrollHeight >= maxHeight / 3) return;
   
     elm.rows = minRows;
-    const rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 20);
+    const rows = Math.ceil((elm.scrollHeight - (elm._baseScrollHeight || 0)) / 20);
     elm.rows = minRows + rows;
   
-    // NEW: Initialize msn_ fields if they don't exist
-    ['msn_country', 'msn_mapaddress', 'msn_mapliveaddress', 'msn_language', 'msn_clientregurl', 'msn_myrss', 'msn_donationlink', 'msn_btc', 'msn_mobileappusername', 'msn_email'].forEach((key) => {
-      if (!('msn_mobileappusername' in profile?.userProfile)) {
-        profile?.actions.updateProfile({ ...profile.userProfile, [key]: '' });
+    // 2. Safely handle MSN fields initialization
+    const initializeMSNFields = (): void => {
+      if (!profile || !profile.actions || !profile.actions.updateProfile) {
+        console.warn('Profile context is not properly initialized');
+        return;
       }
   
-      // Update the corresponding input field
-      const inputElement = document.querySelector(`input[name="${key}"]`) as HTMLInputElement | null;
-      if (inputElement) {
-        inputElement.value = profile?.userProfile?.[key] || '';
-        console.log('Re-populating input field:', key, 'with value:', profile?.userProfile?.[key]);
+      const currentProfile = profile.userProfile ?? {};
+      const updates: Partial<PrimalUser> = {};
+      let needsUpdate = false;
+  
+      msnFields.forEach((field) => {
+        if (!(field in currentProfile)) {
+          updates[field] = '';
+          needsUpdate = true;
+        }
+      });
+
+      // Only update if there are changes
+      if (needsUpdate && profile.actions.updateProfile) {
+        // First update the profile data
+        const updatedProfile = {
+          ...(profile.userProfile || {}),
+          ...updates
+        };
+        
+        // Then trigger update - may only need the pubkey
+        profile.actions.updateProfile(updatedProfile.pubkey || account?.publicKey || '');
       }
-    });
+  
+      // Update corresponding input fields
+      msnFields.forEach((field) => {
+        const input = document.querySelector<HTMLInputElement>(`input[name="${field}"]`);
+        if (input) {
+          input.value = (currentProfile as Record<string, string>)[field] || '';
+        }
+      });
+    };
+  
+    initializeMSNFields();
   };
 
 
@@ -173,14 +247,283 @@ const EditProfile: Component = () => {
 
 
 
+  // OnMount start ===============================================================================
 
-
-
-
-
+  
   onMount(() => {
     setOpenSockets(true);
+  
+    /*
+    const getAllRelays = (): string[] => {
+
+      const normalizeUrl = (url: string) => {
+        return url.toLowerCase().trim().replace(/\/+$/, ''); // Removes trailing slashes
+      };
+
+      const hardcodedRelays = [
+        "wss://nos.lol",//208
+        "wss://relay.primal.net",//252 Primary relay
+        "wss://relay.damus.io", //391 
+        "wss://nostr.wine"//453
+      ].map(normalizeUrl);
+
+      const userRelays = account?.relaySettings 
+      ? Object.keys(account.relaySettings).map(normalizeUrl) 
+      : [];
+
+      const mergedRelays = [
+        ...(account?.defaultRelays || []).map(normalizeUrl),
+        ...MaganSzovetseg_Recommended_Relays.map(normalizeUrl),
+        ...hardcodedRelays,
+        ...userRelays
+      ];
+
+      return [...new Set(                          // Deduplicate AFTER normalization
+        mergedRelays.map(r =>                      // Normalize FIRST:
+          r.toLowerCase()                          // Lowercase
+           .trim()                                 // Trim whitespace
+           .replace(/\/+$/, '')                    // Remove trailing slashes
+        )
+      )].filter(r => r.startsWith('wss://'));      // Filter valid URLs last
+
+
+    };
+  
+    const testRelayConnection = async (relayUrl: string, isHardcoded: boolean = false, timeoutMs: number = 2000): Promise<boolean> => {
+      if (!relayUrl.startsWith('wss://')) {
+        console.log(`[Relay Test] Érvénytelen URL (hiányzik a wss://): ${relayUrl}`);
+        return false;
+      }
+  
+      try {
+        return await new Promise((resolve) => {
+          console.log(`[Relay Test] Kapcsolódási kísérlet: ${relayUrl} ${isHardcoded ? '(hardcoded)' : ''}`);
+          const socket = new WebSocket(relayUrl);
+  
+          const timeoutDuration = isHardcoded ? timeoutMs * 2 : timeoutMs;
+          const timeout = setTimeout(() => {
+            console.log(`[Relay Test] Időtúllépés (${timeoutDuration / 1000}s): ${relayUrl}`);
+            socket.close();
+            resolve(false);
+          }, timeoutDuration);
+  
+          socket.onopen = () => {
+            console.log(`[Relay Test] Sikeres kapcsolat: ${relayUrl}`);
+            clearTimeout(timeout);
+            socket.close();
+            resolve(true);
+          };
+  
+          socket.onerror = (error) => {
+            console.error(`[Relay Test] Hiba a kapcsolódás során: ${relayUrl}`, error);
+            clearTimeout(timeout);
+            resolve(false);
+          };
+        });
+      } catch (e) {
+        console.error(`[Relay Test] Váratlan hiba a tesztelés során: ${relayUrl}`, e);
+        return false;
+      }
+    };
+  
+    const saveRelaySettings = async (relaySettings: NostrRelays, cacheKey: string) => {
+      if (Object.keys(relaySettings).length > 0) {
+        console.log("[Save] RelaySettings mentése folyamatban:", relaySettings);
+        console.log("[Save] CacheKey:", cacheKey);
+        localStorage.setItem(cacheKey, JSON.stringify(relaySettings));
+        localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
+        console.log("[Save] LocalStorage-ba mentett érték:", localStorage.getItem(cacheKey));
+        if (account) {
+          await account.actions.connectToRelays(relaySettings);
+          console.log("[Save] RelaySettings alkalmazva a kapcsolatokra");
+        } else {
+          console.warn("[Save] Az 'account' undefined, a Nostr kapcsolat nem frissült");
+        }
+      } else {
+        console.log("[Save] Üres relaySettings, nincs mentés");
+      }
+    };
+  
+    const clearOldRelayCache = () => {
+      const now = Date.now();
+      const oneHourMs = 3600000;
+  
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('workingRelays_')) {
+          const timestampKey = `${key}_timestamp`;
+          const timestamp = localStorage.getItem(timestampKey);
+  
+          if (timestamp && (now - parseInt(timestamp)) > oneHourMs) {
+            localStorage.removeItem(key);
+            localStorage.removeItem(timestampKey);
+            console.log(`[Cache] Elavult relay cache törölve: ${key}`);
+          }
+        }
+      }
+    };
+  
+    const setupRelays = async () => {
+      setOpenSockets(true);
+      setRelayTesting(true);
+  
+      if (!account?.publicKey) {
+        console.log("[Setup] Nincs elérhető fiók - a relay inicializálás kihagyva");
+        setOpenSockets(false);
+        return;
+      }
+  
+      const cacheKey = `workingRelays_${account.publicKey}`;
+      let relaySettings: NostrRelays = {};
+      const allRelays = getAllRelays();
+      const hardcodedRelays = [
+        "wss://nos.lol",//208
+        "wss://relay.primal.net",//252 Primary relay
+        "wss://relay.damus.io", //391 
+        "wss://nostr.wine"//453
+      ];
+      const TARGET_RELAY_COUNT = 7;
+  
+      try {
+        console.log("[Setup] Relay inicializálás megkezdése");
+        console.log("[Setup] Relay tesztelés megkezdése - összes relay:", allRelays);
+        console.log("[Setup] Jelenlegi account.relaySettings (ha van):", account?.relaySettings || "Nincs meglévő");
+  
+        let workingRelays: string[] = [];
+        const testPromises = allRelays.map(async (relay) => {
+          const isHardcoded = hardcodedRelays.includes(relay);
+          const isWorking = await testRelayConnection(relay, isHardcoded, 2000);
+          if (isWorking) {
+            workingRelays.push(relay);
+            console.log(`[Relay Test] Működő relay ellenőrizve: ${relay}`);
+          }
+          return isWorking;
+        });
+  
+        await Promise.all(testPromises);
+        console.log(`[Setup] 1. kör utáni működő relék: ${workingRelays.length}/${allRelays.length}`);
+        relaySettings = workingRelays.reduce((acc, relay) => ({
+          ...acc,
+          [relay]: { read: true, write: true }
+        }), {});
+        await saveRelaySettings(relaySettings, cacheKey);
+  
+        if (workingRelays.length < TARGET_RELAY_COUNT) {
+          const failedRelays = allRelays.filter(r => !workingRelays.includes(r));
+          console.log(`[Retry 1] Újrapróbálkozás ${failedRelays.length} sikertelen relay-vel...`);
+  
+          const retryPromises = failedRelays.map(async (relay) => {
+            const isHardcoded = hardcodedRelays.includes(relay);
+            const isWorking = await testRelayConnection(relay, isHardcoded, 2000);
+            if (isWorking) {
+              workingRelays.push(relay);
+              console.log(`[Retry Success] Hozzáadott relay: ${relay}`);
+            }
+            return isWorking;
+          });
+  
+          await Promise.all(retryPromises);
+          console.log(`[Setup] 2. kör utáni működő relék: ${workingRelays.length}/${allRelays.length}`);
+          relaySettings = workingRelays.reduce((acc, relay) => ({
+            ...acc,
+            [relay]: { read: true, write: true }
+          }), {});
+          await saveRelaySettings(relaySettings, cacheKey);
+        } else {
+          console.log("[Setup] Elértük vagy meghaladtuk a 7 működő relét a 2. kör előtt");
+        }
+  
+        if (workingRelays.length < TARGET_RELAY_COUNT) {
+          const failedRelays = allRelays.filter(r => !workingRelays.includes(r));
+          console.log(`[Retry 2] Extra újrapróbálkozás ${failedRelays.length} sikertelen relay-vel, 5s timeouttal...`);
+  
+          const extraRetryPromises = failedRelays.map(async (relay) => {
+            const isHardcoded = hardcodedRelays.includes(relay);
+            const isWorking = await testRelayConnection(relay, isHardcoded, 5000);
+            if (isWorking) {
+              workingRelays.push(relay);
+              console.log(`[Retry Success] Hozzáadott relay: ${relay}`);
+            }
+            return isWorking;
+          });
+  
+          await Promise.all(extraRetryPromises);
+          console.log(`[Setup] 3. kör utáni működő relék: ${workingRelays.length}/${allRelays.length}`);
+          relaySettings = workingRelays.reduce((acc, relay) => ({
+            ...acc,
+            [relay]: { read: true, write: true }
+          }), {});
+          await saveRelaySettings(relaySettings, cacheKey);
+        } else {
+          console.log("[Setup] Elértük vagy meghaladtuk a 7 működő relét a 3. kör előtt");
+        }
+  
+        console.log("[Setup] Végső relaySettings:", relaySettings);
+        console.log("[Setup] Aktuális account.relaySettings a setup végén:", account?.relaySettings);
+        await saveRelaySettings(relaySettings, cacheKey);
+        if (account) {
+          const relayList = Object.keys(relaySettings).map(relay => [relay, { read: true, write: true }]);
+          const relayEvent = await sendRelays(
+            relayList,
+            account.relaySettings || {},
+            account.proxyThroughPrimal || false
+          );
+          console.log("[Setup] Relay lista elküldve a Nostr-ra:", relayEvent);
+        }
+        setRelayStatus(`Kész! ${Object.keys(relaySettings).length} relé aktív`);
+      } catch (error) {
+        console.error("[Setup] Hiba a relay inicializálás során:", error);
+        setRelayStatus("Hiba a relék frissítése közben");
+  
+        if (account?.relaySettings) {
+          console.log("[Fallback] Visszaesés a meglévő account.relaySettings-re:", account.relaySettings);
+          await account.actions.connectToRelays(account.relaySettings);
+        } else {
+          console.log("[Fallback] Nincs meglévő account.relaySettings, az aktuális relaySettings használata");
+          await account.actions.connectToRelays(relaySettings);
+        }
+      } finally {
+        setOpenSockets(false);
+        setRelayTesting(false);
+        console.log("[Setup] Relay inicializálás befejezve");
+      }
+    };
+  
+    console.log("[Setup] Relay inicializálás megkezdése");
+    clearOldRelayCache();
+  
+    setTimeout(() => {
+      setupRelays().catch(e => {
+        console.error("[Setup] Kezdetlen hiba:", e);
+      });
+    }, 100);
+  
+    onCleanup(() => {
+      console.log("[Cleanup] Relay kapcsolatok lezárása");
+      setOpenSockets(false);
+    });
+
+
+    */
+
+
+
+
+
   });
+
+
+
+
+  
+
+
+// OnMount end ===============================================================================
+
+
+
+
+
 
   onCleanup(() => {
     setOpenSockets(false);
@@ -220,6 +563,7 @@ const EditProfile: Component = () => {
   });
 
 // NEW: Add effects for msn_ fields
+/*
 createEffect(() => {
   if (profile?.userProfile?.msn_country) {
     const countryInput = document.querySelector('input[name="msn_country"]') as HTMLInputElement;
@@ -302,6 +646,29 @@ createEffect(() => {
     }
   }
 });
+
+*/
+
+createEffect(() => {
+  if (!profile?.userProfile) return;
+
+  msnFields.forEach(field => {
+    const input = document.querySelector(`input[name="${field}"]`);
+    if (!input) return;
+
+    // Get value with fallback to default values
+    const value = (profile.userProfile as PrimalUser)[field] || 
+      getDefaultMSNValue(field);
+
+    // Special handling for BTC field logging
+    if (field === 'msn_btc' && value) {
+      console.log('Re-populating input field: msn_btc with value:', value);
+    }
+
+    (input as HTMLInputElement).value = value;
+  });
+});
+
 //----
 
   const onNameInput = () => {
@@ -328,14 +695,13 @@ createEffect(() => {
 
 
 
-  const onUpload = (target: 'picture' | 'banner', fileUpload: HTMLInputElement | undefined) => {
-
-    if (!fileUpload) {
+  const onUpload = async (target: 'picture' | 'banner', fileUpload: HTMLInputElement | undefined) => {
+    if (!fileUpload || !account?.relaySettings) {
+      toast?.sendWarning("Please wait while we connect to relays...");
       return;
     }
-
+  
     const file = fileUpload.files ? fileUpload.files[0] : null;
-
     if (file) {
       setUploadTarget(target);
       setFileToUpload(file);
@@ -349,202 +715,86 @@ createEffect(() => {
 
 
 
-  //new
   const onSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
-
+  
     if (!e.target || !account) {
       return false;
     }
-
+  
     const data = new FormData(e.target as HTMLFormElement);
     console.log("📝 Form Data Before Submit:");
-
+  
+    // Log form data for debugging
     for (let [key, value] of data.entries()) {
       console.log(`${key}: ${value}`);
     }
-
+  
     const picture = avatarPreview() || '';
     const banner = bannerPreview() || '';
-
+  
     console.log("📷 Avatar URL:", picture);
     console.log("🎨 Banner URL:", banner);
-
+  
     const name = data.get('name')?.toString() || '';
-
+  
     if (!usernameRegex.test(name)) {
       toast?.sendWarning(intl.formatMessage(tSettings.profile.name.formError));
       return false;
     }
     
-    let metadata: Record<string, string> = {};
-
-    // Loop through all keys to get values and set them to metadata
-    ['displayName', 'name', 'website', 'about', 'lud16', 'nip05', 'picture', 'banner', 'msn_country', 'msn_mapaddress', 'msn_mapliveaddress', 'msn_language', 'msn_clientregurl', 'msn_myrss', 'msn_donationlink', 'msn_btc', 'msn_mobileappusername', 'msn_email'].forEach(key => {
-      const value = data.get(key);
-    
-      if (value) {
-        metadata[key] = value as string; // Set the value if it exists
-      } else {
-        // Apply default values only if the key doesn't have an updated value
-        switch (key) {
-          case 'msn_country':
-            metadata['msn_country'] = "Magyarország";
-            break;
-          case 'msn_mapaddress':
-            metadata['msn_mapaddress'] = "";
-            break;
-          case 'msn_ismapaddressvisible':
-            metadata['msn_ismapaddressvisible'] = "false";
-            break;          
-          case 'msn_mapliveaddress':
-            metadata['msn_mapliveaddress'] = "";
-            break;
-          case 'msn_ismapaddressvisible_tosecondlevel':
-            metadata['msn_ismapaddressvisible_tosecondlevel'] = "false";
-            break;   
-          case 'msn_language':
-            metadata['msn_language'] = "Magyar";
-            break;
-          case 'msn_clientregurl':
-            metadata['msn_clientregurl'] = "MaganSzovetseg.Net";
-            break;
-          case 'msn_myrss':
-            metadata['msn_myrss'] = "";
-            break;
-          case 'msn_donationlink':
-            metadata['msn_donationlink'] = "";
-            break;
-          case 'msn_btc':
-              metadata['msn_btc'] = "";
-              break;
-          case 'msn_mobileappusername':
-            metadata['msn_mobileappusername'] = "";
-            break;
-          case 'msn_email':
-            metadata['msn_email'] = "";
-            break;
-          case 'msn_isMediumSupported':
-            metadata['msn_isMediumSupported'] = "false";
-            break;
-          case 'msn_isOptimumSupported':
-            metadata['msn_isOptimumSupported'] = "false";
-            break;
-          case 'msn_WantsToHelp':
-            metadata['msn_WantsToHelp'] = "false";
-            break;
-          default:
-            // For other fields, you may want to leave them unchanged
-            break;
-        }
-      }
+    // Build metadata object
+    const metadata: Record<string, string> = {
+      picture,
+      banner,
+      display_name: data.get('displayName')?.toString() || '',
+      name,
+      website: data.get('website')?.toString() || '',
+      about: data.get('about')?.toString() || '',
+      lud16: data.get('lud16')?.toString() || '',
+      nip05: data.get('nip05')?.toString() || '',
+    };
   
-      // Special case for 'displayName' to store as 'display_name'
-      if (key === 'displayName') {
-        metadata['display_name'] = value as string;
-      }
+    // Process all MSN fields
+    msnFields.forEach(field => {
+      const value = data.get(field);
+      metadata[field] = value !== null ? value.toString() : getDefaultMSNValue(field);
     });
-
-
-    // ✅ Ensure picture & banner are included
-    metadata['picture'] = picture;
-    metadata['banner'] = banner;
-
+  
     console.log("🚀 Final Metadata Before Sending:", metadata);
-
-
+  
     const oldProfile = profile?.userProfile || {};
     console.log("🚀 Sending Profile Data to Nostr:", { ...oldProfile, ...metadata });
-
-
+  
     // Send the metadata to Nostr
-    const { success, note } = await sendProfile({ ...oldProfile, ...metadata }, account?.proxyThroughPrimal || false, account.activeRelays, account.relaySettings);
-
+    const { success, note } = await sendProfile(
+      { ...oldProfile, ...metadata }, 
+      account?.proxyThroughPrimal || false, 
+      account?.activeRelays || [], // Provide empty array as fallback
+      account?.relaySettings || {} // Provide empty object as fallback
+    );
     if (success) {
       console.log("✅ Profile successfully sent to Nostr!", metadata);
-
+  
       note && triggerImportEvents([note], `import_profile_${APP_ID}`, () => {
         note && profile?.actions.updateProfile(note.pubkey);
         note && account.actions.updateAccountProfile(note.pubkey);
-        note && navigate(app?.actions.profileLink(note.pubkey) || '/home')
-        toast?.sendSuccess(intl.formatMessage(tToast.updateProfileSuccess))
-  
-        console.log('Metadata saved successfully:', metadata); // Log the saved metadata
-        console.log('Form value for msn_mapaddress:', data.get('msn_mapaddress'));
-        console.log('Constructed metadata for msn_mapaddress:', metadata['msn_mapaddress']);
+        note && navigate(app?.actions.profileLink(note.pubkey) || '/home');
+        toast?.sendSuccess(intl.formatMessage(tToast.updateProfileSuccess));
       });
       return false;
     }
-
+  
     console.error("❌ Profile update failed!");
-    toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail))
-
+    toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail));
     return false;
   };
-
   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+ 
     const oldProfile = profile?.userProfile || {};
 
-
-
-    //new
   
-    const EditProfile: Component = async () => {  // Make this function async
-      try {
-        // Send the metadata to Nostr
-        const { success, note } = await sendProfile(
-          { ...oldProfile, ...metadata }, 
-          account?.proxyThroughPrimal || false, 
-          account.activeRelays, 
-          account.relaySettings
-        );
-      
-        if (success) {
-          if (note) {
-            triggerImportEvents([note], `import_profile_${APP_ID}`, () => {
-              note && profile?.actions.updateProfile(note.pubkey);
-              note && account.actions.updateAccountProfile(note.pubkey);
-              note && navigate(app?.actions.profileLink(note.pubkey) || '/home');
-              toast?.sendSuccess(intl.formatMessage(tToast.updateProfileSuccess));
-      
-              console.log('Metadata saved successfully:', metadata); // Log the saved metadata
-              console.log('Form value for msn_mapaddress:', data.get('msn_mapaddress'));
-              console.log('Constructed metadata for msn_mapaddress:', metadata['msn_mapaddress']);
-            });
-          }
-          return false;
-        }
-      
-        toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail));
-        return false;
-      } catch (error) {
-        console.error("Error saving metadata:", error);
-        toast?.sendWarning(intl.formatMessage(tToast.updateProfileFail));
-        return false;
-      }
-    };
-    
-
-
-
-
-
-
   return (
     <div class={styles.container}>
       <PageTitle title={intl.formatMessage(tSettings.profile.title)} />
@@ -608,6 +858,7 @@ createEffect(() => {
               nip05={account?.activeUser?.nip05}
               openSockets={openSockets()}
               file={fileToUpload()}
+              //relays={account?.relaySettings} // Pass the relay settings
               onFail={() => {
                 toast?.sendWarning(intl.formatMessage(tUpload.fail, {
                   file: fileToUpload()?.name,
@@ -957,29 +1208,19 @@ createEffect(() => {
   );
 }
 
-
-
-export interface PrimalUser {
-  pubkey: string;
-  npub: string;
-  displayName?: string;
-  name?: string;
-  about?: string;
-  picture?: string;
-  banner?: string;
-  nip05?: string;
-  lud16?: string;
-  msn_country?: string;
-  msn_mapaddress?: string;
-  msn_mapliveaddress?: string;
-  msn_language?: string;
-  msn_clientregurl?: string;
-  msn_myrss?: string;
-  msn_donationlink?: string;
-  msn_btc?: string;
-  msn_mobileappusername?: string;
-  msn_email?: string;
-}
+type SendRelaysResult = {
+  success: boolean;
+  note?: {
+    id: string;
+    pubkey: string;
+    created_at: number;
+    kind: number;
+    tags: string[][];
+    content: string;
+    sig: string;
+  };
+  message?: string;
+};
 
 
 export default EditProfile;

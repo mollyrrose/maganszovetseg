@@ -16,7 +16,7 @@ import { AppProvider } from './contexts/AppContext';
 import { ReadsProvider } from './contexts/ReadsContext';
 import { AdvancedSearchProvider } from './contexts/AdvancedSearchContext';
 import { DMProvider } from './contexts/DMContext';
-import { SecureIdentifier } from "./component/SecureIdentifier";
+import { SecureIdentifier } from "./components/SecureIdentifier";
 
 
 

@@ -627,6 +627,12 @@ interface SendPaymentResponse {
   preimage: string;
 }
 
+export type SendRelaysResult = {
+  success: boolean;
+  message?: string;
+  note?: NostrEvent;
+};
+
 export type NostrExtension = {
   getPublicKey: () => Promise<string>,
   getRelays: () => Promise<NostrRelays>,
@@ -710,6 +716,7 @@ export type UserStats = {
 };
 
 export type PrimalUser = {
+  // Existing fields
   id: string,
   pubkey: string,
   npub: string,
@@ -727,6 +734,23 @@ export type PrimalUser = {
   tags: string[][],
   userStats?: UserStats,
   msg: NostrUserContent,
+
+  // MagánSzövetség-specific fields (all optional)
+  msn_country?: string;               // User's country, defaults to "Magyarország"
+  msn_mapaddress?: string;            // Physical address for map display
+  msn_ismapaddressvisible?: string;   // "true" or "false" visibility flag
+  msn_ismapaddressvisible_tosecondlevel?: string; // Extended visibility
+  msn_mapliveaddress?: string;        // Real-time location data
+  msn_language?: string;              // User's preferred language
+  msn_clientregurl?: string;          // Original registration client URL
+  msn_myrss?: string;                 // Personal RSS feed URL
+  msn_donationlink?: string;          // Donation/funding link
+  msn_btc?: string;                   // Bitcoin address
+  msn_mobileappusername?: string;     // Mobile app identifier
+  msn_email?: string;                 // Secure email contact
+  msn_isMediumSupported?: string;     // "true" or "false" for Medium support
+  msn_isOptimumSupported?: string;    // "true" or "false" for Optimum support
+  msn_WantsToHelp?: string;           // "true" or "false" volunteer flag
 };
 
 export type PrimalNoteData = {
@@ -807,9 +831,13 @@ export type PrimalArticle = {
 
 export type PrimalFeed = {
   name: string,
+  description: string;
   npub?: string,
   hex?: string,
   includeReplies?: boolean,
+  spec?: string // extra paraméter - kell a settingscontext-ben
+  [key: string]: any; // Fallback for any additional dynamic properties
+  enabled: boolean;  // Required property
 };
 
 export type PrimalArticleFeed = {

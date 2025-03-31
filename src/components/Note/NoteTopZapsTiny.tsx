@@ -40,7 +40,9 @@ const NoteTopZapsCompact: Component<{
   });
 
   return (
+//BTC Lightning out
     <Show when={topZaps().length > 0}>
+      
       <div class={`${styles.zapHighlightsTiny}`}>
         <TransitionGroup
           name="top-zaps-feed"
@@ -70,7 +72,10 @@ const NoteTopZapsCompact: Component<{
           </For>
         </TransitionGroup>
       </div>
+      
     </Show>
+
+
   );
 }
 

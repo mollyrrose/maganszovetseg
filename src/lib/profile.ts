@@ -241,17 +241,21 @@ export const isVerifiedByPrimal = async (user: PrimalUser | undefined) => {
   return isVerified && nip05 && nip05.endsWith && nip05.endsWith('primal.net');
 }
 
-export const checkVerification: (user: PrimalUser | undefined) => Promise<boolean> = (user: PrimalUser | undefined) => {
+export const checkVerification = async (user: PrimalUser | undefined): Promise<boolean> => {
   const nip05 = user?.nip05;
 
   if (!user || !nip05) {
-    return new Promise((resolve) => false)
+    return false;
   }
 
-  return isAccountVerified(nip05).then(profile => {
-    return profile && profile.pubkey === user?.pubkey
-  });
-}
+  try {
+    const profile = await isAccountVerified(nip05);
+    return !!profile && profile.pubkey === user.pubkey;
+  } catch (error) {
+    console.error('Verification check failed:', error);
+    return false;
+  }
+};
 
 export const isAccountVerified: (domain: string | undefined) => Promise<nip19.ProfilePointer | null> = async (domain: string | undefined) => {
   if (!domain) return null;

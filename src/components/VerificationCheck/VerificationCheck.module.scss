@@ -29,22 +29,22 @@
 }
 
 .verifiedIconPrimal {
-  width: 100%;
-  height: 100%;
+  width: 0%; //100% VERIFIED ICON OUT
+  height: 0%;
 
   background: var(--accent);
   -webkit-mask: url(../../assets/icons/purple_check.svg) 0 / 100% no-repeat;
   mask: url(../../assets/icons/purple_check.svg) 0 / 100% no-repeat;
-  // background-image: url(../../assets/icons/purple_check.svg);
-  // background-size: contain;
+  background-image: url(../../assets/icons/purple_check.svg);
+  background-size: contain;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   .checkIcon {
-    width: 50%;
-    height: 50%;
+    width: 0%; //50% VERIFIED ICON OUT
+    height: 0%;
 
     background-color: var(--text-primary-button);
     -webkit-mask: url(../../assets/icons/check.svg) 0 / 100% no-repeat;

@@ -38,6 +38,7 @@ import Uploader from '../components/Uploader/Uploader';
 import { useSettingsContext } from '../contexts/SettingsContext';
 //import { createNIP05Record } from "../api/cloudflare";
 //import CryptoJS from 'crypto-js'; 
+import { MaganSzovetseg_Recommended_Relays } from './MaganSzovetseg_Recommended_Relays';
 
 import { bech32 } from 'bech32';
 
@@ -346,6 +347,7 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
     let relaySettings = account.defaultRelays.reduce<NostrRelays>((acc, r) => ({ ...acc, [r]: { write: true, read: true }}), {});
     console.log("🔗 Default relay settings:", relaySettings);
 
+<<<<<<< HEAD
     const recommendedRelays = [
       "wss://nostr-relay.wlvs.space", // Another example relay
       "wss://aliens.contact.nostr/",
@@ -367,6 +369,10 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
     ];
 
     recommendedRelays.forEach((relay) => {
+=======
+    // MERGING THE RELAYS
+    MaganSzovetseg_Recommended_Relays.forEach((relay) => {
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       relaySettings[relay] = { write: true, read: true };
     });
 
@@ -593,9 +599,12 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
     ];
   
     const relays = [
-      "wss://relay.damus.io", // Primary relay
-      "wss://nostr-relay.wlvs.space", // Fallback relay 1
-      "wss://primal.b-cdn.net", // Fallback relay 2
+      "wss://nos.lol",//208
+      "wss://relay.primal.net",//252 Primary relay
+      "wss://relay.damus.io", //391 
+      "wss://nostr.wine",//453
+      //"wss://relay.snort.social",//603
+      //"wss://nostr-pub.wellorder.net",//1642
     ];
   
     // Use the new `connectToRelay` function

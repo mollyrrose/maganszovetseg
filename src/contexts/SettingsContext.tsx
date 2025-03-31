@@ -126,6 +126,11 @@ export const initialData = {
 
 export type FeedType = 'home' | 'reads';
 
+interface FeedSettings {
+  id: string;
+  name: string;
+  // add other properties your feed objects have
+}
 
 export const SettingsContext = createContext<SettingsContextStore>();
 
@@ -209,7 +214,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
       return;
     }
 
-    const availableTheme = store.themes.find(t => t.name === name);
+    const availableTheme = store.themes.find((t: { name: string }) => t.name === name);
     availableTheme && setTheme(availableTheme, temp);
   }
 
@@ -278,8 +283,10 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
   };
 
   const renameAvailableFeed = (feed: PrimalFeed, newName: string) => {
-    const list = store.availableFeeds.map(af => {
-      return af.hex === feed.hex && af.includeReplies === feed.includeReplies ? { ...af, name: newName } : { ...af };
+    const list = store.availableFeeds.map((af: PrimalFeed) => {
+      return af.hex === feed.hex && af.includeReplies === feed.includeReplies 
+        ? { ...af, name: newName } 
+        : { ...af };
     });
     setAvailableFeeds(list);
   };
@@ -307,7 +314,8 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     if (!pubkey) return;
 
     const spec = specifyUserFeed(pubkey);
-    const list = store.homeFeeds.filter(f => f.spec !== spec);
+
+    const list = (store.homeFeeds ?? []).filter((f: PrimalFeed) => f.spec !== spec);
 
     updateHomeFeeds(list);
   }
@@ -315,12 +323,16 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
   const removeFeed = (feed: PrimalArticleFeed, feedType: FeedType) => {
 
     if (feedType === 'home') {
-      const updated = store.homeFeeds.filter(f => f.spec !== feed.spec);
+      const updated = store.homeFeeds.filter((f: PrimalFeed) => f.spec !== feed.spec);
       updateHomeFeeds(updated);
     }
 
     if (feedType === 'reads') {
-      const updated = store.readsFeeds.filter(f => f.spec !== feed.spec);
+      const updated = (store.readsFeeds ?? []).filter((f: PrimalFeed) => 
+        f.spec !== undefined && 
+        feed?.spec !== undefined && 
+        f.spec !== feed.spec
+      );
       updateReadsFeeds(updated);
     }
   }
@@ -366,12 +378,11 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
     }
   }
 
-  const hasProfileFeedAtHome = (pubkey: string | undefined) => {
+  const hasProfileFeedAtHome = (pubkey: string | undefined): boolean => {
     if (!pubkey) return false;
-
+  
     const spec = specifyUserFeed(pubkey);
-
-    return store.homeFeeds.find(f => f.spec === spec) !== undefined;
+    return (store.homeFeeds ?? []).some((f: PrimalFeed) => f.spec === spec);
   }
 
   const restoreHomeFeeds = () => {
@@ -459,41 +470,46 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
   };
 
   const renameHomeFeed = (feed: PrimalArticleFeed, newName: string) => {
-    const list = store.homeFeeds.map(f => {
+    const list = (store.homeFeeds ?? []).map((f: PrimalArticleFeed) => {
       return f.spec === feed.spec ? { ...f, name: newName } : { ...f };
     });
     updateHomeFeeds(list);
   };
 
   const renameReadsFeed = (feed: PrimalArticleFeed, newName: string) => {
-    const list = store.readsFeeds.map(f => {
-      return f.spec === feed.spec ? { ...f, name: newName } : { ...f };
-    });
+    const list = (store.readsFeeds ?? []).map((f: PrimalArticleFeed) => 
+      f.spec === feed.spec ? { ...f, name: newName } : { ...f }
+    );
+    
     updateReadsFeeds(list);
   };
 
   const enableHomeFeed = (feed: PrimalArticleFeed, enabled: boolean) => {
-    const list = store.homeFeeds.map(f => {
-      return f.spec === feed.spec ? { ...f, enabled } : { ...f };
-    });
-
+    const list = (store.homeFeeds ?? []).map((f: PrimalArticleFeed) => 
+      f.spec === feed.spec ? { ...f, enabled } : { ...f }
+    );
+    
     updateHomeFeeds(list);
   };
 
   const enableReadsFeed = (feed: PrimalArticleFeed, enabled: boolean) => {
-    const list = store.readsFeeds.map(f => {
-      return f.spec === feed.spec ? { ...f, enabled } : { ...f };
-    });
-
+    const list = (store.readsFeeds ?? []).map((f: PrimalArticleFeed) =>
+      f.spec === feed.spec ? { ...f, enabled } : { ...f }
+    );
+  
     updateReadsFeeds(list);
   };
 
-  const isFeedAdded: (f: PrimalArticleFeed, d: 'home' | 'reads') => boolean = (feed: PrimalArticleFeed, destination: 'home' | 'reads') => {
-    if (destination === 'reads') {
-      return store.readsFeeds.find(f => f.spec === feed.spec) !== undefined;
-    }
-    return store.homeFeeds.find(f => f.spec === feed.spec) !== undefined;
-  }
+  const isFeedAdded: (f: PrimalArticleFeed, d: 'home' | 'reads') => boolean = (
+    feed: PrimalArticleFeed, 
+    destination: 'home' | 'reads'
+  ) => {
+    const feeds = destination === 'reads' 
+      ? store.readsFeeds ?? [] 
+      : store.homeFeeds ?? [];
+      
+    return feeds.some((f: PrimalArticleFeed) => f.spec === feed.spec);
+  };
 
   const addHomeFeed = (feed: PrimalArticleFeed) => {
     const list = [ ...store.homeFeeds, {...feed}];
@@ -630,9 +646,14 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
             () => replaceAvailableFeeds(account?.publicKey, feeds),
           );
 
-          updateStore('defaultFeed', () => store.availableFeeds.find(x => x.hex === nostrHighlights) || store.availableFeeds[0]);
+          updateStore('defaultFeed', () => 
+            (store.availableFeeds ?? []).find((x: PrimalFeed) => x.hex === nostrHighlights) ?? 
+            (store.availableFeeds?.[0] ?? null)
+          );
 
-          updateStore('notificationSettings', () => ({ ...notificationSettings } || { ...defaultNotificationSettings }));
+          updateStore('notificationSettings', () => ({
+            ...(notificationSettings ?? defaultNotificationSettings)
+          }));
           updateStore('applyContentModeration', () => true);
 
           let zapOptions = settings.zapConfig;
@@ -732,7 +753,7 @@ export const SettingsProvider = (props: { children: ContextChildren }) => {
           else if (Array.isArray(contentModeration)) {
             for (let i=0; i < contentModeration.length; i++) {
               const m = contentModeration[i];
-              const index = store.contentModeration.findIndex(x => x.name === m.name);
+              const index = (store.contentModeration ?? []).findIndex((x: { name: string }) => x.name === m.name);
 
               updateStore(
                 'contentModeration',
@@ -842,23 +863,23 @@ translateContent();
 
 
 
-  const translateToHungarian = (text: string) => {
+const translateToHungarian = (text: string): string => {
     const translations: Record<string, string> = {
       "Latest": "Legfrissebbek",
       "Latest notes by your follows": "Legfrissebb bejegyzések az általad követettektől",
       "Latest with Replies": "Legfrissebbek hozzászólásokkal",
       "Latest notes and replies by your follows": "Legfrissebb bejegyzések és hozzászólások az általad követettektől",
-      "Trending 7d": "Népszerű (7 nap)",
+      "Trending 7d": "Népszerű (az elmúlt 7 napban)",
       "Global trending notes in the past 7 days": "Népszerű bejegyzések az elmúlt 7 napban",
-      "Trending 48h": "Népszerű (48 óra)",
+      "Trending 48h": "Népszerű (az elmúlt 48 órában)",
       "Global trending notes in the past 48 hours": "Népszerű bejegyzések az elmúlt 48 órában",
-      "Trending 24h": "Népszerű (24 óra)",
+      "Trending 24h": "Népszerű (az elmúlt 24 órában)",
       "Global trending notes in the past 24 hours": "Népszerű bejegyzések az elmúlt 24 órában",
-      "Trending 12h": "Népszerű (12 óra)",
+      "Trending 12h": "Népszerű (az elmúlt 12 órában)",
       "Global trending notes in the past 12 hours": "Népszerű bejegyzések az elmúlt 12 órában",
-      "Trending 4h": "Népszerű (4 óra)",
+      "Trending 4h": "Népszerű (az elmúlt 4 órában)",
       "Global trending notes in the past 4 hours": "Népszerű bejegyzések az elmúlt 4 órában",
-      "Trending 1h": "Népszerű (1 óra)",
+      "Trending 1h": "Népszerű (az elmúlt 1 órában)",
       "Global trending notes in the past 1 hour": "Népszerű bejegyzések az elmúlt 1 órában",
       "Nostr Firehose": "Tűzfészek",
       "Latest global notes; be careful!": "Legfrissebb bejegyzések világszerte, légy óvatos!",
@@ -905,6 +926,7 @@ translateContent();
 
     const unsub = subsTo(subId, {
       onEvent: (_, content) => {
+<<<<<<< HEAD
         const feeds = JSON.parse(content.content || '[]');
 
         const translatedFeeds = feeds.map(feed => {
@@ -934,6 +956,24 @@ translateContent();
         });
 
         updateStore('readsFeeds', () => [...translatedFeeds]);
+=======
+        // Parse and immediately convert to the right type
+        const feeds = JSON.parse(content.content || '[]').map((f: any) => ({
+          ...f,
+          spec: f.spec || '',
+          enabled: f.enabled !== undefined ? f.enabled : true
+        })) as PrimalArticleFeed[];
+    
+        const translatedFeeds = feeds.map(feed => ({
+          ...feed,
+          name: feed.description === "Nostr Topic Reads from Primal" 
+            ? "Kapcsolati hálók témájú cikkek" 
+            : translateToHungarian(feed.name),
+          description: translateToHungarian(feed.description)
+        }));
+    
+        updateStore('readsFeeds', () => translatedFeeds);
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
       },
       onEose: () => {
         unsub();
@@ -951,7 +991,7 @@ translateContent();
       onEvent: (_, content) => {
         const feeds = JSON.parse(content.content || '[]');
 
-        const translatedFeeds = feeds.map(feed => ({
+        const translatedFeeds = feeds.map((feed: PrimalFeed) => ({
           ...feed,
           name: translateToHungarian(feed.name),
           description: translateToHungarian(feed.description),

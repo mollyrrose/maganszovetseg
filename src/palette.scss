@@ -18,9 +18,16 @@
 
   --subtile-devider: #444444;
 
+<<<<<<< HEAD
   --accent: #07caa0;
   --accent-links: #00f8f8;
   --accent-dm: #07cab0;
+=======
+  //MAIN color
+  --accent: #05cab3;;
+  --accent-links: #05cab3;
+  --accent-dm: #05cab3;
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
   --brand-gradient: linear-gradient(141deg, #EF404A 6.36%, #5B12A4 97.61%);
 
@@ -42,7 +49,7 @@
   --text-highlight: #FFFFFF;
 
   --profile-indicator-border: var(--background-site);
-
+/*
   --check-image: url('./assets/icons/check.svg');
   //--logo: url('./assets/icons/logo_fire.png');
   --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
@@ -72,7 +79,40 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_dark.png');
+*/
 
+<<<<<<< HEAD
+=======
+  --check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+  --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+  --logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_night.png');
+  --icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+  --icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+  --icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+  --icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+  --icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+  --icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+  --icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+  --icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+  --icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+  --icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+  --icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+  --icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+  --icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+  --icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+  --icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+  --icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+  --reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_dark.png');
+
+
+
+
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
   select {
     background-color: var(--background-site);
   }
@@ -123,7 +163,7 @@
   --text-highlight: #FFFFFF;
 
   --profile-indicator-border: var(--background-site);
-
+/*
   --check-image: url('./assets/icons/check.svg');
   //--logo: url('./assets/icons/logo_fire_big_day.png');
   --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
@@ -155,7 +195,38 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_dark.png');
+*/
 
+<<<<<<< HEAD
+=======
+  --check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+  --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+  --logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+  --icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+  --icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+  --icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+  --icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+  --icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+  --icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+  --icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+  --icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+  --icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+  --icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+  --icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+  --icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+  --icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+  --icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+  --icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+  --icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+  --reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_dark.png');
+
+
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
   select {
     background-color: var(--background-site);
   }
@@ -205,7 +276,7 @@
   --text-highlight: #111111;
 
   --profile-indicator-border: var(--accent);
-
+/*
   --check-image: url('./assets/icons/check.svg');
   //--logo: url('./assets/icons/logo_fire.png');
   --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
@@ -235,6 +306,37 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_light.png');
+<<<<<<< HEAD
+=======
+  */
+
+--check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+--logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+--logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+--icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+--icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+--icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+--icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+--icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+--icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+--icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+--icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+--icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+--icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+--icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+--icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+--icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+--icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+--icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+--icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+--reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_light.png');
+
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
   select {
     background-color: var(--background-site);
@@ -286,7 +388,7 @@
   --text-highlight: #111111;
 
   --profile-indicator-border: var(--accent);
-
+/*
   --check-image: url('./assets/icons/check.svg');
   //--logo: url('./assets/icons/logo_fire.png');
   --logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
@@ -316,6 +418,37 @@
   --icon-network-trending: url('./assets/icons/network_trending.svg');
 
   --reads-placeholder-image: url('./assets/images/reads_image_light.png');
+<<<<<<< HEAD
+=======
+  */
+
+--check-image: url('https://cdnwin.maganszovetseg.net/src/assets/icons/check.svg');
+--logo: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire.png');
+--logo-big: url('https://cdnwin.maganszovetseg.net/src/assets/icons/logo_fire_big_day.png');
+--icon-follows: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows.svg');
+--icon-tribe: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe.svg');
+--icon-global: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global.svg');
+--icon-network: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network.svg');
+
+--icon-follows-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_latest.svg');
+--icon-follows-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_popular.svg');
+--icon-follows-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/follows_trending.svg');
+
+--icon-tribe-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_latest.svg');
+--icon-tribe-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_popular.svg');
+--icon-tribe-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/tribe_trending.svg');
+
+--icon-global-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_latest.svg');
+--icon-global-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_popular.svg');
+--icon-global-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/global_trending.svg');
+
+--icon-network-latest: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_latest.svg');
+--icon-network-popular: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_popular.svg');
+--icon-network-trending: url('https://cdnwin.maganszovetseg.net/src/assets/icons/network_trending.svg');
+
+--reads-placeholder-image: url('https://cdnwin.maganszovetseg.net/src/assets/images/reads_image_light.png');
+
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
 
   select {
     background-color: var(--background-site);

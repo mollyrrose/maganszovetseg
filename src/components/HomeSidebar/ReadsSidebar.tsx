@@ -33,19 +33,19 @@ import { minKnownProfiles } from '../../constants';
 
 const sidebarOptions = [
   {
-    label: 'Népszerű (24 óra)',
+    label: 'Népszerű (az elmúlt 24 órában)',
     value: 'trending_24h',
   },
   {
-    label: 'Népszerű (12 óra)',
+    label: 'Népszerű (az elmúlt 12 órában)',
     value: 'trending_12h',
   },
   {
-    label: 'Népszerű (4 óra)',
+    label: 'Népszerű (az elmúlt 4 órában)',
     value: 'trending_4h',
   },
   {
-    label: 'Népszerű (1 óra)',
+    label: 'Népszerű (az elmúlt 1 órában)',
     value: 'trending_1h',
   },
   {

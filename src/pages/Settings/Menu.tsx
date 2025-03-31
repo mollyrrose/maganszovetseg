@@ -1,6 +1,6 @@
 import { Component, Show } from 'solid-js';
 import styles from './Settings.module.scss';
-
+import styles2 from '../Downloads.module.scss';
 import { useIntl } from '@cookbook/solid-intl';
 import { settings as t, actions as tActions } from '../../translations';
 import PageCaption from '../../components/PageCaption/PageCaption';
@@ -58,6 +58,15 @@ const Menu: Component = () => {
             {intl.formatMessage(t.moderation.title)}
             <div class={styles.chevron}></div>
           </A>
+<<<<<<< HEAD
+=======
+          {/* //BTC Lightning out
+          <A href="/settings/nwc">
+            {intl.formatMessage(t.nwcSettings.title)}
+            <div class={styles.chevron}></div>
+          </A>
+          */}
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
           <A href="/settings/notifications">
             {intl.formatMessage(t.notifications.title)}
             <div class={styles.chevron}></div>
@@ -83,10 +92,8 @@ const Menu: Component = () => {
       <br></br><br></br>
       <Show when={account?.sec}>
 
-      <div class={styles.inputLabel}>
-      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account">MENTSD LE az általunk generált hosszú jelszavadat (Privát kulcsodat)</a> különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad.</label>
-      </div>
-
+      <div class={styles2.inputLabel}>
+      <label>Kijelentkezés előtt <a href="MaganSzovetseg.Net/settings/account"><strong>MENTSD LE</strong>az általunk generált <strong>hosszú jelszavadat (Privát kulcsodat</strong>)</a> ha még nem mentetted le, különben nem fogsz tudni visszajelentkezni a fiókodba, és a rendszer örök időkig úgy őrzi meg a fiókodat ahogy hagytad. <br/>Amennyiben már lementetted, bizonyosodj meg róla, hogy <strong>rendelkezésedre áll.</strong></label>
         <div class={styles.webVersion}>
         <ButtonSecondary onClick={() => {
           account?.actions.logout();
@@ -97,7 +104,7 @@ const Menu: Component = () => {
           }}>
           {intl.formatMessage(tActions.logout)}
           </ButtonSecondary>
-
+          </div>
         </div>
 
       </Show>

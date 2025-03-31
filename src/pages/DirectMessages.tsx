@@ -35,6 +35,26 @@ const DirectMessages: Component = () => {
   const intl = useIntl();
   const navigate = useNavigate();
 
+
+  const toNpub = (pubkey: string | undefined) => {
+    if (!pubkey) return "";
+    
+    let npub = pubkey;
+  
+    if (!npub.startsWith("npub")) {
+      try {
+        npub = hexToNpub(npub);
+      } catch (e) {
+        logError("Failed to decode npub: ", e);
+        return "";
+      }
+    }
+  
+    return npub;
+  };
+
+
+
   const contacts = (relation: UserRelation) => {
     if (!dms) return [];
 
@@ -42,35 +62,53 @@ const DirectMessages: Component = () => {
   }
 
   let firstTime = true;
-
   const changeRelation = async (relation: string) => {
     if (!dms || !['any', 'follows', 'other'].includes(relation)) return;
     if (
       relation === dms.lastConversationRelation &&
+<<<<<<< HEAD
       dms?.dmContacts[relation as UserRelation].length > 0
     ) return;
 
+=======
+      dms?.dmContacts[relation as UserRelation]?.length > 0
+    )
+      return;
+  
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
     dms.actions.setDmRelation2(relation as UserRelation);
-
-    let list = dms?.dmContacts[relation as UserRelation];
-
+  
+    let list = dms?.dmContacts[relation as UserRelation] || [];
+  
     if (list.length > 0) {
       const first = toNpub(list[0].pubkey);
-
+  
       if (first.length === 0) return;
-
+  
       navigate(`/dms/${first}`);
       return;
     }
-
+  
     await dms.actions.getContacts(relation as UserRelation);
+<<<<<<< HEAD
 
     list = dms?.dmContacts[relation as UserRelation];
 
     const first = list.find(c => c.pubkey === dms.lastConversationContact?.pubkey)?.pubkey || toNpub(list[0].pubkey);
 
+=======
+  
+    list = dms?.dmContacts[relation as UserRelation] || [];
+  
+    if (list.length === 0) return;
+  
+    const first =
+      list.find((c) => c.pubkey === dms.lastConversationContact?.pubkey)
+        ?.pubkey || toNpub(list[0]?.pubkey || '');
+  
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
     if (first.length === 0) return;
-
+  
     navigate(`/dms/${first}`);
     // if (!isContactInTheList(dms.lastConversationContact?.pubkey, dms.lastConversationRelation)) {
     //   const first = dms?.dmContacts[relation as UserRelation][0].pubkey;
@@ -102,6 +140,7 @@ const DirectMessages: Component = () => {
     await updateRelationOfContact(contact);
   }
 
+<<<<<<< HEAD
   const toNpub = (pubkey: string) => {
     let npub = pubkey;
 
@@ -117,6 +156,8 @@ const DirectMessages: Component = () => {
     return npub;
   }
 
+=======
+>>>>>>> 39bd626 (CDN, MaganSzovetsegRecommendedRelays, Note Zap sum & LegendIcon out)
   const selectContact = (pubkey: string) => {
     const npub = toNpub(pubkey);
 
