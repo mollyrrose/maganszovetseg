@@ -1,7 +1,9 @@
 import { useIntl } from '@cookbook/solid-intl';
 import { Tabs } from '@kobalte/core/tabs';
-import { Search } from '@kobalte/core/search';
-//import { Search } from '@kobalte/core';
+//import { Search } from '@kobalte/core/search';
+//import { Search } from "@kobalte/core"
+import { Combobox } from "@kobalte/core"; 
+
 
 //import { Tabs, Search } from '@kobalte/core';
 import { A } from '@solidjs/router';
@@ -365,31 +367,42 @@ const ReadsMentionDialog: Component<{
           </Tabs.List>
 
           <div>
-            <Search
-              options={[]}
-              onInputChange={onInput}
-              debounceOptionsMillisecond={300}
-              placeholder={placeholders[activeTab()] || ''}
-            >
-              <Search.Control class={styles.textInput}>
-                <Search.Indicator
-                  class={styles.searchIndicator}
-                  // loadingComponent={
-                  //   <Search.Icon>
-                  //     <div class={styles.searchLoader}></div>
-                  //   </Search.Icon>
-                  // }
-                >
-                  <Search.Icon>
-                    <div class={styles.searchIcon}></div>
-                  </Search.Icon>
-                </Search.Indicator>
-                <Search.Input
-                  id="search_users"
-                  ref={searchInput}
-                />
-              </Search.Control>
-            </Search>
+          <Combobox
+  onInputChange={onInput}
+  optionValue="id"
+  optionTextValue="name"
+>
+  <Combobox.Control class={styles.textInput}>
+    <Combobox.Trigger class={styles.searchIndicator}>
+      <Combobox.Icon>
+        <div class={styles.searchIcon}></div>
+      </Combobox.Icon>
+    </Combobox.Trigger>
+    <Combobox.Input
+      id="search_users"
+      ref={searchInput}
+      placeholder={placeholders[activeTab()] || ''}
+      onInput={(e) => onInput(e.currentTarget.value)}
+    />
+  </Combobox.Control>
+
+  {/* Add this portal section for dropdown results */}
+  <Combobox.Portal>
+    <Combobox.Content class={styles.searchResults}>
+      <Combobox.Listbox>
+        {/* Your search results will go here */}
+        {/* Example: */}
+        <For each={searchResults()}>
+          {(result) => (
+            <Combobox.Item item={result}>
+              {result.name}
+            </Combobox.Item>
+          )}
+        </For>
+      </Combobox.Listbox>
+    </Combobox.Content>
+  </Combobox.Portal>
+</Combobox>
 
             {/* <input
               id="search_users"
