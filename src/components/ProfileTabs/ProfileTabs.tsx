@@ -349,7 +349,7 @@ const ProfileTabs: Component<{
             </Tabs.Trigger>
             */}
 
-          {/* //Relay handling out
+          {/* //Relay handling out         
             <Tabs.Trigger class={styles.profileTab} value="relays">
               <div class={styles.stat}>
                 <div class={styles.statNumber}>
@@ -360,7 +360,7 @@ const ProfileTabs: Component<{
                 </div>
               </div>
             </Tabs.Trigger>
-          */}
+ */}
 
             <Tabs.Indicator class={styles.profileTabIndicator} />
           </Tabs.List>

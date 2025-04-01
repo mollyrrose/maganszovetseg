@@ -344,13 +344,28 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
 //    await handleNIP05Registration();
 
 
+    const basic_relays = [
+      "wss://nos.lol",//208
+      "wss://relay.primal.net",//252 Primary relay
+      "wss://relay.damus.io", //391 
+      "wss://nostr.wine",//453
+      //"wss://relay.snort.social",//603
+      //"wss://nostr-pub.wellorder.net",//1642
+    ];
+
     let relaySettings = account.defaultRelays.reduce<NostrRelays>((acc, r) => ({ ...acc, [r]: { write: true, read: true }}), {});
     console.log("🔗 Default relay settings:", relaySettings);
 
-    // MERGING THE RELAYS
+    // MERGING/MIXING THE RELAYS
     MaganSzovetseg_Recommended_Relays.forEach((relay) => {
       relaySettings[relay] = { write: true, read: true };
     });
+
+    basic_relays.forEach((relay) => {
+      relaySettings[relay] = { write: true, read: true };
+      console.log("➕ Merge/Mix of relays:", relay);
+    });
+
 
     console.log("🔗 Updated relay settings with recommended relays:", relaySettings);
 
@@ -566,6 +581,14 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
         about: "MagánSzövetség Mozgalom - Közösségi szervezet a szabadságért és a békéért!",
       },
       {
+        pubkey: "01d576f2737776542f630a9fb3263d6687460465662f47dc0006804e3be18049", // Mozgalom
+        npub: "npub1q82hdunnwam9gtmrp20mxf3av6r5vpr9vch50hqqq6qyuwlpspysa4te85",
+        name: "B-Terv | Nitai/ Kiss Zoltán hírfolyama",
+        //picture: "/assets/images/default_avatar.png", // Default profile picture
+        picture: "https://primal.b-cdn.net/media-cache?s=o&a=1&u=https%3A%2F%2Fm.primal.net%2FQAiP.jpg",
+        about: "B-Terv.Net Közösség: Önellátás, fenntarthatóság, szellemi fejlődés.",
+      },
+      {
         pubkey: "42e0cc5327274c3376322528d014f0e33a9d4a71fb448624fc7c3587043b115e", // Mozgalom
         npub: "npub1gtsvc5e8yaxrxa3jy55dq98suvaf6jn3ldzgvf8u0s6cwppmz90qdacmmq",
         name: "Szkíta TV",
@@ -578,18 +601,8 @@ const onUpload = (target: 'picture' | 'banner', fileUpload?: HTMLInputElement) =
 
     ];
 
-  
-    const relays = [
-      "wss://nos.lol",//208
-      "wss://relay.primal.net",//252 Primary relay
-      "wss://relay.damus.io", //391 
-      "wss://nostr.wine",//453
-      //"wss://relay.snort.social",//603
-      //"wss://nostr-pub.wellorder.net",//1642
-    ];
-  
-    // Use the new `connectToRelay` function
-const relay = await connectToRelay("wss://relay.damus.io");
+     // Use the new `connectToRelay` function
+const relay = await connectToRelay("wss://relay.primal.net");
 if (!relay) {
   toast?.sendWarning("Failed to connect to relay. Please try again later.");
   return;
@@ -780,7 +793,7 @@ ________________________________________________________________________________
 📜 FONTOS DOKUMENTUMOK
 Amiben mindannyian egyetértünk a MagánSzövetség.Net -en, és a regisztrációnkkor digitálisan aláírjuk hosszú jelszavunkkal:
 
-* Értékrend Minimum: https://maganszovetseg.net/assets/docs/I._%C3%89RT%C3%89KREND_MINIMUM.pdf
+* Értékrend Minimum: https://mega.nz/file/Ynxg2RxB#jPUlblTQcMveZrFnBG545brZZQlvSSjc6Sjgy2iBpmg
 * Felhasználói Feltételek: https://maganszovetseg.net/Terms
 * Adatvédelem és adatbiztonság: https://maganszovetseg.net/Privacy
 * Bővebb tájékoztató dokumentum az oldalról: https://mega.nz/file/pvgFHD7A#y3YLNJ54HPHrnMzocC2CJpitg2KUekQY8R5BmW2RHZM
@@ -1074,16 +1087,17 @@ Amiben mindannyian egyetértünk a MagánSzövetség.Net -en, és a regisztráci
           <div class="qrCode" style={{ flex: "0 1 auto", "text-align": "center" }}>
           <div class={styles.inputLabel} style={{ flex: "1", display: "flex", "align-items": "flex-start" }}>
 
-            <a href="/assets/docs/I._ÉRTÉKREND_MINIMUM.pdf" download>
-            <img
-              class="downloadPdfImg"
-               src="/icons/DownloadPdf_nh.png"
-               width={100}
-              alt="Download PDF"
-              style={{ transition: "all 0.3s ease" }}
+          <a href="https://mega.nz/file/JyYFiTqL#daaSm0WobM1zxDqNxBwzZdrKLsqsiTaDaDioM1bH-1U" target="_blank" rel="noopener noreferrer">
+          <img
+            class="downloadPdfImg"
+            src="https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"
+            width={100}
+            alt="Download PDF"
+            style={{ transition: "all 0.3s ease" }}
+            onMouseEnter={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf.png"}
+            onMouseLeave={(e) => e.currentTarget.src = "https://cdnwin.maganszovetseg.net/public/icons/DownloadPdf_nh.png"}
             />
-            </a>
-
+          </a>
           </div>
         </div>
     

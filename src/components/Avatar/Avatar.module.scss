@@ -1,6 +1,11 @@
 @mixin highlight {
-  border-radius: 99999px;
+  border-radius: 50%;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  box-sizing: border-box;
+  border: none;
 }
 
 .legend_GOLD {
@@ -40,37 +45,6 @@
   background: var(--legend-sunfire) !important;
 }
 
-/*
-.legend_glow_GOLD {
-  --glow-color: var(--legend-glow-gold);
-}
-.legend_glow_AQUA {
-  --glow-color: var(--legend-glow-aqua);
-}
-.legend_glow_SILVER {
-  --glow-color: var(--legend-glow-silver);
-}
-.legend_glow_PURPLE {
-  --glow-color: var(--legend-glow-purple);
-}
-.legend_glow_PURPLEHAZE {
-  --glow-color: var(--legend-glow-purplehaze);
-}
-.legend_glow_TEAL {
-  --glow-color: var(--legend-glow-teal);
-}
-.legend_glow_BROWN {
-  --glow-color: var(--legend-glow-brown);
-}
-.legend_glow_BLUE {
-  --glow-color: var(--legend-glow-blue);
-}
-.legend_glow_SUNFIRE {
-  --glow-color: var(--legend-glow-sunfire);
-}
-*/
-
-/* Neutralize all legend glow colors */
 .legend_glow_GOLD,
 .legend_glow_AQUA,
 .legend_glow_SILVER,
@@ -80,470 +54,365 @@
 .legend_glow_BROWN,
 .legend_glow_BLUE,
 .legend_glow_SUNFIRE {
-  --glow-color: transparent; /* Set glow color to transparent */
+  --glow-color: transparent;
 }
-
 
 @mixin avatar {
   position: relative;
   border-radius: 50%;
-  padding: 0; // No bezel
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 
   img {
     border-radius: 50%;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    vertical-align: top;
-    background: transparent; // No background on image
+    display: block;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
   }
+}
+
+[class*="Avatar"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: content;
 }
 
 .verifiedIcon {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   width: 15px;
   height: 15px;
-  display: inline-block;
-  margin: 0px 0px;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  pointer-events: none;
   background-color: var(--accent);
-  -webkit-mask: url(../../assets/icons/verified.svg) no-repeat 0px / 15px;
-  mask: url(../../assets/icons/verified.svg) no-repeat 0px / 15px;
+  -webkit-mask: url(../../assets/icons/verified.svg) no-repeat center / contain;
+  mask: url(../../assets/icons/verified.svg) no-repeat center / contain;
 }
-/*
-@mixin iconBackground {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-}
-*/
+
+// Avatar size classes
 .nanoAvatar {
   @include avatar;
   width: 18px;
   height: 18px;
-
+  
   .missingBack {
-    width: 16px;
-    height: 16px;
-    background: transparent; // No background
+    width: 18px;
+    height: 18px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 6px;
+    height: 6px;
   }
-    */
-
 }
 
 .microAvatar {
   @include avatar;
   width: 22px;
   height: 22px;
-
+  
   .missingBack {
-    width: 20px;
-    height: 20px;
-    background: transparent; // No background
+    width: 22px;
+    height: 22px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 7px;
+    height: 7px;
   }
-    */
 }
 
 .xxsAvatar {
   @include avatar;
   width: 28px;
   height: 28px;
-
+  
   .missingBack {
-    width: 26px;
-    height: 26px;
-    background: transparent; // No background
+    width: 28px;
+    height: 28px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 9px;
+    height: 9px;
   }
-    */
 }
 
 .xssAvatar {
   @include avatar;
   width: 26px;
   height: 26px;
-
+  
   .missingBack {
-    width: 22px;
-    height: 22px;
-    background: transparent; // No background
+    width: 26px;
+    height: 26px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 8px;
+    height: 8px;
   }
-    */
 }
 
 .xsAvatar {
   @include avatar;
   width: 32px;
   height: 32px;
-
+  
   .missingBack {
-    width: 28px;
-    height: 28px;
-    background: transparent; // No background
+    width: 32px;
+    height: 32px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 10px;
+    height: 10px;
   }
-    */
 }
 
 .vvsAvatar {
   @include avatar;
   width: 36px;
   height: 36px;
-
+  
   .missingBack {
-    width: 32px;
-    height: 32px;
-    background: transparent; // No background
+    width: 36px;
+    height: 36px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: -6px;
-    right: -6px;
+  
+  .verifiedIcon {
+    width: 11px;
+    height: 11px;
   }
-    */
 }
 
 .vs2Avatar {
   @include avatar;
   width: 40px;
   height: 40px;
-
+  
   .missingBack {
-    width: 34px;
-    height: 34px;
-    background: transparent; // No background
+    width: 40px;
+    height: 40px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
+  
+  .verifiedIcon {
+    width: 12px;
+    height: 12px;
   }
-    */
 }
 
 .vsAvatar {
   @include avatar;
   width: 42px;
   height: 42px;
-
+  
   .missingBack {
-    width: 38px;
-    height: 38px;
-    background: transparent; // No background
+    width: 42px;
+    height: 42px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
+  
+  .verifiedIcon {
+    width: 13px;
+    height: 13px;
   }
-  */
 }
 
 .smallAvatar {
   @include avatar;
   width: 44px;
   height: 44px;
-
+  
   .missingBack {
-    width: 40px;
-    height: 40px;
-    background: transparent; // No background
+    width: 44px;
+    height: 44px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
+  
+  .verifiedIcon {
+    width: 14px;
+    height: 14px;
   }
-  */
 }
 
 .midAvatar {
   @include avatar;
   width: 52px;
   height: 52px;
-
+  
   .missingBack {
-    width: 46px;
-    height: 46px;
-    background: transparent; // No background
+    width: 52px;
+    height: 52px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
+  
+  .verifiedIcon {
+    width: 16px;
+    height: 16px;
   }
-    */
 }
 
 .mlAvatar {
   @include avatar;
   width: 60px;
   height: 60px;
-
+  
   .missingBack {
-    width: 54px;
-    height: 54px;
-    background: transparent; // No background
+    width: 60px;
+    height: 60px;
   }
-/*
-  .iconBackground {
-    @include iconBackground;
+  
+  .verifiedIcon {
+    width: 18px;
+    height: 18px;
   }
-    */
 }
 
 .mllAvatar {
   @include avatar;
   width: 64px;
   height: 64px;
-
+  
   .missingBack {
-    width: 58px;
-    height: 58px;
-    background: transparent; // No background
+    width: 64px;
+    height: 64px;
   }
-/*
-  .iconBackground {
-   // @include iconBackground;
+  
+  .verifiedIcon {
+    width: 19px;
+    height: 19px;
   }
-   */
 }
 
 .largeAvatar {
   @include avatar;
   width: 72px;
   height: 72px;
-
+  
   .missingBack {
-    width: 66px;
-    height: 66px;
-    background: transparent; // No background
+    width: 72px;
+    height: 72px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: 3px;
-    right: 3px;
+  
+  .verifiedIcon {
+    width: 22px;
+    height: 22px;
   }
-    */
 }
 
 .extraLargeAvatar {
   @include avatar;
   width: 80px;
   height: 80px;
-
+  
   .missingBack {
-    width: 72px;
-    height: 72px;
-    background: transparent; // No background
+    width: 80px;
+    height: 80px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: 4px;
-    right: 4px;
+  
+  .verifiedIcon {
+    width: 24px;
+    height: 24px;
   }
-    */
 }
 
 .xxlAvatar {
   @include avatar;
   width: 120px;
   height: 120px;
-
+  
   .missingBack {
-    width: 110px;
-    height: 110px;
-    background: transparent; // No background
+    width: 120px;
+    height: 120px;
   }
-/*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: 4px;
-    right: 4px;
+  
+  .verifiedIcon {
+    width: 36px;
+    height: 36px;
   }
-    */
-
 }
 
 .xxxlAvatar {
   @include avatar;
   width: 128px;
   height: 128px;
-
+  
   .missingBack {
-    width: 120px;
-    height: 120px;
-    background: transparent; // No background
+    width: 128px;
+    height: 128px;
   }
-
-  /*
-  .iconBackground {
-    //@include iconBackground;
-    bottom: 4px;
-    right: 4px;
+  
+  .verifiedIcon {
+    width: 38px;
+    height: 38px;
   }
-    */
 }
 
 .missingBack {
   border-radius: 50%;
-  background: transparent; // No background globally
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
 }
 
 @mixin missing {
-  display: grid;
-  place-items: center;
-  color: var(--missing-avatar-text);
+  display: block;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background-color: var(--subtile-devider); // Background for default avatar
-  mask-image: url(../../assets/icons/default_avatar.svg); // Restore default avatar
+  background-color: var(--subtile-devider);
+  mask-image: url(../../assets/icons/default_avatar.svg);
   mask-repeat: no-repeat;
-  -webkit-mask-image: url(../../assets/icons/default_avatar.svg); // Restore for Webkit
+  -webkit-mask-image: url(../../assets/icons/default_avatar.svg);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
   mask-size: contain;
 }
 
-.nanoMissing {
+.nanoMissing, .microMissing, .xxsMissing, .xssMissing, .xsMissing,
+.vvsMissing, .vs2Missing, .vsMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.microMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.xxsMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.xssMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.xsMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.vvsMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.vs2Missing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 10px;
-}
-
-.vsMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 10px;
 }
 
 .smallMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 12px;
 }
 
 .midMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 16px;
 }
 
-.mlMissing {
+.mlMissing, .mllMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-}
-
-.mllMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 16px;
 }
 
 .largeMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 18px;
 }
 
-.extraLargeMissing {
+.extraLargeMissing, .xxlMissing, .xxxlMissing {
   @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 20px;
-}
-
-.xxlMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
-  font-size: 20px;
-}
-
-.xxxlMissing {
-  @include missing;
-  width: 100%;
-  height: 100%;
   font-size: 20px;
 }
 
@@ -555,4 +424,8 @@
   img {
     filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(300deg) blur(0.1rem);
   }
+}
+
+.borderRing {
+  box-shadow: 0 0 0 2px var(--accent);
 }

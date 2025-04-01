@@ -1370,7 +1370,7 @@ export const profile = {
   },
   noFollowers: {
     id: 'profile.noFollowers',
-    defaultMessage: '{name} nevű felhasználónak nincsenek követői',
+    defaultMessage: '{name} még nincsenek követői; egyelőre csak saját magát követi (látja a saját hírfolyamát).',
     description: 'Label indicating that the profile has no followers',
   },
   noFollows: {
